@@ -5,8 +5,9 @@ nodes:
     data: {}
     nodes:
       - kind: text
-        text: Hello
-        marks: []
+        ranges:
+          - text: Hello
+            marks: []
   - kind: block
     type: hr
     isVoid: true
@@ -18,5 +19,6 @@ nodes:
     data: {}
     nodes:
       - kind: text
-        text: World
-        marks: []
+        ranges:
+          - text: World
+            marks: []

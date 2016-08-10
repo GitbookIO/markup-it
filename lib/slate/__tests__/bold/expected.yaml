@@ -5,13 +5,12 @@ nodes:
     data: {}
     nodes:
       - kind: text
-        text: Hello
-        marks: []
-      - kind: text
-        text: World
-        marks:
-            - type: BOLD
-              data: {}
-      - kind: text
-        text: "!"
-        marks: []
+        ranges:
+          - text: Hello
+            marks: []
+          - text: World
+            marks:
+              - type: BOLD
+                data: {}
+          - text: "!"
+            marks: []

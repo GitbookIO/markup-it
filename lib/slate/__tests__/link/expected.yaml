@@ -5,8 +5,9 @@ nodes:
     data: {}
     nodes:
       - kind: text
-        text: Hello
-        marks: []
+        ranges:
+          - text: Hello
+            marks: []
       - kind: inline
         type: link
         isVoid: false
@@ -14,8 +15,10 @@ nodes:
             href: https://google.com
         nodes:
           - kind: text
-            text: World
-            marks: []
+            ranges:
+              - text: World
+                marks: []
       - kind: text
-        text: !
-        marks: []
+        ranges:
+          - text: !
+            marks: []
