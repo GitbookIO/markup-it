@@ -8,6 +8,6 @@ nodes:
         type: math
         isVoid: true
         data:
-          tex: "\na = b =c =d"
+          tex: "\na = b = c = d"
       - kind: text
         text: ""
