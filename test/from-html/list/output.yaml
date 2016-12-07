@@ -5,51 +5,78 @@ nodes:
       - kind: block
         type: list_item
         nodes:
-          - kind: text
-            text: 'first item'
+          - kind: block
+            type: unstyled
+            nodes:
+              - kind: text
+                text: 'first item'
       - kind: block
         type: list_item
         nodes:
-          - kind: text
-            text: 'second item '
+          - kind: block
+            type: unstyled
+            nodes:
+              - kind: text
+                text: 'second item '
           - kind: block
             type: ordered_list
             nodes:
               - kind: block
                 type: list_item
                 nodes:
-                  - kind: text
-                    text: 'second item first subitem'
+                  - kind: block
+                    type: unstyled
+                    nodes:
+                      - kind: text
+                        text: 'second item first subitem'
               - kind: block
                 type: list_item
                 nodes:
-                  - kind: text
-                    text: 'second item second subitem '
+                  - kind: block
+                    type: unstyled
+                    nodes:
+                      - kind: text
+                        text: 'second item second subitem '
                   - kind: block
                     type: unordered_list
                     nodes:
                       - kind: block
                         type: list_item
                         nodes:
-                          - kind: text
-                            text: 'second item second subitem first sub-subitem'
+                          - kind: block
+                            type: unstyled
+                            nodes:
+                              - kind: text
+                                text: 'second item second subitem first sub-subitem'
                       - kind: block
                         type: list_item
                         nodes:
-                          - kind: text
-                            text: 'second item second subitem second sub-subitem'
+                          - kind: block
+                            type: unstyled
+                            nodes:
+                              - kind: text
+                                text: 'second item second subitem second sub-subitem'
                       - kind: block
                         type: list_item
                         nodes:
-                          - kind: text
-                            text: 'second item second subitem third sub-subitem'
+                          - kind: block
+                            type: unstyled
+                            nodes:
+                              - kind: text
+                                text: 'second item second subitem third sub-subitem'
               - kind: block
                 type: list_item
                 nodes:
-                  - kind: text
-                    text: 'second item third subitem'
+                  - kind: block
+                    type: unstyled
+                    nodes:
+                      - kind: text
+                        text: 'second item third subitem'
       - kind: block
         type: list_item
         nodes:
-          - kind: text
-            text: 'third item'
+          - kind: block
+            type: unstyled
+            nodes:
+              - kind: text
+                text: 'third item'
