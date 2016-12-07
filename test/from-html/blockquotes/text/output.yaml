@@ -6,4 +6,4 @@ nodes:
         type: unstyled
         nodes:
           - kind: text
-            text: This is a quotation taken from the Mozilla Developer Center.
+            text: " This is a quotation taken from the Mozilla Developer Center."

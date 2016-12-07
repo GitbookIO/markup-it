@@ -1,4 +1,5 @@
 const htmlparser = require('htmlparser2');
+const htmlclean = require('htmlclean');
 const { List, Stack, Set } = require('immutable');
 const { Document } = require('slate');
 const { Deserializer } = require('../');
@@ -90,6 +91,9 @@ function resolveHeadingAttrs(attribs) {
  * @return {List<Node>}
  */
 function parse(str) {
+    // Cleanup whitespaces
+    str = htmlclean(str);
+
     // For convenience, starts with a root node
     const root = Document.create({
         type: BLOCKS.DOCUMENT
