@@ -1,5 +1,6 @@
 const typeOf = require('type-of');
-const { Text } = require('slate');
+const uid = require('uid');
+const { Text, Mark } = require('slate');
 const RuleFunction = require('./rule-function');
 
 class Serializer extends RuleFunction {
@@ -81,7 +82,7 @@ class Serializer extends RuleFunction {
     /**
      * Transform ranges matching a mark
      * @param {Function || Array || String} matcher
-     * @param {Function} transform(state: State, text: String, mark: Mark)
+     * @param {Function} transform(state: State, text: String, mark: Mark): String
      * @return {Serializer}
      */
     transformMarkedRange(matcher, transform) {
@@ -101,6 +102,35 @@ class Serializer extends RuleFunction {
             range = range.merge({ text, marks });
 
             return range;
+        });
+    }
+
+    /**
+     * Transform text.
+     * @param {Function} transform(state: State, range: Range): Range
+     * @return {Serializer}
+     */
+    transformText(transform) {
+        const MARK = uid();
+
+        return this.matchKind('text')
+
+        // We can't process empty text node
+        .filter(state => {
+            const text = state.peek();
+            return !text.isEmpty;
+        })
+
+        // Avoid infinite loop
+        .filterNot((new Serializer()).matchMark(MARK))
+
+        // Escape all text
+        .transformRanges((state, range) => {
+            range = transform(state, range);
+
+            return range.merge({
+                marks: range.marks.add(Mark.create({ type: MARK }))
+            });
         });
     }
 }

@@ -20,7 +20,9 @@ const serialize = Serializer()
         else if (type == 'comment') output = `{# ${text} #}`;
         else if (type == 'var') output = `{{ ${text} }}`;
 
-        return output;
+        return state
+            .shift()
+            .write(output);
     });
 
 /**

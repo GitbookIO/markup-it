@@ -9,7 +9,10 @@ const serialize = Serializer()
     .matchType(BLOCKS.PARAGRAPH)
     .then((state) => {
         const node = state.peek();
-        const inner = state.use('inline').serialize(node.nodes);
+        const inner = state
+            .use('inline')
+            .setProp('hardlineBreak', true)
+            .serialize(node.nodes);
 
         return state
             .shift()

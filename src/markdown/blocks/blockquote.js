@@ -15,7 +15,7 @@ const serialize = Serializer()
 
         const output = lines
             .map(function(line) {
-                return '> ' + line;
+                return line ? `> ${line}` : '>';
             })
             .join('\n');
 

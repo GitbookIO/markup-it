@@ -10,6 +10,7 @@ const escape = require('./escape');
 const code = require('./code');
 const bold = require('./bold');
 const italic = require('./italic');
+const hardlineBreak = require('./hardline_break');
 const strikethrough = require('./strikethrough');
 
 module.exports = [
@@ -19,6 +20,7 @@ module.exports = [
     math,
     html,
     template,
+    hardlineBreak,
 
     // Text ranegs should be escaped before processing marks
     escape,

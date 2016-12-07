@@ -147,6 +147,12 @@ function parse(str) {
 
                 marks = marks.add(mark);
             }
+
+            else if (tagName == 'br') {
+                const textNode = Text.createFromString('\n', marks);
+                appendNode(textNode);
+            }
+
             // else ignore
         },
 
@@ -205,4 +211,3 @@ function isVoid(tagName) {
 }
 
 module.exports = { deserialize };
-

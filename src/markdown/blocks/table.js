@@ -50,6 +50,7 @@ const serialize = Serializer()
             rowToText(state, headerRow) + '\n'
             + alignToText(align) + '\n'
             + bodyRows.map(row => rowToText(state, row)).join('\n')
+            + '\n\n'
         );
 
         return state.shift().write(output);

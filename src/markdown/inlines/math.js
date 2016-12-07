@@ -47,7 +47,9 @@ const serialize = Serializer()
             output = '\n' + output + '\n';
         }
 
-        return output;
+        return state
+            .shift()
+            .write(output);
     });
 
 /**
