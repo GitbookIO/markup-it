@@ -103,14 +103,13 @@ function parse(str) {
     // Append a node child to the current parent node
     function appendNode(node) {
         const parent = stack.peek();
-        const containerChildTypes = CONTAINERS[parent.type];
+        const containerChildTypes = CONTAINERS[parent.type || parent.kind];
 
         // Wrap node if type is not allowed
         if (
             containerChildTypes
             && (node.kind !== 'block' || !containerChildTypes.includes(node.type))
         ) {
-            console.log('wrap', node.type, 'for', parent.type);
             node = Block.create({
                 type: containerChildTypes[0],
                 nodes: [node]
