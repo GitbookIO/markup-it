@@ -13,7 +13,7 @@ const block = {
     text:       /^[^\n]+/,
     fences:     /^ *(`{3,}|~{3,}) *(\S+)? *\n([\s\S]+?[\s]*)\n *\1 *(?:\n|$)/,
     yamlHeader: /^ *(?=```)/,
-    math:       /^ *(\${2,}) *([\s\S]+?)\s*\1 *(?:\n|$)/,
+    math:       /^ *(\${2,}) *\n+([\s\S]+?)\s*\1 *(?:\n|$)/,
     list:       {
         block:     /^( *)(bullet) [\s\S]+?(?:hr|def|\n{2,}(?! )(?!\1allbull )\n*|\s*$)/,
         item:      /^( *)(bullet) [^\n]*(?:\n(?!\1allbull )[^\n]*)*/,
