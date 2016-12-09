@@ -1,4 +1,4 @@
-const { Serializer, Deserializer, Mark, MARKS } = require('../../');
+const { Serializer, Deserializer, Mark, Text, MARKS } = require('../../');
 const reInline = require('../re/inline');
 
 /**
@@ -26,9 +26,8 @@ const deserialize = Deserializer()
         const text = match[2];
         const mark = Mark.create({ type: MARKS.CODE });
 
-        return state
-            .pushMark(mark)
-            .pushText(text);
+        const node = Text.createFromString(text, [ mark ]);
+        return state.push(node);
     });
 
 module.exports = { serialize, deserialize };
