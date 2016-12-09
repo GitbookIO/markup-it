@@ -4,7 +4,7 @@ nodes:
     nodes:
       - kind: text
         ranges:
-          - text: "Hello "
+          - text: hello
           - text: world
             marks:
               - type: CODE
