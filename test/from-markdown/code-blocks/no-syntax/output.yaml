@@ -2,5 +2,8 @@ nodes:
   - kind: block
     type: code_block
     nodes:
-      - kind: text
-        text: Hello World
+      - kind: block
+        type: code_line
+        nodes:
+          - kind: text
+            text: Hello World

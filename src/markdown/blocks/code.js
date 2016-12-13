@@ -3,6 +3,23 @@ const { Serializer, Deserializer, Block, Text, BLOCKS } = require('../../');
 const reBlock = require('../re/block');
 
 /**
+ * Deserialize the inner text of a code block
+ * @param  {String} text
+ * @return {Array<Node>} nodes
+ */
+function deserializeLines(text) {
+    const lines = splitLines(text);
+
+    return lines
+        .map(line => Block.create({
+            type: BLOCKS.CODE_LINE,
+            nodes: [
+                Text.createFromString(line)
+            ]
+        }));
+}
+
+/**
  * Serialize a code block to markdown
  * @type {Serializer}
  */
@@ -10,15 +27,19 @@ const serialize = Serializer()
     .matchType(BLOCKS.CODE)
     .then((state) => {
         const node = state.peek();
-        const { text, data } = node;
+        const { nodes, data } = node;
         const syntax = data.get('syntax');
-        const hasFences = text.indexOf('`') >= 0;
+
+        const innerText = nodes
+            .map(line => line.text)
+            .join('\n');
+        const hasFences = innerText.indexOf('`') >= 0;
         let output;
 
         // Use fences if syntax is set
         if (!hasFences || syntax) {
             output = `${'```'}${Boolean(syntax) ? syntax : ''}\n` +
-                     `${text}\n` +
+                     `${innerText}\n` +
                      `${'```'}\n\n`;
 
             return state
@@ -26,11 +47,10 @@ const serialize = Serializer()
                 .write(output);
         }
 
-        const lines = splitLines(text);
-        output = lines
-            .map((line) => {
-                if (!line.trim()) return '';
-                return '    ' + line;
+        output = nodes
+            .map(({ text }) => {
+                if (!text.trim()) return '';
+                return '    ' + text;
             })
             .join('\n') + '\n\n';
 
@@ -56,11 +76,12 @@ const deserializeFences = Deserializer()
             };
         }
 
+        // Split lines
+        const nodes = deserializeLines(text);
+
         const node = Block.create({
             type: BLOCKS.CODE,
-            nodes: [
-                Text.createFromString(text)
-            ],
+            nodes,
             data
         });
 
@@ -81,11 +102,12 @@ const deserializeTabs = Deserializer()
         // No pedantic mode
         inner = inner.replace(/\n+$/, '');
 
+        // Split lines
+        const nodes = deserializeLines(inner);
+
         const node = Block.create({
             type: BLOCKS.CODE,
-            nodes: [
-                Text.createFromString(inner)
-            ]
+            nodes
         });
 
         return state.push(node);

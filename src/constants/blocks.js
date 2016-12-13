@@ -9,6 +9,7 @@ module.exports = {
     TEXT:       'unstyled',
     // Classic blocks
     CODE:       'code_block',
+    CODE_LINE:  'code_line',
     BLOCKQUOTE: 'blockquote',
     PARAGRAPH:  'paragraph',
     FOOTNOTE:   'footnote',
