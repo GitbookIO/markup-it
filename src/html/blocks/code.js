@@ -10,7 +10,9 @@ const serialize = Serializer()
     .then(state => {
         const node = state.peek();
         const syntax = node.data.get('syntax');
-        const text = node.text;
+        const text = node.nodes
+                  .map(line => line.text)
+                  .join('\n');
 
         const className = syntax
             ? ` class="lang-${syntax}"`
