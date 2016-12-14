@@ -61,7 +61,7 @@ const deserializeFences = Deserializer()
         }
 
         // Split lines
-        const nodes = deserializeLines(text);
+        const nodes = deserializeCodeLines(text);
 
         const node = Block.create({
             type: BLOCKS.CODE,
