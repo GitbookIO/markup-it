@@ -1,23 +1,7 @@
-const splitLines = require('split-lines');
-const { Serializer, Deserializer, Block, Text, BLOCKS } = require('../../');
+const { Serializer, Deserializer, Block, BLOCKS } = require('../../');
+const deserializeCodeLines = require('../../utils/deserializeCodeLines');
 const reBlock = require('../re/block');
 
-/**
- * Deserialize the inner text of a code block
- * @param  {String} text
- * @return {Array<Node>} nodes
- */
-function deserializeLines(text) {
-    const lines = splitLines(text);
-
-    return lines
-        .map(line => Block.create({
-            type: BLOCKS.CODE_LINE,
-            nodes: [
-                Text.createFromString(line)
-            ]
-        }));
-}
 
 /**
  * Serialize a code block to markdown
@@ -103,7 +87,7 @@ const deserializeTabs = Deserializer()
         inner = inner.replace(/\n+$/, '');
 
         // Split lines
-        const nodes = deserializeLines(inner);
+        const nodes = deserializeCodeLines(inner);
 
         const node = Block.create({
             type: BLOCKS.CODE,
