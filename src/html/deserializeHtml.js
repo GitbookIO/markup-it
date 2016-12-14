@@ -1,3 +1,4 @@
+const detectNewLine = require('detect-newline');
 const htmlparser = require('htmlparser2');
 const htmlclean = require('htmlclean');
 const { List, Stack, Set } = require('immutable');
@@ -182,8 +183,22 @@ function parse(str) {
             const isEmptyText = !text.trim();
             if (isEmptyText) return;
 
-            const textNode = Text.createFromString(text, marks);
-            appendNode(textNode);
+            // Special rule for code blocks that we must split in lines
+            if (stack.peek().type === BLOCKS.CODE) {
+                splitLines(text).forEach(line => {
+                    // Create a code line
+                    pushNode(Block.create({ type: BLOCKS.CODE_LINE }));
+                    // Push the text
+                    appendNode(Text.createFromString(line));
+                    popNode();
+                });
+            }
+
+            // Usual behavior
+            else {
+                const textNode = Text.createFromString(text, marks);
+                appendNode(textNode);
+            }
         },
 
         onclosetag(tagName) {
@@ -230,6 +245,20 @@ function getData(tagName, attrs) {
  */
 function isVoid(tagName) {
     return Boolean(VOID_TAGS[tagName]);
+}
+
+
+/**
+ * Returns the list of lines in the string
+ * @param {String} text
+ * @param {String} sep?
+ * @return {List<String>}
+ */
+function splitLines(text, sep) {
+    sep = sep || detectNewLine(text) || '/n';
+    return List(
+        text.split(sep)
+    );
 }
 
 module.exports = { deserialize };
