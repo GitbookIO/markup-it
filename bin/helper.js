@@ -38,7 +38,7 @@ function transform(fn) {
     const parser = PARSERS[ext];
 
     if (!parser) {
-        throw new Error('Can\'t parse this file');
+        fail('no parser for this file type');
     }
 
     const content = fs.readFileSync(filePath, { encoding: 'utf8' });
