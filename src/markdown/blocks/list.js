@@ -1,5 +1,4 @@
-const splitLines = require('split-lines');
-const leftPad = require('left-pad');
+const indentString = require('indent-string');
 const { Serializer, Deserializer, Block, BLOCKS } = require('../../');
 const reList = require('../re/block').list;
 
@@ -14,9 +13,8 @@ const serialize = Serializer()
         const { nodes } = list;
 
         const output = nodes
-            .map((item, index) => renderItemToText(state, list, item, index))
-            .join('')
-            + '\n';
+            .map((item, index) => serializeListItem(state, list, item, index))
+            .join('');
 
         return state.shift().write(output);
     });
@@ -96,32 +94,33 @@ const deserialize = Deserializer()
     });
 
 /**
- * Render a list item to markdown
+ * Serialize a list item to markdown.
  * @param  {State} state
  * @param  {Block} list
  * @param  {Block} item
  * @param  {Number} index
  * @return {String} output
  */
-function renderItemToText(state, list, item, index) {
-    let bullet = '*';
+function serializeListItem(state, list, item, index) {
+    // Is it a loose list?
+    const loose = list.nodes.some(child => child.type === BLOCKS.PARAGRAPH);
 
-    if (list.type === BLOCKS.OL_LIST) {
-        bullet = `${(index + 1)}.`;
+    // Is it the last item from the list?
+    const last = list.nodes.size - 1 === index;
+
+    // Calcul bullet to use
+    const bullet = list.type === BLOCKS.OL_LIST ? `${(index + 1)}.` : '*';
+
+    // Indent all lignes
+    const indent = bullet.length + 1;
+    let body = state.use('block').serialize(item.nodes);
+    body = indentString(body, indent, ' ').slice(indent);
+
+    if (loose && !last) {
+        body += '\n';
     }
 
-    const inner = state.use('block').serialize(item.nodes);
-    const lines = splitLines(inner);
-    const head = lines[0];
-    const body = lines.slice(1);
-    const spaces = leftPad('', bullet.length, ' ');
-
-    const rest = body.map(line => line ? `${spaces} ${line}` : '').join('\n');
-    const eol = rest ? '' : '\n';
-
-    // const isLoose = list.nodes.some(child => child.type === BLOCKS.PARAGRAPH);
-
-    return `${bullet} ${head}${rest ? '\n' + rest : ''}${eol}`;
+    return `${bullet} ${body}`;
 }
 
 module.exports = { serialize, deserialize };
