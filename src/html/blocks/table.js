@@ -1,5 +1,4 @@
 const { Serializer, BLOCKS } = require('../../');
-const serializeTag = require('../serializeTag');
 
 // Key to store the current table align in the state
 const ALIGN = 'current_table_align';

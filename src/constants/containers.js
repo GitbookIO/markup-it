@@ -3,8 +3,8 @@ const BLOCKS = require('./blocks');
 const ALL_BLOCKS = objectValues(BLOCKS);
 
 /**
- * Map of all block nodes that contains only blocks as children.
- * The value is the default block type.
+ * Dictionary of all container block types, and the set block types they accept as children.
+ * The first value of each set is the default block type.
  *
  * @type {Map<String:Array>}
  */
