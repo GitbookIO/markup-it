@@ -1,3 +1,4 @@
+const trimTrailingLines = require('trim-trailing-lines');
 const indentString = require('indent-string');
 const { Serializer, Deserializer, Block, BLOCKS } = require('../../');
 const reList = require('../re/block').list;
@@ -103,7 +104,7 @@ const deserialize = Deserializer()
  */
 function serializeListItem(state, list, item, index) {
     // Is it a loose list?
-    const loose = list.nodes.some(child => child.type === BLOCKS.PARAGRAPH);
+    const loose = item.nodes.some(child => child.type === BLOCKS.PARAGRAPH);
 
     // Is it the last item from the list?
     const last = list.nodes.size - 1 === index;
@@ -114,9 +115,13 @@ function serializeListItem(state, list, item, index) {
     // Indent all lignes
     const indent = bullet.length + 1;
     let body = state.use('block').serialize(item.nodes);
+    // Remove unwanted empty lines added by sub-blocks
+    body = trimTrailingLines(body) + '\n';
+
     body = indentString(body, indent, ' ').slice(indent);
 
-    if (loose && !last) {
+    if (loose || last) {
+        // Add empty line
         body += '\n';
     }
 
