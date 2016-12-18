@@ -112,6 +112,10 @@ const deserialize = Deserializer()
  * @return {String} output
  */
 function serializeListItem(state, list, item, index) {
+    // Is it a task item ?
+    const hasChecked = item.data.has('checked');
+    const isChecked = item.data.get('checked');
+
     // Is it a loose list?
     const loose = item.nodes.some(child => child.type === BLOCKS.PARAGRAPH);
 
@@ -132,6 +136,10 @@ function serializeListItem(state, list, item, index) {
     if (loose || last) {
         // Add empty line
         body += '\n';
+    }
+
+    if (hasChecked) {
+        body = `${isChecked ? '[x]' : '[ ]'} ${body}`;
     }
 
     return `${bullet} ${body}`;
