@@ -20,7 +20,7 @@ const block = {
         bullet:    /(?:[*+-]|\d+\.)/,
         bullet_ul: /(?:\d+\.)/,
         bullet_ol: /(?:[*+-])/,
-
+        checkbox: /^\[([ x])\] +/,
         bulletAndSpaces: /^ *([*+-]|\d+\.) +/
     }
 };

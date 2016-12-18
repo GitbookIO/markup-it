@@ -32,7 +32,7 @@ const deserialize = Deserializer()
 
         const type = ordered ? BLOCKS.OL_LIST : BLOCKS.UL_LIST;
 
-        let item, loose, next = false;
+        let item, loose, data, next = false;
 
         let lastIndex = 0;
         const nodes = [];
@@ -51,12 +51,21 @@ const deserialize = Deserializer()
         for (let i = 0; i < items.length; i++) {
             item = items[i][0];
             rawItem = items[i][1];
+            data = undefined;
 
             // Remove the list item's bullet
             // so it is seen as the next token.
             textItem = item[0];
             space = textItem.length;
-            textItem = textItem.replace(/^ *([*+-]|\d+\.) +/, '');
+            textItem = textItem.replace(reList.bulletAndSpaces, '');
+
+            // Parse tasklists
+            let checked = reList.checkbox.exec(textItem);
+            if (checked) {
+                checked = checked[1] === 'x';
+                textItem = textItem.replace(reList.checkbox, '');
+                data = { checked };
+            }
 
             // Outdent whatever the
             // list item contains. Hacky.
@@ -76,10 +85,10 @@ const deserialize = Deserializer()
 
             const nodeItem = Block.create({
                 type: BLOCKS.LIST_ITEM,
+                data,
                 nodes: (loose ? state.setProp('looseList', state.depth) : state)
                     .use('block')
                     .deserialize(textItem)
-                // data: { loose }
             });
 
 
