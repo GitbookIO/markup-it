@@ -997,13 +997,13 @@ debug@2.2.0, debug@~2.2.0:
   dependencies:
     ms "0.7.1"
 
-debug@^2.1.1:
+debug@^2.1.1, debug@^2.2.0:
   version "2.3.0"
   resolved "https://registry.yarnpkg.com/debug/-/debug-2.3.0.tgz#3912dc55d7167fc3af17d2b85c13f93deaedaa43"
   dependencies:
     ms "0.7.2"
 
-debug@^2.2.0, debug@^2.3.2:
+debug@^2.3.2:
   version "2.3.2"
   resolved "https://registry.yarnpkg.com/debug/-/debug-2.3.2.tgz#94cb466ef7d6d2c7e5245cdd6e4104f2d0d70d30"
   dependencies:
@@ -1047,10 +1047,6 @@ delayed-stream@~1.0.0:
 delegates@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/delegates/-/delegates-1.0.0.tgz#84c6e159b81904fdca59a0ef44cd870d31250f9a"
-
-detect-browser@^1.3.3:
-  version "1.5.0"
-  resolved "https://registry.yarnpkg.com/detect-browser/-/detect-browser-1.5.0.tgz#926a90065cd6c358b2aa631a14434844798fead3"
 
 detect-indent@^4.0.0:
   version "4.0.0"
@@ -2104,7 +2100,7 @@ lodash.some@^4.4.0:
   version "4.6.0"
   resolved "https://registry.yarnpkg.com/lodash.some/-/lodash.some-4.6.0.tgz#1bb9f314ef6b8baded13b549169b2a945eb68e4d"
 
-lodash@^4.0.0, lodash@^4.13.1, lodash@^4.2.0, lodash@^4.3.0:
+lodash@^4.0.0, lodash@^4.2.0, lodash@^4.3.0:
   version "4.16.6"
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.16.6.tgz#d22c9ac660288f3843e16ba7d2b5d06cca27d777"
 
@@ -2687,13 +2683,12 @@ slash@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/slash/-/slash-1.0.0.tgz#c41f2f6c39fc16d1cd17ad4b5d896114ae470d55"
 
-slate@0.15.9:
-  version "0.15.9"
-  resolved "https://registry.yarnpkg.com/slate/-/slate-0.15.9.tgz#672829e76b95f3956e6a7d10fc49eacf5889d041"
+slate@0.16.8:
+  version "0.16.8"
+  resolved "https://registry.yarnpkg.com/slate/-/slate-0.16.8.tgz#404053b9721ee15c1d3191e8a6ef01c6055b3b76"
   dependencies:
     cheerio "^0.22.0"
     debug "^2.3.2"
-    detect-browser "^1.3.3"
     direction "^0.1.5"
     es6-map "^0.1.4"
     esrever "^0.2.0"
@@ -2701,9 +2696,7 @@ slate@0.15.9:
     immutable "^3.8.1"
     is-empty "^1.0.0"
     keycode "^2.1.2"
-    lodash "^4.13.1"
     type-of "^2.0.1"
-    ua-parser-js "^0.7.10"
 
 slice-ansi@0.0.4:
   version "0.0.4"
@@ -2897,7 +2890,7 @@ typedarray@~0.0.5:
   version "0.0.6"
   resolved "https://registry.yarnpkg.com/typedarray/-/typedarray-0.0.6.tgz#867ac74e3864187b1d3d47d996a78ec5c8830777"
 
-ua-parser-js@^0.7.10, ua-parser-js@^0.7.9:
+ua-parser-js@^0.7.9:
   version "0.7.11"
   resolved "https://registry.yarnpkg.com/ua-parser-js/-/ua-parser-js-0.7.11.tgz#3741e2dd2fb09251a960f9ef076cd0cc72eaf6a0"
 
