@@ -12,3 +12,5 @@ nodes:
         nodes:
           - kind: text
             text: Image text
+      - kind: text
+        text: ""

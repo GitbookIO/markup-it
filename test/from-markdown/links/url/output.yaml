@@ -11,3 +11,5 @@ nodes:
         nodes:
           - kind: text
             text: https://www.google.fr
+      - kind: text
+        text: ""
