@@ -39,6 +39,7 @@
     "slate": "0.16.8"
   },
   "dependencies": {
+    "asciidoctor.js": "^1.5.5-4",
     "detect-newline": "^2.1.0",
     "escape-string-regexp": "^1.0.5",
     "html-entities": "1.2.0",
