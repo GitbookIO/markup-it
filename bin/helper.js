@@ -5,12 +5,15 @@ const path = require('path');
 const { State } = require('../src/');
 const markdown = require('../src/markdown');
 const html = require('../src/html');
+const asciidoc = require('../src/asciidoc');
 
 const PARSERS = {
     '.md':       markdown,
     '.markdown': markdown,
     '.mdown':    markdown,
-    '.html':     html
+    '.html':     html,
+    '.adoc':     asciidoc,
+    '.asciidoc': asciidoc
 };
 
 /**

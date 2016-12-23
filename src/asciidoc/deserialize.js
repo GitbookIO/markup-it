@@ -20,7 +20,7 @@ function asciidocToHTML(content) {
 const deserialize = Deserializer()
 .then((state) => {
     const htmlContent = asciidocToHTML(state.text);
-    const htmlState = State(html);
+    const htmlState = State.create(html);
 
     const nodes = htmlState.deserialize(htmlContent);
 

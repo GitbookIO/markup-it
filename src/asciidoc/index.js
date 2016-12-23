@@ -1,7 +1,7 @@
 const deserialize = require('./deserialize');
 
 module.exports = {
-    blocks: [
+    block: [
         { deserialize }
     ]
 };

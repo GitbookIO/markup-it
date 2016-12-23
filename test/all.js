@@ -7,6 +7,7 @@ const Slate = require('slate');
 const MarkupIt = require('../src/');
 const markdown = require('../src/markdown');
 const html = require('../src/html');
+const asciidoc = require('../src/asciidoc');
 
 /**
  * Read a file input to a state.
@@ -29,6 +30,8 @@ function readFileInput(filePath) {
         return deserializeWith(markdown);
     case '.html':
         return deserializeWith(html);
+    case '.adoc':
+        return deserializeWith(asciidoc);
     case '.yaml':
         return readYaml(filePath);
     }
@@ -55,6 +58,8 @@ function convertFor(input, outputExt) {
         return serializeWith(markdown);
     case '.html':
         return serializeWith(html);
+    case '.adoc':
+        return serializeWith(asciidoc);
     case '.yaml':
         return input;
     }
