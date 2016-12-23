@@ -76,6 +76,7 @@ function readFileOutput(fileName) {
 
     switch (ext) {
     case '.md':
+    case '.adoc':
     case '.html':
         return content
             // We trim to avoid newlines being compared at the end
