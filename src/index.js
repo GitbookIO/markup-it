@@ -7,6 +7,7 @@ const Serializer = require('./models/serializer');
 const MARKS = require('./constants/marks');
 const BLOCKS = require('./constants/blocks');
 const INLINES = require('./constants/inlines');
+const VOID = require('./constants/void');
 const CONTAINERS = require('./constants/containers');
 const TABLE_ALIGN = require('./constants/table-align');
 
@@ -20,6 +21,7 @@ module.exports = {
     INLINES,
     TABLE_ALIGN,
     CONTAINERS,
+    VOID,
     // Slate exports
     Block, Inline, Text, Mark, Range
 };

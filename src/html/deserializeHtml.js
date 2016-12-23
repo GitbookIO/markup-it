@@ -5,7 +5,7 @@ const { List, Stack, Set } = require('immutable');
 const { Document } = require('slate');
 const { Deserializer } = require('../');
 const {
-    BLOCKS, INLINES, MARKS, CONTAINERS,
+    BLOCKS, INLINES, MARKS, CONTAINERS, VOID,
     Block, Inline, Text, Mark
 } = require('../');
 
@@ -55,11 +55,6 @@ const MARK_TAGS = {
     code:           MARKS.CODE
 };
 
-const VOID_TAGS = {
-    hr: true,
-    img: true
-};
-
 const TAGS_TO_DATA = {
     a(attribs) {
         return {
@@ -88,6 +83,23 @@ function resolveHeadingAttrs(attribs) {
 }
 
 /**
+ * Flatten a block node into a list of inline nodes.
+ * @param  {Node} node
+ * @return {List<Node>} nodes
+ */
+function selectInlines(node) {
+    if (node.kind !== 'block') {
+        return List([ node ]);
+    }
+
+    const { nodes } = node;
+    return nodes.reduce(
+        (result, child) => result.concat(selectInlines(child)),
+        List()
+    );
+}
+
+/**
  * Parse an HTML string into a list of Nodes
  * @param {String} str
  * @return {List<Node>}
@@ -110,9 +122,16 @@ function parse(str) {
     function appendNode(node) {
         const parent = stack.peek();
         const containerChildTypes = CONTAINERS[parent.type || parent.kind];
+        let { nodes } = parent;
+
+        // If parent is not a block container
+        if (!containerChildTypes && node.kind == 'block') {
+            // Discard all blocks
+            nodes = nodes.concat(selectInlines(node));
+        }
 
         // Wrap node if type is not allowed
-        if (
+        else if (
             containerChildTypes
             && (node.kind !== 'block' || !containerChildTypes.includes(node.type))
         ) {
@@ -120,9 +139,14 @@ function parse(str) {
                 type: containerChildTypes[0],
                 nodes: [node]
             });
+
+            nodes = nodes.push(node);
         }
 
-        const nodes = parent.nodes.push(node);
+        else {
+            nodes = nodes.push(node);
+        }
+
         stack = stack
             .pop()
             .push(parent.merge({ nodes }));
@@ -144,20 +168,22 @@ function parse(str) {
 
         onopentag(tagName, attribs) {
             if (BLOCK_TAGS[tagName]) {
+                const type = BLOCK_TAGS[tagName];
                 const block = Block.create({
                     data: getData(tagName, attribs),
-                    isVoid: isVoid(tagName),
-                    type: BLOCK_TAGS[tagName]
+                    isVoid: isVoid(type),
+                    type
                 });
 
                 pushNode(block);
             }
 
             else if (INLINE_TAGS[tagName]) {
+                const type = INLINE_TAGS[tagName];
                 const inline = Inline.create({
                     data: getData(tagName, attribs),
-                    isVoid: isVoid(tagName),
-                    type: INLINE_TAGS[tagName]
+                    isVoid: isVoid(type),
+                    type
                 });
 
                 pushNode(inline);
@@ -241,11 +267,11 @@ function getData(tagName, attrs) {
 }
 
 /**
- * @param {String} tagName The tag name
+ * @param {String} nodeType
  * @return {Boolean} isVoid
  */
-function isVoid(tagName) {
-    return Boolean(VOID_TAGS[tagName]);
+function isVoid(nodeType) {
+    return Boolean(VOID[nodeType]);
 }
 
 
