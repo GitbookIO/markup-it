@@ -62,9 +62,9 @@
     "yargs": "^4.7.1"
   },
   "bin": {
-    "markup-toJSON": "./bin/toJSON.js",
-    "markup-toHTML": "./bin/toHTML.js",
-    "markup-toMarkdown": "./bin/toMarkdown.js",
-    "markup-lint": "./bin/lint.js"
+    "markup-toJSON": "./lib/bin/toJSON.js",
+    "markup-toHTML": "./lib/bin/toHTML.js",
+    "markup-toMarkdown": "./lib/bin/toMarkdown.js",
+    "markup-lint": "./lib/bin/lint.js"
   }
 }

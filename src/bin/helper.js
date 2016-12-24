@@ -2,10 +2,10 @@
 const fs = require('fs');
 const path = require('path');
 
-const { State } = require('../src/');
-const markdown = require('../src/markdown');
-const html = require('../src/html');
-const asciidoc = require('../src/asciidoc');
+const { State } = require('../');
+const markdown = require('../markdown');
+const html = require('../html');
+const asciidoc = require('../asciidoc');
 
 const PARSERS = {
     '.md':       markdown,
