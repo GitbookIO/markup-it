@@ -6,6 +6,7 @@ const hr = require('./blocks/hr');
 const code = require('./blocks/code');
 
 const text = require('./inlines/text');
+const bold = require('./inlines/bold');
 
 module.exports = {
     block: [
@@ -16,6 +17,7 @@ module.exports = {
         code
     ],
     inline: [
+        bold,
         text
     ]
 };
