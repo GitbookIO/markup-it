@@ -7,6 +7,7 @@ const code = require('./blocks/code');
 
 const text = require('./inlines/text');
 const bold = require('./inlines/bold');
+const italic = require('./inlines/italic');
 
 module.exports = {
     block: [
@@ -18,6 +19,7 @@ module.exports = {
     ],
     inline: [
         bold,
+        italic,
         text
     ]
 };

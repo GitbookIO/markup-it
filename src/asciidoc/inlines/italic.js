@@ -1,12 +1,12 @@
 const { Serializer, MARKS } = require('../../');
 
 /**
- * Serialize a bold text to Asciidoc
+ * Serialize a italic text to Asciidoc
  * @type {Serializer}
  */
 const serialize = Serializer()
-    .transformMarkedRange(MARKS.BOLD, (state, text, mark) => {
-        return `**${text}**`;
+    .transformMarkedRange(MARKS.ITALIC, (state, text, mark) => {
+        return `__${text}__`;
     });
 
 module.exports = { serialize };
