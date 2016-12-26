@@ -1,0 +1,1 @@
+link:www.google.fr[a link]
