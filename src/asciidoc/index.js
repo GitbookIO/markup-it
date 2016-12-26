@@ -5,6 +5,8 @@ const paragraph = require('./blocks/paragraph');
 const hr = require('./blocks/hr');
 const codeBlock = require('./blocks/code');
 
+const link = require('./inlines/link');
+const image = require('./inlines/image');
 const text = require('./inlines/text');
 const bold = require('./inlines/bold');
 const italic = require('./inlines/italic');
@@ -19,6 +21,8 @@ module.exports = {
         codeBlock
     ],
     inline: [
+        link,
+        image,
         bold,
         italic,
         code,
