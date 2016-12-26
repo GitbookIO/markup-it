@@ -14,7 +14,7 @@ const serialize = Serializer()
 
         return state
             .shift()
-            .write(`image::${src}[${alt}]`);
+            .write(`image:${src}[${alt}]`);
     });
 
 module.exports = { serialize };
