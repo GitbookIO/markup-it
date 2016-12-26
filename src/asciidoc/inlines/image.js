@@ -10,11 +10,11 @@ const serialize = Serializer()
         const node = state.peek();
         const { data } = node;
         const src = data.get('src', '');
-        const alt = data.get('alt', '');
+        const title = data.get('title', '');
 
         return state
             .shift()
-            .write(`image:${src}[${alt}]`);
+            .write(`image:${src}[${title}]`);
     });
 
 module.exports = { serialize };
