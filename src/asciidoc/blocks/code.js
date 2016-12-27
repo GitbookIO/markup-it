@@ -15,7 +15,7 @@ const serialize = Serializer()
 
         return state
             .shift()
-            .write(`${syntax ? '[source,' + syntax + ']\n' : ''}---\n${inner}---\n\n`);
+            .write(`${syntax ? '[source,' + syntax + ']\n' : ''}----\n${inner}----\n\n`);
     });
 
 
