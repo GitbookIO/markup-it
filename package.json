@@ -56,6 +56,7 @@
     "react-dom": "^15.3.2",
     "rtrim": "0.0.3",
     "split-lines": "^1.1.0",
+    "trim-right": "^1.0.1",
     "trim-trailing-lines": "^1.1.0",
     "type-of": "^2.0.1",
     "uid": "0.0.2",

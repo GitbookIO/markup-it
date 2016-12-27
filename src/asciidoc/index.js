@@ -4,6 +4,7 @@ const heading = require('./blocks/heading');
 const paragraph = require('./blocks/paragraph');
 const hr = require('./blocks/hr');
 const codeBlock = require('./blocks/code');
+const blockquote = require('./blocks/blockquote');
 
 const link = require('./inlines/link');
 const image = require('./inlines/image');
@@ -18,7 +19,8 @@ module.exports = {
         heading,
         paragraph,
         hr,
-        codeBlock
+        codeBlock,
+        blockquote
     ],
     inline: [
         link,
