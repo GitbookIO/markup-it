@@ -67,11 +67,12 @@ class State extends Record(DEFAULTS) {
      * Get a prop from the state
      *
      * @param  {String} key
+     * @param  {Mixed} def
      * @return {Mixed}
      */
-    getProp(key) {
+    getProp(key, def) {
         const { props } = this;
-        return props.get(key);
+        return props.get(key, def);
     }
 
     /**

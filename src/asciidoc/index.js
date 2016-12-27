@@ -2,9 +2,11 @@ const deserialize = require('./deserialize');
 
 const heading = require('./blocks/heading');
 const paragraph = require('./blocks/paragraph');
+const unstyled = require('./blocks/unstyled');
 const hr = require('./blocks/hr');
 const codeBlock = require('./blocks/code');
 const blockquote = require('./blocks/blockquote');
+const list = require('./blocks/list');
 
 const link = require('./inlines/link');
 const image = require('./inlines/image');
@@ -20,7 +22,9 @@ module.exports = {
         paragraph,
         hr,
         codeBlock,
-        blockquote
+        blockquote,
+        unstyled,
+        list
     ],
     inline: [
         link,
