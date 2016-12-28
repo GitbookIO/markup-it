@@ -1,6 +1,8 @@
 const trimRight = require('trim-right');
 const { Serializer, BLOCKS } = require('../../');
 
+const isList = node => node.type === BLOCKS.UL_LIST || node.type === BLOCKS.OL_LIST;
+
 const BULLETS = {
     [BLOCKS.UL_LIST]: '*',
     [BLOCKS.OL_LIST]: '.'
@@ -22,9 +24,17 @@ const serializeItem = Serializer()
         const bullet = BULLETS[listType];
         const prefix = Array(listDepth + 1).join(bullet);
 
-        const inner = state
-            .use('block')
-            .serialize(nodes);
+        const inner = nodes.reduce(
+            (text, child, i) => {
+                if (!isList(child) && i > 0) {
+                    text += '+\n\n';
+                }
+
+                text += state.use('block').serialize([child]);
+                return text;
+            },
+            ''
+        );
 
         return state
             .shift()
