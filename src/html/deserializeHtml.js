@@ -55,6 +55,11 @@ const MARK_TAGS = {
     code:           MARKS.CODE
 };
 
+const MARK_CLASSNAME = {
+    // Use by asciidoc instead of del
+    'line-through': MARKS.STRIKETHROUGH
+};
+
 const TAGS_TO_DATA = {
     a(attribs) {
         return {
@@ -97,6 +102,31 @@ function selectInlines(node) {
         (result, child) => result.concat(selectInlines(child)),
         List()
     );
+}
+
+/**
+ * Get all marks from a class name.
+ * @param {String} className
+ * @return {Array<Mark>}
+ */
+function getMarksForClassName(className) {
+    className = className || '';
+    const classNames = className.split(' ');
+    const result = [];
+
+    classNames.forEach(name => {
+        const type = MARK_CLASSNAME[name];
+        if (!type) {
+            return;
+        }
+
+        const mark = Mark.create({
+            type
+        });
+        result.push(mark);
+    });
+
+    return result;
 }
 
 /**
@@ -203,7 +233,9 @@ function parse(str) {
                 appendNode(textNode);
             }
 
-            // else ignore
+            // Parse marks from the class name
+            const newMarks = getMarksForClassName(attribs['class']);
+            marks = marks.concat(newMarks);
         },
 
         ontext(text) {
