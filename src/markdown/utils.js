@@ -1,13 +1,13 @@
 const { Map } = require('immutable');
 const entities = require('html-entities');
-const escapeStringRegexp = require('escape-string-regexp');
+const { escapeWith, unescapeWith } = require('../utils/escape');
 
 const htmlEntities = new entities.AllHtmlEntities();
 const xmlEntities = new entities.XmlEntities();
 
 // Replacements for Markdown escaping
 // See http://spec.commonmark.org/0.15/#backslash-escapes
-const replacements = [
+const REPLACEMENTS = Map([
     [ '*', '\\*' ],
     [ '#', '\\#' ],
     // GitHub doesn't escape slashes, and render the backslash in that cause
@@ -21,12 +21,7 @@ const replacements = [
     [ '>', '&gt;' ],
     [ '_', '\\_' ],
     [ '|', '\\|' ]
-];
-
-// Build a regexp from a string
-function re(str) {
-    return new RegExp(escapeStringRegexp(str), 'g');
-}
+]);
 
 /**
  * Escape markdown syntax
@@ -37,10 +32,7 @@ function re(str) {
  * @return {String}
  */
 function escapeMarkdown(str, escapeXML) {
-    str = replacements.reduce(function(text, repl) {
-        return text.replace(re(repl[0]), repl[1]);
-    }, str);
-
+    str = escapeWith(REPLACEMENTS, str);
     return escapeXML === false ? str : xmlEntities.encode(str);
 }
 
@@ -52,10 +44,7 @@ function escapeMarkdown(str, escapeXML) {
  * @return {String}
  */
 function unescapeMarkdown(str) {
-    str = replacements.reduce(function(text, repl) {
-        return text.replace(re(repl[1]), repl[0]);
-    }, str);
-
+    str = unescapeWith(REPLACEMENTS, str);
     return htmlEntities.decode(str);
 }
 

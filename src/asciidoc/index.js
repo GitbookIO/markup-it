@@ -12,6 +12,7 @@ const table = require('./blocks/table');
 const link = require('./inlines/link');
 const image = require('./inlines/image');
 const text = require('./inlines/text');
+const escape = require('./inlines/escape');
 const bold = require('./inlines/bold');
 const italic = require('./inlines/italic');
 const strikethrough = require('./inlines/strikethrough');
@@ -32,6 +33,7 @@ module.exports = {
     inline: [
         link,
         image,
+        escape,
         bold,
         italic,
         code,

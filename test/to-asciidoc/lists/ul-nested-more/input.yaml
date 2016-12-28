@@ -31,4 +31,4 @@ nodes:
                             type: unstyled
                             nodes:
                               - kind: text
-                                text: ":)"
+                                text: "Cool"
