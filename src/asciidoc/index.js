@@ -14,6 +14,7 @@ const image = require('./inlines/image');
 const text = require('./inlines/text');
 const bold = require('./inlines/bold');
 const italic = require('./inlines/italic');
+const strikethrough = require('./inlines/strikethrough');
 const code = require('./inlines/code');
 
 module.exports = {
@@ -34,6 +35,7 @@ module.exports = {
         bold,
         italic,
         code,
+        strikethrough,
         text
     ]
 };
