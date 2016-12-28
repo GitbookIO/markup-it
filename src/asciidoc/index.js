@@ -7,6 +7,7 @@ const hr = require('./blocks/hr');
 const codeBlock = require('./blocks/code');
 const blockquote = require('./blocks/blockquote');
 const list = require('./blocks/list');
+const table = require('./blocks/table');
 
 const link = require('./inlines/link');
 const image = require('./inlines/image');
@@ -24,7 +25,8 @@ module.exports = {
         codeBlock,
         blockquote,
         unstyled,
-        list
+        list,
+        table
     ],
     inline: [
         link,
