@@ -18,6 +18,11 @@ nodes:
                 nodes:
                   - kind: text
                     text: "Item 1 text"
+              - kind: block
+                type: code_line
+                nodes:
+                  - kind: text
+                    text: "Some other text"
       - kind: block
         type: list_item
         nodes:
