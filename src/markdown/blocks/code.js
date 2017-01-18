@@ -1,3 +1,4 @@
+const trimNewlines = require('trim-newlines');
 const { Serializer, Deserializer, Block, BLOCKS } = require('../../');
 const deserializeCodeLines = require('../../utils/deserializeCodeLines');
 const reBlock = require('../re/block');
@@ -49,8 +50,8 @@ const serialize = Serializer()
  */
 const deserializeFences = Deserializer()
     .matchRegExp(reBlock.fences, (state, match) => {
-        // Extract code block text
-        const text = match[3].trim();
+        // Extract code block text, and trim empty lines
+        const text = trimNewlines(match[3]);
 
         // Extract language syntax
         let data;
