@@ -3,6 +3,7 @@ const path = require('path');
 const expect = require('expect');
 const yaml = require('js-yaml');
 const Slate = require('slate');
+const trimTrailingLines = require('trim-trailing-lines');
 
 const MarkupIt = require('../src/');
 const markdown = require('../src/markdown');
@@ -48,9 +49,10 @@ function convertFor(input, outputExt) {
     function serializeWith(syntax) {
         const parser = MarkupIt.State.create(syntax);
         const inputDocument = Slate.Raw.deserialize(input, { terse: true }).document;
-        return parser.serializeDocument(inputDocument)
-            // Trim to avoid newlines being compared at the end
-            .trim();
+        const out = parser.serializeDocument(inputDocument);
+
+        // Trim to avoid newlines being compared at the end
+        return trimTrailingLines(out);
     }
 
     switch (outputExt) {
@@ -78,9 +80,8 @@ function readFileOutput(fileName) {
     case '.md':
     case '.adoc':
     case '.html':
-        return content
-            // We trim to avoid newlines being compared at the end
-            .trim();
+        // We trim to avoid newlines being compared at the end
+        return trimTrailingLines(content);
     case '.yaml':
         return readYaml(fileName);
     }
