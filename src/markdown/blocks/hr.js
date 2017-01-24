@@ -8,9 +8,13 @@ const reBlock = require('../re/block');
 const serialize = Serializer()
     .matchType(BLOCKS.HR)
     .then((state) => {
+        const { depth, text } = state;
+
+        const isFirstNode = depth == 1 && !text;
+
         return state
             .shift()
-            .write(`---\n\n`);
+            .write(`${isFirstNode ? '\n' : ''}---\n\n`);
     });
 
 /**
