@@ -4,7 +4,7 @@ const image = require('./image');
 const link = require('./link');
 const html = require('./html');
 const math = require('./math');
-const template = require('./template');
+const variable = require('./variable');
 
 const escape = require('./escape');
 const code = require('./code');
@@ -19,7 +19,7 @@ module.exports = [
     link,
     math,
     html,
-    template,
+    variable,
     hardlineBreak,
 
     // Text ranegs should be escaped before processing marks

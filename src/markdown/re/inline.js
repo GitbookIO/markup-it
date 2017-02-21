@@ -16,7 +16,7 @@ const inline = {
     del:      /^~~(?=\S)([\s\S]*?\S)~~/,
     text:     /^[\s\S]+?(?=[\\<!\[_*`$]| {2,}\n|$)/,
     math:     /^\$\$([^$]+)\$\$/,
-    template: /^{([#%{])\s*(.*?)\s*(?=[#%}]})[#%}]}/
+    variable: /^{{\s*(.*?)\s*(?=[#%}]})}}/
 };
 
 
@@ -30,7 +30,7 @@ inline.reflink = replace(inline.reflink)('inside', inline._inside)();
 inline.reffn = replace(inline.reffn)('inside', inline._inside)();
 
 // Update RegExp for text/escape to stop at strikethrough
-inline.text = replace(inline.text)(']|', '~]|')('|', '|https?://|')('~]|', '~]|' + inline.template.source + '|')();
+inline.text = replace(inline.text)(']|', '~]|')('|', '|https?://|')('~]|', '~]|' + inline.variable.source + '|')();
 inline.escape = replace(inline.escape)('])', '~|])')();
 
 module.exports = inline;

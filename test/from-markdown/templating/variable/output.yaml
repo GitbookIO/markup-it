@@ -9,3 +9,5 @@ nodes:
         isVoid: true
         data:
           key: "name"
+      - kind: text
+        text: ""

@@ -22,7 +22,8 @@ const block = {
         bullet_ol: /(?:[*+-])/,
         checkbox: /^\[([ x])\] +/,
         bulletAndSpaces: /^ *([*+-]|\d+\.) +/
-    }
+    },
+    template: /^{([#%{])\s*(.*?)\s*(?=[#%}]})[#%}]}/
 };
 
 const _tag = '(?!(?:'
