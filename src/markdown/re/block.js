@@ -1,3 +1,4 @@
+/* eslint-disable no-unexpected-multiline, no-spaced-func*/
 const { replace } = require('../utils');
 const heading = require('./heading');
 
@@ -9,7 +10,7 @@ const block = {
     html:       /^ *(?:comment *(?:\n|\s*$)|closed *(?:\n{2,}|\s*$)|closing *(?:\n{2,}|\s*$))/,
     def:        /^ *\[([^\]]+)\]: *<?([^\s>]+)>?(?: +["(]([^\n]+)[")])? *(?:\n|$)/,
     footnote:   /^\[\^([^\]]+)\]: ([^\n]+)/,
-    paragraph:  /^((?:[^\n]+\n?(?!hr|heading|lheading|blockquote|tag|def|math))+)\n*/,
+    paragraph:  /^((?:[^\n]+\n?(?!hr|heading|lheading|blockquote|tag|def|math|comment))+)\n*/,
     text:       /^[^\n]+/,
     fences:     /^ *(`{3,}|~{3,}) *(\S+)? *\n([\s\S]+?[\s]*)\n *\1 *(?:\n|$)/,
     yamlHeader: /^ *(?=```)/,
@@ -23,7 +24,8 @@ const block = {
         checkbox: /^\[([ x])\] +/,
         bulletAndSpaces: /^ *([*+-]|\d+\.) +/
     },
-    template: /^{([#%{])\s*(.*?)\s*(?=[#%}]})[#%}]}/
+    block: /^{%\s*(.*?)\s*(?=[#%}]})%}/,
+    comment: /^{#\s*(.*?)\s*(?=[#%}]})#}/
 };
 
 const _tag = '(?!(?:'
@@ -43,11 +45,20 @@ block.list.block = replace(block.list.block)(/bullet/g, block.list.bullet)();
 
 block.html = replace(block.html)('comment', /<!--[\s\S]*?-->/)('closed', /<(tag)[\s\S]+?<\/\1>/)('closing', /<tag(?:"[^"]*"|'[^']*'|[^'">])*?>/)(/tag/g, _tag)();
 
-block.paragraph = replace(block.paragraph)('hr', block.hr)('heading', heading.normal)('lheading', heading.line)('blockquote', block.blockquote)('tag', '<' + _tag)('def', block.def)('math', block.math)();
+block.paragraph = replace(block.paragraph)
+    ('hr', block.hr)
+    ('heading', heading.normal)
+    ('lheading', heading.line)
+    ('blockquote', block.blockquote)
+    ('tag', '<' + _tag)
+    ('def', block.def)
+    ('math', block.math)
+    ('comment', block.comment)
+    ();
 
 block.paragraph = replace(block.paragraph)('(?!', '(?!'
         + block.fences.source.replace('\\1', '\\2') + '|'
-        + block.list.block_ol.source.replace('\\1', '\\3')
-        + '|')();
+        + block.list.block_ol.source.replace('\\1', '\\3') + '|'
+    )();
 
 module.exports = block;
