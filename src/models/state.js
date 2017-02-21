@@ -161,12 +161,12 @@ class State extends Record(DEFAULTS) {
     }
 
     /**
-     * Push a new text node.
+     * Generate a new text container.
      *
      * @param  {String} text
-     * @return {State} state
+     * @return {Node} text
      */
-    pushText(text) {
+    genText(text = '') {
         const { marks } = this;
 
         let node = Text.createFromString(text, marks);
@@ -178,7 +178,19 @@ class State extends Record(DEFAULTS) {
             });
         }
 
-        return this.push(node);
+        return node;
+    }
+
+    /**
+     * Push a new text node.
+     *
+     * @param  {String} text
+     * @return {State} state
+     */
+    pushText(text) {
+        return this.push(
+            this.genText(text)
+        );
     }
 
     /**
@@ -220,12 +232,20 @@ class State extends Record(DEFAULTS) {
      * Parse current text buffer
      * @return {State} state
      */
-    lex(rest = '', opts = {}) {
+    lex(opts = {}) {
         const state = this;
         const { text } = state;
+        const {
+            // Non parsed content left in the stack
+            rest = '',
+            // Should we trim the rest
+            trim = true,
+            // When should we stop lexing
+            stopAt = (newState, prevState) => null
+        } = opts;
 
         let startState = state;
-        const trimedRest = opts.trim !== false ? rest.trim() : rest;
+        const trimedRest = trim ? rest.trim() : rest;
         if (trimedRest) {
             startState = startState.pushText(trimedRest);
         }
@@ -247,11 +267,20 @@ class State extends Record(DEFAULTS) {
         if (!newState) {
             return state
                 .skip(1)
-                .lex(rest + text[0], opts);
+                .lex({
+                    ...opts,
+                    rest: rest + text[0]
+                });
+        }
+
+        // Should we stop ?
+        const stop = stopAt(newState, state);
+        if (stop) {
+            return stop;
         }
 
         // Otherwise we keep parsing
-        return newState.lex(rest, opts);
+        return newState.lex(opts);
     }
 
     /**

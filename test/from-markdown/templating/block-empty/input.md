@@ -1,5 +1,3 @@
 Hello world
 
-{% hint type="info" %}
-Inside the alert
-{% endhint %}
+{% youtube src="https://www.youtube.com/watch?v=XXXXXXX" %}{% endyoutube %}

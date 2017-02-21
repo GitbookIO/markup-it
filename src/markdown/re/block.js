@@ -10,7 +10,7 @@ const block = {
     html:       /^ *(?:comment *(?:\n|\s*$)|closed *(?:\n{2,}|\s*$)|closing *(?:\n{2,}|\s*$))/,
     def:        /^ *\[([^\]]+)\]: *<?([^\s>]+)>?(?: +["(]([^\n]+)[")])? *(?:\n|$)/,
     footnote:   /^\[\^([^\]]+)\]: ([^\n]+)/,
-    paragraph:  /^((?:[^\n]+\n?(?!hr|heading|lheading|blockquote|tag|def|math|comment))+)\n*/,
+    paragraph:  /^((?:[^\n]+\n?(?!hr|heading|lheading|blockquote|tag|def|math|comment|templateBlock))+)\n*/,
     text:       /^[^\n]+/,
     fences:     /^ *(`{3,}|~{3,}) *(\S+)? *\n([\s\S]+?[\s]*)\n *\1 *(?:\n|$)/,
     yamlHeader: /^ *(?=```)/,
@@ -24,7 +24,7 @@ const block = {
         checkbox: /^\[([ x])\] +/,
         bulletAndSpaces: /^ *([*+-]|\d+\.) +/
     },
-    block: /^{%\s*(.*?)\s*(?=[#%}]})%}/,
+    templateBlock: /^{%\s*(.*?)\s*(?=[#%}]})%}/,
     comment: /^{#\s*(.*?)\s*(?=[#%}]})#}/
 };
 
@@ -53,6 +53,7 @@ block.paragraph = replace(block.paragraph)
     ('tag', '<' + _tag)
     ('def', block.def)
     ('math', block.math)
+    ('templateBlock', block.templateBlock)
     ('comment', block.comment)
     ();
 
