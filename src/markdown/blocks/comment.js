@@ -14,7 +14,7 @@ const serialize = Serializer()
 
         return state
             .shift()
-            .write(`{% ${text} %}`);
+            .write(`{# ${text} #}`);
     });
 
 /**
