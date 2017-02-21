@@ -8,7 +8,8 @@ nodes:
     type: template_block
     data:
       tag: hint
-      props: {}
+      props:
+        type: "info"
     nodes:
       - kind: block
         type: paragraph
