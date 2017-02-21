@@ -55,44 +55,44 @@ const deserialize = Deserializer()
         const text = match[1].trim();
         const tagData = liquid.parseTag(text);
 
+        const node = Block.create({
+            type: BLOCKS.TEMPLATE_BLOCK,
+            data: tagData,
+            nodes: List([ state.genText() ])
+        });
+
         // This node is temporary
         if (isClosingTag(tagData.tag)) {
-            const node = Block.create({
-                type: BLOCKS.TEMPLATE_BLOCK,
-                isVoid: true,
-                data: tagData
-            });
-
             return state.push(node);
         }
 
-        const originState = state;
+        // By default it'll add this node as a single node.
+        state = state.push(node);
+
         const resultState = state.lex({
             stopAt(newState) {
                 // What nodes have been added in this iteration?
-                const added = newState.nodes.skip(originState.nodes.size);
+                const added = newState.nodes.skip(state.nodes.size);
 
-                const between = added.takeUntil(node => (
-                    node.type == BLOCKS.TEMPLATE_BLOCK &&
-                    isClosingTagFor(node.data.get('tag'), tagData.tag)
+                const between = added.takeUntil(child => (
+                    child.type == BLOCKS.TEMPLATE_BLOCK &&
+                    isClosingTagFor(child.data.get('tag'), tagData.tag)
                 ));
 
                 if (between.size == added.size) {
                     return;
                 }
 
-                const beforeNodes = originState.nodes;
+                // We skip the default node.
+                const beforeNodes = state.nodes.butLast();
                 const afterNodes = added.skip(between.size);
-
-                const node = Block.create({
-                    type: BLOCKS.TEMPLATE_BLOCK,
-                    data: tagData,
-                    nodes: between.size == 0 ? List([ state.genText() ]) : between
-                });
 
                 return newState.merge({
                     nodes: beforeNodes
-                        .push(node)
+                        .push(node.merge({
+                            isVoid: false,
+                            nodes: between.size == 0 ? List([ state.genText() ]) : between
+                        }))
                         .concat(afterNodes)
                         .filterNot((child) => (
                             child.type == BLOCKS.TEMPLATE_BLOCK &&
