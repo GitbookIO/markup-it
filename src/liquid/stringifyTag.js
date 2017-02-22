@@ -46,7 +46,6 @@ function stringifyProps(props) {
  * @return {String}
  */
 function stringifyTag({ tag, props }) {
-    console.log({ tag, props });
     const _props = stringifyProps(props);
     return `{% ${tag}${_props ? ' ' + _props : ''} %}`;
 }
