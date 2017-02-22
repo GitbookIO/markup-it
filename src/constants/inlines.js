@@ -11,6 +11,5 @@ module.exports = {
     FOOTNOTE_REF:      'footnote-ref',
     MATH:              'math',
     // Tempalting
-    TEMPLATE_VARIABLE: 'template_variable',
-    TEMPLATE:          'template'
+    TEMPLATE_VARIABLE: 'template_variable'
 };
