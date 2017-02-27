@@ -30,16 +30,20 @@ function parseProps(text) {
     let match, args = 0;
     const result = {};
 
-    while (match = text.match(lexical.prop)) {
-        if (match[2]) {
-            result[match[2]] = parseLiteral(match[3]);
-        } else {
-            result[args] = parseLiteral(match[1]);
-            args++;
-        }
+    do {
+        match = text.match(lexical.prop);
 
-        text = text.slice(match[0].length);
-    }
+        if (match) {
+            if (match[2]) {
+                result[match[2]] = parseLiteral(match[3]);
+            } else {
+                result[args] = parseLiteral(match[1]);
+                args++;
+            }
+
+            text = text.slice(match[0].length);
+        }
+    } while (match);
 
     return Map(result);
 }
