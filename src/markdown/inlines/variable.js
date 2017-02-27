@@ -6,7 +6,7 @@ const reInline = require('../re/inline');
  * @type {Serializer}
  */
 const serialize = Serializer()
-    .matchType(INLINES.TEMPLATE_VARIABLE)
+    .matchType(INLINES.VARIABLE)
     .then((state) => {
         const node = state.peek();
         const { data } = node;
@@ -28,7 +28,7 @@ const deserialize = Deserializer()
         }
 
         const node = Inline.create({
-            type: INLINES.TEMPLATE_VARIABLE,
+            type: INLINES.VARIABLE,
             isVoid: true,
             data: {
                 key: match[1]
