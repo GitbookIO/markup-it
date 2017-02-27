@@ -63,7 +63,6 @@ const deserializeFences = Deserializer()
         // Extract language syntax
         let data;
         if (Boolean(match[2])) {
-            console.log('unescape', match[2], utils.unescape(match[2].trim()));
             data = {
                 syntax: utils.unescape(match[2].trim())
             };
