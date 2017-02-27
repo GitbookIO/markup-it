@@ -23,6 +23,11 @@ const REPLACEMENTS = Map([
     [ '|', '\\|' ]
 ]);
 
+// Replacements for escaping urls (links and images)
+const URL_REPLACEMENTS = REPLACEMENTS.merge({
+    ' ': '\ '
+});
+
 /**
  * Escape markdown syntax
  * We escape only basic XML entities
@@ -46,6 +51,27 @@ function escapeMarkdown(str, escapeXML) {
 function unescapeMarkdown(str) {
     str = unescapeWith(REPLACEMENTS, str);
     return htmlEntities.decode(str);
+}
+
+
+/**
+ * Escape an url
+ *
+ * @param {String} str
+ * @return {String}
+ */
+function escapeURL(str) {
+    return escapeWith(URL_REPLACEMENTS, str);
+}
+
+/**
+ * Unescape  an url
+ *
+ * @param {String} str
+ * @return {String}
+ */
+function unescapeURL(str) {
+    return unescapeWith(URL_REPLACEMENTS, str);
 }
 
 
@@ -92,6 +118,10 @@ function resolveRef(state, refID) {
 module.exports = {
     escape: escapeMarkdown,
     unescape: unescapeMarkdown,
+
+    escapeURL,
+    unescapeURL,
+
     replace,
     resolveRef
 };

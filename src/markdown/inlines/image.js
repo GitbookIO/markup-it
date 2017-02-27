@@ -41,9 +41,12 @@ const serialize = Serializer()
     .then((state) => {
         const node = state.peek();
         const { data } = node;
-        const alt   = data.get('alt') || '';
-        const src   = data.get('src') || '';
-        const title = data.get('title') || '';
+
+        // Escape the url
+        const src = utils.escapeURL(data.get('src') || '');
+
+        const alt = utils.escape(data.get('alt') || '');
+        const title = utils.escape(data.get('title') || '');
 
         let output;
 

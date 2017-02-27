@@ -15,7 +15,7 @@ const serialize = Serializer()
         const inner = state.use('inline').serialize(nodes);
 
         // Escape the href
-        const href = utils.escape(data.get('href', ''));
+        const href = utils.escapeURL(data.get('href', ''));
 
         // Escape the title
         let title = utils.escape(data.get('title', ''));
