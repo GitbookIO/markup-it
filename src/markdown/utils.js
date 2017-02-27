@@ -7,7 +7,7 @@ const xmlEntities = new entities.XmlEntities();
 
 // Replacements for Markdown escaping
 // See http://spec.commonmark.org/0.15/#backslash-escapes
-const REPLACEMENTS = Map([
+const REPLACEMENTS_ESCAPE = Map([
     [ '*', '\\*' ],
     [ '#', '\\#' ],
     // GitHub doesn't escape slashes, and render the backslash in that cause
@@ -22,9 +22,13 @@ const REPLACEMENTS = Map([
     [ '_', '\\_' ],
     [ '|', '\\|' ]
 ]);
+// We do not escape all characters, but we want to unescape them all.
+const REPLACEMENTS_UNESCAPE = REPLACEMENTS_ESCAPE.merge({
+    '+': '\\+'
+});
 
 // Replacements for escaping urls (links and images)
-const URL_REPLACEMENTS_UNESCAPE = REPLACEMENTS.merge({
+const URL_REPLACEMENTS_UNESCAPE = REPLACEMENTS_UNESCAPE.merge({
     ' ': '\\ '
 });
 const URL_REPLACEMENTS_ESCAPE = Map([
@@ -42,7 +46,7 @@ const URL_REPLACEMENTS_ESCAPE = Map([
  * @return {String}
  */
 function escapeMarkdown(str, escapeXML) {
-    str = escapeWith(REPLACEMENTS, str);
+    str = escapeWith(REPLACEMENTS_ESCAPE, str);
     return escapeXML === false ? str : xmlEntities.encode(str);
 }
 
@@ -54,7 +58,7 @@ function escapeMarkdown(str, escapeXML) {
  * @return {String}
  */
 function unescapeMarkdown(str) {
-    str = unescapeWith(REPLACEMENTS, str);
+    str = unescapeWith(REPLACEMENTS_UNESCAPE, str);
     return htmlEntities.decode(str);
 }
 
