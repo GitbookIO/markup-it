@@ -13,8 +13,12 @@ const serialize = Serializer()
         const node = state.peek();
         const { data, nodes } = node;
         const inner = state.use('inline').serialize(nodes);
-        const href   = data.get('href', '');
-        let title = data.get('title', '');
+
+        // Escape the href
+        const href = utils.escape(data.get('href', ''));
+
+        // Escape the title
+        let title = utils.escape(data.get('title', ''));
 
         if (title) {
             title = title ? ` "${title}"` : '';
