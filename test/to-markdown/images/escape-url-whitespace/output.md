@@ -1,1 +1,1 @@
-![foo](/url\ Cool "title")
+![foo](/url%20Cool "title")

@@ -24,17 +24,16 @@ const REPLACEMENTS_ESCAPE = Map([
 ]);
 // We do not escape all characters, but we want to unescape them all.
 const REPLACEMENTS_UNESCAPE = REPLACEMENTS_ESCAPE.merge({
+    ' ': '\\ ',
     '+': '\\+'
 });
 
 // Replacements for escaping urls (links and images)
-const URL_REPLACEMENTS_UNESCAPE = REPLACEMENTS_UNESCAPE.merge({
-    ' ': '\\ '
-});
+const URL_REPLACEMENTS_UNESCAPE = REPLACEMENTS_UNESCAPE;
 const URL_REPLACEMENTS_ESCAPE = Map([
     [ '(', '\\(' ],
     [ ')', '\\)' ],
-    [ ' ', '\\ ' ]
+    [ ' ', '%20' ]
 ]);
 
 /**
