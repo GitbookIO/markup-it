@@ -6,16 +6,11 @@ nodes:
         text: "Hello world"
   - kind: block
     type: template_block
+    isVoid: true
     data:
       tag: import
       props:
         0: "hello.md"
-    nodes:
-      - kind: block
-        type: unstyled
-        nodes:
-          - kind: text
-            text: ""
   - kind: block
     type: paragraph
     nodes:

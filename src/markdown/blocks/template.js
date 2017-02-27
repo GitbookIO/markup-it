@@ -32,14 +32,23 @@ const serialize = Serializer()
         const { data } = node;
         const tag = data.get('tag');
         const props = data.get('props');
-        const inner = state.serialize(node.nodes);
 
         const startTag = liquid.stringifyTag({ tag, props });
         const endTag = liquid.stringifyTag({ tag: `end${tag}` });
+        const split = node.kind == 'block' ? '\n' : '';
+        const end = node.kind == 'block' ? '\n\n' : '';
+
+        if (node.isVoid) {
+            return state
+                .shift()
+                .write(`${startTag}${end}`);
+        }
+
+        const inner = state.serialize(node.nodes);
 
         return state
             .shift()
-            .write(`${startTag}\n${inner}\n${endTag}\n\n`);
+            .write(`${startTag}${split}${inner}${split}${endTag}${end}`);
     });
 
 /**
@@ -58,6 +67,7 @@ const deserialize = Deserializer()
         const node = Block.create({
             type: BLOCKS.TEMPLATE_BLOCK,
             data: tagData,
+            isVoid: true,
             nodes: List([ state.genText() ])
         });
 

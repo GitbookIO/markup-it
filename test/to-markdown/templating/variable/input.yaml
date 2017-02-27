@@ -5,7 +5,7 @@ nodes:
       - kind: text
         text: "Hello "
       - kind: inline
-        type: template_variable
+        type: variable
         isVoid: true
         data:
           key: "name"

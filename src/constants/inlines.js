@@ -10,6 +10,7 @@ module.exports = {
     IMAGE:             'image',
     FOOTNOTE_REF:      'footnote-ref',
     MATH:              'math',
-    // Tempalting
-    TEMPLATE_VARIABLE: 'template_variable'
+    // Templating
+    TEMPLATE_VARIABLE: 'variable',
+    TEMPLATE_INLINE:   'template_inline'
 };

@@ -16,16 +16,16 @@ const block = {
     yamlHeader: /^ *(?=```)/,
     math:       /^ *(\${2,}) *(\n+[\s\S]+?)\s*\1 *(?:\n|$)/,
     list:       {
-        block:     /^( *)(bullet) [\s\S]+?(?:hr|def|\n{2,}(?! )(?!\1allbull )\n*|\s*$)/,
-        item:      /^( *)(bullet) [^\n]*(?:\n(?!\1allbull )[^\n]*)*/,
-        bullet:    /(?:[*+-]|\d+\.)/,
-        bullet_ul: /(?:\d+\.)/,
-        bullet_ol: /(?:[*+-])/,
-        checkbox: /^\[([ x])\] +/,
+        block:           /^( *)(bullet) [\s\S]+?(?:hr|def|\n{2,}(?! )(?!\1allbull )\n*|\s*$)/,
+        item:            /^( *)(bullet) [^\n]*(?:\n(?!\1allbull )[^\n]*)*/,
+        bullet:          /(?:[*+-]|\d+\.)/,
+        bullet_ul:       /(?:\d+\.)/,
+        bullet_ol:       /(?:[*+-])/,
+        checkbox:        /^\[([ x])\] +/,
         bulletAndSpaces: /^ *([*+-]|\d+\.) +/
     },
-    templateBlock: /^{%\s*(.*?)\s*(?=[#%}]})%}/,
-    comment: /^{#\s*(.*?)\s*(?=[#%}]})#}/
+    templateBlock: /^{% *(.*?) *(?=[#%}]})%}/,
+    comment:       /^{#\s*(.*?)\s*(?=[#%}]})#}/
 };
 
 const _tag = '(?!(?:'
