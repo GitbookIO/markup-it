@@ -24,8 +24,8 @@ const quotedLine = new RegExp(`^${quoted.source}$`);
 const assignment = new RegExp(`(${identifier.source})\s*=\s*(${literal.source})`);
 
 // Argument or kwargs
-const delimiter = /(?:\s*,\s*|$)/;
-const prop = new RegExp(`(?:(${assignment.source}|${literal.source}))(?:${delimiter.source})`);
+const delimiter = /(?:\s*|^)/;
+const prop = new RegExp(`(?:${delimiter.source})(?:(${assignment.source}|${literal.source}))`);
 
 module.exports = {
     prop,
