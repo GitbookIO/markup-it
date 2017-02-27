@@ -1,5 +1,6 @@
 const { Map } = require('immutable');
 const lexical = require('./lexical');
+const { unescape } = require('./escape');
 
 /**
  * Parse a literal value.
@@ -14,7 +15,7 @@ function parseLiteral(str) {
         return str.toLowerCase() === 'true';
     }
     else if (str.match(lexical.quotedLine)) {
-        return str.slice(1, -1);
+        return unescape(str.slice(1, -1));
     }
 
     return str;

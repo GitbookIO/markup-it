@@ -1,5 +1,6 @@
 const is = require('is');
 const { Map } = require('immutable');
+const { escape } = require('./escape');
 
 /**
  * Stringify a literal
@@ -11,7 +12,7 @@ function stringifyLiteral(value) {
         return (value ? 'true' : 'false');
     }
     else if (is.string(value)) {
-        return '"' + value.replace(/\"/g,'\\"') + '"';
+        return '"' + escape(value) + '"';
     }
     else {
         return String(value);

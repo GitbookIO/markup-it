@@ -1,6 +1,6 @@
 // quote related
-const singleQuoted = /'[^']*'/;
-const doubleQuoted = /"[^"]*"/;
+const singleQuoted = /'(?:[^'\\]|\\.)*'/;
+const doubleQuoted = /"(?:[^"\\]|\\.)*"/;
 const quoted = new RegExp(`${singleQuoted.source}|${doubleQuoted.source}`);
 
 // basic types
