@@ -73,9 +73,9 @@ const deserializeNormal = Deserializer()
         }
 
         const data = Map({
-            alt: match[1],
-            src: match[2],
-            title: match[3]
+            alt:   match[1] ? utils.unescape(match[1]) : undefined,
+            src:   utils.unescapeURL(match[2]),
+            title: match[3] ? utils.unescape(match[3]) : undefined
         }).filter(Boolean);
 
         const node = Inline.create({
