@@ -24,9 +24,14 @@ const REPLACEMENTS = Map([
 ]);
 
 // Replacements for escaping urls (links and images)
-const URL_REPLACEMENTS = REPLACEMENTS.merge({
+const URL_REPLACEMENTS_UNESCAPE = REPLACEMENTS.merge({
     ' ': '\\ '
 });
+const URL_REPLACEMENTS_ESCAPE = Map([
+    [ '(', '\\(' ],
+    [ ')', '\\)' ],
+    [ ' ', '\\ ' ]
+]);
 
 /**
  * Escape markdown syntax
@@ -53,7 +58,6 @@ function unescapeMarkdown(str) {
     return htmlEntities.decode(str);
 }
 
-
 /**
  * Escape an url
  *
@@ -61,7 +65,7 @@ function unescapeMarkdown(str) {
  * @return {String}
  */
 function escapeURL(str) {
-    return escapeWith(URL_REPLACEMENTS, str);
+    return escapeWith(URL_REPLACEMENTS_ESCAPE, str);
 }
 
 /**
@@ -71,7 +75,7 @@ function escapeURL(str) {
  * @return {String}
  */
 function unescapeURL(str) {
-    return unescapeWith(URL_REPLACEMENTS, str);
+    return unescapeWith(URL_REPLACEMENTS_UNESCAPE, str);
 }
 
 
