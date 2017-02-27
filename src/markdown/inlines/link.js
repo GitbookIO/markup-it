@@ -45,8 +45,8 @@ const deserializeNormal = Deserializer()
             .deserialize(inner);
 
         const data = Map({
-            href: match[2],
-            title: match[3]
+            href:  utils.unescapeURL(match[2]),
+            title: match[3] ? utils.unescape(match[3]) : undefined
         }).filter(Boolean);
 
         const node = Inline.create({
@@ -70,7 +70,7 @@ const deserializeUrl = Deserializer()
             return;
         }
 
-        const href = match[1];
+        const href = utils.unescapeURL(match[1]);
 
         const node = Inline.create({
             type: INLINES.LINK,
@@ -95,13 +95,12 @@ const deserializeAutolink = Deserializer()
             return;
         }
 
-        let text, href;
+        const text = match[1];
+        let href;
 
         if (match[2] === '@') {
-            text = match[1];
             href = `mailto:${text}`;
         } else {
-            text = match[1];
             href = text;
         }
 
