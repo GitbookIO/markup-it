@@ -25,7 +25,7 @@ const REPLACEMENTS = Map([
 
 // Replacements for escaping urls (links and images)
 const URL_REPLACEMENTS = REPLACEMENTS.merge({
-    ' ': '\ '
+    ' ': '\\ '
 });
 
 /**
