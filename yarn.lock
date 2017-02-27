@@ -1004,13 +1004,13 @@ debug@2.2.0, debug@~2.2.0:
   dependencies:
     ms "0.7.1"
 
-debug@^2.1.1:
+debug@^2.1.1, debug@^2.2.0:
   version "2.3.0"
   resolved "https://registry.yarnpkg.com/debug/-/debug-2.3.0.tgz#3912dc55d7167fc3af17d2b85c13f93deaedaa43"
   dependencies:
     ms "0.7.2"
 
-debug@^2.2.0, debug@^2.3.2:
+debug@^2.3.2:
   version "2.3.2"
   resolved "https://registry.yarnpkg.com/debug/-/debug-2.3.2.tgz#94cb466ef7d6d2c7e5245cdd6e4104f2d0d70d30"
   dependencies:
@@ -2706,9 +2706,9 @@ slash@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/slash/-/slash-1.0.0.tgz#c41f2f6c39fc16d1cd17ad4b5d896114ae470d55"
 
-slate@0.16.8:
-  version "0.16.8"
-  resolved "https://registry.yarnpkg.com/slate/-/slate-0.16.8.tgz#404053b9721ee15c1d3191e8a6ef01c6055b3b76"
+slate@^0.16.22:
+  version "0.16.22"
+  resolved "https://registry.yarnpkg.com/slate/-/slate-0.16.22.tgz#c08462f0f5ef74fa5e9c96b94863e4194d106673"
   dependencies:
     cheerio "^0.22.0"
     debug "^2.3.2"

@@ -1,3 +1,8 @@
 language: node_js
 node_js:
   - "stable"
+
+# Test and lint
+script:
+  - npm run test
+  - npm run lint

@@ -1,6 +1,6 @@
 {
   "name": "markup-it",
-  "version": "3.3.2",
+  "version": "3.3.3",
   "description": "Pipeline for working with markup input (for example Markdown)",
   "main": "lib/index.js",
   "scripts": {
@@ -36,7 +36,7 @@
     "eslint-config-gitbook": "^1.4.0",
     "expect": "^1.20.2",
     "mocha": "^2.4.5",
-    "slate": "0.16.8"
+    "slate": "^0.16.22"
   },
   "dependencies": {
     "asciidoctor.js": "^1.5.5-4",

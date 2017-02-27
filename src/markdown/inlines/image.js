@@ -41,9 +41,12 @@ const serialize = Serializer()
     .then((state) => {
         const node = state.peek();
         const { data } = node;
-        const alt   = data.get('alt') || '';
-        const src   = data.get('src') || '';
-        const title = data.get('title') || '';
+
+        // Escape the url
+        const src = utils.escapeURL(data.get('src') || '');
+
+        const alt = utils.escape(data.get('alt') || '');
+        const title = utils.escape(data.get('title') || '');
 
         let output;
 
@@ -70,9 +73,9 @@ const deserializeNormal = Deserializer()
         }
 
         const data = Map({
-            alt: match[1],
-            src: match[2],
-            title: match[3]
+            alt:   match[1] ? utils.unescape(match[1]) : undefined,
+            src:   utils.unescapeURL(match[2]),
+            title: match[3] ? utils.unescape(match[3]) : undefined
         }).filter(Boolean);
 
         const node = Inline.create({

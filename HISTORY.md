@@ -2,6 +2,12 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+### 3.3.3
+
+- Fix parsing of images and links with parenthesis
+- Fix parsing of escaped code block syntax
+- **Important:** whitespace non-escaped are no longer supported in images and links.
+
 ### 3.3.2
 
 - Fix crash during serialization of HTML nodes to markdown
