@@ -1,4 +1,5 @@
 const is = require('is');
+const { Map } = require('immutable');
 
 /**
  * Stringify a literal
@@ -23,13 +24,13 @@ function stringifyLiteral(value) {
  * @return {String}
  */
 function stringifyProps(props) {
-    return props
+    return (Map.isMap(props) ? props : Map(props))
         .entrySeq()
         .map(([ key, value ]) => {
-            const isKwargs = is.number(key);
+            const isArgs = Number(key) >= 0;
             value = stringifyLiteral(value);
 
-            if (!isKwargs) {
+            if (isArgs) {
                 return value;
             }
 

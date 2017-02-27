@@ -1,4 +1,5 @@
 const { List } = require('immutable');
+const trimTrailingLines = require('trim-trailing-lines');
 const { Serializer, Deserializer, Block, BLOCKS } = require('../../');
 const reBlock = require('../re/block');
 const liquid = require('../../liquid');
@@ -44,7 +45,7 @@ const serialize = Serializer()
                 .write(`${startTag}${end}`);
         }
 
-        const inner = state.serialize(node.nodes);
+        const inner = trimTrailingLines(state.serialize(node.nodes));
 
         return state
             .shift()
