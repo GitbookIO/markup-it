@@ -10,5 +10,5 @@ nodes:
     data:
       tag: someblock
       props:
-        a: 10
-        b: 30
+        a: "Hello"
+        b: "World"

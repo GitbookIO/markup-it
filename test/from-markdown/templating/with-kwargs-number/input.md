@@ -1,3 +1,3 @@
 Hello world
 
-{% someblock a="Hello" b="World" %}
+{% someblock a=10 b=30 %}
