@@ -5,11 +5,10 @@ nodes:
       - kind: text
         text: "Hello world"
   - kind: block
-    type: template_block
+    type: x-youtube
+    isVoid: true
     data:
-      tag: youtube
-      props:
-        src: "https://www.youtube.com/watch?v=XXXXXXX"
+      src: "https://www.youtube.com/watch?v=XXXXXXX"
     nodes:
       - kind: block
         type: unstyled

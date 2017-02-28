@@ -22,11 +22,11 @@ function parseLiteral(str) {
 }
 
 /**
- * Parse props.
+ * Parse data of the block.
  * @param  {String} text
  * @return {Map} props
  */
-function parseProps(text) {
+function parseData(text) {
     let match, args = 0;
     const result = {};
 
@@ -51,14 +51,14 @@ function parseProps(text) {
 /**
  * Parse the inner text of a tag.
  * @param  {String} text
- * @return {Object} { tag: String, props: Map }
+ * @return {Object} { tag: String, data: Map }
  */
 function parseTag(text) {
     const match = text.match(lexical.tagLine);
 
     return {
         tag: match[1],
-        props: parseProps(match[2])
+        data: parseData(match[2])
     };
 }
 

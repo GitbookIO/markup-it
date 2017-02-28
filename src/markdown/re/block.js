@@ -10,7 +10,7 @@ const block = {
     html:       /^ *(?:comment *(?:\n|\s*$)|closed *(?:\n{2,}|\s*$)|closing *(?:\n{2,}|\s*$))/,
     def:        /^ *\[([^\]]+)\]: *<?([^\s>]+)>?(?: +["(]([^\n]+)[")])? *(?:\n|$)/,
     footnote:   /^\[\^([^\]]+)\]: ([^\n]+)/,
-    paragraph:  /^((?:[^\n]+\n?(?!hr|heading|lheading|blockquote|tag|def|math|comment|templateBlock))+)\n*/,
+    paragraph:  /^((?:[^\n]+\n?(?!hr|heading|lheading|blockquote|tag|def|math|comment|customBlock))+)\n*/,
     text:       /^[^\n]+/,
     fences:     /^ *(`{3,}|~{3,}) *(\S+)? *\n([\s\S]+?[\s]*)\n *\1 *(?:\n|$)/,
     yamlHeader: /^ *(?=```)/,
@@ -24,8 +24,8 @@ const block = {
         checkbox:        /^\[([ x])\] +/,
         bulletAndSpaces: /^ *([*+-]|\d+\.) +/
     },
-    templateBlock: /^{% *(.*?) *(?=[#%}]})%}/,
-    comment:       /^{#\s*(.*?)\s*(?=[#%}]})#}/
+    customBlock: /^{% *(.*?) *(?=[#%}]})%}/,
+    comment:     /^{#\s*(.*?)\s*(?=[#%}]})#}/
 };
 
 const _tag = '(?!(?:'
@@ -53,7 +53,7 @@ block.paragraph = replace(block.paragraph)
     ('tag', '<' + _tag)
     ('def', block.def)
     ('math', block.math)
-    ('templateBlock', block.templateBlock)
+    ('customBlock', block.customBlock)
     ('comment', block.comment)
     ();
 

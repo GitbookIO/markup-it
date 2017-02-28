@@ -1,5 +1,4 @@
 const is = require('is');
-const { Map } = require('immutable');
 const { escape } = require('./escape');
 
 /**
@@ -20,12 +19,12 @@ function stringifyLiteral(value) {
 }
 
 /**
- * Stringify a map of props
- * @param  {Map} props
+ * Stringify a map of properties.
+ * @param  {Map} data
  * @return {String}
  */
-function stringifyProps(props) {
-    return (Map.isMap(props) ? props : Map(props))
+function stringifyData(data) {
+    return data
         .entrySeq()
         .map(([ key, value ]) => {
             const isArgs = Number(key) >= 0;
@@ -41,15 +40,15 @@ function stringifyProps(props) {
 }
 
 /**
- * Stringify a tag.
+ * Stringify a custom liquid tag.
+ *
  * @param  {Object} tagData
- *    [tagData.tag] {String}
- *    [tagData.props] {Map}
+ *    [tagData.type] {String}
+ *    [tagData.data] {Map}
  * @return {String}
  */
-function stringifyTag({ tag, props }) {
-    const _props = stringifyProps(props);
-    return `{% ${tag}${_props ? ' ' + _props : ''} %}`;
+function stringifyTag({ tag, data }) {
+    return `{% ${tag}${data && data.size > 0 ? ' ' + stringifyData(data) : ''} %}`;
 }
 
 module.exports = stringifyTag;

@@ -10,7 +10,7 @@ const list = require('./list');
 const definition = require('./definition');
 const math = require('./math');
 const comment = require('./comment');
-const template = require('./template');
+const custom = require('./custom');
 
 module.exports = [
     definition,
@@ -23,7 +23,7 @@ module.exports = [
     hr,
     math,
     comment,
-    template,
+    custom,
     paragraph,
     unstyled
 ];

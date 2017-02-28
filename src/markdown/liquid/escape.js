@@ -1,5 +1,5 @@
 const { Map } = require('immutable');
-const { escapeWith, unescapeWith } = require('../utils/escape');
+const { escapeWith, unescapeWith } = require('../../utils/escape');
 
 // Replacements for properties escapement
 const REPLACEMENTS = Map([

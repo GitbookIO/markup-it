@@ -2,11 +2,11 @@ const { Serializer, Deserializer, Block, BLOCKS } = require('../../');
 const reBlock = require('../re/block');
 
 /**
- * Serialize a templating comment to markdown
+ * Serialize a comment to markdown
  * @type {Serializer}
  */
 const serialize = Serializer()
-    .matchType(BLOCKS.TEMPLATE_COMMENT)
+    .matchType(BLOCKS.COMMENT)
     .then((state) => {
         const node = state.peek();
         const { data } = node;
@@ -18,7 +18,7 @@ const serialize = Serializer()
     });
 
 /**
- * Deserialize a templating comment to a node.
+ * Deserialize a comment to a node.
  * @type {Deserializer}
  */
 const deserialize = Deserializer()
@@ -28,7 +28,7 @@ const deserialize = Deserializer()
         }
 
         const node = Block.create({
-            type: BLOCKS.TEMPLATE_COMMENT,
+            type: BLOCKS.COMMENT,
             isVoid: true,
             data: {
                 text: match[1].trim()
