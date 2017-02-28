@@ -5,7 +5,7 @@ nodes:
       - kind: text
         text: Hello world
   - kind: block
-    type: template_block
+    type: x-method
     nodes:
       - kind: block
         type: header_two
@@ -20,7 +20,7 @@ nodes:
           - kind: text
             text: The first thing is to get the GitBook API client.
       - kind: block
-        type: template_block
+        type: x-sample
         nodes:
           - kind: block
             type: code_block
@@ -33,11 +33,9 @@ nodes:
             data:
               syntax: bash
         data:
-          tag: sample
-          props:
-            lang: js
+          lang: js
       - kind: block
-        type: template_block
+        type: x-sample
         nodes:
           - kind: block
             type: code_block
@@ -50,9 +48,4 @@ nodes:
             data:
               syntax: bash
         data:
-          tag: sample
-          props:
-            lang: go
-    data:
-      tag: method
-      props: {}
+          lang: go

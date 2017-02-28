@@ -5,9 +5,7 @@ nodes:
       - kind: text
         text: "Hello world"
   - kind: block
-    type: template_block
+    type: x-someblock
     isVoid: true
     data:
-      tag: someblock
-      props:
-        message: 'Hello "world"'
+      message: 'Hello "world"'

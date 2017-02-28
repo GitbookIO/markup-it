@@ -5,7 +5,7 @@ nodes:
       - kind: text
         text: "Hello world"
   - kind: block
-    type: template_comment
+    type: comment
     isVoid: true
     data:
       text: "this one is a comment"

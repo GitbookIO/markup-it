@@ -1,6 +1,6 @@
 const { List } = require('immutable');
 const trimTrailingLines = require('trim-trailing-lines');
-const { Serializer, Deserializer, Block, BLOCKS } = require('../../');
+const { Serializer, Deserializer, Block } = require('../../');
 const reBlock = require('../re/block');
 const liquid = require('../liquid');
 
@@ -117,7 +117,7 @@ const deserialize = Deserializer()
                 const added = newState.nodes.skip(state.nodes.size);
 
                 const between = added.takeUntil(child => (
-                    child.type == BLOCKS.TEMPLATE_BLOCK &&
+                    isCustomType(child.type) &&
                     isClosingTagFor(
                         getTagFromCustomType(child.type),
                         tag

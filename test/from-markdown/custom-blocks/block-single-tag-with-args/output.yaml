@@ -5,12 +5,10 @@ nodes:
       - kind: text
         text: "Hello world"
   - kind: block
-    type: template_block
+    type: x-import
     isVoid: true
     data:
-      tag: import
-      props:
-        0: "hello.md"
+      0: "hello.md"
   - kind: block
     type: paragraph
     nodes:

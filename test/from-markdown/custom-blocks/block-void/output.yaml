@@ -9,9 +9,3 @@ nodes:
     isVoid: true
     data:
       src: "https://www.youtube.com/watch?v=XXXXXXX"
-    nodes:
-      - kind: block
-        type: unstyled
-        nodes:
-          - kind: text
-            text: ""
