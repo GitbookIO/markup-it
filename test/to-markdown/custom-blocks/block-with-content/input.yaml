@@ -5,11 +5,9 @@ nodes:
       - kind: text
         text: "Hello world"
   - kind: block
-    type: template_block
+    type: x-hint
     data:
-      tag: hint
-      props:
-        type: "info"
+      type: "info"
     nodes:
       - kind: block
         type: paragraph

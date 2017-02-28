@@ -64,7 +64,7 @@ const serialize = Serializer()
             data
         });
         const endTag = liquid.stringifyTag({
-            type: getTagFromCustomType(`end${node.type}`)
+            tag: 'end' + getTagFromCustomType(node.type)
         });
 
         const split = node.kind == 'block' ? '\n' : '';
