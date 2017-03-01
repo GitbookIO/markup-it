@@ -2497,6 +2497,10 @@ react-dom@^15.3.2:
   version "15.3.2"
   resolved "https://registry.yarnpkg.com/react-dom/-/react-dom-15.3.2.tgz#c46b0aa5380d7b838e7a59c4a7beff2ed315531f"
 
+react-portal@^3.0.0:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/react-portal/-/react-portal-3.0.0.tgz#9304fce836e8a3216b22588f8dc91b447728f0ae"
+
 react@^15.3.2:
   version "15.3.2"
   resolved "https://registry.yarnpkg.com/react/-/react-15.3.2.tgz#a7bccd2fee8af126b0317e222c28d1d54528d09e"
@@ -2706,9 +2710,9 @@ slash@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/slash/-/slash-1.0.0.tgz#c41f2f6c39fc16d1cd17ad4b5d896114ae470d55"
 
-slate@^0.16.22:
-  version "0.16.22"
-  resolved "https://registry.yarnpkg.com/slate/-/slate-0.16.22.tgz#c08462f0f5ef74fa5e9c96b94863e4194d106673"
+slate@^0.16.28:
+  version "0.16.28"
+  resolved "https://registry.yarnpkg.com/slate/-/slate-0.16.28.tgz#bde4aaa99a461c9ef30c28515fdc7207e114a594"
   dependencies:
     cheerio "^0.22.0"
     debug "^2.3.2"
@@ -2719,6 +2723,7 @@ slate@^0.16.22:
     immutable "^3.8.1"
     is-empty "^1.0.0"
     keycode "^2.1.2"
+    react-portal "^3.0.0"
     type-of "^2.0.1"
 
 slice-ansi@0.0.4:
