@@ -7,7 +7,7 @@ nodes:
       - kind: inline
         type: link
         data:
-          href: "hello%20world.md"
+          href: "hello world.md"
         nodes:
           - kind: text
             text: link

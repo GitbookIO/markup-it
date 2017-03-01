@@ -29,7 +29,9 @@ const REPLACEMENTS_UNESCAPE = REPLACEMENTS_ESCAPE.merge({
 });
 
 // Replacements for escaping urls (links and images)
-const URL_REPLACEMENTS_UNESCAPE = REPLACEMENTS_UNESCAPE;
+const URL_REPLACEMENTS_UNESCAPE = REPLACEMENTS_UNESCAPE.merge({
+    ' ': '%20'
+});
 const URL_REPLACEMENTS_ESCAPE = Map([
     [ '(', '\\(' ],
     [ ')', '\\)' ],
