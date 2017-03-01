@@ -28,7 +28,7 @@ const deserialize = Deserializer()
         let { text, depth, nodes } = state;
 
         // Apply it as first rule only
-        if (depth > 1 || nodes.size > 0 || state.getProp('refs')) {
+        if (depth > 2 || nodes.size > 0 || state.getProp('refs')) {
             return;
         }
 

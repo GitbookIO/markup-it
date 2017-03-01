@@ -10,7 +10,7 @@ const serialize = Serializer()
     .then((state) => {
         const { depth, text } = state;
 
-        const isFirstNode = depth == 1 && !text;
+        const isFirstNode = depth == 2 && !text;
 
         return state
             .shift()

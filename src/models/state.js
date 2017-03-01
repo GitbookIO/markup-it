@@ -1,5 +1,5 @@
 const { Record, List, Map, Set } = require('immutable');
-const { Document, Text, Block } = require('slate');
+const { Text, Block } = require('slate');
 const BLOCKS = require('../constants/blocks');
 const RuleFunction = require('./rule-function');
 
@@ -11,7 +11,7 @@ const DEFAULTS = {
     text:     '',
     nodes:    List(),
     marks:    Set(),
-    kind:     String('block'),
+    kind:     String('document'),
     rulesSet: Map(),
     depth:    0,
     props:    Map()
@@ -325,7 +325,12 @@ class State extends Record(DEFAULTS) {
      * @return {Document} document
      */
     deserializeToDocument(text) {
-        let nodes = this.deserialize(text);
+        const document = this
+            .use('document')
+            .deserialize(text)
+            .get(0);
+
+        let { nodes } = document;
 
         // We should never return an empty document
         if (nodes.size === 0) {
@@ -337,7 +342,7 @@ class State extends Record(DEFAULTS) {
             }));
         }
 
-        return Document.create({ nodes });
+        return document.merge({ nodes });
     }
 
     /**
@@ -346,11 +351,14 @@ class State extends Record(DEFAULTS) {
      * @return {String} text
      */
     serialize(nodes) {
-        const state = this
+        return this
             .down()
-            .merge({ text: '', nodes: List(nodes) })
-            ._serialize();
-        return state.text;
+            .merge({
+                text: '',
+                nodes: List(nodes)
+            })
+            ._serialize()
+            .text;
     }
 
     /**
@@ -359,8 +367,9 @@ class State extends Record(DEFAULTS) {
      * @return {String} text
      */
     serializeDocument(document) {
-        const { nodes } = document;
-        return this.serialize(nodes);
+        return this
+            .use('document')
+            .serialize([ document ]);
     }
 
     /**
