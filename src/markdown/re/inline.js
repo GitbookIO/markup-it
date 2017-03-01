@@ -21,7 +21,7 @@ const inline = {
 
 
 inline._inside = /(?:\[[^\]]*\]|[^\[\]]|\](?=[^\[]*\]))*/;
-inline._href   = /\s*<?([\S]*)>?(?:\s+['"]([\s\S]*?)['"])?\s*/;
+inline._href   = /\s*<?([^"']*)>?(?:\s+['"]([\s\S]*?)['"])?\s*/;
 
 inline.link = replace(inline.link)('inside', inline._inside)('href', inline._href)();
 
