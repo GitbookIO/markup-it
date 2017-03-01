@@ -3,23 +3,10 @@ const htmlparser = require('htmlparser2');
 const htmlclean = require('htmlclean');
 const { List, Stack, Set } = require('immutable');
 const { Document } = require('slate');
-const { Deserializer } = require('../');
 const {
     BLOCKS, INLINES, MARKS, CONTAINERS, VOID,
     Block, Inline, Text, Mark
 } = require('../');
-
-/**
- * Deserialize an HTML string
- * @type {Deserializer}
- */
-const deserialize = Deserializer()
-.then((state) => {
-    const nodes = parse(state.text);
-    return state
-        .push(nodes)
-        .skip(state.text.length);
-});
 
 const INLINE_TAGS = {
     a:              INLINES.LINK,
@@ -283,8 +270,7 @@ function parse(str) {
         throw new Error('Invalid HTML. A tag might not have been closed correctly.');
     }
 
-    const rootNodes = stack.peek().nodes;
-    return List(rootNodes);
+    return stack.peek();
 }
 
 /**
@@ -320,4 +306,4 @@ function splitLines(text, sep) {
     );
 }
 
-module.exports = { deserialize };
+module.exports = parse;

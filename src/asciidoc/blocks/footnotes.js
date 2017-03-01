@@ -10,7 +10,7 @@ const serialize = Serializer()
         let { depth, nodes } = state;
         const footnotes = {};
 
-        if (depth > 1 || state.getProp('footnotes')) {
+        if (depth > 2 || state.getProp('footnotes')) {
             return;
         }
 

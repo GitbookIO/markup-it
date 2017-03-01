@@ -1,5 +1,5 @@
 const { Record, List, Map, Set } = require('immutable');
-const { Text, Block } = require('slate');
+const { Text, Block, Document } = require('slate');
 const BLOCKS = require('../constants/blocks');
 const RuleFunction = require('./rule-function');
 
@@ -328,7 +328,7 @@ class State extends Record(DEFAULTS) {
         const document = this
             .use('document')
             .deserialize(text)
-            .get(0);
+            .get(0) || Document.create();
 
         let { nodes } = document;
 

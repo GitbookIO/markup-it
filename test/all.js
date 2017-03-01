@@ -48,8 +48,8 @@ function convertFor(input, outputExt) {
 
     function serializeWith(syntax) {
         const parser = MarkupIt.State.create(syntax);
-        const inputDocument = Slate.Raw.deserialize(input, { terse: true }).document;
-        const out = parser.serializeDocument(inputDocument);
+        const { document } = Slate.Raw.deserialize(input, { terse: true });
+        const out = parser.serializeDocument(document);
 
         // Trim to avoid newlines being compared at the end
         return trimTrailingLines(out);

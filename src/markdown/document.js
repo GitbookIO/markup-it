@@ -15,7 +15,9 @@ const serialize = Serializer()
         const body = state.use('block').serialize(nodes);
 
         if (data.size === 0) {
-            return body;
+            return state
+                .shift()
+                .write(body);
         }
 
         const frontMatter = (

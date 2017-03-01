@@ -49,7 +49,7 @@ describe('State', () => {
     describe('.rules', () => {
         it('should return block rules by default', () => {
             const state = State.create({
-                block: [ { deserialize: (st => st) } ]
+                document: [ { deserialize: (st => st) } ]
             });
 
             expect(state.rules.size).toBe(1);
@@ -90,7 +90,7 @@ describe('State', () => {
             const state = State.create({
                 block: [ { deserialize } ]
             });
-            const nodes = state.deserialize('heading\nparagraph\ncode');
+            const nodes = state.use('block').deserialize('heading\nparagraph\ncode');
 
             expect(nodes.size).toBe(3);
         });
@@ -109,7 +109,7 @@ describe('State', () => {
             const state = State.create({
                 block: [ { serialize } ]
             });
-            const text = state.serialize([
+            const text = state.use('block').serialize([
                 Block.create({ type: 'heading' }),
                 Block.create({ type: 'paragraph' })
             ]);

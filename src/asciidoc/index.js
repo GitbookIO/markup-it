@@ -1,4 +1,4 @@
-const deserialize = require('./deserialize');
+const document = require('./document');
 
 const heading = require('./blocks/heading');
 const paragraph = require('./blocks/paragraph');
@@ -21,8 +21,10 @@ const strikethrough = require('./inlines/strikethrough');
 const code = require('./inlines/code');
 
 module.exports = {
+    document: [
+        document
+    ],
     block: [
-        { deserialize },
         footnotes,
         heading,
         paragraph,
