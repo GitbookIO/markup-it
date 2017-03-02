@@ -3,13 +3,13 @@ nodes:
     type: paragraph
     nodes:
       - kind: text
-        text: "This is a "
+        text: ""
       - kind: inline
-        type: link
+        type: image
         data:
-          href: "hello world.md"
-        nodes:
-          - kind: text
-            text: link
+          alt: Hello
+          title: "title"
+          src: "test world.png"
+        isVoid: true
       - kind: text
         text: ""

@@ -7,6 +7,11 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 - **Breaking Change**: Templating is now parsed as `variable`, `comment` and `x-<tag>`.
     `comment` and `x-<tag>` are blocks, while `variable` is inline.
 
+### 3.3.5
+
+- Whitespaces non-escaped are supported again during deserialization
+- Whitespaces in urls are not escaped during serialization
+
 ### 3.3.3
 
 - Fix parsing of images and links with parenthesis

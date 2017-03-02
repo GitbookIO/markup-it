@@ -8,6 +8,7 @@ nodes:
         type: link
         data:
           href: "hello world.md"
+          title: "title"
         nodes:
           - kind: text
             text: link
