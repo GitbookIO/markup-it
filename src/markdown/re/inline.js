@@ -19,9 +19,14 @@ const inline = {
     template: /^{([#%{])\s*(.*?)\s*(?=[#%}]})[#%}]}/
 };
 
+// Escaped chars: match all characters + escaped characters
+// except parenthesis and quotes
+const escaped = /(?:\\\(|\\\)|\\\"|\\\'|[^()"'])/;
 
 inline._inside = /(?:\[[^\]]*\]|[^\[\]]|\](?=[^\[]*\]))*/;
-inline._href   = /\s*<?([^"']*)>?(?:\s+['"]([\s\S]*?)['"])?\s*/;
+inline._href   = /\s*<?(escapedHref*)>?(?:\s+['"](escapedTitle*?)['"])?\s*/;
+
+inline._href = replace(inline._href)('escapedHref', escaped)('escapedTitle', escaped)();
 
 inline.link = replace(inline.link)('inside', inline._inside)('href', inline._href)();
 

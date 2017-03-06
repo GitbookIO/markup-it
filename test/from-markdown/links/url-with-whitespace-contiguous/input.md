@@ -1,1 +1,1 @@
-one[link](an link.png)another[link](another link.png)
+one[link](a link.png)another[link](another link.png)
