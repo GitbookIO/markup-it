@@ -1,3 +1,4 @@
+const Slate = require('slate');
 const detectNewLine = require('detect-newline');
 const htmlparser = require('htmlparser2');
 const htmlclean = require('htmlclean');
@@ -16,8 +17,19 @@ const {
 const deserialize = Deserializer()
 .then((state) => {
     const nodes = parse(state.text);
+
+    // Normalize the document, since for now HTML introduces a lot of
+    // unwanted empty text nodes.
+    const normalizedNodes = Slate
+        .State.create({
+            document: Slate.Document.create({ nodes })
+        }, {
+            normalize: true
+        })
+        .document.nodes;
+
     return state
-        .push(nodes)
+        .push(normalizedNodes)
         .skip(state.text.length);
 });
 
