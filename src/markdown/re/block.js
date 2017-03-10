@@ -11,7 +11,7 @@ const block = {
     footnote:   /^\[\^([^\]]+)\]: ([^\n]+)/,
     paragraph:  /^((?:[^\n]+\n?(?!hr|heading|lheading|blockquote|tag|def|math))+)\n*/,
     text:       /^[^\n]+/,
-    fences:     /^ *(`{3,}|~{3,}) *(\S+)? *\n([\s\S]+?[\s]*)\n *\1 *(?:\n|$)/,
+    fences:     /^ *(`{3,}|~{3,})[ \.]*(\S+)? *\n(?:([\s\S]*?)\n|)\1 *(?:\n+|$)/,
     yamlHeader: /^ *(?=```)/,
     math:       /^ *(\${2,}) *(\n+[\s\S]+?)\s*\1 *(?:\n|$)/,
     list:       {
