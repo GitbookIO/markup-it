@@ -121,7 +121,16 @@ function isTestFolder(folder) {
     const inputName = files.find(file => file.split('.')[0] === 'input');
     const outputName = files.find(file => file.split('.')[0] === 'output');
 
-    return Boolean(inputName && outputName);
+    const input = Boolean(inputName);
+    const output = Boolean(outputName);
+
+    if (input && !output) {
+        throw new Error(`It looks like the test '${folder}' has an ${inputName} file, but is missing an output file.`);
+    } else if (!input && output) {
+        throw new Error(`It looks like the test '${folder}' has an ${outputName} file, but is missing an output file.`);
+    }
+
+    return input && output;
 }
 
 /**
