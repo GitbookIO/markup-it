@@ -79,7 +79,18 @@ function escapeURL(str) {
  * @return {String}
  */
 function unescapeURL(str) {
-    return unescapeWith(URL_REPLACEMENTS_UNESCAPE, decodeURI(str));
+    let decoded;
+    try {
+        decoded = decodeURI(str);
+    } catch (e) {
+        if (!(e instanceof URIError)) {
+            throw e;
+        } else {
+            decoded = str;
+        }
+    }
+
+    return unescapeWith(URL_REPLACEMENTS_UNESCAPE, decoded);
 }
 
 
