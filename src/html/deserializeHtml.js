@@ -142,6 +142,35 @@ function getMarksForClassName(className) {
 }
 
 /**
+ * Returns the containerTypes for the given node
+ */
+function containerTypes(node) {
+    return CONTAINERS[node.type || node.kind];
+}
+
+/**
+ * True if the node is a container node
+ */
+function isContainer(node) {
+    return Boolean(containerTypes(node));
+}
+
+/**
+ * True if `container` is a container that can contain `node`
+ */
+function canContain(container, node) {
+    return containerTypes(container)
+        && containerTypes(container).indexOf(node.type) !== -1;
+}
+
+/**
+ * Returns the default block type for a container
+ */
+function defaultBlockType(container) {
+    return containerTypes(container)[0];
+}
+
+/**
  * Parse an HTML string into a list of Nodes
  * @param {String} str
  * @return {List<Node>}
@@ -163,22 +192,21 @@ function parse(str) {
     // Append a node child to the current parent node
     function appendNode(node) {
         const parent = stack.peek();
-        const containerChildTypes = CONTAINERS[parent.type || parent.kind];
         let { nodes } = parent;
 
         // If parent is not a block container
-        if (!containerChildTypes && node.kind == 'block') {
+        if (!isContainer(parent) && node.kind == 'block') {
             // Discard all blocks
             nodes = nodes.concat(selectInlines(node));
         }
 
         // Wrap node if type is not allowed
         else if (
-            containerChildTypes
-            && (node.kind !== 'block' || !containerChildTypes.includes(node.type))
+            isContainer(parent)
+            && (node.kind !== 'block' || !canContain(parent, node))
         ) {
             node = Block.create({
-                type: containerChildTypes[0],
+                type: defaultBlockType(parent),
                 nodes: [node]
             });
 
