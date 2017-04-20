@@ -6,7 +6,7 @@ const { List, Stack, Set } = require('immutable');
 const { Document } = require('slate');
 const { Deserializer } = require('../');
 const {
-    BLOCKS, INLINES, MARKS, CONTAINERS, VOID,
+    BLOCKS, INLINES, MARKS, CONTAINERS, VOID, LEAFS,
     Block, Inline, Text, Mark
 } = require('../');
 
@@ -142,32 +142,36 @@ function getMarksForClassName(className) {
 }
 
 /**
- * Returns the containerTypes for the given node
+ * Returns the accepted block types for the given container
  */
-function containerTypes(node) {
-    return CONTAINERS[node.type || node.kind];
+function acceptedBlocks(container) {
+    return CONTAINERS[container.type || container.kind];
 }
 
 /**
- * True if the node is a container node
+ * True if the node is a block container node
  */
-function isContainer(node) {
-    return Boolean(containerTypes(node));
+function isBlockContainer(node) {
+    return Boolean(acceptedBlocks(node));
 }
 
 /**
- * True if `container` is a container that can contain `node`
- */
-function canContain(container, node) {
-    return containerTypes(container)
-        && containerTypes(container).indexOf(node.type) !== -1;
-}
-
-/**
- * Returns the default block type for a container
+ * Returns the default block type for a block container
  */
 function defaultBlockType(container) {
-    return containerTypes(container)[0];
+    return acceptedBlocks(container)[0];
+}
+
+/**
+ * True if `block` can contain `node`
+ */
+function canContain(block, node) {
+    if (node.kind === 'inline' || node.kind === 'text') {
+        return LEAFS[block.type];
+    } else {
+        const types = acceptedBlocks(block);
+        return types && types.indexOf(node.type) !== -1;
+    }
 }
 
 /**
@@ -195,24 +199,32 @@ function parse(str) {
         let { nodes } = parent;
 
         // If parent is not a block container
-        if (!isContainer(parent) && node.kind == 'block') {
+        if (!isBlockContainer(parent) && node.kind == 'block') {
             // Discard all blocks
             nodes = nodes.concat(selectInlines(node));
         }
 
         // Wrap node if type is not allowed
         else if (
-            isContainer(parent)
+            isBlockContainer(parent)
             && (node.kind !== 'block' || !canContain(parent, node))
         ) {
-            node = Block.create({
-                type: defaultBlockType(parent),
-                nodes: [node]
-            });
+            const previous = parent.nodes.last();
+            if (previous && canContain(previous, node)) {
+                // Reuse previous block is possible
+                nodes = nodes.pop().push(
+                    previous.set('nodes', previous.nodes.push(node))
+                );
+            } else {
+                // Else insert a default wrapper
+                node = Block.create({
+                    type: defaultBlockType(parent),
+                    nodes: [node]
+                });
 
-            nodes = nodes.push(node);
+                nodes = nodes.push(node);
+            }
         }
-
         else {
             nodes = nodes.push(node);
         }
@@ -272,6 +284,7 @@ function parse(str) {
                 const textNode = Text.createFromString('\n', marks);
                 appendNode(textNode);
             }
+            // else ignore
 
             // Parse marks from the class name
             const newMarks = getMarksForClassName(attribs['class']);

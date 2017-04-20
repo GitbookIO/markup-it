@@ -9,6 +9,7 @@ const BLOCKS = require('./constants/blocks');
 const INLINES = require('./constants/inlines');
 const VOID = require('./constants/void');
 const CONTAINERS = require('./constants/containers');
+const LEAFS = require('./constants/leafs');
 const TABLE_ALIGN = require('./constants/table-align');
 
 module.exports = {
@@ -21,6 +22,7 @@ module.exports = {
     INLINES,
     TABLE_ALIGN,
     CONTAINERS,
+    LEAFS,
     VOID,
     // Slate exports
     Block, Inline, Text, Mark, Range
