@@ -4,14 +4,15 @@ nodes:
     nodes:
       - kind: text
         ranges:
+          - text: ' '
           - text: 'Dub Incorporation'
             marks:
               - type: BOLD
-          - text: '(since 2006 just'
+          - text: ' (since 2006 just '
           - text: 'Dub Inc'
             marks:
               - type: BOLD
-          - text: ') is a'
+          - text: ') is a '
       - kind: inline
         type: link
         data:

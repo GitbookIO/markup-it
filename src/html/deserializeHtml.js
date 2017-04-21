@@ -52,6 +52,7 @@ const BLOCK_TAGS = {
 
     table:          BLOCKS.TABLE,
     tr:             BLOCKS.TABLE_ROW,
+    th:             BLOCKS.TABLE_CELL,
     td:             BLOCKS.TABLE_CELL,
 
     ul:             BLOCKS.UL_LIST,
@@ -292,9 +293,6 @@ function parse(str) {
         },
 
         ontext(text) {
-            const isEmptyText = !text.trim();
-            if (isEmptyText) return;
-
             // Special rule for code blocks that we must split in lines
             if (stack.peek().type === BLOCKS.CODE) {
                 splitLines(text).forEach(line => {
