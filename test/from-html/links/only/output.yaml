@@ -3,7 +3,7 @@ nodes:
     type: paragraph
     nodes:
       - kind: text
-        text: ""
+        text: " "
       - kind: inline
         type: link
         data:
