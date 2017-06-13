@@ -1,0 +1,100 @@
+# https://gist.github.com/AaronO/5226f83a589304240c1f6f83e14df6a0
+nodes:
+  - kind: block
+    type: code_block
+    nodes:
+      - kind: block
+        type: code_line
+        nodes:
+          - kind: text
+            text: "using Starcounter;"
+      - kind: block
+        type: code_line
+        nodes:
+          - kind: text
+            text: ""
+      - kind: block
+        type: code_line
+        nodes:
+          - kind: text
+            text: "namespace HelloWorld"
+      - kind: block
+        type: code_line
+        nodes:
+          - kind: text
+            text: "{"
+      - kind: block
+        type: code_line
+        nodes:
+          - kind: text
+            text: "    [Database]"
+      - kind: block
+        type: code_line
+        nodes:
+          - kind: text
+            text: "    public class Person"
+      - kind: block
+        type: code_line
+        nodes:
+          - kind: text
+            text: "    {"
+      - kind: block
+        type: code_line
+        nodes:
+          - kind: text
+            text: "        public string FirstName;"
+      - kind: block
+        type: code_line
+        nodes:
+          - kind: text
+            text: "        public string LastName;"
+      - kind: block
+        type: code_line
+        nodes:
+          - kind: text
+            text: "    }"
+      - kind: block
+        type: code_line
+        nodes:
+          - kind: text
+            text: ""
+      - kind: block
+        type: code_line
+        nodes:
+          - kind: text
+            text: "    class Program"
+      - kind: block
+        type: code_line
+        nodes:
+          - kind: text
+            text: "    {"
+      - kind: block
+        type: code_line
+        nodes:
+          - kind: text
+            text: "        static void Main()"
+      - kind: block
+        type: code_line
+        nodes:
+          - kind: text
+            text: "        {"
+      - kind: block
+        type: code_line
+        nodes:
+          - kind: text
+            text: ""
+      - kind: block
+        type: code_line
+        nodes:
+          - kind: text
+            text: "        }"
+      - kind: block
+        type: code_line
+        nodes:
+          - kind: text
+            text: "    }"
+      - kind: block
+        type: code_line
+        nodes:
+          - kind: text
+            text: "}"

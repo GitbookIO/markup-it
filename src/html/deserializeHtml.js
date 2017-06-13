@@ -194,6 +194,11 @@ function parse(str) {
     // The current marks
     let marks = Set();
 
+    // Update the node on top of the stack with the given node
+    function setNode(node) {
+        stack = stack.pop().push(node);
+    }
+
     // Append a node child to the current parent node
     function appendNode(node) {
         const parent = stack.peek();
@@ -212,7 +217,7 @@ function parse(str) {
         ) {
             const previous = parent.nodes.last();
             if (previous && canContain(previous, node)) {
-                // Reuse previous block is possible
+                // Reuse previous block if possible
                 nodes = nodes.pop().push(
                     previous.set('nodes', previous.nodes.push(node))
                 );
@@ -230,9 +235,7 @@ function parse(str) {
             nodes = nodes.push(node);
         }
 
-        stack = stack
-            .pop()
-            .push(parent.merge({ nodes }));
+        setNode(parent.merge({ nodes }));
     }
 
     // Push a new node, as current parent. We started parsing it
@@ -293,26 +296,32 @@ function parse(str) {
         },
 
         ontext(text) {
-            // Special rule for code blocks that we must split in lines
-            if (stack.peek().type === BLOCKS.CODE) {
-                splitLines(text).forEach(line => {
-                    // Create a code line
-                    pushNode(Block.create({ type: BLOCKS.CODE_LINE }));
-                    // Push the text
-                    appendNode(Text.createFromString(line));
-                    popNode();
-                });
-            }
-
-            // Usual behavior
-            else {
-                const textNode = Text.createFromString(text, marks);
-                appendNode(textNode);
-            }
+            const textNode = Text.createFromString(text, marks);
+            appendNode(textNode);
         },
 
         onclosetag(tagName) {
             if (BLOCK_TAGS[tagName] || INLINE_TAGS[tagName]) {
+                const parent = stack.peek();
+
+                // Special rule for code blocks that we must split in lines
+                if (parent.type === BLOCKS.CODE) {
+                    let lines = splitLines(parent.text);
+                    // Remove trailing newline
+                    if (lines.last().trim() === '') {
+                        lines = lines.skipLast(1);
+                    }
+                    setNode(parent.merge({
+                        nodes: lines.map(line => {
+                            // Create a code line
+                            return Block.create({
+                                type: BLOCKS.CODE_LINE,
+                                nodes: [Text.createFromString(line)]
+                            });
+                        })
+                    }));
+                }
+
                 popNode();
             }
 
