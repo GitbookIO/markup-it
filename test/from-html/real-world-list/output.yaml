@@ -15,11 +15,11 @@ nodes:
               nodes:
                 - kind: text
                   ranges:
-                    - text: 'An '
+                    - text: 'An '
                     - text: 'Account'
                       marks:
                         - type: BOLD
-                    - text: ' is what you use to login to Algolia. Each team member should have a separate account, secured with Two-Factor-Authentication.'
+                    - text: ' is what you use to login to Algolia. Each team member should have a separate account, secured with Two-Factor-Authentication.'
 
         - kind: block
           type: list_item
@@ -29,7 +29,7 @@ nodes:
               nodes:
                 - kind: text
                   ranges:
-                    - text: 'Each team member can have access to one or multiple '
+                    - text: 'Each team member can have access to one or multiple '
                     - text: 'Applications'
                       marks:
                         - type: BOLD
