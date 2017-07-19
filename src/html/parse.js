@@ -300,7 +300,7 @@ function isVoid(nodeType) {
  * @return {List<String>}
  */
 function splitLines(text, sep) {
-    sep = sep || detectNewLine(text) || '/n';
+    sep = sep || detectNewLine(text) || '\n';
     return List(
         text.split(sep)
     );
