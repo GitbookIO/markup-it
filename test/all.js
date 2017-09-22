@@ -4,6 +4,7 @@ const expect = require('expect');
 const yaml = require('js-yaml');
 const Slate = require('slate');
 const trimTrailingLines = require('trim-trailing-lines');
+const mapObj = require('map-obj');
 
 const MarkupIt = require('../src/');
 const markdown = require('../src/markdown');
@@ -88,6 +89,59 @@ function readFileOutput(fileName) {
 }
 
 /**
+ * Read an output file
+ * @param  {String} filePath
+ * @return {Mixed}
+ */
+function convertFile(fileName) {
+    const ext = path.extname(fileName);
+    const content = fs.readFileSync(fileName, { encoding: 'utf8' });
+
+    switch (ext) {
+    case '.md':
+    case '.adoc':
+    case '.html':
+        console.log('ignored', fileName);
+        return;
+    case '.yaml':
+
+        const object = readYaml(fileName);
+        if (!object.document) {
+            const newObject = {
+                document: mapObj(object, (k, v) => {
+                    if (k === 'nodes') {
+                        const newV = v.map(n => {
+                            if (n.kind === 'text' && !n.ranges) {
+                                const newN = {
+                                    ...n,
+                                    ranges: [{ text: n.text }]
+                                };
+                                delete newN.text;
+                                return newN;
+                            } else {
+                                return n;
+                            }
+                        });
+
+                        return [k, newV];
+                    } else {
+                        return [k, v];
+                    }
+                }, {
+                    deep: true
+                })
+            };
+
+            const outputString = yaml.dump(newObject);
+            console.log('Converted', fileName);
+            fs.writeFileSync(fileName, outputString);
+        } else {
+            console.log('ignored', fileName);
+        }
+    }
+}
+
+/**
  * Run test in a directory
  * @param  {String} folder
  */
@@ -109,6 +163,24 @@ function runTest(folder) {
     const output = convertFor(input, outputExt);
 
     expect(output).toEqual(expectedOutput);
+}
+
+/**
+ * Run test in a directory
+ * @param  {String} folder
+ */
+function convertTest(folder) {
+    const files = fs.readdirSync(folder);
+    const inputName = files.find(file => file.split('.')[0] === 'input');
+    const outputName = files.find(file => file.split('.')[0] === 'output');
+
+    // Read the input
+    const inputFile = path.resolve(folder, inputName);
+    convertFile(inputFile);
+
+    // Read the expected output
+    const outputFile = path.resolve(folder, outputName);
+    convertFile(outputFile);
 }
 
 /**
@@ -152,7 +224,8 @@ function runTests(seriePath) {
 
         if (isTestFolder(testPath)) {
             it(test, () => {
-                runTest(testPath);
+                // runTest(testPath);
+                convertTest(testPath);
             });
         } else {
             describe(test, () => {
