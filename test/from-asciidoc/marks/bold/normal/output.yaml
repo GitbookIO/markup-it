@@ -1,10 +1,11 @@
-nodes:
-  - kind: block
-    type: paragraph
-    nodes:
-      - kind: text
-        ranges:
-          - text: "Hello "
-          - text: "World"
-            marks:
-              - type: BOLD
+document:
+  nodes:
+    - kind: block
+      type: paragraph
+      nodes:
+        - kind: text
+          ranges:
+            - text: 'Hello '
+            - text: World
+              marks:
+                - type: BOLD

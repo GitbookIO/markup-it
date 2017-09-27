@@ -5,7 +5,6 @@
  */
 
 module.exports = {
-    DOCUMENT:   'document',
     TEXT:       'unstyled',
     // Classic blocks
     CODE:       'code_block',

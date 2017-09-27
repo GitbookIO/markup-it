@@ -10,7 +10,8 @@ const ALL_BLOCKS = objectValues(BLOCKS);
  */
 
 module.exports = {
-    [BLOCKS.DOCUMENT]:   [BLOCKS.PARAGRAPH, ...ALL_BLOCKS],
+    // We use Document.kind instead of its type
+    'document':          [BLOCKS.PARAGRAPH, ...ALL_BLOCKS],
     [BLOCKS.BLOCKQUOTE]: [BLOCKS.TEXT, ...ALL_BLOCKS],
     [BLOCKS.TABLE]:      [BLOCKS.TABLE_ROW],
     [BLOCKS.TABLE_ROW]:  [BLOCKS.TABLE_CELL],

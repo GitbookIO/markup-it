@@ -1,33 +1,40 @@
-nodes:
-  - kind: block
-    data:
-      id: the-id
-    type: header_one
-    nodes:
-      - kind: text
-        text: Heading 1
-  - kind: block
-    type: header_two
-    nodes:
-      - kind: text
-        text: Heading 2
-  - kind: block
-    type: header_three
-    nodes:
-      - kind: text
-        text: Heading 3
-  - kind: block
-    type: header_four
-    nodes:
-      - kind: text
-        text: Heading 4
-  - kind: block
-    type: header_five
-    nodes:
-      - kind: text
-        text: Heading 5
-  - kind: block
-    type: header_six
-    nodes:
-      - kind: text
-        text: Heading 6
+document:
+  nodes:
+    - kind: block
+      data:
+        id: the-id
+      type: header_one
+      nodes:
+        - kind: text
+          ranges:
+            - text: Heading 1
+    - kind: block
+      type: header_two
+      nodes:
+        - kind: text
+          ranges:
+            - text: Heading 2
+    - kind: block
+      type: header_three
+      nodes:
+        - kind: text
+          ranges:
+            - text: Heading 3
+    - kind: block
+      type: header_four
+      nodes:
+        - kind: text
+          ranges:
+            - text: Heading 4
+    - kind: block
+      type: header_five
+      nodes:
+        - kind: text
+          ranges:
+            - text: Heading 5
+    - kind: block
+      type: header_six
+      nodes:
+        - kind: text
+          ranges:
+            - text: Heading 6

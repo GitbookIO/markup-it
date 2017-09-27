@@ -1,0 +1,28 @@
+document:
+  nodes:
+    - kind: block
+      type: paragraph
+      nodes:
+        - kind: text
+          ranges:
+            - text: ' '
+            - text: Dub Incorporation
+              marks:
+                - type: BOLD
+            - text: " (since 2006 just "
+            - text: Dub Inc
+              marks:
+                - type: BOLD
+            - text: ") is a "
+        - kind: inline
+          type: link
+          data:
+            href: 'https://en.wikipedia.org/wiki/Reggae'
+            title: ''
+          nodes:
+            - kind: text
+              ranges:
+                - text: reggae
+        - kind: text
+          ranges:
+            - text: ' band'

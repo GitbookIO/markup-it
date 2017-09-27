@@ -1,13 +1,16 @@
-nodes:
-  - kind: block
-    type: paragraph
-    nodes:
-      - kind: text
-        text: "world "
-      - kind: inline
-        isVoid: true
-        type: math
-        data:
-          tex: a = b
-      - kind: text
-        text: ""
+document:
+  nodes:
+    - kind: block
+      type: paragraph
+      nodes:
+        - kind: text
+          ranges:
+            - text: 'world '
+        - kind: inline
+          isVoid: true
+          type: math
+          data:
+            tex: a = b
+        - kind: text
+          ranges:
+            - text: ''

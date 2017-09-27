@@ -1,43 +1,48 @@
-nodes:
-  - kind: block
-    type: unordered_list
-    nodes:
-      - kind: block
-        type: list_item
-        data:
-          checked: false
-        nodes:
-          - kind: block
-            type: unstyled
-            nodes:
-              - kind: text
-                text: Hello
-      - kind: block
-        type: list_item
-        data:
-          checked: true
-        nodes:
-          - kind: block
-            type: unstyled
-            nodes:
-              - kind: text
-                text: World
-          - kind: block
-            type: unordered_list
-            nodes:
-              - kind: block
-                type: list_item
-                nodes:
-                  - kind: block
-                    type: unstyled
-                    nodes:
-                      - kind: text
-                        text: Inner 1
-              - kind: block
-                type: list_item
-                nodes:
-                  - kind: block
-                    type: unstyled
-                    nodes:
-                      - kind: text
-                        text: Inner 2
+document:
+  nodes:
+    - kind: block
+      type: unordered_list
+      nodes:
+        - kind: block
+          type: list_item
+          data:
+            checked: false
+          nodes:
+            - kind: block
+              type: unstyled
+              nodes:
+                - kind: text
+                  ranges:
+                    - text: Hello
+        - kind: block
+          type: list_item
+          data:
+            checked: true
+          nodes:
+            - kind: block
+              type: unstyled
+              nodes:
+                - kind: text
+                  ranges:
+                    - text: World
+            - kind: block
+              type: unordered_list
+              nodes:
+                - kind: block
+                  type: list_item
+                  nodes:
+                    - kind: block
+                      type: unstyled
+                      nodes:
+                        - kind: text
+                          ranges:
+                            - text: Inner 1
+                - kind: block
+                  type: list_item
+                  nodes:
+                    - kind: block
+                      type: unstyled
+                      nodes:
+                        - kind: text
+                          ranges:
+                            - text: Inner 2

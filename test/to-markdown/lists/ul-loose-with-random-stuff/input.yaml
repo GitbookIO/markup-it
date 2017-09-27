@@ -1,134 +1,147 @@
-nodes:
-  - kind: block
-    type: paragraph
-    nodes:
-      - kind: text
-        text: "One paragraph before"
-  - kind: block
-    type: unordered_list
-    nodes:
-      - kind: block
-        type: list_item
-        nodes:
-          - kind: block
-            type: paragraph
-            nodes:
-              - kind: text
-                text: "Contains a table"
-          - kind: block
-            type: table
-            data:
-              align:
-                - right
-                - null
-            nodes:
-              - kind: block
-                type: table_row
-                nodes:
-                  - kind: block
-                    type: table_cell
-                    nodes:
-                      - kind: text
-                        text: A
-                  - kind: block
-                    type: table_cell
-                    nodes:
-                      - kind: text
-                        text: B
-              - kind: block
-                type: table_row
-                nodes:
-                  - kind: block
-                    type: table_cell
-                    nodes:
-                      - kind: text
-                        text: A1
-                  - kind: block
-                    type: table_cell
-                    nodes:
-                      - kind: text
-                        text: B1
-              - kind: block
-                type: table_row
-                nodes:
-                  - kind: block
-                    type: table_cell
-                    nodes:
-                      - kind: text
-                        text: A2
-                  - kind: block
-                    type: table_cell
-                    nodes:
-                      - kind: text
-                        text: B2
-
-      - kind: block
-        type: list_item
-        nodes:
-          - kind: block
-            type: paragraph
-            nodes:
-              - kind: text
-                text: "Contains a code block"
-          - kind: block
-            type: code_block
-            nodes:
-              - kind: block
-                type: code_line
-                nodes:
-                  - kind: text
-                    text: "Some code"
-
-      - kind: block
-        type: list_item
-        nodes:
-          - kind: block
-            type: unstyled
-            nodes:
-              - kind: text
-                text: "Contains nested list"
-          - kind: block
-            type: unordered_list
-            nodes:
-              - kind: block
-                type: list_item
-                nodes:
-                  - kind: block
-                    type: unstyled
-                    nodes:
-                      - kind: text
-                        text: "Sub"
-                  - kind: block
-                    type: unordered_list
-                    nodes:
-                      - kind: block
-                        type: list_item
-                        nodes:
-                          - kind: block
-                            type: unstyled
-                            nodes:
-                              - kind: text
-                                text: "Sub sub"
-
-      - kind: block
-        type: list_item
-        nodes:
-          - kind: block
-            type: paragraph
-            nodes:
-              - kind: text
-                text: "Contains a blockquote"
-          - kind: block
-            type: blockquote
-            nodes:
-              - kind: block
-                type: paragraph
-                nodes:
-                  - kind: text
-                    text: Hello World
-
-  - kind: block
-    type: paragraph
-    nodes:
-      - kind: text
-        text: "One paragraph after"
+document:
+  nodes:
+    - kind: block
+      type: paragraph
+      nodes:
+        - kind: text
+          ranges:
+            - text: One paragraph before
+    - kind: block
+      type: unordered_list
+      nodes:
+        - kind: block
+          type: list_item
+          nodes:
+            - kind: block
+              type: paragraph
+              nodes:
+                - kind: text
+                  ranges:
+                    - text: Contains a table
+            - kind: block
+              type: table
+              data:
+                align:
+                  - right
+                  - null
+              nodes:
+                - kind: block
+                  type: table_row
+                  nodes:
+                    - kind: block
+                      type: table_cell
+                      nodes:
+                        - kind: text
+                          ranges:
+                            - text: A
+                    - kind: block
+                      type: table_cell
+                      nodes:
+                        - kind: text
+                          ranges:
+                            - text: B
+                - kind: block
+                  type: table_row
+                  nodes:
+                    - kind: block
+                      type: table_cell
+                      nodes:
+                        - kind: text
+                          ranges:
+                            - text: A1
+                    - kind: block
+                      type: table_cell
+                      nodes:
+                        - kind: text
+                          ranges:
+                            - text: B1
+                - kind: block
+                  type: table_row
+                  nodes:
+                    - kind: block
+                      type: table_cell
+                      nodes:
+                        - kind: text
+                          ranges:
+                            - text: A2
+                    - kind: block
+                      type: table_cell
+                      nodes:
+                        - kind: text
+                          ranges:
+                            - text: B2
+        - kind: block
+          type: list_item
+          nodes:
+            - kind: block
+              type: paragraph
+              nodes:
+                - kind: text
+                  ranges:
+                    - text: Contains a code block
+            - kind: block
+              type: code_block
+              nodes:
+                - kind: block
+                  type: code_line
+                  nodes:
+                    - kind: text
+                      ranges:
+                        - text: Some code
+        - kind: block
+          type: list_item
+          nodes:
+            - kind: block
+              type: unstyled
+              nodes:
+                - kind: text
+                  ranges:
+                    - text: Contains nested list
+            - kind: block
+              type: unordered_list
+              nodes:
+                - kind: block
+                  type: list_item
+                  nodes:
+                    - kind: block
+                      type: unstyled
+                      nodes:
+                        - kind: text
+                          ranges:
+                            - text: Sub
+                    - kind: block
+                      type: unordered_list
+                      nodes:
+                        - kind: block
+                          type: list_item
+                          nodes:
+                            - kind: block
+                              type: unstyled
+                              nodes:
+                                - kind: text
+                                  ranges:
+                                    - text: Sub sub
+        - kind: block
+          type: list_item
+          nodes:
+            - kind: block
+              type: paragraph
+              nodes:
+                - kind: text
+                  ranges:
+                    - text: Contains a blockquote
+            - kind: block
+              type: blockquote
+              nodes:
+                - kind: block
+                  type: paragraph
+                  nodes:
+                    - kind: text
+                      ranges:
+                        - text: Hello World
+    - kind: block
+      type: paragraph
+      nodes:
+        - kind: text
+          ranges:
+            - text: One paragraph after

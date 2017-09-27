@@ -87,10 +87,12 @@ describe('Serializer', () => {
     });
 
     describe('.transformRanges()', () => {
-        const textState = State.create().push(Text.createFromRanges([
-            { text: 'hello' },
-            { text: 'world', marks: [ { type: 'bold'} ] }
-        ]));
+        const textState = State.create().push(Text.create({
+            ranges: [
+                { text: 'hello' },
+                { text: 'world', marks: [ { type: 'bold'} ] }
+            ]
+        }));
 
         it('should update all ranges in a text', () => {
             const node = Serializer()
@@ -106,10 +108,12 @@ describe('Serializer', () => {
     });
 
     describe('.transformMarkedRange()', () => {
-        const textState = State.create().push(Text.createFromRanges([
-            { text: 'hello' },
-            { text: 'world', marks: [ { type: 'bold'} ] }
-        ]));
+        const textState = State.create().push(Text.create({
+            ranges: [
+                { text: 'hello' },
+                { text: 'world', marks: [ { type: 'bold'} ] }
+            ]
+        }));
 
         it('should update all matching ranges in a text', () => {
             const node = Serializer()

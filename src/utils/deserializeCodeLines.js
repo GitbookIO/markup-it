@@ -15,7 +15,7 @@ function deserializeCodeLines(text) {
         .map(line => Block.create({
             type: BLOCKS.CODE_LINE,
             nodes: [
-                Text.createFromString(line)
+                Text.create(line)
             ]
         }));
 }

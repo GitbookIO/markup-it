@@ -8,6 +8,43 @@ This project adheres to [Semantic Versioning](http://semver.org/).
     `comment` and `x-<tag>` are blocks, while `variable` is inline.
 - Parse YAML frontmatter as `document`'s data
 
+### 3.6.0
+
+- **Upgrade slate^0.22.0**
+
+### 3.5.2
+
+- Fix HTML deserialization of non-breaking spaces
+
+### 3.5.1
+
+- Fix HTML deserialization of code blocks containing spans (usually from syntax highlighting)
+
+### 3.5.0
+
+- Improve HTML deserialization by reusing nodes wrappers instead of wrapping invalid nodes individually,
+
+### 3.4.2
+
+- Fix parsing of ill-encoded URIs
+
+### 3.4.1
+
+- Fix parsing of empty fences block
+
+### 3.4.0
+
+- Improve Asciidoc and HTML deserialization by applying basic normalization (with Slate's core schema).
+
+### 3.3.7
+
+- Now supporting deserialization of URI encoded links.
+- Serialization of links now URI encodes parenthesis, instead of escaping them.
+
+### 3.3.6
+
+- Fix parsing of links not separated by whitespaces.
+
 ### 3.3.5
 
 - Whitespaces non-escaped are supported again during deserialization

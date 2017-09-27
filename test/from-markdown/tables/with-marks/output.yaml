@@ -1,53 +1,58 @@
-nodes:
-  - kind: block
-    type: table
-    data:
-      align:
-        - null
-        - null
-    nodes:
-      - kind: block
-        type: table_row
-        nodes:
-          - kind: block
-            type: table_cell
-            nodes:
-              - kind: text
-                text: A
-          - kind: block
-            type: table_cell
-            nodes:
-              - kind: text
-                text: B
-      - kind: block
-        type: table_row
-        nodes:
-          - kind: block
-            type: table_cell
-            nodes:
-              - kind: text
-                ranges:
-                  - text: A1
-                    marks:
-                      - type: CODE
-          - kind: block
-            type: table_cell
-            nodes:
-              - kind: text
-                text: B1
-      - kind: block
-        type: table_row
-        nodes:
-          - kind: block
-            type: table_cell
-            nodes:
-              - kind: text
-                ranges:
-                  - text: A2
-                    marks:
-                      - type: BOLD
-          - kind: block
-            type: table_cell
-            nodes:
-              - kind: text
-                text: B2
+document:
+  nodes:
+    - kind: block
+      type: table
+      data:
+        align:
+          - null
+          - null
+      nodes:
+        - kind: block
+          type: table_row
+          nodes:
+            - kind: block
+              type: table_cell
+              nodes:
+                - kind: text
+                  ranges:
+                    - text: A
+            - kind: block
+              type: table_cell
+              nodes:
+                - kind: text
+                  ranges:
+                    - text: B
+        - kind: block
+          type: table_row
+          nodes:
+            - kind: block
+              type: table_cell
+              nodes:
+                - kind: text
+                  ranges:
+                    - text: A1
+                      marks:
+                        - type: CODE
+            - kind: block
+              type: table_cell
+              nodes:
+                - kind: text
+                  ranges:
+                    - text: B1
+        - kind: block
+          type: table_row
+          nodes:
+            - kind: block
+              type: table_cell
+              nodes:
+                - kind: text
+                  ranges:
+                    - text: A2
+                      marks:
+                        - type: BOLD
+            - kind: block
+              type: table_cell
+              nodes:
+                - kind: text
+                  ranges:
+                    - text: B2

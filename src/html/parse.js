@@ -1,10 +1,11 @@
+const Slate = require('slate');
 const detectNewLine = require('detect-newline');
 const htmlparser = require('htmlparser2');
 const htmlclean = require('htmlclean');
 const { List, Stack, Set } = require('immutable');
 const { Document } = require('slate');
 const {
-    BLOCKS, INLINES, MARKS, CONTAINERS, VOID,
+    BLOCKS, INLINES, MARKS, CONTAINERS, VOID, LEAFS,
     Block, Inline, Text, Mark
 } = require('../');
 
@@ -27,6 +28,7 @@ const BLOCK_TAGS = {
 
     table:          BLOCKS.TABLE,
     tr:             BLOCKS.TABLE_ROW,
+    th:             BLOCKS.TABLE_CELL,
     td:             BLOCKS.TABLE_CELL,
 
     ul:             BLOCKS.UL_LIST,
@@ -66,6 +68,41 @@ const TAGS_TO_DATA = {
     h4: resolveHeadingAttrs,
     h5: resolveHeadingAttrs,
     h6: resolveHeadingAttrs
+};
+
+
+const SCHEMA_NO_EXTRA_TEXT = {
+    rules: [
+
+        /**
+         * Remove empty text nodes, except if they are only child. Copied from slate's
+         */
+        {
+            match: (object) => {
+                return object.kind == 'block' || object.kind == 'inline';
+            },
+            validate: (node) => {
+                const { nodes } = node;
+                if (nodes.size <= 1) return;
+
+                const invalids = nodes.filter((desc, i) => {
+                    if (desc.kind != 'text') return;
+                    if (desc.text.length > 0) return;
+                    return true;
+                });
+
+                return invalids.size ? invalids : null;
+
+            },
+            normalize: (change, node, invalids) => {
+                // Reverse the list to handle consecutive merges, since the earlier nodes
+                // will always exist after each merge.
+                invalids.forEach((n) => {
+                    change.removeNodeByKey(n.key, { normalize: false });
+                });
+            }
+        }
+    ]
 };
 
 function resolveHeadingAttrs(attribs) {
@@ -117,56 +154,162 @@ function getMarksForClassName(className) {
 }
 
 /**
- * Parse an HTML string into a list of Nodes
+ * Returns the accepted block types for the given container
+ */
+function acceptedBlocks(container) {
+    return CONTAINERS[container.type || container.kind];
+}
+
+/**
+ * True if the node is a block container node
+ */
+function isBlockContainer(node) {
+    return Boolean(acceptedBlocks(node));
+}
+
+/**
+ * Returns the default block type for a block container
+ */
+function defaultBlockType(container) {
+    return acceptedBlocks(container)[0];
+}
+
+/**
+ * True if `block` can contain `node`
+ */
+function canContain(block, node) {
+    if (node.kind === 'inline' || node.kind === 'text') {
+        return LEAFS[block.type];
+    } else {
+        const types = acceptedBlocks(block);
+        return types && types.indexOf(node.type) !== -1;
+    }
+}
+
+/*
+ * sanitizeSpaces replace non-breaking spaces with regular space
+ * non-breaking spaces (aka &nbsp;) are sources of many problems & quirks
+ * &nbsp; in ascii is `0xA0` or `0xC2A0` in utf8
  * @param {String} str
- * @return {List<Node>}
+ * @return {String}
+ */
+function sanitizeSpaces(str) {
+    return str.replace(/\xa0/g, ' ');
+}
+
+/**
+ * @param {String} tagName The tag name
+ * @param {Object} attrs The tag's attributes
+ * @return {Object} data
+ */
+function getData(tagName, attrs) {
+    return (
+        TAGS_TO_DATA[tagName] || (() => {})
+    )(attrs);
+}
+
+/**
+ * @param {String} nodeType
+ * @return {Boolean} isVoid
+ */
+function isVoid(nodeType) {
+    return Boolean(VOID[nodeType]);
+}
+
+
+/**
+ * Returns the list of lines in the string
+ * @param {String} text
+ * @param {String} sep?
+ * @return {List<String>}
+ */
+function splitLines(text, sep) {
+    sep = sep || detectNewLine(text) || '\n';
+    return List(
+        text.split(sep)
+    );
+}
+
+/**
+ * Deserialize an HTML string
+ * @param {Document} document
+ * @return {Document}
+ */
+function removeExtraEmptyText(document) {
+    const slateState = Slate
+    .State.fromJSON({
+        document
+    }, {
+        normalize: false
+    });
+
+    // Remove first extra empty text nodes, since for now HTML introduces a lot of them
+    const noExtraEmptyText = slateState.change().normalize(Slate.Schema.create(SCHEMA_NO_EXTRA_TEXT)).state;
+    // Then normalize it using Slate's core schema.
+    const normalizedState = Slate.State.fromJSON(noExtraEmptyText.toJSON());
+
+    return normalizedState.document;
+}
+
+/**
+ * Parse an HTML string into a document
+ * @param {String} str
+ * @return {Document}
  */
 function parse(str) {
     // Cleanup whitespaces
     str = htmlclean(str);
 
     // For convenience, starts with a root node
-    const root = Document.create({
-        type: BLOCKS.DOCUMENT
-    });
+    const root = Document.create({});
     // The top of the stack always hold the current parent
     // node. Should never be empty.
     let stack = Stack().push(root);
     // The current marks
     let marks = Set();
 
+    // Update the node on top of the stack with the given node
+    function setNode(node) {
+        stack = stack.pop().push(node);
+    }
+
     // Append a node child to the current parent node
     function appendNode(node) {
         const parent = stack.peek();
-        const containerChildTypes = CONTAINERS[parent.type || parent.kind];
         let { nodes } = parent;
 
         // If parent is not a block container
-        if (!containerChildTypes && node.kind == 'block') {
+        if (!isBlockContainer(parent) && node.kind == 'block') {
             // Discard all blocks
             nodes = nodes.concat(selectInlines(node));
         }
 
         // Wrap node if type is not allowed
         else if (
-            containerChildTypes
-            && (node.kind !== 'block' || !containerChildTypes.includes(node.type))
+            isBlockContainer(parent)
+            && (node.kind !== 'block' || !canContain(parent, node))
         ) {
-            node = Block.create({
-                type: containerChildTypes[0],
-                nodes: [node]
-            });
+            const previous = parent.nodes.last();
+            if (previous && canContain(previous, node)) {
+                // Reuse previous block if possible
+                nodes = nodes.pop().push(
+                    previous.set('nodes', previous.nodes.push(node))
+                );
+            } else {
+                // Else insert a default wrapper
+                node = Block.create({
+                    type: defaultBlockType(parent),
+                    nodes: [node]
+                });
 
-            nodes = nodes.push(node);
+                nodes = nodes.push(node);
+            }
         }
-
         else {
             nodes = nodes.push(node);
         }
 
-        stack = stack
-            .pop()
-            .push(parent.merge({ nodes }));
+        setNode(parent.merge({ nodes }));
     }
 
     // Push a new node, as current parent. We started parsing it
@@ -216,9 +359,13 @@ function parse(str) {
             }
 
             else if (tagName == 'br') {
-                const textNode = Text.createFromString('\n', marks);
+                const textNode = Text.create({
+                    text: '\n',
+                    marks
+                });
                 appendNode(textNode);
             }
+            // else ignore
 
             // Parse marks from the class name
             const newMarks = getMarksForClassName(attribs['class']);
@@ -226,29 +373,33 @@ function parse(str) {
         },
 
         ontext(text) {
-            const isEmptyText = !text.trim();
-            if (isEmptyText) return;
-
-            // Special rule for code blocks that we must split in lines
-            if (stack.peek().type === BLOCKS.CODE) {
-                splitLines(text).forEach(line => {
-                    // Create a code line
-                    pushNode(Block.create({ type: BLOCKS.CODE_LINE }));
-                    // Push the text
-                    appendNode(Text.createFromString(line));
-                    popNode();
-                });
-            }
-
-            // Usual behavior
-            else {
-                const textNode = Text.createFromString(text, marks);
-                appendNode(textNode);
-            }
+            const cleanText = sanitizeSpaces(text);
+            const textNode = Text.create({ text: cleanText, marks });
+            appendNode(textNode);
         },
 
         onclosetag(tagName) {
             if (BLOCK_TAGS[tagName] || INLINE_TAGS[tagName]) {
+                const parent = stack.peek();
+
+                // Special rule for code blocks that we must split in lines
+                if (parent.type === BLOCKS.CODE) {
+                    let lines = splitLines(parent.text);
+                    // Remove trailing newline
+                    if (lines.last().trim() === '') {
+                        lines = lines.skipLast(1);
+                    }
+                    setNode(parent.merge({
+                        nodes: lines.map(line => {
+                            // Create a code line
+                            return Block.create({
+                                type: BLOCKS.CODE_LINE,
+                                nodes: [Text.create(line)]
+                            });
+                        })
+                    }));
+                }
+
                 popNode();
             }
 
@@ -270,40 +421,7 @@ function parse(str) {
         throw new Error('Invalid HTML. A tag might not have been closed correctly.');
     }
 
-    return stack.peek();
-}
-
-/**
- * @param {String} tagName The tag name
- * @param {Object} attrs The tag's attributes
- * @return {Object} data
- */
-function getData(tagName, attrs) {
-    return (
-        TAGS_TO_DATA[tagName] || (() => {})
-    )(attrs);
-}
-
-/**
- * @param {String} nodeType
- * @return {Boolean} isVoid
- */
-function isVoid(nodeType) {
-    return Boolean(VOID[nodeType]);
-}
-
-
-/**
- * Returns the list of lines in the string
- * @param {String} text
- * @param {String} sep?
- * @return {List<String>}
- */
-function splitLines(text, sep) {
-    sep = sep || detectNewLine(text) || '\n';
-    return List(
-        text.split(sep)
-    );
+    return removeExtraEmptyText(stack.peek());
 }
 
 module.exports = parse;

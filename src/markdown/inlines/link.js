@@ -75,7 +75,7 @@ const deserializeUrl = Deserializer()
         const node = Inline.create({
             type: INLINES.LINK,
             nodes: [
-                Text.createFromString(href)
+                Text.create(href)
             ],
             data: { href }
         });
@@ -107,7 +107,7 @@ const deserializeAutolink = Deserializer()
         const node = Inline.create({
             type: INLINES.LINK,
             nodes: [
-                Text.createFromString(text)
+                Text.create(text)
             ],
             data: { href }
         });

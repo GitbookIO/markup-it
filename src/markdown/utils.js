@@ -33,8 +33,8 @@ const URL_REPLACEMENTS_UNESCAPE = REPLACEMENTS_UNESCAPE.merge({
     ' ': '%20'
 });
 const URL_REPLACEMENTS_ESCAPE = Map([
-    [ '(', '\\(' ],
-    [ ')', '\\)' ]
+    [ '(', '%28' ],
+    [ ')', '%29' ]
 ]);
 
 /**
@@ -73,13 +73,24 @@ function escapeURL(str) {
 }
 
 /**
- * Unescape  an url
+ * URI decode and unescape an url
  *
  * @param {String} str
  * @return {String}
  */
 function unescapeURL(str) {
-    return unescapeWith(URL_REPLACEMENTS_UNESCAPE, str);
+    let decoded;
+    try {
+        decoded = decodeURI(str);
+    } catch (e) {
+        if (!(e instanceof URIError)) {
+            throw e;
+        } else {
+            decoded = str;
+        }
+    }
+
+    return unescapeWith(URL_REPLACEMENTS_UNESCAPE, decoded);
 }
 
 

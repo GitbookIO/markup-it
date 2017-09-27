@@ -1,15 +1,19 @@
-nodes:
-  - kind: block
-    type: paragraph
-    nodes:
-      - kind: text
-        text: "This is a link "
-      - kind: inline
-        type: link
-        data:
-          href: mailto:samy@gitbook.com
-        nodes:
-          - kind: text
-            text: samy@gitbook.com
-      - kind: text
-        text: ""
+document:
+  nodes:
+    - kind: block
+      type: paragraph
+      nodes:
+        - kind: text
+          ranges:
+            - text: 'This is a link '
+        - kind: inline
+          type: link
+          data:
+            href: 'mailto:samy@gitbook.com'
+          nodes:
+            - kind: text
+              ranges:
+                - text: samy@gitbook.com
+        - kind: text
+          ranges:
+            - text: ''

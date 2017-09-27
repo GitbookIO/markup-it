@@ -1,0 +1,37 @@
+document:
+  nodes:
+    - kind: block
+      type: paragraph
+      nodes:
+        - kind: text
+          ranges:
+            - text: 'Let’s see how the account management is organized:'
+    - kind: block
+      type: unordered_list
+      nodes:
+        - kind: block
+          type: list_item
+          nodes:
+            - kind: block
+              type: unstyled
+              nodes:
+                - kind: text
+                  ranges:
+                    - text: "An "
+                    - text: Account
+                      marks:
+                        - type: BOLD
+                    - text: " is what you use to login to Algolia. Each team member should have a separate account, secured with Two-Factor-Authentication."
+        - kind: block
+          type: list_item
+          nodes:
+            - kind: block
+              type: unstyled
+              nodes:
+                - kind: text
+                  ranges:
+                    - text: "Each team member can have access to one or multiple "
+                    - text: Applications
+                      marks:
+                        - type: BOLD
+                    - text: . You can invite members to the applications you manage.

@@ -1,0 +1,119 @@
+document:
+  nodes:
+    - kind: block
+      type: code_block
+      nodes:
+        - kind: block
+          type: code_line
+          nodes:
+            - kind: text
+              ranges:
+                - text: using Starcounter;
+        - kind: block
+          type: code_line
+          nodes:
+            - kind: text
+              ranges:
+                - text: ''
+        - kind: block
+          type: code_line
+          nodes:
+            - kind: text
+              ranges:
+                - text: namespace HelloWorld
+        - kind: block
+          type: code_line
+          nodes:
+            - kind: text
+              ranges:
+                - text: '{'
+        - kind: block
+          type: code_line
+          nodes:
+            - kind: text
+              ranges:
+                - text: '    [Database]'
+        - kind: block
+          type: code_line
+          nodes:
+            - kind: text
+              ranges:
+                - text: '    public class Person'
+        - kind: block
+          type: code_line
+          nodes:
+            - kind: text
+              ranges:
+                - text: '    {'
+        - kind: block
+          type: code_line
+          nodes:
+            - kind: text
+              ranges:
+                - text: '        public string FirstName;'
+        - kind: block
+          type: code_line
+          nodes:
+            - kind: text
+              ranges:
+                - text: '        public string LastName;'
+        - kind: block
+          type: code_line
+          nodes:
+            - kind: text
+              ranges:
+                - text: '    }'
+        - kind: block
+          type: code_line
+          nodes:
+            - kind: text
+              ranges:
+                - text: ''
+        - kind: block
+          type: code_line
+          nodes:
+            - kind: text
+              ranges:
+                - text: '    class Program'
+        - kind: block
+          type: code_line
+          nodes:
+            - kind: text
+              ranges:
+                - text: '    {'
+        - kind: block
+          type: code_line
+          nodes:
+            - kind: text
+              ranges:
+                - text: '        static void Main()'
+        - kind: block
+          type: code_line
+          nodes:
+            - kind: text
+              ranges:
+                - text: '        {'
+        - kind: block
+          type: code_line
+          nodes:
+            - kind: text
+              ranges:
+                - text: ''
+        - kind: block
+          type: code_line
+          nodes:
+            - kind: text
+              ranges:
+                - text: '        }'
+        - kind: block
+          type: code_line
+          nodes:
+            - kind: text
+              ranges:
+                - text: '    }'
+        - kind: block
+          type: code_line
+          nodes:
+            - kind: text
+              ranges:
+                - text: '}'

@@ -169,7 +169,7 @@ class State extends Record(DEFAULTS) {
     genText(text = '') {
         const { marks } = this;
 
-        let node = Text.createFromString(text, marks);
+        let node = Text.create({ text, marks });
 
         if (this.kind == 'block') {
             node = Block.create({

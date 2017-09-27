@@ -1,8 +1,10 @@
-nodes:
-  - kind: block
-    type: header_one
-    data:
+document:
+  nodes:
+    - kind: block
+      type: header_one
+      data:
         id: mycustomid
-    nodes:
-      - kind: text
-        text: Header
+      nodes:
+        - kind: text
+          ranges:
+            - text: Header

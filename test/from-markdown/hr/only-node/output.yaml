@@ -1,4 +1,5 @@
-nodes:
-  - kind: block
-    type: hr
-    isVoid: true
+document:
+  nodes:
+    - kind: block
+      type: hr
+      isVoid: true

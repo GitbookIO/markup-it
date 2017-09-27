@@ -1,47 +1,54 @@
-nodes:
-  - kind: block
-    type: table
-    data:
-      align:
-        - center
-        - null
-    nodes:
-      - kind: block
-        type: table_row
-        nodes:
-          - kind: block
-            type: table_cell
-            nodes:
-              - kind: text
-                text: A
-          - kind: block
-            type: table_cell
-            nodes:
-              - kind: text
-                text: B
-      - kind: block
-        type: table_row
-        nodes:
-          - kind: block
-            type: table_cell
-            nodes:
-              - kind: text
-                text: A1
-          - kind: block
-            type: table_cell
-            nodes:
-              - kind: text
-                text: B1
-      - kind: block
-        type: table_row
-        nodes:
-          - kind: block
-            type: table_cell
-            nodes:
-              - kind: text
-                text: A2
-          - kind: block
-            type: table_cell
-            nodes:
-              - kind: text
-                text: B2
+document:
+  nodes:
+    - kind: block
+      type: table
+      data:
+        align:
+          - center
+          - null
+      nodes:
+        - kind: block
+          type: table_row
+          nodes:
+            - kind: block
+              type: table_cell
+              nodes:
+                - kind: text
+                  ranges:
+                    - text: A
+            - kind: block
+              type: table_cell
+              nodes:
+                - kind: text
+                  ranges:
+                    - text: B
+        - kind: block
+          type: table_row
+          nodes:
+            - kind: block
+              type: table_cell
+              nodes:
+                - kind: text
+                  ranges:
+                    - text: A1
+            - kind: block
+              type: table_cell
+              nodes:
+                - kind: text
+                  ranges:
+                    - text: B1
+        - kind: block
+          type: table_row
+          nodes:
+            - kind: block
+              type: table_cell
+              nodes:
+                - kind: text
+                  ranges:
+                    - text: A2
+            - kind: block
+              type: table_cell
+              nodes:
+                - kind: text
+                  ranges:
+                    - text: B2

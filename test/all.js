@@ -23,7 +23,7 @@ function readFileInput(filePath) {
         const parser = MarkupIt.State.create(syntax);
         const document = parser.deserializeToDocument(content);
         const state = Slate.State.create({ document });
-        return Slate.Raw.serialize(state, { terse: true });
+        return state.toJSON();
     }
 
     switch (ext) {
@@ -34,7 +34,7 @@ function readFileInput(filePath) {
     case '.adoc':
         return deserializeWith(asciidoc);
     case '.yaml':
-        return readYaml(filePath);
+        return Slate.State.fromJSON(readYaml(filePath)).toJSON();
     }
 }
 
@@ -48,8 +48,8 @@ function convertFor(input, outputExt) {
 
     function serializeWith(syntax) {
         const parser = MarkupIt.State.create(syntax);
-        const { document } = Slate.Raw.deserialize(input, { terse: true });
-        const out = parser.serializeDocument(document);
+        const inputDocument = Slate.State.fromJSON(input).document;
+        const out = parser.serializeDocument(inputDocument);
 
         // Trim to avoid newlines being compared at the end
         return trimTrailingLines(out);
@@ -83,7 +83,7 @@ function readFileOutput(fileName) {
         // We trim to avoid newlines being compared at the end
         return trimTrailingLines(content);
     case '.yaml':
-        return readYaml(fileName);
+        return Slate.State.fromJSON(readYaml(fileName)).toJSON();
     }
 }
 
@@ -121,7 +121,16 @@ function isTestFolder(folder) {
     const inputName = files.find(file => file.split('.')[0] === 'input');
     const outputName = files.find(file => file.split('.')[0] === 'output');
 
-    return Boolean(inputName && outputName);
+    const input = Boolean(inputName);
+    const output = Boolean(outputName);
+
+    if (input && !output) {
+        throw new Error(`It looks like the test '${folder}' has an ${inputName} file, but is missing an output file.`);
+    } else if (!input && output) {
+        throw new Error(`It looks like the test '${folder}' has an ${outputName} file, but is missing an output file.`);
+    }
+
+    return input && output;
 }
 
 /**

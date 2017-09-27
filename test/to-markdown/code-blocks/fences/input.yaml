@@ -1,9 +1,11 @@
-nodes:
-  - kind: block
-    type: code_block
-    nodes:
-      - kind: block
-        type: code_line
-        nodes:
-          - kind: text
-            text: "With fences `"
+document:
+  nodes:
+    - kind: block
+      type: code_block
+      nodes:
+        - kind: block
+          type: code_line
+          nodes:
+            - kind: text
+              ranges:
+                - text: With fences `

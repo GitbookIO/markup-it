@@ -1,16 +1,20 @@
-nodes:
-  - kind: block
-    type: paragraph
-    nodes:
-      - kind: text
-        text: " This is a a link "
-      - kind: inline
-        type: link
-        data:
-          href: 'image.com/image.png'
-          title: 'Image title'
-        nodes:
-          - kind: text
-            text: Image text
-      - kind: text
-        text: ""
+document:
+  nodes:
+    - kind: block
+      type: paragraph
+      nodes:
+        - kind: text
+          ranges:
+            - text: ' This is a a link '
+        - kind: inline
+          type: link
+          data:
+            href: image.com/image.png
+            title: Image title
+          nodes:
+            - kind: text
+              ranges:
+                - text: Image text
+        - kind: text
+          ranges:
+            - text: ''
