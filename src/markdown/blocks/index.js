@@ -15,12 +15,12 @@ const custom = require('./custom');
 module.exports = [
     definition,
     table,
+    hr,
     list,
     footnote,
     blockquote,
     codeBlock,
     heading,
-    hr,
     math,
     comment,
     custom,
