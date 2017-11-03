@@ -1,0 +1,26 @@
+document:
+  nodes:
+    - kind: block
+      type: paragraph
+      nodes:
+        - kind: text
+          ranges:
+            - text: Hello world
+    - kind: block
+      type: x-method
+      nodes:
+        - kind: block
+          type: paragraph
+          nodes:
+            - kind: text
+              ranges:
+                - text: Method 1
+    - kind: block
+      type: x-method
+      nodes:
+        - kind: block
+          type: paragraph
+          nodes:
+            - kind: text
+              ranges:
+                - text: Method 2
