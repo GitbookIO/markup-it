@@ -1,0 +1,17 @@
+document:
+  nodes:
+    - kind: block
+      type: paragraph
+      nodes:
+        - kind: text
+          ranges:
+            - text: Hello
+    - kind: block
+      type: hr
+      isVoid: true
+    - kind: block
+      type: paragraph
+      nodes:
+        - kind: text
+          ranges:
+            - text: World
