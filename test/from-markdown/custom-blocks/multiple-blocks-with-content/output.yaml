@@ -5,7 +5,7 @@ document:
       nodes:
         - kind: text
           ranges:
-            - text: Hello world
+            - text: Hello World
     - kind: block
       type: x-method
       nodes:

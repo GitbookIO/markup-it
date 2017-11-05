@@ -2,8 +2,8 @@ Hello World
 
 {% method %}
 Method 1
-{& endmethod %}
+{% endmethod %}
 
 {% method %}
 Method 2
-{& endmethod %}
+{% endmethod %}
