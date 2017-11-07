@@ -4,7 +4,6 @@ Hello World
 Method 1
 {% sample lang="js" %}
 Some code
-{% endsample %}
 {% endmethod %}
 
 {% method %}
