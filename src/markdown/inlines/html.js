@@ -37,6 +37,7 @@ function createRawHTML(opts) {
     const { openingTag = '', closingTag = '', innerHtml = '' } = opts;
     return Inline.create({
         type: INLINES.HTML,
+        isVoid: true,
         data: { openingTag, closingTag, innerHtml }
     });
 }
@@ -65,7 +66,7 @@ const serialize = Serializer()
     .matchType(INLINES.HTML)
     .then(state => {
         const node = state.peek();
-        const { openingTag, closingTag, innerHtml } = node.data.toObject();
+        const { openingTag = '', closingTag = '', innerHtml = '' } = node.data.toObject();
         if (innerHtml) {
             return state
                 .shift()
@@ -108,13 +109,11 @@ const deserializePair = Deserializer()
         if (isHTMLBlock(tagName)) {
             // Do not parse inner HTML
             return state.push(
-                List([
-                    createRawHTML({
-                        openingTag,
-                        closingTag,
-                        innerHtml
-                    })
-                ])
+                createRawHTML({
+                    openingTag,
+                    closingTag,
+                    innerHtml
+                })
             );
         } else {
             // Parse inner HTML
@@ -125,18 +124,15 @@ const deserializePair = Deserializer()
                 .deserialize(innerHtml);
 
             return state.push(
-                List([
-                    createHTML({
-                        openingTag,
-                        closingTag,
-                        innerNodes
-                    })
-                ])
+                createHTML({
+                    openingTag,
+                    closingTag,
+                    innerNodes
+                })
             );
         }
     }
 );
-
 
 /**
  * Deserialize HTML comment from markdown
@@ -146,7 +142,7 @@ const deserializeClosing = Deserializer()
 .matchRegExp(
     reInline.htmlSelfClosingTag, (state, match) => {
         const [ openingTag ] = match;
-        return state.push(List([ createRawHTML({ openingTag }) ]));
+        return state.push(createRawHTML({ openingTag }));
     }
 );
 
