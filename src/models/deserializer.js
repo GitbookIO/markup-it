@@ -16,16 +16,14 @@ class Deserializer extends RuleFunction {
         }
         res = List(res);
 
+        let match;
         return this.filter((state) => {
-            return res.some(re => re.test(state.text));
-        })
-        .then((state) => {
-            let match;
-            res.some(re => {
+            return res.some(re => {
                 match = re.exec(state.text);
                 return match;
             });
-
+        })
+        .then((state) => {
             state = state.skip(match[0].length);
             return callback(state, match);
         });
