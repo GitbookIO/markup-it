@@ -1,0 +1,42 @@
+document:
+  nodes:
+
+    - kind: block
+      type: paragraph
+      nodes:
+        - kind: text
+          ranges:
+            - text: ''
+        - kind: inline
+          type: html
+          isVoid: true
+          data:
+            html: <br/>
+          nodes:
+            - kind: text
+              ranges:
+                - text: ' '
+        - kind: text
+          ranges:
+            - text: "\n"
+        - kind: inline
+          type: html
+          isVoid: true
+          data:
+            html: <p>Something</p>
+          nodes:
+            - kind: text
+              ranges:
+                - text: ' '
+        - kind: text
+          ranges:
+            - text: "\n"
+        - kind: inline
+          type: html
+          isVoid: true
+          data:
+            html: <br/>
+          nodes:
+            - kind: text
+              ranges:
+                - text: ' '
