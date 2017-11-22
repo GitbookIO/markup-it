@@ -46,23 +46,21 @@ function createHTML(html) {
 function mergeHTMLNodes(nodes) {
     const result = nodes.reduce(
         (accu, node) => {
-            let last = accu.length > 0 ? accu[accu.length - 1] : null;
+            const prevIndex = accu.length - 1;
+            const previous = accu.length > 0 ? accu[prevIndex] : null;
 
-            if (last && node.type == INLINES.HTML && last.type == node.type) {
-                last = last.merge({
-                    data: last.data.set(
+            if (previous && node.type == INLINES.HTML && previous.type == node.type) {
+                accu[prevIndex] = previous.merge({
+                    data: previous.data.set(
                         'html',
-                        last.data.get('html') + node.data.get('html')
+                        previous.data.get('html') + node.data.get('html')
                     )
                 });
-
-                accu.shift();
-                accu.push(last);
-
-                return accu;
+            } else {
+                accu.push(node);
             }
 
-            return accu.concat([ node ]);
+            return accu;
         },
         []
     );
@@ -101,14 +99,11 @@ const deserializePair = Deserializer()
 .matchRegExp(
     reInline.htmlTagPair, (state, match) => {
         const [ fullTag, tagName, attributes, innerText ] = match;
-        let innerNodes = [];
 
         const startTag = `<${tagName}${attributes}>`;
         const endTag = fullTag.slice(startTag.length + innerText.length);
-        console.log('');
-        console.log('startTag', startTag);
-        console.log('innertText', innerText);
-        console.log('endTag', endTag);
+
+        let innerNodes = [];
         if (innerText) {
             if (isHTMLBlock(tagName)) {
                 innerNodes = [createHTML(innerText)];
