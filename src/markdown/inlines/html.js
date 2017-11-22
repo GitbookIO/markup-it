@@ -1,4 +1,3 @@
-const { List } = require('immutable');
 const { Serializer, Deserializer, Inline, INLINES } = require('../../');
 const reInline = require('../re/inline');
 
@@ -127,7 +126,7 @@ const deserializePair = Deserializer()
                 createHTML({
                     openingTag,
                     closingTag,
-                    innerNodes
+                    nodes: innerNodes
                 })
             );
         }

@@ -5,22 +5,16 @@ document:
       nodes:
         - kind: inline
           type: html
-          isVoid: true
           data:
-              html: '<cite><a href="mylink">'
+              openingTag: '<cite>'
+              closingTag: '</cite>'
           nodes:
-              - kind: text
-                ranges:
-                    - text: ' '
-        - kind: text
-          ranges:
-           - text: 'link'
-        - kind: inline
-          type: html
-          isVoid: true
-          data:
-              html: '</a></cite>'
-          nodes:
-              - kind: text
-                ranges:
-                    - text: ' '
+            - kind: inline
+              type: html
+              data:
+                openingTag: '<a href="mylink">'
+                closingTag: '</a>'
+              nodes:
+                - kind: text
+                  ranges:
+                    - text: 'link'

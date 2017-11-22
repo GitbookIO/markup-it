@@ -5,22 +5,10 @@ document:
       nodes:
         - kind: inline
           type: html
-          isVoid: true
           data:
-              html: '<a href="mylink">'
+              openingTag: '<a href="mylink">'
+              closingTag: '</a>'
           nodes:
               - kind: text
                 ranges:
-                    - text: ' '
-        - kind: text
-          ranges:
-           - text: 'mylink'
-        - kind: inline
-          type: html
-          isVoid: true
-          data:
-              html: '</a>'
-          nodes:
-              - kind: text
-                ranges:
-                    - text: ' '
+                    - text: 'mylink'

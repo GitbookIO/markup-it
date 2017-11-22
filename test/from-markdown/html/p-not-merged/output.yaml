@@ -10,7 +10,9 @@ document:
           isVoid: true
           type: html
           data:
-            html: <p>Hello</p>
+            openingTag: <p>
+            innerHtml: Hello
+            closingTag: </p>
         - kind: text
           ranges:
             - text: ' World '
@@ -18,7 +20,9 @@ document:
           isVoid: true
           type: html
           data:
-            html: <p>!</p>
+            openingTag: <p>
+            innerHtml: '!'
+            closingTag: </p>
         - kind: text
           ranges:
             - text: ''
