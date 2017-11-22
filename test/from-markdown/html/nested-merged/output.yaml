@@ -1,0 +1,26 @@
+document:
+  nodes:
+    - kind: block
+      type: paragraph
+      nodes:
+        - kind: inline
+          type: html
+          isVoid: true
+          data:
+              html: '<cite><a href="mylink">'
+          nodes:
+              - kind: text
+                ranges:
+                    - text: ' '
+        - kind: text
+          ranges:
+           - text: 'link'
+        - kind: inline
+          type: html
+          isVoid: true
+          data:
+              html: '</a></cite>'
+          nodes:
+              - kind: text
+                ranges:
+                    - text: ' '

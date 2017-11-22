@@ -1,0 +1,26 @@
+document:
+  nodes:
+    - kind: block
+      type: paragraph
+      nodes:
+        - kind: inline
+          type: html
+          isVoid: true
+          data:
+              html: '<a href="mylink">'
+          nodes:
+              - kind: text
+                ranges:
+                    - text: ' '
+        - kind: text
+          ranges:
+           - text: 'mylink'
+        - kind: inline
+          type: html
+          isVoid: true
+          data:
+              html: '</a>'
+          nodes:
+              - kind: text
+                ranges:
+                    - text: ' '
