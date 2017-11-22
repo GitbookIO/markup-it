@@ -84,44 +84,71 @@ const serialize = Serializer()
     });
 
 /**
- * Deserialize HTML from markdown
+ * Deserialize HTML comment from markdown
  * @type {Deserializer}
  */
-const deserialize = Deserializer()
-    .matchRegExp(reInline.html, (state, match) => {
-        const [ tag, tagName, innerText ] = match;
-        let startTag, endTag, innerNodes = [];
+const deserializeComment = Deserializer()
+.matchRegExp(reInline.htmlComment, (state, match) => {
+    // Ignore
+    return state;
+});
 
+/**
+ * Deserialize HTML comment from markdown
+ * @type {Deserializer}
+ */
+const deserializePair = Deserializer()
+.matchRegExp(
+    reInline.htmlTagPair, (state, match) => {
+        const [ fullTag, tagName, attributes, innerText ] = match;
+        let innerNodes = [];
+
+        const startTag = `<${tagName}${attributes}>`;
+        const endTag = fullTag.slice(startTag.length + innerText.length);
+        console.log('');
+        console.log('startTag', startTag);
+        console.log('innertText', innerText);
+        console.log('endTag', endTag);
         if (innerText) {
-            startTag = tag.substring(0, tag.indexOf(innerText));
-            endTag   = tag.substring(tag.indexOf(innerText) + innerText.length);
-        } else {
-            startTag = tag;
-            endTag   = '';
-        }
+            if (isHTMLBlock(tagName)) {
+                innerNodes = [createHTML(innerText)];
+            } else {
+                const isLink = (tagName.toLowerCase() === 'a');
 
-        if (tagName && !isHTMLBlock(tagName) && innerText) {
-            const isLink = (tagName.toLowerCase() === 'a');
-
-            innerNodes = state
-                .setProp(isLink ? 'link' : 'html', state.depth)
-                .deserialize(innerText);
-        } else if (innerText) {
-            innerNodes = [
-                createHTML(innerText)
-            ];
+                innerNodes = state
+                    .setProp(isLink ? 'link' : 'html', state.depth)
+                    .deserialize(innerText);
+            }
         }
 
         let nodes = List([ createHTML(startTag) ])
-            .concat(innerNodes);
-
-        if (endTag) {
-            nodes = nodes.push(createHTML(endTag));
-        }
+            .concat(innerNodes)
+            .push(createHTML(endTag));
 
         nodes = mergeHTMLNodes(nodes);
 
         return state.push(nodes);
-    });
+    }
+);
 
-module.exports = { serialize, deserialize };
+
+/**
+ * Deserialize HTML comment from markdown
+ * @type {Deserializer}
+ */
+const deserializeClosing = Deserializer()
+.matchRegExp(
+    reInline.htmlSelfClosingTag, (state, match) => {
+        const [ tag ] = match;
+        return state.push(List([ createHTML(tag) ]));
+    }
+);
+
+module.exports = {
+    serialize,
+    deserialize: Deserializer().use([
+        deserializeComment,
+        deserializePair,
+        deserializeClosing
+    ])
+};
