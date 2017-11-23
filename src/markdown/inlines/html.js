@@ -1,18 +1,6 @@
 const { Serializer, Deserializer, Inline, INLINES } = require('../../');
 const reInline = require('../re/inline');
-
-// List of valid html blocks names, accorting to commonmark spec
-// http://jgm.github.io/CommonMark/spec.html#html-blocks
-// Treat these blocks as RAW HTML
-const htmlBlocks = [
-    'address', 'article', 'aside', 'base', 'basefont', 'blockquote', 'body', 'caption', 'center', 'col', 'colgroup',
-    'dd', 'details', 'dialog', 'dir', 'div', 'dl', 'dt', 'fieldset', 'figcaption',
-    'figure', 'footer', 'form', 'frame', 'frameset', 'h1', 'head', 'header', 'hr',
-    'html', 'iframe', 'legend', 'li', 'link', 'main', 'menu', 'menuitem', 'meta', 'nav',
-    'noframes', 'ol', 'optgroup', 'option', 'p', 'param', 'pre', 'script', 'section',
-    'source', 'title', 'summary', 'table', 'tbody', 'td', 'tfoot', 'th', 'thead', 'title',
-    'tr', 'track', 'ul'
-];
+const HTML_BLOCKS = require('./HTML_BLOCKS');
 
 /**
  * Test if a tag name is an HTML block that should not be parsed inside
@@ -21,7 +9,7 @@ const htmlBlocks = [
  */
 function isHTMLBlock(tag) {
     tag = tag.toLowerCase();
-    return htmlBlocks.indexOf(tag) >= 0;
+    return HTML_BLOCKS.indexOf(tag) >= 0;
 }
 
 /**
