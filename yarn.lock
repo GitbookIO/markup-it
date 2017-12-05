@@ -1666,6 +1666,10 @@ indent-string@2.1.0:
   dependencies:
     repeating "^2.0.0"
 
+indent-string@^3.2.0:
+  version "3.2.0"
+  resolved "https://registry.yarnpkg.com/indent-string/-/indent-string-3.2.0.tgz#4a5fd6d27cc332f37e5419a504dbb837105c9289"
+
 inflight@^1.0.4:
   version "1.0.6"
   resolved "https://registry.yarnpkg.com/inflight/-/inflight-1.0.6.tgz#49bd6331d7d02d0c09bc910a1075ba8165b56df9"
@@ -2623,6 +2627,12 @@ slash@^1.0.0:
 slate-dev-logger@^0.1.7:
   version "0.1.9"
   resolved "https://registry.yarnpkg.com/slate-dev-logger/-/slate-dev-logger-0.1.9.tgz#a021a94c23215bfef0fcf4d504553746908103a8"
+
+slate-hyperprint@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/slate-hyperprint/-/slate-hyperprint-1.0.0.tgz#dbf1f1d9e98cc9adf88b7494dba115901d9128ed"
+  dependencies:
+    indent-string "^3.2.0"
 
 slate@^0.24.0:
   version "0.24.6"
