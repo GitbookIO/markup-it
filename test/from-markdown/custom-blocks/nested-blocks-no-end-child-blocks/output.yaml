@@ -1,0 +1,66 @@
+document:
+  nodes:
+    - kind: block
+      type: x-method
+      nodes:
+        - kind: block
+          type: paragraph
+          nodes:
+            - kind: text
+              ranges:
+                - text: Method
+        - kind: block
+          type: x-sample
+          data:
+            lang: js
+          nodes:
+            - kind: block
+              type: paragraph
+              nodes:
+                - kind: text
+                  ranges:
+                    - text: Sample content
+            - kind: block
+              type: x-hint
+              nodes:
+                - kind: block
+                  type: paragraph
+                  nodes:
+                    - kind: text
+                      ranges:
+                        - text: Hint content
+            - kind: block
+              type: paragraph
+              nodes:
+                - kind: text
+                  ranges:
+                    - text: More content
+            - kind: block
+              type: x-hint
+              nodes:
+                - kind: block
+                  type: paragraph
+                  nodes:
+                    - kind: text
+                      ranges:
+                        - text: Another hint
+        - kind: block
+          type: x-sample
+          data:
+            lang: go
+          nodes:
+            - kind: block
+              type: paragraph
+              nodes:
+                - kind: text
+                  ranges:
+                    - text: Another sample
+    - kind: block
+      type: x-method
+      nodes:
+        - kind: block
+          type: paragraph
+          nodes:
+            - kind: text
+              ranges:
+                - text: Another method
