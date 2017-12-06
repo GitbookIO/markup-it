@@ -1,6 +1,6 @@
 {
   "name": "markup-it",
-  "version": "4.0.1",
+  "version": "5.0.2",
   "description": "Pipeline for working with markup input (for example Markdown)",
   "main": "lib/index.js",
   "scripts": {
@@ -25,7 +25,9 @@
   },
   "homepage": "https://github.com/GitbookIO/markup-it#readme",
   "peerDependencies": {
-    "slate": "0.x.x"
+    "slate": "0.x.x",
+    "immutable": "^3.8.1",
+    "react": "^0.14.0 || ^15.0.0 || ^16.0.0"
   },
   "devDependencies": {
     "babel-cli": "^6.10.1",
@@ -35,7 +37,10 @@
     "eslint": "^2.4.0",
     "eslint-config-gitbook": "^1.4.0",
     "expect": "^1.20.2",
+    "immutable": "^3.7.6",
     "mocha": "^2.4.5",
+    "react": "^16.0.0",
+    "react-dom": "^16.0.0",
     "slate": "^0.24.0",
     "slate-hyperprint": "^1.0.0"
   },
@@ -47,15 +52,12 @@
     "html-entities": "1.2.0",
     "htmlclean": "^2.7.8",
     "htmlparser2": "3.9.2",
-    "immutable": "^3.7.6",
     "indent-string": "2.1.0",
     "is": "^3.2.0",
     "js-yaml": "^3.7.0",
     "ltrim": "0.0.3",
     "object-values": "^1.0.0",
     "range-utils": "^1.1.0",
-    "react": "^15.3.2",
-    "react-dom": "^15.3.2",
     "rtrim": "0.0.3",
     "split-lines": "^1.1.0",
     "trim-newlines": "^1.0.0",

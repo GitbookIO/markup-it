@@ -8,9 +8,25 @@ const serialize = Serializer()
     .matchType(INLINES.HTML)
     .then(state => {
         const node = state.peek();
-        const html = node.data.get('html');
-
-        return state.shift().write(html);
+        const { html, openingTag, closingTag, innerHtml } = node.data.toObject();
+        if (html) {
+            // Legacy format
+            return state.shift().write(html);
+        } else if (innerHtml) {
+            return state
+                .shift()
+                .write(openingTag)
+                .write(innerHtml)
+                .write(closingTag);
+        } else {
+            return state
+                .shift()
+                .write(openingTag)
+                .write(
+                    state.serialize(node.nodes)
+                )
+                .write(closingTag);
+        }
     });
 
 module.exports = { serialize };

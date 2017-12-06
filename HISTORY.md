@@ -2,6 +2,27 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+### 5.0.2
+
+- Move react and immutable as peer dependencies
+
+### 5.0.1
+
+- Fix parsing of HTML when the inner HTML of a tag is empty
+
+### 5.0.0
+
+- Inline HTML nodes have a new format. https://github.com/GitbookIO/markup-it/pull/87
+- Fix parsing of HTML when the inner HTML of a tag existed in an attribute
+
+### 4.0.2
+
+- Fix parsing of Markdown empty headings
+
+### 4.0.1
+
+- Parse Markdown horizontal rules before parsing lists, to avoid misdetection.
+
 ### 4.0.0
 
 - **Breaking Change**: Templating is now parsed as `variable`, `comment` and `x-<tag>`.

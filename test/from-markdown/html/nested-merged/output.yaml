@@ -1,0 +1,20 @@
+document:
+  nodes:
+    - kind: block
+      type: paragraph
+      nodes:
+        - kind: inline
+          type: html
+          data:
+              openingTag: '<cite>'
+              closingTag: '</cite>'
+          nodes:
+            - kind: inline
+              type: html
+              data:
+                openingTag: '<a href="mylink">'
+                closingTag: '</a>'
+              nodes:
+                - kind: text
+                  ranges:
+                    - text: 'link'

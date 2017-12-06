@@ -10,7 +10,9 @@ document:
           isVoid: true
           type: html
           data:
-            html: '<p>Hello <a href="https://www.google.com">World</a> !</p>'
+            openingTag: '<p>'
+            innerHtml: 'Hello <a href="https://www.google.com">World</a> !'
+            closingTag: '</p>'
         - kind: text
           ranges:
             - text: ''

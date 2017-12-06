@@ -1,0 +1,22 @@
+document:
+  nodes:
+    - kind: block
+      type: paragraph
+      nodes:
+        - kind: text
+          ranges:
+            - text: ''
+        - kind: inline
+          type: html
+          isVoid: true
+          data:
+            openingTag: '<iframe src="src" frameborder="0" width="960" height="569" allowfullscreen mozallowfullscreen webkitallowfullscreen>'
+            innerHtml: ''
+            closingTag: '</iframe>'
+          nodes:
+            - kind: text
+              ranges:
+                - text: ' '
+        - kind: text
+          ranges:
+            - text: ''

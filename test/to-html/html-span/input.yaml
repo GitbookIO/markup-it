@@ -3,22 +3,15 @@ document:
     - kind: block
       type: paragraph
       nodes:
-        - kind: text
-          ranges:
-            - text: ''
         - kind: inline
-          isVoid: true
           type: html
           data:
-            html: <span>
-        - kind: text
-          ranges:
-            - text: Hello
-        - kind: inline
-          isVoid: true
-          type: html
-          data:
-            html: </span>
+            openingTag: <span>
+            closingTag: </span>
+          nodes:
+            - kind: text
+              ranges:
+                  - text: Hello
         - kind: text
           ranges:
             - text: ' World'

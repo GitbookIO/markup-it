@@ -1,0 +1,38 @@
+document:
+  nodes:
+    - kind: block
+      type: header_one
+      nodes:
+        - kind: text
+          ranges:
+            - text: ''
+    - kind: block
+      type: header_two
+      nodes:
+        - kind: text
+          ranges:
+            - text: ''
+    - kind: block
+      type: header_three
+      nodes:
+        - kind: text
+          ranges:
+            - text: ''
+    - kind: block
+      type: header_four
+      nodes:
+        - kind: text
+          ranges:
+            - text: ''
+    - kind: block
+      type: header_five
+      nodes:
+        - kind: text
+          ranges:
+            - text: ''
+    - kind: block
+      type: header_six
+      nodes:
+        - kind: text
+          ranges:
+            - text: ''

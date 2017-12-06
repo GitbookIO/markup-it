@@ -7,12 +7,14 @@ document:
           ranges:
             - text: 'Some image with attributes '
         - kind: inline
-          isVoid: true
           type: html
+          isVoid: true
           data:
-            html: >-
+            openingTag: >-
               <img src="images/foo.png" alt="foo" width="111" style="margin: 0
               auto; display: block">
+            innerHtml: ''
+            closingTag: ''
         - kind: text
           ranges:
             - text: ''

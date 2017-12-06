@@ -7,7 +7,7 @@ const { transform } = require('./helper');
 
 transform(document => {
     const state = State.create({ document });
-    const raw = state.toJSON({ terse: true });
+    const raw = state.toJSON();
 
     console.log(yaml.safeDump(raw));
 });
