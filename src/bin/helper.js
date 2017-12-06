@@ -2,6 +2,7 @@
 const fs = require('fs');
 const path = require('path');
 
+const unendingTags = require('../../test/unendingTags');
 const { State } = require('../');
 const markdown = require('../markdown');
 const html = require('../html');
@@ -45,7 +46,7 @@ function transform(fn) {
     }
 
     const content = fs.readFileSync(filePath, { encoding: 'utf8' });
-    const state = State.create(parser);
+    const state = State.create(parser, { unendingTags });
 
     const document = state.deserializeToDocument(content);
 

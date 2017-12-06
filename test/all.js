@@ -9,9 +9,7 @@ const MarkupIt = require('../src/');
 const markdown = require('../src/markdown');
 const html = require('../src/html');
 const asciidoc = require('../src/asciidoc');
-
-// "sample" and "common" can be used as unending tags in the tests
-const unendingTags = ['sample', 'common'];
+const unendingTags = require('./unendingTags');
 
 /**
  * Read a file input to a state.
