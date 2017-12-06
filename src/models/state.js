@@ -21,12 +21,14 @@ class State extends Record(DEFAULTS) {
 
     /**
      * Create a new state from a set of rules.
-     * @param  {Array} rules
+     * @param  {Object} rulesSet
+     * @param  {Object} props
      * @return {State} state
      */
-    static create(rulesSet = {}) {
+    static create(rulesSet = {}, props = {}) {
         return new State({
-            rulesSet: Map(rulesSet).map(List)
+            rulesSet: Map(rulesSet).map(List),
+            props: Map(props)
         });
     }
 

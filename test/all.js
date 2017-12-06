@@ -10,6 +10,9 @@ const markdown = require('../src/markdown');
 const html = require('../src/html');
 const asciidoc = require('../src/asciidoc');
 
+// "sample" and "common" can be used as unending tags in the tests
+const unendingTags = ['sample', 'common'];
+
 /**
  * Read a file input to a state.
  * @param  {String} filePath
@@ -19,8 +22,8 @@ function readFileInput(filePath) {
     const ext = path.extname(filePath);
     const content = fs.readFileSync(filePath, { encoding: 'utf8' });
 
-    function deserializeWith(syntax) {
-        const parser = MarkupIt.State.create(syntax);
+    function deserializeWith(syntax, props = {}) {
+        const parser = MarkupIt.State.create(syntax, props);
         const document = parser.deserializeToDocument(content);
         const state = Slate.State.create({ document });
         return state.toJSON();
@@ -28,7 +31,9 @@ function readFileInput(filePath) {
 
     switch (ext) {
     case '.md':
-        return deserializeWith(markdown);
+        return deserializeWith(markdown, {
+            unendingTags
+        });
     case '.html':
         return deserializeWith(html);
     case '.adoc':
@@ -46,8 +51,8 @@ function readFileInput(filePath) {
  */
 function convertFor(input, outputExt) {
 
-    function serializeWith(syntax) {
-        const parser = MarkupIt.State.create(syntax);
+    function serializeWith(syntax, props) {
+        const parser = MarkupIt.State.create(syntax, props);
         const inputDocument = Slate.State.fromJSON(input).document;
         const out = parser.serializeDocument(inputDocument);
 
@@ -57,7 +62,9 @@ function convertFor(input, outputExt) {
 
     switch (outputExt) {
     case '.md':
-        return serializeWith(markdown);
+        return serializeWith(markdown, {
+            unendingTags
+        });
     case '.html':
         return serializeWith(html);
     case '.adoc':

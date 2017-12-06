@@ -63,9 +63,14 @@ const serialize = Serializer()
             tag: getTagFromCustomType(type),
             data
         });
-        const endTag = liquid.stringifyTag({
-            tag: 'end' + getTagFromCustomType(node.type)
-        });
+
+        const unendingTags = state.getProp('unendingTags') || List();
+        const endTag =
+            unendingTags.includes(getTagFromCustomType(node.type))
+                ? ''
+                : liquid.stringifyTag({
+                    tag: 'end' + getTagFromCustomType(node.type)
+                });
 
         const split = node.kind == 'block' ? '\n' : '';
         const end = node.kind == 'block' ? '\n\n' : '';
@@ -111,18 +116,36 @@ const deserialize = Deserializer()
         // By default it'll add this node as a single node.
         state = state.push(node);
 
+        // List of tags that don't have an end
+        const unendingTags = state.getProp('unendingTags') || List();
+
         const resultState = state.lex({
             stopAt(newState) {
                 // What nodes have been added in this iteration?
                 const added = newState.nodes.skip(state.nodes.size);
+                const between = added.takeUntil(child => {
+                    // Some tags don't have an explicit end and thus
+                    // need a special treatment
+                    if (unendingTags.includes(tag)) {
+                        return (
+                            isCustomType(child.type) &&
+                            (
+                                // Closing custom tag close previous unending tags
+                                isClosingTag(getTagFromCustomType(child.type)) ||
+                                // Unending tag close previous unending tags
+                                unendingTags.includes(getTagFromCustomType(child.type))
+                            )
+                        );
+                    }
 
-                const between = added.takeUntil(child => (
-                    isCustomType(child.type) &&
-                    isClosingTagFor(
-                        getTagFromCustomType(child.type),
-                        tag
-                    )
-                ));
+                    return (
+                        isCustomType(child.type) &&
+                        isClosingTagFor(
+                            getTagFromCustomType(child.type),
+                            tag
+                        )
+                    );
+                });
 
                 if (between.size == added.size) {
                     return;
@@ -139,9 +162,16 @@ const deserialize = Deserializer()
                             nodes: between.size == 0 ? List([ state.genText() ]) : between
                         }))
                         .concat(afterNodes)
+                        // Filter out this node's closing tag
                         .filterNot((child) => (
                             isCustomType(child.type) &&
-                            isClosingTag(getTagFromCustomType(child.type))
+                            isClosingTag(getTagFromCustomType(child.type)) &&
+                            // Don't swallow others' closing node by ensuring
+                            // we filter the one that matches the current one
+                            isClosingTagFor(
+                                getTagFromCustomType(child.type),
+                                tag
+                            )
                         ))
                 });
             }

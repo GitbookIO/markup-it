@@ -1,0 +1,42 @@
+document:
+  nodes:
+    - kind: block
+      type: x-method
+      nodes:
+        - kind: block
+          type: header_two
+          nodes:
+            - kind: text
+              ranges:
+                - text: Simple method
+        - kind: block
+          type: x-sample
+          data:
+            lang: js
+          nodes:
+            - kind: block
+              type: paragraph
+              nodes:
+                - kind: text
+                  ranges:
+                    - text: This text will only appear for JavaScript.
+        - kind: block
+          type: x-sample
+          data:
+            lang: go
+          nodes:
+            - kind: block
+              type: paragraph
+              nodes:
+                - kind: text
+                  ranges:
+                    - text: This text will only appear for Go.
+        - kind: block
+          type: x-common
+          nodes:
+            - kind: block
+              type: paragraph
+              nodes:
+                - kind: text
+                  ranges:
+                    - text: This will appear for both JavaScript and Go.
