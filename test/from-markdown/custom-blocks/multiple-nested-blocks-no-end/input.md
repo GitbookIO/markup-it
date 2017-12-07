@@ -1,12 +1,25 @@
 {% method %}
-## Simple method
+## Method 1
 
 {% sample lang="js" %}
-This text will only appear for JavaScript.
+JavaScript sample.
+
 
 {% sample lang="go" %}
-This text will only appear for Go.
+Go sample.
+
 
 {% common %}
-This will appear for both JavaScript and Go.
+Common content.
+{% endmethod %}
+
+{% method %}
+## Method 2
+
+{% sample lang="js" %}
+Yet another JavaScript sample.
+
+
+{% common %}
+Some more common content.
 {% endmethod %}

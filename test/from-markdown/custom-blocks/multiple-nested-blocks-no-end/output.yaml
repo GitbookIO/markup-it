@@ -8,29 +8,32 @@ document:
           nodes:
             - kind: text
               ranges:
-                - text: Simple method
-        - kind: block
-          type: x-sample
-          data:
+                - kind: text
+                  text: Method 1
+        - data:
             lang: js
-          nodes:
-            - kind: block
-              type: paragraph
-              nodes:
-                - kind: text
-                  ranges:
-                    - text: This text will only appear for JavaScript.
-        - kind: block
+          kind: block
           type: x-sample
-          data:
-            lang: go
           nodes:
             - kind: block
               type: paragraph
               nodes:
                 - kind: text
                   ranges:
-                    - text: This text will only appear for Go.
+                    - kind: text
+                      text: JavaScript sample.
+        - data:
+            lang: go
+          kind: block
+          type: x-sample
+          nodes:
+            - kind: block
+              type: paragraph
+              nodes:
+                - kind: text
+                  ranges:
+                    - kind: text
+                      text: Go sample.
         - kind: block
           type: x-common
           nodes:
@@ -39,4 +42,37 @@ document:
               nodes:
                 - kind: text
                   ranges:
-                    - text: This will appear for both JavaScript and Go.
+                    - kind: text
+                      text: Common content.
+    - kind: block
+      type: x-method
+      nodes:
+        - kind: block
+          type: header_two
+          nodes:
+            - kind: text
+              ranges:
+                - kind: text
+                  text: Method 2
+        - data:
+            lang: js
+          kind: block
+          type: x-sample
+          nodes:
+            - kind: block
+              type: paragraph
+              nodes:
+                - kind: text
+                  ranges:
+                    - kind: text
+                      text: Yet another JavaScript sample.
+        - kind: block
+          type: x-common
+          nodes:
+            - kind: block
+              type: paragraph
+              nodes:
+                - kind: text
+                  ranges:
+                    - kind: text
+                      text: Some more common content.
