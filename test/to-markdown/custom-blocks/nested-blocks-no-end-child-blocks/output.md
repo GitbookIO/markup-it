@@ -1,24 +1,34 @@
+Content preceding a method
+
 {% method %}
-Method
+Method content
 
 {% sample lang="js" %}
-Sample content
+Some JS:
+
+```
+const a = 'hello';
+```
 
 {% hint %}
-Hint content
-{% endhint %}
-
-More content
-
-{% hint %}
-Another hint
+Always use const
 {% endhint %}
 
 
-{% sample lang="go" %}
-Another sample
-{% endmethod %}
+{% sample lang="py" %}
+Some Python:
 
-{% method %}
-Another method
+```
+a = "hello"
+```
+
+
+{% common %}
+Some PHP:
+
+
+{% sample lang="php" %}
+```
+$a = 'hello'
+```
 {% endmethod %}
