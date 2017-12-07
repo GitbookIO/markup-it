@@ -1,12 +1,34 @@
-Hello World
+Content preceding a method
 
 {% method %}
-Method 1
+Method content
 
 {% sample lang="js" %}
-Some code
-{% endmethod %}
+Some JS:
 
-{% method %}
-Method 2
+```
+const a = 'hello';
+```
+
+{% hint %}
+Always use const
+{% endhint %}
+
+
+{% sample lang="py" %}
+Some Python:
+
+```
+a = "hello"
+```
+
+
+{% common %}
+Some PHP:
+
+
+{% sample lang="php" %}
+```
+$a = 'hello'
+```
 {% endmethod %}
