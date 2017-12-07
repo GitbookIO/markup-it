@@ -2660,9 +2660,9 @@ slate-dev-logger@^0.1.7:
   version "0.1.9"
   resolved "https://registry.yarnpkg.com/slate-dev-logger/-/slate-dev-logger-0.1.9.tgz#a021a94c23215bfef0fcf4d504553746908103a8"
 
-slate-hyperprint@^1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/slate-hyperprint/-/slate-hyperprint-1.0.0.tgz#dbf1f1d9e98cc9adf88b7494dba115901d9128ed"
+slate-hyperprint@^1.1.1:
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/slate-hyperprint/-/slate-hyperprint-1.1.1.tgz#8a805ab895634c568cb9eea1cdfdbb0c0a1c19f3"
   dependencies:
     indent-string "^3.2.0"
 

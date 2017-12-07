@@ -25,9 +25,9 @@
   },
   "homepage": "https://github.com/GitbookIO/markup-it#readme",
   "peerDependencies": {
-    "slate": "0.x.x",
     "immutable": "^3.8.1",
-    "react": "^0.14.0 || ^15.0.0 || ^16.0.0"
+    "react": "^0.14.0 || ^15.0.0 || ^16.0.0",
+    "slate": "0.x.x"
   },
   "devDependencies": {
     "babel-cli": "^6.10.1",
@@ -42,7 +42,7 @@
     "react": "^16.0.0",
     "react-dom": "^16.0.0",
     "slate": "^0.24.0",
-    "slate-hyperprint": "^1.0.0"
+    "slate-hyperprint": "^1.1.1"
   },
   "dependencies": {
     "asciidoctor.js": "^1.5.5-4",
