@@ -22,13 +22,13 @@ const inline = {
 };
 
 // Escaped chars: match all characters + escaped characters
-// except parenthesis and quotes
-const escaped = /(?:\\\(|\\\)|\\\"|\\\'|[^()"'])/;
+const escapedButQuotesAndParen = /(?:\\\(|\\\)|\\\"|\\\'|[^()"'])/;
+const escapedButQuotes = /(?:\\\(|\\\)|\\\"|\\\'|[^"'])/;
 
 inline._inside = /(?:\[[^\]]*\]|[^\[\]]|\](?=[^\[]*\]))*/;
 inline._href   = /\s*<?(escapedHref*)>?(?:\s+['"](escapedTitle*?)['"])?\s*/;
 
-inline._href = replace(inline._href)('escapedHref', escaped)('escapedTitle', escaped)();
+inline._href = replace(inline._href)('escapedHref', escapedButQuotesAndParen)('escapedTitle', escapedButQuotes)();
 
 inline.link = replace(inline.link)('inside', inline._inside)('href', inline._href)();
 
