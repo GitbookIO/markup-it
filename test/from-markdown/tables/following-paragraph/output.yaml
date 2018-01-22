@@ -5,7 +5,7 @@ document:
       nodes:
         - kind: text
           ranges:
-            - text: This paragraph is followed by a table, without any line break in-between.
+            - text: This paragraph is followed by a table, without any blank line in-between.
     - kind: block
       type: table
       data:
