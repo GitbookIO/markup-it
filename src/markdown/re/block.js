@@ -1,6 +1,7 @@
 /* eslint-disable no-unexpected-multiline, no-spaced-func*/
 const { replace } = require('../utils');
 const heading = require('./heading');
+const table = require('./table');
 
 const block = {
     newline:    /^\n+/,
@@ -10,7 +11,7 @@ const block = {
     // html:       /^ *(?:comment *(?:\n|\s*$)|closed *(?:\n{2,}|\s*$)|closing *(?:\n{2,}|\s*$))/,
     def:        /^ *\[([^\]]+)\]: *<?([^\s>]+)>?(?: +["(]([^\n]+)[")])? *(?:\n|$)/,
     footnote:   /^\[\^([^\]]+)\]: ([^\n]+)/,
-    paragraph:  /^((?:[^\n]+\n?(?!hr|heading|lheading|blockquote|tag|def|math|comment|customBlock))+)\n*/,
+    paragraph:  /^((?:[^\n]+\n?(?!hr|heading|lheading|blockquote|tag|def|math|comment|customBlock|table|tablenp))+)\n*/,
     text:       /^[^\n]+/,
     fences:     /^ *(`{3,}|~{3,})[ \.]*(\S+)? *\n([\s\S]*?)\s*\1 *(?:\n+|$)/,
     yamlHeader: /^ *(?=```)/,
@@ -55,6 +56,8 @@ block.paragraph = replace(block.paragraph)
     ('math', block.math)
     ('customBlock', block.customBlock)
     ('comment', block.comment)
+    ('table', table.normal)
+    ('tablenp', table.nptable)
     ();
 
 block.paragraph = replace(block.paragraph)('(?!', '(?!'
