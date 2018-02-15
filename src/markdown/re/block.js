@@ -30,7 +30,7 @@ const block = {
 };
 
 const _tag = '(?!(?:'
-    + 'a|em|strong|small|s|cite|q|dfn|abbr|data|time|code'
+    + 'a|em|strong|small|s|cite|q|dfn|abbr|data|time|code|li'
     + '|var|samp|kbd|sub|sup|i|b|u|mark|ruby|rt|rp|bdi|bdo'
     + '|span|br|wbr|ins|del|img)\\b)\\w+(?!:\\/|[^\\w\\s@]*@)\\b';
 
