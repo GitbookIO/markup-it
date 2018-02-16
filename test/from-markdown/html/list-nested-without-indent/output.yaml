@@ -1,0 +1,30 @@
+document:
+  nodes:
+    - data: {}
+      kind: block
+      isVoid: false
+      type: paragraph
+      nodes:
+        - kind: text
+          ranges:
+          - kind: range
+            marks: []
+            text: ''
+        - data:
+            openingTag: "<ol>"
+            closingTag: "</ol>"
+            innerHtml: "\n<li>\n<ol><li>first item</li></ol>\n</li>\n"
+          kind: inline
+          isVoid: true
+          type: html
+          nodes:
+          - kind: text
+            ranges:
+            - kind: range
+              marks: []
+              text: " "
+        - kind: text
+          ranges:
+          - kind: range
+            marks: []
+            text: ''
