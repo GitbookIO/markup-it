@@ -1,0 +1,52 @@
+document:
+  data: {}
+  kind: document
+  nodes:
+    - data:
+        html: |-
+          <ol>
+          <li>test</li>
+          </ol>
+      kind: block
+      isVoid: true
+      type: html_block
+      nodes:
+        - kind: text
+          ranges:
+            - kind: range
+              marks: []
+              text: ' '
+    - data: {}
+      kind: block
+      isVoid: false
+      type: paragraph
+      nodes:
+        - kind: text
+          ranges:
+            - kind: range
+              marks: []
+              text: Hello
+    - data:
+        html: |-
+          <ol>
+              <li>test</li>
+          </ol>
+      kind: block
+      isVoid: true
+      type: html_block
+      nodes:
+        - kind: text
+          ranges:
+            - kind: range
+              marks: []
+              text: ' '
+    - data: {}
+      kind: block
+      isVoid: false
+      type: paragraph
+      nodes:
+        - kind: text
+          ranges:
+            - kind: range
+              marks: []
+              text: World

@@ -11,7 +11,7 @@ const serialize = Serializer()
 
         return state
             .shift()
-            .write(`${node.text}\n\n`);
+            .write(`${node.data.get('html')}\n\n`);
     });
 
 module.exports = { serialize };
