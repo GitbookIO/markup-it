@@ -1,6 +1,6 @@
 {
   "name": "markup-it",
-  "version": "6.0.0-pre.0",
+  "version": "6.0.0-pre.1",
   "description": "Pipeline for working with markup input (for example Markdown)",
   "main": "lib/index.js",
   "scripts": {
