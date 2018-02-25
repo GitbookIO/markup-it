@@ -8,7 +8,7 @@ const block = {
     code:       /^((?: {4}|\t)[^\n]+\n*)+/,
     hr:         /^( *[-*_]){3,} *(?:\n|$)/,
     blockquote: /^( *>[^\n]+(\n(?!def)[^\n]+)*\n*)+/,
-    // html:       /^ *(?:comment *(?:\n|\s*$)|closed *(?:\n{2,}|\s*$)|closing *(?:\n{2,}|\s*$))/,
+    html:       /^ *(?:comment *(?:\n|\s*$)|closed *(?:\n{2,}|\s*$)|closing *(?:\n{2,}|\s*$))/,
     def:        /^ *\[([^\]]+)\]: *<?([^\s>]+)>?(?: +["(]([^\n]+)[")])? *(?:\n|$)/,
     footnote:   /^\[\^([^\]]+)\]: ([^\n]+)/,
     paragraph:  /^((?:[^\n]+\n?(?!hr|heading|lheading|blockquote|tag|def|math|comment|customBlock|table|tablenp))+)\n*/,
@@ -44,7 +44,7 @@ block.list.block_ul = replace(block.list.block)(/bullet/g, block.list.bullet_ul)
 block.list.block_ol = replace(block.list.block)(/bullet/g, block.list.bullet_ol)();
 block.list.block = replace(block.list.block)(/bullet/g, block.list.bullet)();
 
-// block.html = replace(block.html)('comment', /<!--[\s\S]*?-->/)('closed', /<(tag)[\s\S]+?<\/\1>/)('closing', /<tag(?:"[^"]*"|'[^']*'|[^'">])*?>/)(/tag/g, _tag)();
+block.html = replace(block.html)('comment', /<!--[\s\S]*?-->/)('closed', /<(tag)[\s\S]+?<\/\1>/)('closing', /<tag(?:"[^"]*"|'[^']*'|[^'">])*?>/)(/tag/g, _tag)();
 
 block.paragraph = replace(block.paragraph)
     ('hr', block.hr)

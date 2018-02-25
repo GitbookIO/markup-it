@@ -2,19 +2,12 @@ document:
   data: {}
   kind: document
   nodes:
-    - data: {}
-      kind: block
-      isVoid: false
-      type: paragraph
-      nodes:
-        - kind: text
-          ranges:
-            - kind: range
-              marks: []
-              text: This is a paragraph followed by an HTML comment.
     - data:
-        html: |
-          <!-- This is an HTML comment -->
+        html: |+
+          <ol>
+          <li>test</li>
+          </ol>
+
       kind: block
       isVoid: true
       type: html_block
@@ -33,4 +26,30 @@ document:
           ranges:
             - kind: range
               marks: []
-              text: And here goes another paragraph.
+              text: Hello
+    - data:
+        html: |+
+          <ol>
+              <li>test</li>
+          </ol>
+
+
+      kind: block
+      isVoid: true
+      type: html_block
+      nodes:
+        - kind: text
+          ranges:
+            - kind: range
+              marks: []
+              text: ' '
+    - data: {}
+      kind: block
+      isVoid: false
+      type: paragraph
+      nodes:
+        - kind: text
+          ranges:
+            - kind: range
+              marks: []
+              text: World

@@ -1,28 +1,18 @@
+# Same result in GitHub
+# https://gist.github.com/SamyPesse/e808e6313892964e341290c2048a9d5c
 document:
+  data: {}
+  kind: document
   nodes:
-    - kind: block
-      type: paragraph
+    - data:
+        html: |
+          <p>Hello</p> W**or**ld <p>!</p>
+      kind: block
+      isVoid: true
+      type: html_block
       nodes:
         - kind: text
           ranges:
-            - text: ''
-        - kind: inline
-          isVoid: true
-          type: html
-          data:
-            openingTag: <p>
-            innerHtml: Hello
-            closingTag: </p>
-        - kind: text
-          ranges:
-            - text: ' World '
-        - kind: inline
-          isVoid: true
-          type: html
-          data:
-            openingTag: <p>
-            innerHtml: '!'
-            closingTag: </p>
-        - kind: text
-          ranges:
-            - text: ''
+            - kind: range
+              marks: []
+              text: ' '

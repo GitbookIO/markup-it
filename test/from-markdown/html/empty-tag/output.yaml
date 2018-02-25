@@ -1,22 +1,17 @@
 document:
+  data: {}
+  kind: document
   nodes:
-    - kind: block
-      type: paragraph
+    - data:
+        html: >
+          <iframe src="src" frameborder="0" width="960" height="569"
+          allowfullscreen mozallowfullscreen webkitallowfullscreen></iframe>
+      kind: block
+      isVoid: true
+      type: html_block
       nodes:
         - kind: text
           ranges:
-            - text: ''
-        - kind: inline
-          type: html
-          isVoid: true
-          data:
-            openingTag: '<iframe src="src" frameborder="0" width="960" height="569" allowfullscreen mozallowfullscreen webkitallowfullscreen>'
-            innerHtml: ''
-            closingTag: '</iframe>'
-          nodes:
-            - kind: text
-              ranges:
-                - text: ' '
-        - kind: text
-          ranges:
-            - text: ''
+            - kind: range
+              marks: []
+              text: ' '

@@ -10,9 +10,11 @@ const list = require('./list');
 const definition = require('./definition');
 const math = require('./math');
 const comment = require('./comment');
+const html = require('./html');
 const custom = require('./custom');
 
 module.exports = [
+    html,
     definition,
     table,
     hr,

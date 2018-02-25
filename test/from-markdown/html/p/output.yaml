@@ -1,18 +1,16 @@
 document:
+  data: {}
+  kind: document
   nodes:
-    - kind: block
-      type: paragraph
+    - data:
+        html: |
+          <p>Hello <a href="https://www.google.com">World</a> !</p>
+      kind: block
+      isVoid: true
+      type: html_block
       nodes:
         - kind: text
           ranges:
-            - text: ''
-        - kind: inline
-          isVoid: true
-          type: html
-          data:
-            openingTag: '<p>'
-            innerHtml: 'Hello <a href="https://www.google.com">World</a> !'
-            closingTag: '</p>'
-        - kind: text
-          ranges:
-            - text: ''
+            - kind: range
+              marks: []
+              text: ' '
