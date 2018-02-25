@@ -2,7 +2,7 @@ const { Serializer, Deserializer, Block, BLOCKS } = require('../../');
 const reBlock = require('../re/block');
 
 /**
- * Serialize an HR to markdown
+ * Serialize an HTML block to markdown
  * @type {Serializer}
  */
 const serialize = Serializer()
@@ -26,7 +26,7 @@ const deserialize = Deserializer()
             type: BLOCKS.HTML,
             isVoid: true,
             data: {
-                html: match[0]
+                html: match[0].trim()
             }
         });
 

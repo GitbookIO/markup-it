@@ -5,8 +5,7 @@ document:
   kind: document
   nodes:
     - data:
-        html: |
-          <p>Hello</p> W**or**ld <p>!</p>
+        html: <p>Hello</p> W**or**ld <p>!</p>
       kind: block
       isVoid: true
       type: html_block

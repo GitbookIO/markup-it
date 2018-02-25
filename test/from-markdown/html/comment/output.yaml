@@ -13,8 +13,7 @@ document:
               marks: []
               text: This is a paragraph followed by an HTML comment.
     - data:
-        html: |
-          <!-- This is an HTML comment -->
+        html: <!-- This is an HTML comment -->
       kind: block
       isVoid: true
       type: html_block

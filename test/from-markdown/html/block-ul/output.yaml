@@ -3,11 +3,10 @@ document:
   kind: document
   nodes:
     - data:
-        html: |+
+        html: |-
           <ol>
           <li>test</li>
           </ol>
-
       kind: block
       isVoid: true
       type: html_block
@@ -28,12 +27,10 @@ document:
               marks: []
               text: Hello
     - data:
-        html: |+
+        html: |-
           <ol>
               <li>test</li>
           </ol>
-
-
       kind: block
       isVoid: true
       type: html_block
