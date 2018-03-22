@@ -6,7 +6,7 @@ const reInline = require('../re/inline');
  * @type {Serializer}
  */
 const serialize = Serializer()
-    .transformMarkedRange(MARKS.STRIKETHROUGH, (state, text) => {
+    .transformMarkedLeaf(MARKS.STRIKETHROUGH, (state, text) => {
         return `~~${text}~~`;
     });
 

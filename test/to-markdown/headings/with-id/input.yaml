@@ -1,10 +1,10 @@
 document:
   nodes:
-    - kind: block
+    - object: block
       type: header_one
       data:
         id: mycustomid
       nodes:
-        - kind: text
-          ranges:
+        - object: text
+          leaves:
             - text: Header

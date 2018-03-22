@@ -1,78 +1,78 @@
 document:
   nodes:
-    - kind: block
+    - object: block
       type: x-method
       nodes:
-        - kind: block
+        - object: block
           type: header_two
           nodes:
-            - kind: text
-              ranges:
-                - kind: text
+            - object: text
+              leaves:
+                - object: text
                   text: Method 1
         - data:
             lang: js
-          kind: block
+          object: block
           type: x-sample
           nodes:
-            - kind: block
+            - object: block
               type: paragraph
               nodes:
-                - kind: text
-                  ranges:
-                    - kind: text
+                - object: text
+                  leaves:
+                    - object: text
                       text: JavaScript sample.
         - data:
             lang: go
-          kind: block
+          object: block
           type: x-sample
           nodes:
-            - kind: block
+            - object: block
               type: paragraph
               nodes:
-                - kind: text
-                  ranges:
-                    - kind: text
+                - object: text
+                  leaves:
+                    - object: text
                       text: Go sample.
-        - kind: block
+        - object: block
           type: x-common
           nodes:
-            - kind: block
+            - object: block
               type: paragraph
               nodes:
-                - kind: text
-                  ranges:
-                    - kind: text
+                - object: text
+                  leaves:
+                    - object: text
                       text: Common content.
-    - kind: block
+    - object: block
       type: x-method
       nodes:
-        - kind: block
+        - object: block
           type: header_two
           nodes:
-            - kind: text
-              ranges:
-                - kind: text
+            - object: text
+              leaves:
+                - object: text
                   text: Method 2
         - data:
             lang: js
-          kind: block
+          object: block
           type: x-sample
           nodes:
-            - kind: block
+            - object: block
               type: paragraph
               nodes:
-                - kind: text
-                  ranges:
-                    - kind: text
+                - object: text
+                  leaves:
+                    - object: text
                       text: Yet another JavaScript sample.
-        - kind: block
+        - object: block
           type: x-common
           nodes:
-            - kind: block
+            - object: block
               type: paragraph
               nodes:
-                - kind: text
-                  ranges:
-                    - kind: text
+                - object: text
+                  leaves:
+                    - object: text
                       text: Some more common content.

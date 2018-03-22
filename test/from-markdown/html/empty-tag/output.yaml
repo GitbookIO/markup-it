@@ -1,15 +1,15 @@
 document:
   data: {}
-  kind: document
+  object: document
   nodes:
     - data:
         html: <iframe src="src" frameborder="0" width="960" height="569" allowfullscreen mozallowfullscreen webkitallowfullscreen></iframe>
-      kind: block
+      object: block
       isVoid: true
       type: html_block
       nodes:
-        - kind: text
-          ranges:
-            - kind: range
+        - object: text
+          leaves:
+            - object: leaf
               marks: []
               text: ' '

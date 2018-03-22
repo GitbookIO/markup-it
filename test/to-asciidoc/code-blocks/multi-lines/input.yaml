@@ -1,17 +1,17 @@
 document:
   nodes:
-    - kind: block
+    - object: block
       type: code_block
       nodes:
-        - kind: block
+        - object: block
           type: code_line
           nodes:
-            - kind: text
-              ranges:
+            - object: text
+              leaves:
                 - text: Hello
-        - kind: block
+        - object: block
           type: code_line
           nodes:
-            - kind: text
-              ranges:
+            - object: text
+              leaves:
                 - text: World

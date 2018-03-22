@@ -1,35 +1,35 @@
 document:
   nodes:
-    - kind: block
+    - object: block
       type: table
       nodes:
-        - kind: block
+        - object: block
           type: table_row
           nodes:
-            - kind: block
+            - object: block
               type: table_cell
               nodes:
-                - kind: text
-                  ranges:
+                - object: text
+                  leaves:
                     - text: John
-            - kind: block
+            - object: block
               type: table_cell
               nodes:
-                - kind: text
-                  ranges:
+                - object: text
+                  leaves:
                     - text: Doe
-        - kind: block
+        - object: block
           type: table_row
           nodes:
-            - kind: block
+            - object: block
               type: table_cell
               nodes:
-                - kind: text
-                  ranges:
+                - object: text
+                  leaves:
                     - text: Jane
-            - kind: block
+            - object: block
               type: table_cell
               nodes:
-                - kind: text
-                  ranges:
+                - object: text
+                  leaves:
                     - text: Doe

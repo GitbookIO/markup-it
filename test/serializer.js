@@ -6,7 +6,7 @@ const State      = require('../src/models/state');
 describe('Serializer', () => {
     const blockNode = {
         type: 'paragraph',
-        kind: 'block'
+        object: 'block'
     };
     const state = (new State()).push(blockNode);
 
@@ -48,10 +48,10 @@ describe('Serializer', () => {
         });
     });
 
-    describe('.matchKind()', () => {
+    describe('.matchObject()', () => {
         it('should continue execution when passed a correct string', () => {
             const result = Serializer()
-                .matchKind('block')
+                .matchObject('block')
                 .then(() => true)
                 .exec(state);
 
@@ -60,7 +60,7 @@ describe('Serializer', () => {
 
         it('should continue execution when passed a correct array', () => {
             const result = Serializer()
-                .matchKind([ 'text', 'block' ])
+                .matchObject([ 'text', 'block' ])
                 .then(() => true)
                 .exec(state);
 
@@ -69,7 +69,7 @@ describe('Serializer', () => {
 
         it('should continue execution when passed a correct function', () => {
             const result = Serializer()
-                .matchKind(kind => kind == 'block')
+                .matchObject(object => object == 'block')
                 .then(() => true)
                 .exec(state);
 
@@ -78,7 +78,7 @@ describe('Serializer', () => {
 
         it('should return undefined when passed an incorrect value', () => {
             const result = Serializer()
-                .matchKind(() => {})
+                .matchObject(() => {})
                 .then(() => true)
                 .exec(state);
 
@@ -86,38 +86,38 @@ describe('Serializer', () => {
         });
     });
 
-    describe('.transformRanges()', () => {
+    describe('.transformLeaves()', () => {
         const textState = State.create().push(Text.create({
-            ranges: [
+            leaves: [
                 { text: 'hello' },
                 { text: 'world', marks: [ { type: 'bold'} ] }
             ]
         }));
 
-        it('should update all ranges in a text', () => {
+        it('should update all leaves in a text', () => {
             const node = Serializer()
-                .transformRanges((st, range) => {
-                    return range.merge({ text: `[${range.text}]` });
+                .transformLeaves((st, leaf) => {
+                    return leaf.merge({ text: `[${leaf.text}]` });
                 })
                 .then(st => st.peek())
                 .exec(textState);
 
             expect(node.text).toBe('[hello][world]');
-            expect(node.getRanges().size).toBe(2);
+            expect(node.getLeaves().size).toBe(2);
         });
     });
 
-    describe('.transformMarkedRange()', () => {
+    describe('.transformMarkedLeaf()', () => {
         const textState = State.create().push(Text.create({
-            ranges: [
+            leaves: [
                 { text: 'hello' },
                 { text: 'world', marks: [ { type: 'bold'} ] }
             ]
         }));
 
-        it('should update all matching ranges in a text', () => {
+        it('should update all matching leaves in a text', () => {
             const node = Serializer()
-                .transformMarkedRange('bold', (st, text) => {
+                .transformMarkedLeaf('bold', (st, text) => {
                     return `[${text}]`;
                 })
                 .then(st => st.peek())
@@ -125,9 +125,9 @@ describe('Serializer', () => {
 
             expect(node.text).toBe('hello[world]');
 
-            const ranges = node.getRanges();
-            expect(ranges.size).toBe(1);
-            expect(ranges.get(0).marks.size).toBe(0);
+            const leaves = node.getLeaves();
+            expect(leaves.size).toBe(1);
+            expect(leaves.get(0).marks.size).toBe(0);
         });
     });
 });

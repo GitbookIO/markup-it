@@ -1,98 +1,98 @@
 document:
   nodes:
-    - kind: block
+    - object: block
       type: paragraph
       nodes:
-        - kind: text
-          ranges:
-            - kind: text
+        - object: text
+          leaves:
+            - object: text
               text: Content preceding a method
-    - kind: block
+    - object: block
       type: x-method
       nodes:
-        - kind: block
+        - object: block
           type: paragraph
           nodes:
-            - kind: text
-              ranges:
-                - kind: text
+            - object: text
+              leaves:
+                - object: text
                   text: Method content
         - data:
             lang: js
-          kind: block
+          object: block
           type: x-sample
           nodes:
-            - kind: block
+            - object: block
               type: paragraph
               nodes:
-                - kind: text
-                  ranges:
-                    - kind: text
+                - object: text
+                  leaves:
+                    - object: text
                       text: 'Some JS:'
-            - kind: block
+            - object: block
               type: code_block
               nodes:
-                - kind: block
+                - object: block
                   type: code_line
                   nodes:
-                    - kind: text
-                      ranges:
-                        - kind: text
+                    - object: text
+                      leaves:
+                        - object: text
                           text: const a = 'hello';
-            - kind: block
+            - object: block
               type: x-hint
               nodes:
-                - kind: block
+                - object: block
                   type: paragraph
                   nodes:
-                    - kind: text
-                      ranges:
-                        - kind: text
+                    - object: text
+                      leaves:
+                        - object: text
                           text: Always use const
         - data:
             lang: py
-          kind: block
+          object: block
           type: x-sample
           nodes:
-            - kind: block
+            - object: block
               type: paragraph
               nodes:
-                - kind: text
-                  ranges:
-                    - kind: text
+                - object: text
+                  leaves:
+                    - object: text
                       text: 'Some Python:'
-            - kind: block
+            - object: block
               type: code_block
               nodes:
-                - kind: block
+                - object: block
                   type: code_line
                   nodes:
-                    - kind: text
-                      ranges:
-                        - kind: text
+                    - object: text
+                      leaves:
+                        - object: text
                           text: a = "hello"
-        - kind: block
+        - object: block
           type: x-common
           nodes:
-            - kind: block
+            - object: block
               type: paragraph
               nodes:
-                - kind: text
-                  ranges:
-                    - kind: text
+                - object: text
+                  leaves:
+                    - object: text
                       text: 'Some PHP:'
         - data:
             lang: php
-          kind: block
+          object: block
           type: x-sample
           nodes:
-            - kind: block
+            - object: block
               type: code_block
               nodes:
-                - kind: block
+                - object: block
                   type: code_line
                   nodes:
-                    - kind: text
-                      ranges:
-                        - kind: text
+                    - object: text
+                      leaves:
+                        - object: text
                           text: $a = 'hello'

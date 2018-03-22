@@ -3,9 +3,9 @@ document:
     deep:
       message: Coucou
   nodes:
-    - kind: block
+    - object: block
       type: paragraph
       nodes:
-        - kind: text
-          ranges:
+        - object: text
+          leaves:
             - text: Hello World

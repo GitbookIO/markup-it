@@ -1,17 +1,17 @@
 document:
   nodes:
-    - kind: block
+    - object: block
       type: paragraph
       nodes:
-        - kind: text
-          ranges:
+        - object: text
+          leaves:
             - text: 'This is a '
-        - kind: inline
+        - object: inline
           type: link
           data:
             href: hello.md
             title: Hello world
           nodes:
-            - kind: text
-              ranges:
+            - object: text
+              leaves:
                 - text: link

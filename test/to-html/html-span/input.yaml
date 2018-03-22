@@ -1,17 +1,17 @@
 document:
   nodes:
-    - kind: block
+    - object: block
       type: paragraph
       nodes:
-        - kind: inline
+        - object: inline
           type: html
           data:
             openingTag: <span>
             closingTag: </span>
           nodes:
-            - kind: text
-              ranges:
+            - object: text
+              leaves:
                   - text: Hello
-        - kind: text
-          ranges:
+        - object: text
+          leaves:
             - text: ' World'

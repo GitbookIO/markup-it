@@ -1,44 +1,44 @@
 document:
   nodes:
-    - kind: block
+    - object: block
       type: unordered_list
       nodes:
-        - kind: block
+        - object: block
           type: list_item
           nodes:
-            - kind: block
+            - object: block
               type: paragraph
               nodes:
-                - kind: text
-                  ranges:
+                - object: text
+                  leaves:
                     - text: Hello
-            - kind: block
+            - object: block
               type: unordered_list
               nodes:
-                - kind: block
+                - object: block
                   type: list_item
                   nodes:
-                    - kind: block
+                    - object: block
                       type: paragraph
                       nodes:
-                        - kind: text
-                          ranges:
+                        - object: text
+                          leaves:
                             - text: Bonjour
-                - kind: block
+                - object: block
                   type: list_item
                   nodes:
-                    - kind: block
+                    - object: block
                       type: paragraph
                       nodes:
-                        - kind: text
-                          ranges:
+                        - object: text
+                          leaves:
                             - text: Monde
-        - kind: block
+        - object: block
           type: list_item
           nodes:
-            - kind: block
+            - object: block
               type: paragraph
               nodes:
-                - kind: text
-                  ranges:
+                - object: text
+                  leaves:
                     - text: World

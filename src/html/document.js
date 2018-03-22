@@ -6,7 +6,7 @@ const parse = require('./parse');
  * @type {Serializer}
  */
 const serialize = Serializer()
-    .matchKind('document')
+    .matchObject('document')
     .then((state) => {
         const node = state.peek();
         const { nodes } = node;

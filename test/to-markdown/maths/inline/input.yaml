@@ -1,16 +1,16 @@
 document:
   nodes:
-    - kind: block
+    - object: block
       type: paragraph
       nodes:
-        - kind: text
-          ranges:
+        - object: text
+          leaves:
             - text: ''
-        - kind: inline
+        - object: inline
           type: math
           isVoid: true
           data:
             tex: a = b = c = d
-        - kind: text
-          ranges:
+        - object: text
+          leaves:
             - text: ''

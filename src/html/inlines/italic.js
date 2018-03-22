@@ -5,7 +5,7 @@ const { Serializer, MARKS } = require('../../');
  * @type {Serializer}
  */
 const serialize = Serializer()
-    .transformMarkedRange(MARKS.ITALIC, (state, text, mark) => {
+    .transformMarkedLeaf(MARKS.ITALIC, (state, text, mark) => {
         return `<em>${text}</em>`;
     });
 

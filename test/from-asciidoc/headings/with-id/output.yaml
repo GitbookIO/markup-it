@@ -1,10 +1,10 @@
 document:
   nodes:
-    - kind: block
+    - object: block
       type: header_one
       data:
         id: some-id
       nodes:
-        - kind: text
-          ranges:
+        - object: text
+          leaves:
             - text: Hello World

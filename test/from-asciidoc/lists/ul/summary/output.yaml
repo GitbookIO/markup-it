@@ -1,32 +1,32 @@
 document:
   nodes:
-    - kind: block
+    - object: block
       type: header_one
       nodes:
-        - kind: text
-          ranges:
+        - object: text
+          leaves:
             - text: Summary
-    - kind: block
+    - object: block
       type: unordered_list
       nodes:
-        - kind: block
+        - object: block
           type: list_item
           nodes:
-            - kind: block
+            - object: block
               type: paragraph
               nodes:
-                - kind: text
-                  ranges:
+                - object: text
+                  leaves:
                     - text: ''
-                - kind: inline
+                - object: inline
                   type: link
                   data:
                     href: README.md
                     title: ''
                   nodes:
-                    - kind: text
-                      ranges:
+                    - object: text
+                      leaves:
                         - text: Introduction
-                - kind: text
-                  ranges:
+                - object: text
+                  leaves:
                     - text: ''

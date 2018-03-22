@@ -1,19 +1,19 @@
 document:
   nodes:
-    - kind: block
+    - object: block
       type: paragraph
       nodes:
-        - kind: text
-          ranges:
+        - object: text
+          leaves:
             - text: Hello world
-    - kind: block
+    - object: block
       type: x-hint
       data:
         type: info
       nodes:
-        - kind: block
+        - object: block
           type: paragraph
           nodes:
-            - kind: text
-              ranges:
+            - object: text
+              leaves:
                 - text: Inside the alert

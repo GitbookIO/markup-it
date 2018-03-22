@@ -1,147 +1,147 @@
 document:
   nodes:
-    - kind: block
+    - object: block
       type: paragraph
       nodes:
-        - kind: text
-          ranges:
+        - object: text
+          leaves:
             - text: One paragraph before
-    - kind: block
+    - object: block
       type: unordered_list
       nodes:
-        - kind: block
+        - object: block
           type: list_item
           nodes:
-            - kind: block
+            - object: block
               type: paragraph
               nodes:
-                - kind: text
-                  ranges:
+                - object: text
+                  leaves:
                     - text: Contains a table
-            - kind: block
+            - object: block
               type: table
               data:
                 align:
                   - right
                   - null
               nodes:
-                - kind: block
+                - object: block
                   type: table_row
                   nodes:
-                    - kind: block
+                    - object: block
                       type: table_cell
                       nodes:
-                        - kind: text
-                          ranges:
+                        - object: text
+                          leaves:
                             - text: A
-                    - kind: block
+                    - object: block
                       type: table_cell
                       nodes:
-                        - kind: text
-                          ranges:
+                        - object: text
+                          leaves:
                             - text: B
-                - kind: block
+                - object: block
                   type: table_row
                   nodes:
-                    - kind: block
+                    - object: block
                       type: table_cell
                       nodes:
-                        - kind: text
-                          ranges:
+                        - object: text
+                          leaves:
                             - text: A1
-                    - kind: block
+                    - object: block
                       type: table_cell
                       nodes:
-                        - kind: text
-                          ranges:
+                        - object: text
+                          leaves:
                             - text: B1
-                - kind: block
+                - object: block
                   type: table_row
                   nodes:
-                    - kind: block
+                    - object: block
                       type: table_cell
                       nodes:
-                        - kind: text
-                          ranges:
+                        - object: text
+                          leaves:
                             - text: A2
-                    - kind: block
+                    - object: block
                       type: table_cell
                       nodes:
-                        - kind: text
-                          ranges:
+                        - object: text
+                          leaves:
                             - text: B2
-        - kind: block
+        - object: block
           type: list_item
           nodes:
-            - kind: block
+            - object: block
               type: paragraph
               nodes:
-                - kind: text
-                  ranges:
+                - object: text
+                  leaves:
                     - text: Contains a code block
-            - kind: block
+            - object: block
               type: code_block
               nodes:
-                - kind: block
+                - object: block
                   type: code_line
                   nodes:
-                    - kind: text
-                      ranges:
+                    - object: text
+                      leaves:
                         - text: Some code
-        - kind: block
+        - object: block
           type: list_item
           nodes:
-            - kind: block
+            - object: block
               type: unstyled
               nodes:
-                - kind: text
-                  ranges:
+                - object: text
+                  leaves:
                     - text: Contains nested list
-            - kind: block
+            - object: block
               type: unordered_list
               nodes:
-                - kind: block
+                - object: block
                   type: list_item
                   nodes:
-                    - kind: block
+                    - object: block
                       type: unstyled
                       nodes:
-                        - kind: text
-                          ranges:
+                        - object: text
+                          leaves:
                             - text: Sub
-                    - kind: block
+                    - object: block
                       type: unordered_list
                       nodes:
-                        - kind: block
+                        - object: block
                           type: list_item
                           nodes:
-                            - kind: block
+                            - object: block
                               type: unstyled
                               nodes:
-                                - kind: text
-                                  ranges:
+                                - object: text
+                                  leaves:
                                     - text: Sub sub
-        - kind: block
+        - object: block
           type: list_item
           nodes:
-            - kind: block
+            - object: block
               type: paragraph
               nodes:
-                - kind: text
-                  ranges:
+                - object: text
+                  leaves:
                     - text: Contains a blockquote
-            - kind: block
+            - object: block
               type: blockquote
               nodes:
-                - kind: block
+                - object: block
                   type: paragraph
                   nodes:
-                    - kind: text
-                      ranges:
+                    - object: text
+                      leaves:
                         - text: Hello World
-    - kind: block
+    - object: block
       type: paragraph
       nodes:
-        - kind: text
-          ranges:
+        - object: text
+          leaves:
             - text: One paragraph after

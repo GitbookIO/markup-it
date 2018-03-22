@@ -1,48 +1,48 @@
 document:
   nodes:
-    - kind: block
+    - object: block
       type: paragraph
       nodes:
-        - kind: text
-          ranges:
+        - object: text
+          leaves:
             - text: ''
-        - kind: inline
+        - object: inline
           isVoid: true
           type: math
           data:
             tex: R_+
-        - kind: text
-          ranges:
+        - object: text
+          leaves:
             - text: ' as the interval '
-        - kind: inline
+        - object: inline
           isVoid: true
           type: math
           data:
             tex: '[c, r_+]'
-        - kind: text
-          ranges:
+        - object: text
+          leaves:
             - text: ' where '
-        - kind: inline
+        - object: inline
           isVoid: true
           type: math
           data:
             tex: r_+
-        - kind: text
-          ranges:
+        - object: text
+          leaves:
             - text: ' is a pt to the right of c such that Pr'
-        - kind: inline
+        - object: inline
           isVoid: true
           type: math
           data:
             tex: '[c, r_+]'
-        - kind: text
-          ranges:
+        - object: text
+          leaves:
             - text: ' is '
-        - kind: inline
+        - object: inline
           isVoid: true
           type: math
           data:
             tex: \epsilon
-        - kind: text
-          ranges:
+        - object: text
+          leaves:
             - text: ''

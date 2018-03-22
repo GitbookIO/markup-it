@@ -6,7 +6,7 @@ const escape = require('../escape');
  * @type {Serializer}
  */
 const serialize = Serializer()
-    .transformMarkedRange(MARKS.CODE, (state, text, mark) => {
+    .transformMarkedLeaf(MARKS.CODE, (state, text, mark) => {
         return `<code>${escape(text)}</code>`;
     });
 

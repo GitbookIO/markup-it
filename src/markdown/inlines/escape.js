@@ -2,17 +2,17 @@ const { Serializer, MARKS } = require('../../');
 const utils = require('../utils');
 
 /**
- * Escape all text ranges during serialization.
- * This step should be done before processing text ranges for marks.
+ * Escape all text leaves during serialization.
+ * This step should be done before processing text leaves for marks.
  *
  * @type {Serializer}
  */
 const serialize = Serializer()
-    .transformText((state, range) => {
-        const { text, marks } = range;
+    .transformText((state, leaf) => {
+        const { text, marks } = leaf;
         const hasCode = marks.some(mark => mark.type === MARKS.CODE);
 
-        return range.merge({
+        return leaf.merge({
             text: hasCode ? text : utils.escape(text, false)
         });
     });

@@ -1,10 +1,10 @@
 document:
   nodes:
-    - kind: block
+    - object: block
       type: paragraph
       nodes:
-        - kind: text
-          ranges:
+        - object: text
+          leaves:
             - text: ' '
             - text: Dub Incorporation
               marks:
@@ -14,15 +14,15 @@ document:
               marks:
                 - type: BOLD
             - text: ") is a "
-        - kind: inline
+        - object: inline
           type: link
           data:
             href: 'https://en.wikipedia.org/wiki/Reggae'
             title: ''
           nodes:
-            - kind: text
-              ranges:
+            - object: text
+              leaves:
                 - text: reggae
-        - kind: text
-          ranges:
+        - object: text
+          leaves:
             - text: ' band'

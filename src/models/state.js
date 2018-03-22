@@ -11,7 +11,7 @@ const DEFAULTS = {
     text:     '',
     nodes:    List(),
     marks:    Set(),
-    kind:     String('document'),
+    object:   String('document'),
     rulesSet: Map(),
     depth:    0,
     props:    Map()
@@ -37,18 +37,18 @@ class State extends Record(DEFAULTS) {
      * @return {List} rules
      */
     get rules() {
-        const { kind, rulesSet } = this;
-        return rulesSet.get(kind, List());
+        const { object, rulesSet } = this;
+        return rulesSet.get(object, List());
     }
 
     /**
      * Change set of rules to use.
      *
-     * @param  {String} kind
+     * @param  {String} object
      * @return {State} state
      */
-    use(kind) {
-        return this.merge({ kind });
+    use(object) {
+        return this.merge({ object });
     }
 
     /**
@@ -173,7 +173,7 @@ class State extends Record(DEFAULTS) {
 
         let node = Text.create({ text, marks });
 
-        if (this.kind == 'block') {
+        if (this.object == 'block') {
             node = Block.create({
                 type: BLOCKS.TEXT,
                 nodes: [node]
@@ -290,15 +290,15 @@ class State extends Record(DEFAULTS) {
      * @param  {String} text
      * @return {State} state
      */
-    applyRules(kind) {
+    applyRules(object) {
         const state = this;
         const { rules } = state;
         let newState;
 
         rules
-        .filter(rule => rule[kind])
+        .filter(rule => rule[object])
         .forEach(rule => {
-            newState = RuleFunction.exec(rule[kind], state);
+            newState = RuleFunction.exec(rule[object], state);
             if (newState) {
                 return false;
             }
@@ -398,7 +398,7 @@ class State extends Record(DEFAULTS) {
 
         // No rule can match this node
         if (!state) {
-            throw new Error(`No rule match node ${this.peek().kind}#${this.peek().type || ''}`);
+            throw new Error(`No rule match node ${this.peek().object}#${this.peek().type || ''}`);
         }
 
         // Same state cause an infinite loop

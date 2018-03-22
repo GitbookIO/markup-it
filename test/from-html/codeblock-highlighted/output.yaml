@@ -1,29 +1,29 @@
 document:
   nodes:
-    - kind: block
+    - object: block
       type: code_block
       nodes:
-        - kind: block
+        - object: block
           type: code_line
           nodes:
-            - kind: text
-              ranges:
+            - object: text
+              leaves:
                 - text: foreach (Employee emp in result)
-        - kind: block
+        - object: block
           type: code_line
           nodes:
-            - kind: text
-              ranges:
+            - object: text
+              leaves:
                 - text: '{'
-        - kind: block
+        - object: block
           type: code_line
           nodes:
-            - kind: text
-              ranges:
+            - object: text
+              leaves:
                 - text: '  Console.WriteLine(emp.FirstName + " " + emp.LastName);'
-        - kind: block
+        - object: block
           type: code_line
           nodes:
-            - kind: text
-              ranges:
+            - object: text
+              leaves:
                 - text: '}'

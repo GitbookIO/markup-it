@@ -1,18 +1,18 @@
 document:
   nodes:
-    - kind: block
+    - object: block
       type: paragraph
       nodes:
-        - kind: text
-          ranges:
+        - object: text
+          leaves:
             - text: Hello
-    - kind: block
+    - object: block
       type: paragraph
       nodes:
-        - kind: text
-          ranges:
+        - object: text
+          leaves:
             - text: ''
-        - kind: inline
+        - object: inline
           isVoid: true
           type: math
           data:
@@ -20,12 +20,12 @@ document:
 
 
               a = b
-        - kind: text
-          ranges:
+        - object: text
+          leaves:
             - text: ''
-    - kind: block
+    - object: block
       type: paragraph
       nodes:
-        - kind: text
-          ranges:
+        - object: text
+          leaves:
             - text: world

@@ -1,18 +1,18 @@
 document:
   nodes:
-    - kind: block
+    - object: block
       type: paragraph
       nodes:
-        - kind: text
-          ranges:
+        - object: text
+          leaves:
             - text: ''
-        - kind: inline
+        - object: inline
           isVoid: true
           type: html
           data:
             openingTag: '<p>'
             innerHtml: 'Hello <a href="https://www.google.com">World</a> !'
             closingTag: '</p>'
-        - kind: text
-          ranges:
+        - object: text
+          leaves:
             - text: ''

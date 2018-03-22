@@ -21,22 +21,22 @@ class Serializer extends RuleFunction {
     }
 
     /**
-     * Limit execution of the serializer to a kind of node
+     * Limit execution of the serializer to a "object" of node
      * @param {Function || Array || String} matcher
      * @return {Serializer}
      */
-    matchKind(matcher) {
+    matchObject(matcher) {
         matcher = normalizeMatcher(matcher);
 
         return this.filter(state => {
             const node = state.peek();
-            const { kind } = node;
-            return matcher(kind);
+            const { object } = node;
+            return matcher(object);
         });
     }
 
     /**
-     * Limit execution of the serializer to range containing a certain mark
+     * Limit execution of the serializer to leaf containing a certain mark
      * @param {Function || Array || String} matcher
      * @param {Function} transform(State, String, Mark)
      * @return {Serializer}
@@ -45,7 +45,7 @@ class Serializer extends RuleFunction {
         matcher = normalizeMatcher(matcher);
 
         return this
-        .matchKind('text')
+        .matchObject('text')
         .filter(state => {
             const text = state.peek();
 
@@ -57,22 +57,22 @@ class Serializer extends RuleFunction {
     }
 
     /**
-     * Transform all ranges in a text.
-     * @param {Function} transform(state: State, range: Range)
+     * Transform all leaves in a text.
+     * @param {Function} transform(state: State, leaf: Leaf)
      * @return {Serializer}
      */
-    transformRanges(transform) {
+    transformLeaves(transform) {
         return this
-        .matchKind('text')
+        .matchObject('text')
         .then(state => {
             const text = state.peek();
-            let ranges = text.getRanges();
+            let leaves = text.getLeaves();
 
-            // Transform ranges
-            ranges = ranges.map(range => transform(state, range));
+            // Transform leaves
+            leaves = leaves.map(leaf => transform(state, leaf));
 
             // Create new text and push it back
-            const newText = Text.create({ ranges });
+            const newText = Text.create({ leaves });
             return state
                 .shift()
                 .unshift(newText);
@@ -80,40 +80,40 @@ class Serializer extends RuleFunction {
     }
 
     /**
-     * Transform ranges matching a mark
+     * Transform leaves matching a mark
      * @param {Function || Array || String} matcher
      * @param {Function} transform(state: State, text: String, mark: Mark): String
      * @return {Serializer}
      */
-    transformMarkedRange(matcher, transform) {
+    transformMarkedLeaf(matcher, transform) {
         matcher = normalizeMatcher(matcher);
 
         return this
         .matchMark(matcher)
-        .transformRanges((state, range) => {
-            let { text, marks } = range;
-            const mark = range.marks.find(({type}) => matcher(type));
+        .transformLeaves((state, leaf) => {
+            let { text, marks } = leaf;
+            const mark = leaf.marks.find(({type}) => matcher(type));
             if (!mark) {
-                return range;
+                return leaf;
             }
 
             text = transform(state, text, mark);
             marks = marks.delete(mark);
-            range = range.merge({ text, marks });
+            leaf = leaf.merge({ text, marks });
 
-            return range;
+            return leaf;
         });
     }
 
     /**
      * Transform text.
-     * @param {Function} transform(state: State, range: Range): Range
+     * @param {Function} transform(state: State, leaf: Leaf): Leaf
      * @return {Serializer}
      */
     transformText(transform) {
         const MARK = uid();
 
-        return this.matchKind('text')
+        return this.matchObject('text')
 
         // We can't process empty text node
         .filter(state => {
@@ -125,11 +125,11 @@ class Serializer extends RuleFunction {
         .filterNot((new Serializer()).matchMark(MARK))
 
         // Escape all text
-        .transformRanges((state, range) => {
-            range = transform(state, range);
+        .transformLeaves((state, leaf) => {
+            leaf = transform(state, leaf);
 
-            return range.merge({
-                marks: range.marks.add(Mark.create({ type: MARK }))
+            return leaf.merge({
+                marks: leaf.marks.add(Mark.create({ type: MARK }))
             });
         });
     }

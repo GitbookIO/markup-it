@@ -1,24 +1,24 @@
 document:
   nodes:
-    - kind: block
+    - object: block
       type: paragraph
       nodes:
-        - kind: text
-          ranges:
+        - object: text
+          leaves:
             - text: one_image
-        - kind: inline
+        - object: inline
           type: image
           isVoid: true
           data:
             src: a image.png
-        - kind: text
-          ranges:
+        - object: text
+          leaves:
             - text: another_image
-        - kind: inline
+        - object: inline
           type: image
           isVoid: true
           data:
             src: another image.png
-        - kind: text
-          ranges:
+        - object: text
+          leaves:
             - text: ''

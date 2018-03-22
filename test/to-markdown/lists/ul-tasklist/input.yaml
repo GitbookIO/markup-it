@@ -1,27 +1,27 @@
 document:
   nodes:
-    - kind: block
+    - object: block
       type: unordered_list
       nodes:
-        - kind: block
+        - object: block
           type: list_item
           data:
             checked: false
           nodes:
-            - kind: block
+            - object: block
               type: unstyled
               nodes:
-                - kind: text
-                  ranges:
+                - object: text
+                  leaves:
                     - text: Hello
-        - kind: block
+        - object: block
           type: list_item
           data:
             checked: true
           nodes:
-            - kind: block
+            - object: block
               type: unstyled
               nodes:
-                - kind: text
-                  ranges:
+                - object: text
+                  leaves:
                     - text: World

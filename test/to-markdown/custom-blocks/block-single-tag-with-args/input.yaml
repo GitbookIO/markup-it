@@ -1,19 +1,19 @@
 document:
   nodes:
-    - kind: block
+    - object: block
       type: paragraph
       nodes:
-        - kind: text
-          ranges:
+        - object: text
+          leaves:
             - text: Hello world
-    - kind: block
+    - object: block
       type: x-import
       isVoid: true
       data:
         '0': hello.md
-    - kind: block
+    - object: block
       type: paragraph
       nodes:
-        - kind: text
-          ranges:
+        - object: text
+          leaves:
             - text: After the import

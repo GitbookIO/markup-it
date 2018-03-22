@@ -1,16 +1,16 @@
 document:
   nodes:
-    - kind: block
+    - object: block
       type: paragraph
       nodes:
-        - kind: text
-          ranges:
+        - object: text
+          leaves:
             - text: 'This is an image '
-        - kind: inline
+        - object: inline
           type: image
           isVoid: true
           data:
             src: /assets/Delivered Collapse.png
-        - kind: text
-          ranges:
+        - object: text
+          leaves:
             - text: ''

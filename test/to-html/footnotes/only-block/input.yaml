@@ -1,16 +1,16 @@
 document:
   nodes:
-    - kind: block
+    - object: block
       type: paragraph
       nodes:
-        - kind: text
-          ranges:
+        - object: text
+          leaves:
             - text: Below is a footnote.
-    - kind: block
+    - object: block
       type: footnote
       data:
         id: 2
       nodes:
-        - kind: text
-          ranges:
+        - object: text
+          leaves:
             - text: The text of the footnote

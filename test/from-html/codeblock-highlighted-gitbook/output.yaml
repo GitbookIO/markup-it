@@ -1,119 +1,119 @@
 document:
   nodes:
-    - kind: block
+    - object: block
       type: code_block
       nodes:
-        - kind: block
+        - object: block
           type: code_line
           nodes:
-            - kind: text
-              ranges:
+            - object: text
+              leaves:
                 - text: using Starcounter;
-        - kind: block
+        - object: block
           type: code_line
           nodes:
-            - kind: text
-              ranges:
+            - object: text
+              leaves:
                 - text: ''
-        - kind: block
+        - object: block
           type: code_line
           nodes:
-            - kind: text
-              ranges:
+            - object: text
+              leaves:
                 - text: namespace HelloWorld
-        - kind: block
+        - object: block
           type: code_line
           nodes:
-            - kind: text
-              ranges:
+            - object: text
+              leaves:
                 - text: '{'
-        - kind: block
+        - object: block
           type: code_line
           nodes:
-            - kind: text
-              ranges:
+            - object: text
+              leaves:
                 - text: '    [Database]'
-        - kind: block
+        - object: block
           type: code_line
           nodes:
-            - kind: text
-              ranges:
+            - object: text
+              leaves:
                 - text: '    public class Person'
-        - kind: block
+        - object: block
           type: code_line
           nodes:
-            - kind: text
-              ranges:
+            - object: text
+              leaves:
                 - text: '    {'
-        - kind: block
+        - object: block
           type: code_line
           nodes:
-            - kind: text
-              ranges:
+            - object: text
+              leaves:
                 - text: '        public string FirstName;'
-        - kind: block
+        - object: block
           type: code_line
           nodes:
-            - kind: text
-              ranges:
+            - object: text
+              leaves:
                 - text: '        public string LastName;'
-        - kind: block
+        - object: block
           type: code_line
           nodes:
-            - kind: text
-              ranges:
+            - object: text
+              leaves:
                 - text: '    }'
-        - kind: block
+        - object: block
           type: code_line
           nodes:
-            - kind: text
-              ranges:
+            - object: text
+              leaves:
                 - text: ''
-        - kind: block
+        - object: block
           type: code_line
           nodes:
-            - kind: text
-              ranges:
+            - object: text
+              leaves:
                 - text: '    class Program'
-        - kind: block
+        - object: block
           type: code_line
           nodes:
-            - kind: text
-              ranges:
+            - object: text
+              leaves:
                 - text: '    {'
-        - kind: block
+        - object: block
           type: code_line
           nodes:
-            - kind: text
-              ranges:
+            - object: text
+              leaves:
                 - text: '        static void Main()'
-        - kind: block
+        - object: block
           type: code_line
           nodes:
-            - kind: text
-              ranges:
+            - object: text
+              leaves:
                 - text: '        {'
-        - kind: block
+        - object: block
           type: code_line
           nodes:
-            - kind: text
-              ranges:
+            - object: text
+              leaves:
                 - text: ''
-        - kind: block
+        - object: block
           type: code_line
           nodes:
-            - kind: text
-              ranges:
+            - object: text
+              leaves:
                 - text: '        }'
-        - kind: block
+        - object: block
           type: code_line
           nodes:
-            - kind: text
-              ranges:
+            - object: text
+              leaves:
                 - text: '    }'
-        - kind: block
+        - object: block
           type: code_line
           nodes:
-            - kind: text
-              ranges:
+            - object: text
+              leaves:
                 - text: '}'

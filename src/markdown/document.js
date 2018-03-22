@@ -8,7 +8,7 @@ const { Serializer, Deserializer, Document } = require('../');
  * @type {Serializer}
  */
 const serialize = Serializer()
-    .matchKind('document')
+    .matchObject('document')
     .then((state) => {
         const node = state.peek();
         const { data, nodes } = node;

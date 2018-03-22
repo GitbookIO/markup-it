@@ -7,7 +7,7 @@ const utils = require('../utils');
  * @type {Serializer}
  */
 const serialize = Serializer()
-    .matchKind('text')
+    .matchObject('text')
     .then(state => {
         const node = state.peek();
 

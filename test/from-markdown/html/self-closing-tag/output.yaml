@@ -1,9 +1,9 @@
 document:
   nodes:
-    - kind: block
+    - object: block
       type: paragraph
       nodes:
-        - kind: inline
+        - object: inline
           type: html
           isVoid: true
           data:

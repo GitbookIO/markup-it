@@ -6,7 +6,7 @@ const reInline = require('../re/inline');
  * @type {Serializer}
  */
 const serialize = Serializer()
-    .transformMarkedRange(MARKS.CODE, (state, text, mark) => {
+    .transformMarkedLeaf(MARKS.CODE, (state, text, mark) => {
         let separator = '`';
 
         // We need to find the right separator not present in the content

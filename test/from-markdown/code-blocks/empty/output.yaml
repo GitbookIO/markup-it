@@ -1,30 +1,30 @@
 document:
   nodes:
-    - kind: block
+    - object: block
       type: code_block
       data:
         syntax: java
       nodes:
-        - kind: block
+        - object: block
           type: code_line
           nodes:
-            - kind: text
-              ranges:
+            - object: text
+              leaves:
                 - text: ''
-    - kind: block
+    - object: block
       type: paragraph
       nodes:
-        - kind: text
-          ranges:
+        - object: text
+          leaves:
             - text: Hello world
-    - kind: block
+    - object: block
       type: code_block
       data:
         syntax: java
       nodes:
-        - kind: block
+        - object: block
           type: code_line
           nodes:
-            - kind: text
-              ranges:
+            - object: text
+              leaves:
                 - text: Second

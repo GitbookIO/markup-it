@@ -1,18 +1,18 @@
 document:
   nodes:
-    - kind: block
+    - object: block
       type: paragraph
       nodes:
-        - kind: text
-          ranges:
+        - object: text
+          leaves:
             - text: ''
-        - kind: inline
+        - object: inline
           type: image
           data:
             alt: foo
             title: title
             src: /url
           isVoid: true
-        - kind: text
-          ranges:
+        - object: text
+          leaves:
             - text: ''

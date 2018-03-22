@@ -1,11 +1,11 @@
 document:
   nodes:
-    - kind: block
+    - object: block
       type: blockquote
       nodes:
-        - kind: block
+        - object: block
           type: unstyled
           nodes:
-            - kind: text
-              ranges:
+            - object: text
+              leaves:
                 - text: ' This is a quotation taken from the Mozilla Developer Center.'

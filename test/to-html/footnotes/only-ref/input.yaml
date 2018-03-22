@@ -1,16 +1,16 @@
 document:
   nodes:
-    - kind: block
+    - object: block
       type: paragraph
       nodes:
-        - kind: text
-          ranges:
+        - object: text
+          leaves:
             - text: This is a footnote
-        - kind: inline
+        - object: inline
           isVoid: true
           type: footnote-ref
           data:
             id: 2
-        - kind: text
-          ranges:
+        - object: text
+          leaves:
             - text: ''

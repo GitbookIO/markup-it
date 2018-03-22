@@ -1,98 +1,98 @@
 document:
   nodes:
-    - kind: block
+    - object: block
       type: unordered_list
       nodes:
-        - kind: block
+        - object: block
           type: list_item
           nodes:
-            - kind: block
+            - object: block
               type: unstyled
               nodes:
-                - kind: text
-                  ranges:
+                - object: text
+                  leaves:
                     - text: first item
-        - kind: block
+        - object: block
           type: list_item
           nodes:
-            - kind: block
+            - object: block
               type: unstyled
               nodes:
-                - kind: text
-                  ranges:
+                - object: text
+                  leaves:
                     - text: second item
-            - kind: block
+            - object: block
               type: ordered_list
               nodes:
-                - kind: block
+                - object: block
                   type: list_item
                   nodes:
-                    - kind: block
+                    - object: block
                       type: unstyled
                       nodes:
-                        - kind: text
-                          ranges:
+                        - object: text
+                          leaves:
                             - text: second item first subitem
-                - kind: block
+                - object: block
                   type: list_item
                   nodes:
-                    - kind: block
+                    - object: block
                       type: unstyled
                       nodes:
-                        - kind: text
-                          ranges:
+                        - object: text
+                          leaves:
                             - text: second item second subitem
-                    - kind: block
+                    - object: block
                       type: unordered_list
                       nodes:
-                        - kind: block
+                        - object: block
                           type: list_item
                           nodes:
-                            - kind: block
+                            - object: block
                               type: unstyled
                               nodes:
-                                - kind: text
-                                  ranges:
+                                - object: text
+                                  leaves:
                                     - text: >-
                                         second item second subitem first
                                         sub-subitem
-                        - kind: block
+                        - object: block
                           type: list_item
                           nodes:
-                            - kind: block
+                            - object: block
                               type: unstyled
                               nodes:
-                                - kind: text
-                                  ranges:
+                                - object: text
+                                  leaves:
                                     - text: >-
                                         second item second subitem second
                                         sub-subitem
-                        - kind: block
+                        - object: block
                           type: list_item
                           nodes:
-                            - kind: block
+                            - object: block
                               type: unstyled
                               nodes:
-                                - kind: text
-                                  ranges:
+                                - object: text
+                                  leaves:
                                     - text: >-
                                         second item second subitem third
                                         sub-subitem
-                - kind: block
+                - object: block
                   type: list_item
                   nodes:
-                    - kind: block
+                    - object: block
                       type: unstyled
                       nodes:
-                        - kind: text
-                          ranges:
+                        - object: text
+                          leaves:
                             - text: second item third subitem
-        - kind: block
+        - object: block
           type: list_item
           nodes:
-            - kind: block
+            - object: block
               type: unstyled
               nodes:
-                - kind: text
-                  ranges:
+                - object: text
+                  leaves:
                     - text: third item

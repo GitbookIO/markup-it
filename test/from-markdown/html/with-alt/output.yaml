@@ -1,12 +1,12 @@
 document:
   nodes:
-    - kind: block
+    - object: block
       type: paragraph
       nodes:
-        - kind: text
-          ranges:
+        - object: text
+          leaves:
             - text: 'Some image with attributes '
-        - kind: inline
+        - object: inline
           type: html
           isVoid: true
           data:
@@ -15,6 +15,6 @@ document:
               auto; display: block">
             innerHtml: ''
             closingTag: ''
-        - kind: text
-          ranges:
+        - object: text
+          leaves:
             - text: ''

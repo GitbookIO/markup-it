@@ -1,40 +1,40 @@
 document:
   nodes:
-    - kind: block
+    - object: block
       data:
         id: the-id
       type: header_one
       nodes:
-        - kind: text
-          ranges:
+        - object: text
+          leaves:
             - text: Heading 1
-    - kind: block
+    - object: block
       type: header_two
       nodes:
-        - kind: text
-          ranges:
+        - object: text
+          leaves:
             - text: Heading 2
-    - kind: block
+    - object: block
       type: header_three
       nodes:
-        - kind: text
-          ranges:
+        - object: text
+          leaves:
             - text: Heading 3
-    - kind: block
+    - object: block
       type: header_four
       nodes:
-        - kind: text
-          ranges:
+        - object: text
+          leaves:
             - text: Heading 4
-    - kind: block
+    - object: block
       type: header_five
       nodes:
-        - kind: text
-          ranges:
+        - object: text
+          leaves:
             - text: Heading 5
-    - kind: block
+    - object: block
       type: header_six
       nodes:
-        - kind: text
-          ranges:
+        - object: text
+          leaves:
             - text: Heading 6

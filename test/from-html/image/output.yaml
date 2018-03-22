@@ -1,17 +1,17 @@
 document:
   nodes:
-    - kind: block
+    - object: block
       type: paragraph
       nodes:
-        - kind: text
-          ranges:
+        - object: text
+          leaves:
             - text: ' '
-        - kind: inline
+        - object: inline
           type: image
           isVoid: true
           data:
             src: image.com/image.png
             title: Image title
-        - kind: text
-          ranges:
+        - object: text
+          leaves:
             - text: ''

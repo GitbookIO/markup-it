@@ -1,53 +1,53 @@
 document:
   nodes:
-    - kind: block
+    - object: block
       type: unordered_list
       nodes:
-        - kind: block
+        - object: block
           type: list_item
           nodes:
-            - kind: block
+            - object: block
               type: unstyled
               nodes:
-                - kind: text
-                  ranges:
+                - object: text
+                  leaves:
                     - text: One
-            - kind: block
+            - object: block
               type: unordered_list
               nodes:
-                - kind: block
+                - object: block
                   type: list_item
                   nodes:
-                    - kind: block
+                    - object: block
                       type: unstyled
                       nodes:
-                        - kind: text
-                          ranges:
+                        - object: text
+                          leaves:
                             - text: sub-one
-                - kind: block
+                - object: block
                   type: list_item
                   nodes:
-                    - kind: block
+                    - object: block
                       type: unstyled
                       nodes:
-                        - kind: text
-                          ranges:
+                        - object: text
+                          leaves:
                             - text: sub-two
-        - kind: block
+        - object: block
           type: list_item
           nodes:
-            - kind: block
+            - object: block
               type: unstyled
               nodes:
-                - kind: text
-                  ranges:
+                - object: text
+                  leaves:
                     - text: Two
-        - kind: block
+        - object: block
           type: list_item
           nodes:
-            - kind: block
+            - object: block
               type: unstyled
               nodes:
-                - kind: text
-                  ranges:
+                - object: text
+                  leaves:
                     - text: Three

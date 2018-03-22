@@ -1,14 +1,14 @@
 document:
   nodes:
-    - kind: block
+    - object: block
       type: paragraph
       nodes:
-        - kind: inline
+        - object: inline
           type: html
           data:
               openingTag: '<a href="mylink">'
               closingTag: '</a>'
           nodes:
-              - kind: text
-                ranges:
+              - object: text
+                leaves:
                     - text: 'mylink'

@@ -1,22 +1,22 @@
 document:
   nodes:
-    - kind: block
+    - object: block
       type: blockquote
       nodes:
-        - kind: block
+        - object: block
           type: paragraph
           nodes:
-            - kind: text
-              ranges:
+            - object: text
+              leaves:
                 - text: 'A code block within a blockquote:'
-        - kind: block
+        - object: block
           type: code_block
           nodes:
-            - kind: block
+            - object: block
               type: code_line
               nodes:
-                - kind: text
-                  ranges:
+                - object: text
+                  leaves:
                     - text: var a = "test"
           data:
             syntax: js

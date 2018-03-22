@@ -1,26 +1,26 @@
 document:
   nodes:
-    - kind: block
+    - object: block
       type: x-method
       nodes:
-        - kind: block
+        - object: block
           type: paragraph
           nodes:
-            - kind: text
-              ranges:
+            - object: text
+              leaves:
                 - text: Method 1
-        - kind: block
+        - object: block
           type: x-sample
           data:
             lang: js
           nodes:
-            - kind: block
+            - object: block
               type: paragraph
               nodes:
-                - kind: text
-                  ranges:
+                - object: text
+                  leaves:
                     - text: Some code
-            - kind: block
+            - object: block
               type: x-youtube
               isVoid: true
               data:

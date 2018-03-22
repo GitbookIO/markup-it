@@ -72,8 +72,8 @@ const serialize = Serializer()
                     tag: 'end' + getTagFromCustomType(node.type)
                 });
 
-        const split = node.kind == 'block' ? '\n' : '';
-        const end = node.kind == 'block' ? '\n\n' : '';
+        const split = node.object == 'block' ? '\n' : '';
+        const end = node.object == 'block' ? '\n\n' : '';
 
         if (node.isVoid) {
             return state

@@ -5,7 +5,7 @@ const { Serializer, MARKS } = require('../../');
  * @type {Serializer}
  */
 const serialize = Serializer()
-    .transformMarkedRange(MARKS.STRIKETHROUGH, (state, text, mark) => {
+    .transformMarkedLeaf(MARKS.STRIKETHROUGH, (state, text, mark) => {
         return `[line-through]#${text}#`;
     });
 

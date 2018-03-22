@@ -1,14 +1,14 @@
 document:
   nodes:
-  - kind: block
+  - object: block
     type: header_one
     nodes:
-      - kind: text
-        ranges:
+      - object: text
+        leaves:
           - text: "Heading 1"
-  - kind: block
+  - object: block
     type: paragraph
     nodes:
-      - kind: text
-        ranges:
+      - object: text
+        leaves:
           - text: "Something else"

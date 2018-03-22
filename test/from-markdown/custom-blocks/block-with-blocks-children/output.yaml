@@ -1,55 +1,55 @@
 document:
   nodes:
-    - kind: block
+    - object: block
       type: paragraph
       nodes:
-        - kind: text
-          ranges:
+        - object: text
+          leaves:
             - text: Hello world
-    - kind: block
+    - object: block
       type: x-method
       nodes:
-        - kind: block
+        - object: block
           type: header_two
           nodes:
-            - kind: text
-              ranges:
+            - object: text
+              leaves:
                 - text: Install
           data:
             id: install
-        - kind: block
+        - object: block
           type: paragraph
           nodes:
-            - kind: text
-              ranges:
+            - object: text
+              leaves:
                 - text: The first thing is to get the GitBook API client.
-        - kind: block
+        - object: block
           type: x-sample
           nodes:
-            - kind: block
+            - object: block
               type: code_block
               nodes:
-                - kind: block
+                - object: block
                   type: code_line
                   nodes:
-                    - kind: text
-                      ranges:
+                    - object: text
+                      leaves:
                         - text: $ npm install gitbook-api
               data:
                 syntax: bash
           data:
             lang: js
-        - kind: block
+        - object: block
           type: x-sample
           nodes:
-            - kind: block
+            - object: block
               type: code_block
               nodes:
-                - kind: block
+                - object: block
                   type: code_line
                   nodes:
-                    - kind: text
-                      ranges:
+                    - object: text
+                      leaves:
                         - text: $ go get github.com/GitbookIO/go-gitbook-api
               data:
                 syntax: bash

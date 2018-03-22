@@ -1,16 +1,16 @@
 document:
   nodes:
-    - kind: block
+    - object: block
       type: paragraph
       nodes:
-        - kind: text
-          ranges:
+        - object: text
+          leaves:
             - text: 'Hello '
-        - kind: inline
+        - object: inline
           type: variable
           isVoid: true
           data:
             key: name
-        - kind: text
-          ranges:
+        - object: text
+          leaves:
             - text: ''

@@ -41,8 +41,8 @@
     "mocha": "^2.4.5",
     "react": "^16.0.0",
     "react-dom": "^16.0.0",
-    "slate": "^0.24.0",
-    "slate-hyperprint": "^1.1.1"
+    "slate": "^0.33.2",
+    "slate-hyperprint": "^2.2.0"
   },
   "dependencies": {
     "asciidoctor.js": "^1.5.5-4",

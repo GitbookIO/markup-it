@@ -1,19 +1,19 @@
 document:
   nodes:
-    - kind: block
+    - object: block
       type: paragraph
       nodes:
-        - kind: text
-          ranges:
+        - object: text
+          leaves:
             - text: 'This is a '
-        - kind: inline
+        - object: inline
           type: link
           data:
             href: 'https://www.google.fr'
           nodes:
-            - kind: text
-              ranges:
+            - object: text
+              leaves:
                 - text: link definition
-        - kind: text
-          ranges:
+        - object: text
+          leaves:
             - text: ''

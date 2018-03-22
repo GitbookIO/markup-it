@@ -7,12 +7,12 @@ const reInline = require('../re/inline');
  * @type {Serializer}
  */
 const serialize = Serializer()
-    .transformText((state, range) => {
-        const { text } = range;
+    .transformText((state, leaf) => {
+        const { text } = leaf;
         const allowHardlineBreak = state.getProp('hardlineBreak');
         const replaceWith = allowHardlineBreak ? '  \n' : ' ';
 
-        return range.merge({
+        return leaf.merge({
             text: text.replace(/\n/g, replaceWith)
         });
     });

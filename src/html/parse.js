@@ -78,15 +78,15 @@ const SCHEMA_NO_EXTRA_TEXT = {
          * Remove empty text nodes, except if they are only child. Copied from slate's
          */
         {
-            match: (object) => {
-                return object.kind == 'block' || object.kind == 'inline';
+            match: (node) => {
+                return node.object == 'block' || node.object == 'inline';
             },
             validate: (node) => {
                 const { nodes } = node;
                 if (nodes.size <= 1) return;
 
                 const invalids = nodes.filter((desc, i) => {
-                    if (desc.kind != 'text') return;
+                    if (desc.object != 'text') return;
                     if (desc.text.length > 0) return;
                     return true;
                 });
@@ -117,7 +117,7 @@ function resolveHeadingAttrs(attribs) {
  * @return {List<Node>} nodes
  */
 function selectInlines(node) {
-    if (node.kind !== 'block') {
+    if (node.object !== 'block') {
         return List([ node ]);
     }
 
@@ -157,7 +157,7 @@ function getMarksForClassName(className) {
  * Returns the accepted block types for the given container
  */
 function acceptedBlocks(container) {
-    return CONTAINERS[container.type || container.kind];
+    return CONTAINERS[container.type || container.object];
 }
 
 /**
@@ -178,7 +178,7 @@ function defaultBlockType(container) {
  * True if `block` can contain `node`
  */
 function canContain(block, node) {
-    if (node.kind === 'inline' || node.kind === 'text') {
+    if (node.object === 'inline' || node.object === 'text') {
         return LEAFS[block.type];
     } else {
         const types = acceptedBlocks(block);
@@ -236,19 +236,19 @@ function splitLines(text, sep) {
  * @return {Document}
  */
 function removeExtraEmptyText(document) {
-    const slateState = Slate
-    .State.fromJSON({
+    const slateValue = Slate
+    .Value.fromJSON({
         document
     }, {
         normalize: false
     });
 
     // Remove first extra empty text nodes, since for now HTML introduces a lot of them
-    const noExtraEmptyText = slateState.change().normalize(Slate.Schema.create(SCHEMA_NO_EXTRA_TEXT)).state;
+    const noExtraEmptyText = slateValue.change().normalize(Slate.Schema.create(SCHEMA_NO_EXTRA_TEXT)).value;
     // Then normalize it using Slate's core schema.
-    const normalizedState = Slate.State.fromJSON(noExtraEmptyText.toJSON());
+    const normalizedValue = Slate.Value.fromJSON(noExtraEmptyText.toJSON());
 
-    return normalizedState.document;
+    return normalizedValue.document;
 }
 
 /**
@@ -279,7 +279,7 @@ function parse(str) {
         let { nodes } = parent;
 
         // If parent is not a block container
-        if (!isBlockContainer(parent) && node.kind == 'block') {
+        if (!isBlockContainer(parent) && node.object == 'block') {
             // Discard all blocks
             nodes = nodes.concat(selectInlines(node));
         }
@@ -287,7 +287,7 @@ function parse(str) {
         // Wrap node if type is not allowed
         else if (
             isBlockContainer(parent)
-            && (node.kind !== 'block' || !canContain(parent, node))
+            && (node.object !== 'block' || !canContain(parent, node))
         ) {
             const previous = parent.nodes.last();
             if (previous && canContain(previous, node)) {
