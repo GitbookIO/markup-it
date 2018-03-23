@@ -1,4 +1,3 @@
-const Slate = require('slate');
 const detectNewLine = require('detect-newline');
 const htmlparser = require('htmlparser2');
 const htmlclean = require('htmlclean');
@@ -365,7 +364,7 @@ function parse(str) {
         throw new Error('Invalid HTML. A tag might not have been closed correctly.');
     }
 
-    return Slate.Value.create({ document: stack.peek() }).document;
+    return stack.peek();
 }
 
 module.exports = parse;
