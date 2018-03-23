@@ -105,7 +105,7 @@ const deserialize = Deserializer()
             type: getCustomTypeFromTag(tag),
             data,
             isVoid: true,
-            nodes: List([ state.genText() ])
+            nodes: List()
         });
 
         // This node is temporary

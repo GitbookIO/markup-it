@@ -15,7 +15,7 @@ document:
           leaves:
             - object: leaf
               marks: []
-              text: ' '
+              text: ''
     - data: {}
       object: block
       isVoid: false
@@ -39,7 +39,7 @@ document:
           leaves:
             - object: leaf
               marks: []
-              text: ' '
+              text: ''
     - data: {}
       object: block
       isVoid: false

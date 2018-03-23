@@ -70,41 +70,6 @@ const TAGS_TO_DATA = {
     h6: resolveHeadingAttrs
 };
 
-
-const SCHEMA_NO_EXTRA_TEXT = {
-    rules: [
-
-        /**
-         * Remove empty text nodes, except if they are only child. Copied from slate's
-         */
-        {
-            match: (node) => {
-                return node.object == 'block' || node.object == 'inline';
-            },
-            validate: (node) => {
-                const { nodes } = node;
-                if (nodes.size <= 1) return;
-
-                const invalids = nodes.filter((desc, i) => {
-                    if (desc.object != 'text') return;
-                    if (desc.text.length > 0) return;
-                    return true;
-                });
-
-                return invalids.size ? invalids : null;
-
-            },
-            normalize: (change, node, invalids) => {
-                // Reverse the list to handle consecutive merges, since the earlier nodes
-                // will always exist after each merge.
-                invalids.forEach((n) => {
-                    change.removeNodeByKey(n.key, { normalize: false });
-                });
-            }
-        }
-    ]
-};
-
 function resolveHeadingAttrs(attribs) {
     return attribs.id
         ? { id: attribs.id }
@@ -228,27 +193,6 @@ function splitLines(text, sep) {
     return List(
         text.split(sep)
     );
-}
-
-/**
- * Deserialize an HTML string
- * @param {Document} document
- * @return {Document}
- */
-function removeExtraEmptyText(document) {
-    const slateValue = Slate
-    .Value.fromJSON({
-        document
-    }, {
-        normalize: false
-    });
-
-    // Remove first extra empty text nodes, since for now HTML introduces a lot of them
-    const noExtraEmptyText = slateValue.change().normalize(Slate.Schema.create(SCHEMA_NO_EXTRA_TEXT)).value;
-    // Then normalize it using Slate's core schema.
-    const normalizedValue = Slate.Value.fromJSON(noExtraEmptyText.toJSON());
-
-    return normalizedValue.document;
 }
 
 /**
@@ -421,7 +365,7 @@ function parse(str) {
         throw new Error('Invalid HTML. A tag might not have been closed correctly.');
     }
 
-    return removeExtraEmptyText(stack.peek());
+    return Slate.Value.create({ document: stack.peek() }).document;
 }
 
 module.exports = parse;

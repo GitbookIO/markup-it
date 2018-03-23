@@ -14,4 +14,4 @@ document:
           leaves:
             - object: leaf
               marks: []
-              text: ' '
+              text: ''
