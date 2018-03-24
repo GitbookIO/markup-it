@@ -60,6 +60,8 @@ block.paragraph = replace(block.paragraph)
     ('tablenp', table.nptable)
     ();
 
+console.log(block.paragraph);
+
 block.paragraph = replace(block.paragraph)('(?!', '(?!'
         + block.fences.source.replace('\\1', '\\2') + '|'
         + block.list.block_ol.source.replace('\\1', '\\3') + '|'
