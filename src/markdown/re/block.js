@@ -6,7 +6,7 @@ const table = require('./table');
 // Any string matching these inside a line will marks the end of the current paragraph
 const notParagraphPart = 'customBlock';
 // Any line starting with these marks the end of the previous paragraph.
-const notParagraphNewline = 'hr|heading|lheading|blockquote|tag|def|math|comment|customBlock|table|tablenp';
+const notParagraphNewline = 'hr|heading|lheading|blockquote|tag|def|math|comment|customBlock|table|tablenp|fences|ol';
 
 const block = {
     newline:    /^\n+/,
@@ -91,15 +91,8 @@ block.paragraph = replace(block.paragraph)
     ('comment', block.comment)
     ('table', table.normal)
     ('tablenp', table.nptable)
-    ();
-
-block.paragraph = replace(block.paragraph)
-    ('(?!',
-        '(?!'
-        + block.fences.source.replace('\\1', '\\2') + '|'
-        + block.list.block_ol.source.replace('\\1', '\\3')
-        + '|'
-    )
+    ('fences', block.fences.source.replace('\\1', '\\2'))
+    ('ol', block.list.block_ol.source.replace('\\1', '\\3'))
     ();
 
 module.exports = block;
