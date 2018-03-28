@@ -1,8 +1,60 @@
 document:
+  data: {}
+  kind: document
   nodes:
-    - kind: block
+    - data:
+        html: >-
+          <h1><p align="center"><a href="https://neutrino.js.org"><img
+          src="https://raw.githubusercontent.com/mozilla-neutrino/neutrino-dev/master/docs/assets/logo.png"
+          height="150"></a></p></h1>
+      kind: block
+      isVoid: true
+      type: html_block
+      nodes:
+        - kind: text
+          ranges:
+            - kind: range
+              marks: []
+              text: ' '
+    - data: {}
+      kind: block
+      isVoid: false
       type: paragraph
       nodes:
         - kind: text
           ranges:
-            - text: ''
+            - kind: range
+              marks: []
+              text: ''
+        - data:
+            href: 'https://npmjs.org/package/neutrino'
+          kind: inline
+          isVoid: false
+          type: link
+          nodes:
+            - kind: text
+              ranges:
+                - kind: range
+                  marks: []
+                  text: ''
+            - data:
+                src: 'https://img.shields.io/npm/v/neutrino.svg'
+              kind: inline
+              isVoid: true
+              type: image
+              nodes:
+                - kind: text
+                  ranges:
+                    - kind: range
+                      marks: []
+                      text: ' '
+            - kind: text
+              ranges:
+                - kind: range
+                  marks: []
+                  text: ''
+        - kind: text
+          ranges:
+            - kind: range
+              marks: []
+              text: ''
