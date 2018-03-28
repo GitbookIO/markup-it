@@ -3,11 +3,6 @@ const { replace } = require('../utils');
 const heading = require('./heading');
 const table = require('./table');
 
-// Any string matching these inside a line will marks the end of the current paragraph
-const notParagraphPart = 'customBlock';
-// Any line starting with these marks the end of the previous paragraph.
-const notParagraphNewline = 'hr|heading|lheading|blockquote|tag|def|math|comment|customBlock|table|tablenp|fences|ol';
-
 const block = {
     newline:    /^\n+/,
     code:       /^((?: {4}|\t)[^\n]+\n*)+/,
@@ -34,6 +29,11 @@ const block = {
     customBlock: /^{% *(.*?) *(?=[#%}]})%}/,
     comment:     /^{#\s*(.*?)\s*(?=[#%}]})#}/
 };
+
+// Any string matching these inside a line will marks the end of the current paragraph
+const notParagraphPart = 'customBlock';
+// Any line starting with these marks the end of the previous paragraph.
+const notParagraphNewline = 'hr|heading|lheading|blockquote|tag|def|math|comment|customBlock|table|tablenp|fences|ol';
 
 const _tag = '(?!(?:'
     + 'a|em|strong|small|s|cite|q|dfn|abbr|data|time|code'
@@ -77,9 +77,6 @@ block.html = replace(block.html)
 block.paragraph = replace(block.paragraph)
     ('notParagraphPart', notParagraphPart)
     ('notParagraphNewline', notParagraphNewline)
-    ();
-
-block.paragraph = replace(block.paragraph)
     ('hr', block.hr)
     ('heading', heading.normal)
     ('lheading', heading.line)
