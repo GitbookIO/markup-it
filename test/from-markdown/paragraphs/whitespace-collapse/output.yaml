@@ -5,4 +5,4 @@ document:
       nodes:
         - kind: text
           ranges:
-            - text: Hello World
+            - text: Hello World, this is a lot of spaces indeed
