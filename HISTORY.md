@@ -19,6 +19,10 @@ Import fixes from 6.0.2, 6.0.3 and 6.0.4:
 
 - Upgrade Slate to 0.33
 
+### 6.0.5
+
+- Fix empty custom block parsing
+
 ### 6.0.4
 
 - Fix newlines and whitespace collapsing in paragraph. #99
