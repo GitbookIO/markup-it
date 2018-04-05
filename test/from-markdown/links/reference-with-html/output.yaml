@@ -1,60 +1,60 @@
 document:
   data: {}
-  kind: document
+  object: document
   nodes:
     - data:
         html: >-
           <h1><p align="center"><a href="https://neutrino.js.org"><img
           src="https://raw.githubusercontent.com/mozilla-neutrino/neutrino-dev/master/docs/assets/logo.png"
           height="150"></a></p></h1>
-      kind: block
+      object: block
       isVoid: true
       type: html_block
       nodes:
-        - kind: text
-          ranges:
-            - kind: range
+        - object: text
+          leaves:
+            - object: range
               marks: []
-              text: ' '
+              text: ''
     - data: {}
-      kind: block
+      object: block
       isVoid: false
       type: paragraph
       nodes:
-        - kind: text
-          ranges:
-            - kind: range
+        - object: text
+          leaves:
+            - object: range
               marks: []
               text: ''
         - data:
             href: 'https://npmjs.org/package/neutrino'
-          kind: inline
+          object: inline
           isVoid: false
           type: link
           nodes:
-            - kind: text
-              ranges:
-                - kind: range
+            - object: text
+              leaves:
+                - object: range
                   marks: []
                   text: ''
             - data:
                 src: 'https://img.shields.io/npm/v/neutrino.svg'
-              kind: inline
+              object: inline
               isVoid: true
               type: image
               nodes:
-                - kind: text
-                  ranges:
-                    - kind: range
+                - object: text
+                  leaves:
+                    - object: range
                       marks: []
-                      text: ' '
-            - kind: text
-              ranges:
-                - kind: range
+                      text: ''
+            - object: text
+              leaves:
+                - object: range
                   marks: []
                   text: ''
-        - kind: text
-          ranges:
-            - kind: range
+        - object: text
+          leaves:
+            - object: range
               marks: []
               text: ''
