@@ -5,8 +5,9 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Unreleased
 
-Import fixes from 6.0.2, 6.0.3 and 6.0.4:
+Import fixes from 6.0.2, 6.0.3, 6.0.4 and 6.0.5:
 
+- Fix empty custom block parsing
 - Fix newlines and whitespace collapsing in paragraph. #99
 - Fix link reference parsing when mixed with HTML
 - Fix bold parsed as list inside a text
