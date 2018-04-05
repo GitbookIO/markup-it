@@ -34,7 +34,7 @@ const deserialize = Deserializer()
             return;
         }
 
-        const text = match[1].trim();
+        const text = collapseWhiteSpaces(match[1]);
         const nodes = state.use('inline').deserialize(text);
         const node = Block.create({
             type: BLOCKS.PARAGRAPH,
@@ -43,5 +43,19 @@ const deserialize = Deserializer()
 
         return state.push(node);
     });
+
+/*
+ * Collapse newlines and whitespaces into a single whitespace. But preserve
+ * hardline breaks '··⏎'
+ */
+function collapseWhiteSpaces(text) {
+    return text
+        // Remove hardline breaks
+        .split('  \n')
+        .map(part => part.trim().replace(/\s+/g, ' '))
+        // Restore hardline breaks
+        .join('  \n')
+        .trim();
+}
 
 module.exports = { serialize, deserialize };

@@ -14,8 +14,10 @@ const html = require('./html');
 const custom = require('./custom');
 
 module.exports = [
-    html,
+    // All link definition (for link reference) must be resolved first.
     definition,
+    // HTML must be high in the stack too.
+    html,
     table,
     hr,
     list,

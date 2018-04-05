@@ -1,6 +1,15 @@
+
 # Release notes
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
+
+### Unreleased
+
+Import fixes from 6.0.2, 6.0.3 and 6.0.4:
+
+- Fix newlines and whitespace collapsing in paragraph. #99
+- Fix link reference parsing when mixed with HTML
+- Fix bold parsed as list inside a text
 
 ### 7.0.1
 
@@ -9,6 +18,18 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ### 7.0.0
 
 - Upgrade Slate to 0.33
+
+### 6.0.4
+
+- Fix newlines and whitespace collapsing in paragraph. #99
+
+### 6.0.3
+
+- Fix link reference parsing when mixed with HTML
+
+### 6.0.2
+
+- Fix bold parsed as list inside a text
 
 ### 6.0.1
 

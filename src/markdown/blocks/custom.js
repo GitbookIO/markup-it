@@ -99,6 +99,10 @@ const deserialize = Deserializer()
         }
 
         const text = match[1].trim();
+        if (!text) {
+            return state;
+        }
+
         const { tag, data } = liquid.parseTag(text);
 
         const node = Block.create({
