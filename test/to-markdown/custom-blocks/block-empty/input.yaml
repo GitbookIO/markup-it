@@ -1,0 +1,12 @@
+document:
+  nodes:
+    - kind: block
+      type: x-empty
+      # Custom blocks should either contain blocks or be Void. It's must be
+      # ensured uphill by normalization,
+      # This test shows that markup-it still handles non-Void empty blocks well.
+      isVoid: false
+      nodes:
+        - kind: text
+          ranges:
+            - text: ''
