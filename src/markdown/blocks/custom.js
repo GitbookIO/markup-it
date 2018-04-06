@@ -1,8 +1,9 @@
 const { List } = require('immutable');
 const trimTrailingLines = require('trim-trailing-lines');
-const { Serializer, Deserializer, Block } = require('../../');
+const { Serializer, Deserializer, Block, BLOCKS } = require('../../');
 const reBlock = require('../re/block');
 const liquid = require('../liquid');
+
 
 /**
  * Return true if a block type is a custom one.
@@ -50,6 +51,18 @@ function isClosingTagFor(tag, forTag) {
 }
 
 /**
+ * Wrap the given nodes in the default block
+ * @param  {Array<Node>} nodes
+ * @return {Block}
+ */
+function wrapInDefaultBlock(nodes) {
+    return Block.create({
+        type: BLOCKS.DEFAULT,
+        nodes
+    });
+}
+
+/**
  * Serialize a templating block to markdown
  * @type {Serializer}
  */
@@ -73,12 +86,13 @@ const serialize = Serializer()
                 .write(`${startTag}${end}`);
         }
 
-        const childrenKind = node.nodes.first().kind === 'block'
-         ? 'block'
-         : 'inline';
+        const containsInline = node.nodes.first().kind !== 'block';
+        const innerNodes = containsInline
+            ? List([wrapInDefaultBlock(node.nodes)])
+            : node.nodes;
 
         const inner = trimTrailingLines(
-            state.use(childrenKind).serialize(node.nodes)
+            state.serialize(innerNodes)
         );
 
         const unendingTags = state.getProp('unendingTags') || List();
