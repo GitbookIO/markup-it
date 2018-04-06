@@ -51,10 +51,14 @@ function parseData(text) {
 /**
  * Parse the inner text of a tag.
  * @param  {String} text
- * @return {Object} { tag: String, data: Map }
+ * @return {Object | Null} { tag: String, data: Map }
  */
 function parseTag(text) {
     const match = text.match(lexical.tagLine);
+
+    if (!match) {
+        return null;
+    }
 
     return {
         tag: match[1],
