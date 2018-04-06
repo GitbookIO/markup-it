@@ -1,4 +1,5 @@
 const { List } = require('immutable');
+const warning = require('warning');
 const trimTrailingLines = require('trim-trailing-lines');
 const { Serializer, Deserializer, Block, BLOCKS } = require('../../');
 const reBlock = require('../re/block');
@@ -81,12 +82,22 @@ const serialize = Serializer()
         const end = node.kind == 'block' ? '\n\n' : '';
 
         if (node.isVoid || node.nodes.isEmpty()) {
+            warning(
+                node.isVoid,
+                'Encountered a non-void custom block with no children inlines'
+            );
+
             return state
                 .shift()
                 .write(`${startTag}${end}`);
         }
 
         const containsInline = node.nodes.first().kind !== 'block';
+        warning(
+            !containsInline,
+            'Encountered a custom block containing inlines'
+        );
+
         const innerNodes = containsInline
             ? List([wrapInDefaultBlock(node.nodes)])
             : node.nodes;
