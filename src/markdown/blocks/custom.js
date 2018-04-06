@@ -64,6 +64,23 @@ const serialize = Serializer()
             data
         });
 
+        const split = node.kind == 'block' ? '\n' : '';
+        const end = node.kind == 'block' ? '\n\n' : '';
+
+        if (node.isVoid || node.nodes.isEmpty()) {
+            return state
+                .shift()
+                .write(`${startTag}${end}`);
+        }
+
+        const childrenKind = node.nodes.first().kind === 'block'
+         ? 'block'
+         : 'inline';
+
+        const inner = trimTrailingLines(
+            state.use(childrenKind).serialize(node.nodes)
+        );
+
         const unendingTags = state.getProp('unendingTags') || List();
         const endTag =
             unendingTags.includes(getTagFromCustomType(node.type))
@@ -71,17 +88,6 @@ const serialize = Serializer()
                 : liquid.stringifyTag({
                     tag: 'end' + getTagFromCustomType(node.type)
                 });
-
-        const split = node.kind == 'block' ? '\n' : '';
-        const end = node.kind == 'block' ? '\n\n' : '';
-
-        if (node.isVoid) {
-            return state
-                .shift()
-                .write(`${startTag}${end}`);
-        }
-
-        const inner = trimTrailingLines(state.serialize(node.nodes));
 
         return state
             .shift()
