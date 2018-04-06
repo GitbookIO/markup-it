@@ -103,7 +103,11 @@ const deserialize = Deserializer()
             return state;
         }
 
-        const { tag, data } = liquid.parseTag(text);
+        const parsed = liquid.parseTag(text);
+        if (!parsed) {
+            return state;
+        }
+        const { tag, data } = parsed;
 
         const node = Block.create({
             type: getCustomTypeFromTag(tag),
