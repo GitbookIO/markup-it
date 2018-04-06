@@ -84,7 +84,7 @@ const serialize = Serializer()
         if (node.isVoid || node.nodes.isEmpty()) {
             warning(
                 node.isVoid,
-                'Encountered a non-void custom block with no children inlines'
+                'Encountered a non-void custom block with no children'
             );
 
             return state
