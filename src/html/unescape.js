@@ -6,7 +6,6 @@ const entities = require('entities');
  * @return {String}
  */
 function unescape(str) {
-    str = entities.decodeXML(str);
     str = entities.decodeHTML(str);
 
     return str;
