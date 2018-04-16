@@ -1,9 +1,7 @@
-const entities = require('html-entities');
+const entities = require('entities');
 const { Map } = require('immutable');
 const { Serializer, MARKS } = require('../../');
 const { escapeWith } = require('../../utils/escape');
-
-const xmlEntities = new entities.XmlEntities();
 
 // Replacements for Asciidoc escaping
 const REPLACEMENTS = Map([
@@ -29,7 +27,7 @@ const REPLACEMENTS = Map([
  */
 function escape(text) {
     text = escapeWith(REPLACEMENTS, text);
-    return xmlEntities.encode(text);
+    return entities.encodeXML(text);
 }
 
 /**

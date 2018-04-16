@@ -1659,10 +1659,6 @@ hosted-git-info@^2.1.4:
   version "2.1.5"
   resolved "https://registry.yarnpkg.com/hosted-git-info/-/hosted-git-info-2.1.5.tgz#0ba81d90da2e25ab34a332e6ec77936e1598118b"
 
-html-entities:
-  version "1.2.0"
-  resolved "https://registry.yarnpkg.com/html-entities/-/html-entities-1.2.0.tgz#41948caf85ce82fed36e4e6a0ed371a6664379e2"
-
 htmlclean@^2.7.8:
   version "2.7.8"
   resolved "https://registry.yarnpkg.com/htmlclean/-/htmlclean-2.7.8.tgz#49bd3b9416297aaf6a8d25b43d5ac10d16919033"

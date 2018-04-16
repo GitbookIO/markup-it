@@ -1,9 +1,6 @@
 const { Map } = require('immutable');
-const entities = require('html-entities');
+const entities = require('entities');
 const { escapeWith, unescapeWith } = require('../utils/escape');
-
-const htmlEntities = new entities.AllHtmlEntities();
-const xmlEntities = new entities.XmlEntities();
 
 // Replacements for Markdown escaping
 // See http://spec.commonmark.org/0.15/#backslash-escapes
@@ -48,7 +45,7 @@ const URL_REPLACEMENTS_ESCAPE = Map([
  */
 function escapeMarkdown(str, escapeXML) {
     str = escapeWith(REPLACEMENTS_ESCAPE, str);
-    return escapeXML === false ? str : xmlEntities.encode(str);
+    return escapeXML === false ? str : entities.encodeXML(str);
 }
 
 /**
@@ -60,7 +57,10 @@ function escapeMarkdown(str, escapeXML) {
  */
 function unescapeMarkdown(str) {
     str = unescapeWith(REPLACEMENTS_UNESCAPE, str);
-    return htmlEntities.decode(str);
+    str = entities.decodeXML(str);
+    str = entities.decodeHTML(str);
+
+    return str;
 }
 
 /**

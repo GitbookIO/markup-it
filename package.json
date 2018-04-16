@@ -47,9 +47,9 @@
   "dependencies": {
     "asciidoctor.js": "^1.5.5-4",
     "detect-newline": "^2.1.0",
+    "entities": "^1.1.1",
     "escape-string-regexp": "^1.0.5",
     "front-matter": "^2.1.2",
-    "html-entities": "1.2.0",
     "htmlclean": "^2.7.8",
     "htmlparser2": "3.9.2",
     "indent-string": "2.1.0",

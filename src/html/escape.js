@@ -1,5 +1,4 @@
-const entities = require('html-entities');
-const htmlEntities = new entities.AllHtmlEntities();
+const entities = require('entities');
 
 /**
  * Escape all entities (HTML + XML)
@@ -7,7 +6,7 @@ const htmlEntities = new entities.AllHtmlEntities();
  * @return {String}
  */
 function escape(str) {
-    return htmlEntities.encode(str);
+    return entities.encodeXML(str);
 }
 
 module.exports = escape;
