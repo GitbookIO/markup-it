@@ -57,7 +57,6 @@ function escapeMarkdown(str, escapeXML) {
  */
 function unescapeMarkdown(str) {
     str = unescapeWith(REPLACEMENTS_UNESCAPE, str);
-    str = entities.decodeXML(str);
     str = entities.decodeHTML(str);
 
     return str;
