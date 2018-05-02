@@ -10,7 +10,7 @@ const block = {
     blockquote: /^( *>[^\n]+(\n(?!def)[^\n]+)*\n*)+/,
     html:       /^ *(?:comment *(?:\n|\s*$)|closed *(?:\n{2,}|\s*$)|closing *(?:\n{2,}|\s*$))/,
     // [someref]: google.com
-    def:        /^ *\[([^\]]+)\]: *<?([^\s>]+)>?(?: +["(]([^\n]+)[")])? *(?:\n|$)/,
+    def:        /^ {0,3}\[([^\]]+)\]: *<?([^\s>]+)>?(?: +["(]([^\n]+)[")])? *(?:\n|$)/,
     footnote:   /^\[\^([^\]]+)\]: ([^\n]+)/,
     paragraph:  /^((?:(?:(?!notParagraphPart)[^\n])+\n?(?!notParagraphNewline))+)\n*/,
     text:       /^[^\n]+/,
