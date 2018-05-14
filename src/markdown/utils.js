@@ -134,6 +134,18 @@ function resolveRef(state, refID) {
     return Map(data).filter(Boolean);
 }
 
+/**
+ * Wrap inline content with the provided characters.
+ * e.g wrapInline('bold content', '**')
+ * @param {String} str
+ * @param {String} chars
+ */
+function wrapInline(str, chars) {
+    return str
+        .replace(/^\s*/, spaces => `${spaces}${chars}`)
+        .replace(/\s*$/, spaces => `${chars}${spaces}`);
+}
+
 module.exports = {
     escape: escapeMarkdown,
     unescape: unescapeMarkdown,
@@ -142,5 +154,7 @@ module.exports = {
     unescapeURL,
 
     replace,
-    resolveRef
+    resolveRef,
+
+    wrapInline
 };

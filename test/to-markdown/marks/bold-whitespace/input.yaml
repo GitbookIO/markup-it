@@ -5,7 +5,7 @@ document:
       nodes:
         - object: text
           leaves:
-            - text: '- Hello'
+            - text: 'Hello'
               marks: []
             - text: ' World'
               marks:
@@ -17,7 +17,7 @@ document:
                 - type: BOLD
             - text: 'you? '
               marks: []
-            - text: "World\n"
+            - text: "World:\n"
               marks:
                 - type: BOLD
             - text: 'Fine, thanks!'
