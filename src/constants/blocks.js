@@ -31,6 +31,8 @@ module.exports = {
     LIST_ITEM:  'list_item',
     // Comment
     COMMENT:    'comment',
+    // Math
+    MATH:       'math',
     // Default block
     DEFAULT:    'paragraph'
 };

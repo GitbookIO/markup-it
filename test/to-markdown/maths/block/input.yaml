@@ -1,18 +1,7 @@
 document:
   nodes:
     - object: block
-      type: paragraph
-      nodes:
-        - object: text
-          leaves:
-            - text: ''
-        - object: inline
-          type: math
-          isVoid: true
-          data:
-            tex: |-
-
-              a = b = c = d
-        - object: text
-          leaves:
-            - text: ''
+      type: math
+      isVoid: true
+      data:
+        tex: a = b = c = d
