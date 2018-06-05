@@ -1,0 +1,11 @@
+document:
+  nodes:
+    - object: block
+      type: math
+      isVoid: true
+      data:
+        tex: |-
+
+
+              a = b
+              c = d
