@@ -14,27 +14,10 @@ document:
                   leaves:
                     - object: leaf
                       text: 'Here''s some code:'
-            - object: block
-              type: code_block
-              nodes:
                 - object: block
                   type: code_line
                   nodes:
                     - object: text
                       leaves:
                         - object: leaf
-                          text: 'const foo = {'
-                - object: block
-                  type: code_line
-                  nodes:
-                    - object: text
-                      leaves:
-                        - object: leaf
-                          text: '    [bar]: ''bar'''
-                - object: block
-                  type: code_line
-                  nodes:
-                    - object: text
-                      leaves:
-                        - object: leaf
-                          text: '};'
+                          text: '[bar]: ''bar'''
