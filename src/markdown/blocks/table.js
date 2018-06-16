@@ -104,11 +104,16 @@ function parseRow(state, row) {
     // Tokenize each cell
     const cellNodes = cells.map(cell => {
         const text = cell.trim();
-        const nodes = state.use('inline').deserialize(text); // state.deserializeWith(text, rowRules);
+        const nodes = state.use('inline').deserialize(text);
+
+        const paragraph = Block.create({
+            type: BLOCKS.PARAGRAPH,
+            nodes
+        });
 
         return Block.create({
             type: BLOCKS.TABLE_CELL,
-            nodes
+            nodes: [ paragraph ]
         });
     });
 
