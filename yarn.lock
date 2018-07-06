@@ -975,11 +975,17 @@ debug@^2.1.1:
   dependencies:
     ms "0.7.2"
 
-debug@^2.2.0, debug@^2.3.2:
+debug@^2.2.0:
   version "2.3.2"
   resolved "https://registry.yarnpkg.com/debug/-/debug-2.3.2.tgz#94cb466ef7d6d2c7e5245cdd6e4104f2d0d70d30"
   dependencies:
     ms "0.7.2"
+
+debug@^3.1.0:
+  version "3.1.0"
+  resolved "https://registry.yarnpkg.com/debug/-/debug-3.1.0.tgz#5bb5a0672628b64149566ba16819e61518c67261"
+  dependencies:
+    ms "2.0.0"
 
 decamelize-keys@^1.0.0:
   version "1.1.0"
@@ -2191,6 +2197,10 @@ ms@0.7.2:
   version "0.7.2"
   resolved "https://registry.yarnpkg.com/ms/-/ms-0.7.2.tgz#ae25cf2512b3885a1d95d7f037868d8431124765"
 
+ms@2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/ms/-/ms-2.0.0.tgz#5608aeadfc00be6c2901df5f9861788de0d597c8"
+
 mute-stream@0.0.5:
   version "0.0.5"
   resolved "https://registry.yarnpkg.com/mute-stream/-/mute-stream-0.0.5.tgz#8fbfabb0a98a253d3184331f9e8deb7372fac6c0"
@@ -2717,22 +2727,22 @@ slate-hyperprint@^2.2.0:
     meow "^4.0.0"
     prettier "1.6.1"
 
-slate-schema-violations@^0.1.6:
-  version "0.1.6"
-  resolved "https://registry.yarnpkg.com/slate-schema-violations/-/slate-schema-violations-0.1.6.tgz#799b95308cc4b6d28011492c194f4a8e6b01142e"
+slate-schema-violations@^0.1.16:
+  version "0.1.16"
+  resolved "https://registry.yarnpkg.com/slate-schema-violations/-/slate-schema-violations-0.1.16.tgz#418ed73caa172b8b180959d7a4f4a14934f239a1"
 
-slate@^0.33.2:
-  version "0.33.2"
-  resolved "https://registry.yarnpkg.com/slate/-/slate-0.33.2.tgz#69c8b0ebc11fdd6d8b89841bf3b077f5c8158d81"
+slate@^0.34.3:
+  version "0.34.3"
+  resolved "https://registry.yarnpkg.com/slate/-/slate-0.34.3.tgz#96a3f86da52d063a8166db9ac752cc0e7a6a0d2b"
   dependencies:
-    debug "^2.3.2"
+    debug "^3.1.0"
     direction "^0.1.5"
     esrever "^0.2.0"
     is-empty "^1.0.0"
     is-plain-object "^2.0.4"
     lodash "^4.17.4"
     slate-dev-logger "^0.1.39"
-    slate-schema-violations "^0.1.6"
+    slate-schema-violations "^0.1.16"
     type-of "^2.0.1"
 
 slice-ansi@0.0.4:

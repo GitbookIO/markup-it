@@ -49,8 +49,8 @@ class Serializer extends RuleFunction {
         .filter(state => {
             const text = state.peek();
 
-            return text.characters.some(char => {
-                const hasMark = char.marks.some(mark => matcher(mark.type));
+            return text.getLeaves().some(leaf => {
+                const hasMark = leaf.marks.some(mark => matcher(mark.type));
                 return hasMark;
             });
         });

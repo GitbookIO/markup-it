@@ -5,6 +5,10 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Unreleased
 
+### 8.1.3
+
+- Remove warnings when using Slate 0.34.x
+
 ### 8.1.2
 
 - Rename math block to `math_block`
