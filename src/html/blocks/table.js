@@ -1,7 +1,7 @@
 const { Serializer, BLOCKS } = require('../../');
 
-// Key to store the current table align in the state
-const ALIGN = 'current_table_align';
+// Key to store the current table aligns in the state
+const ALIGNS = 'current_table_aligns';
 
 // Key to indicate that the current row is a header
 const THEAD = 'next_row_is_header';
@@ -18,17 +18,17 @@ const table = {
         .matchType(BLOCKS.TABLE)
         .then(state => {
             const tableNode = state.peek();
-            const align = tableNode.data.get('align');
+            const aligns = tableNode.data.get('aligns');
             const rows = tableNode.nodes;
 
             const headerText = state
-                      .setProp(ALIGN, align)
+                      .setProp(ALIGNS, aligns)
                       .setProp(COL, 0)
                       .setProp(THEAD, true)
                       .serialize(rows.slice(0, 1));
 
             const bodyText = state
-                      .setProp(ALIGN, align)
+                      .setProp(ALIGNS, aligns)
                       .setProp(COL, 0)
                       .serialize(rows.rest());
 
@@ -75,9 +75,9 @@ const cell = {
         .then(state => {
             const node = state.peek();
             const isHead = state.getProp(THEAD);
-            const align = state.getProp(ALIGN);
+            const aligns = state.getProp(ALIGNS);
             const column = state.getProp(COL);
-            const cellAlign = align[column];
+            const cellAlign = aligns[column];
 
             const inner = state.serialize(node.nodes);
 

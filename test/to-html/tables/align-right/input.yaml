@@ -3,7 +3,7 @@ document:
     - object: block
       type: table
       data:
-        align:
+        aligns:
           - right
           - null
       nodes:

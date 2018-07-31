@@ -10,10 +10,10 @@ const deserializeNoPipe = Deserializer()
         // Get all non empty lines
         const lines = match[0].split('\n').filter(Boolean);
         const header = lines[0];
-        const align = lines[1];
+        const aligns = lines[1];
         const rows = lines.slice(2);
 
-        const node = parseTable(state, header, align, rows);
+        const node = parseTable(state, header, aligns, rows);
         return state.push(node);
     });
 
@@ -26,10 +26,10 @@ const deserializeNormal = Deserializer()
         // Get all non empty lines
         const lines = match[0].split('\n').filter(Boolean);
         const header = lines[0];
-        const align = lines[1];
+        const aligns = lines[1];
         const rows = lines.slice(2);
 
-        const node = parseTable(state, header, align, rows);
+        const node = parseTable(state, header, aligns, rows);
         return state.push(node);
     });
 
@@ -42,13 +42,13 @@ const serialize = Serializer()
     .then((state) => {
         const node = state.peek();
         const { data, nodes } = node;
-        const align = data.get('align');
+        const aligns = data.get('aligns');
         const headerRow = nodes.get(0);
         const bodyRows = nodes.slice(1);
 
         const output = (
             rowToText(state, headerRow) + '\n'
-            + alignToText(align) + '\n'
+            + alignsToText(aligns) + '\n'
             + bodyRows.map(row => rowToText(state, row)).join('\n')
             + '\n\n'
         );
@@ -66,11 +66,11 @@ const deserialize = Deserializer()
  * Parse a table into a node.
  * @param  {State} state
  * @param  {String} headerStr
- * @param  {String} alignStr
+ * @param  {String} alignsStr The line containing the column aligns
  * @param  {String} rowStrs
  * @return {Block} table
  */
-function parseTable(state, headerStr, alignStr, rowStrs) {
+function parseTable(state, headerStr, alignsStr, rowStrs) {
     // Header
     const headerRow = parseRow(state, headerStr);
 
@@ -80,12 +80,12 @@ function parseTable(state, headerStr, alignStr, rowStrs) {
     });
 
     // Align for columns
-    const alignCells = rowToCells(alignStr);
-    const align = mapAlign(alignCells);
+    const alignsCells = rowToCells(alignsStr);
+    const aligns = mapAligns(alignsCells);
 
     return Block.create({
         type: BLOCKS.TABLE,
-        data: { align },
+        data: { aligns },
         nodes: [headerRow].concat(rowTokens)
     });
 }
@@ -156,8 +156,8 @@ function rowToCells(rowStr) {
  * @param {Array<String>}
  * @return {Array<String|null>}
  */
-function mapAlign(align) {
-    return align.map(function(s) {
+function mapAligns(aligns) {
+    return aligns.map(function(s) {
         if (reTable.alignRight.test(s)) {
             return TABLE_ALIGN.RIGHT;
         } else if (reTable.alignCenter.test(s)) {
@@ -195,13 +195,13 @@ function cellToText(state, cell) {
 }
 
 /**
- * Render align of a table to text
+ * Render aligns of a table into a Markdown align row
  *
- * @param {Array<String>} row
+ * @param {Array<String>} aligns
  * @return {String}
  */
-function alignToText(row) {
-    return '|' + row.map(function(align) {
+function alignsToText(aligns) {
+    return '|' + aligns.map(function(align) {
         if (align == 'right') {
             return ' ---: |';
         } else if (align == 'center') {

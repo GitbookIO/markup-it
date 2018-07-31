@@ -9,7 +9,7 @@ document:
     - object: block
       type: table
       data:
-        align:
+        aligns:
           - null
           - null
       nodes:
