@@ -5,6 +5,8 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Unreleased
 
+- Rename table aligns data from `align` to `aligns`
+
 ### 8.1.3
 
 - Remove warnings when using Slate 0.34.x
