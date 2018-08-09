@@ -40,11 +40,13 @@ const MARK_TAGS = {
     strong:         MARKS.BOLD,
     del:            MARKS.STRIKETHROUGH,
     em:             MARKS.ITALIC,
-    code:           MARKS.CODE
+    code:           MARKS.CODE,
+    span:           MARKS.UNDERLINE
 };
 
 const MARK_CLASSNAME = {
-    'line-through': MARKS.STRIKETHROUGH
+    'line-through': MARKS.STRIKETHROUGH,
+    'underline': MARKS.UNDERLINE
 };
 
 const TAGS_TO_DATA = {
@@ -60,6 +62,11 @@ const TAGS_TO_DATA = {
             title: attribs.alt || ''
         };
     },
+    // span(attribs) {
+    //     return {
+    //         style: attribs.style
+    //     }
+    // },
     h1: resolveHeadingAttrs,
     h2: resolveHeadingAttrs,
     h3: resolveHeadingAttrs,

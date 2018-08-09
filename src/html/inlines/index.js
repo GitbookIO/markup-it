@@ -1,4 +1,5 @@
 module.exports = [
+    require('./underline'),
     require('./code'),
     require('./bold'),
     require('./italic'),

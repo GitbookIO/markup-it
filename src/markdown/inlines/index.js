@@ -12,6 +12,7 @@ const bold = require('./bold');
 const italic = require('./italic');
 const hardlineBreak = require('./hardline_break');
 const strikethrough = require('./strikethrough');
+const underline = require('./underline');
 
 module.exports = [
     footnote,
@@ -30,5 +31,6 @@ module.exports = [
     bold,
     italic,
     strikethrough,
+    underline,
     text
 ];
