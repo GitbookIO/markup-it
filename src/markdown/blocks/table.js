@@ -130,7 +130,7 @@ function rowToCells(rowStr) {
     const trimmed = rowStr.trim();
 
     let lastSep = 0;
-    for (let i = 0; i < trimmed.length; i++) {
+    for (let i = 0; i < trimmed.length; i += 1) {
         const prevIdx = i === 0 ? 0 : i - 1;
         const isSep = trimmed[i] === '|';
         const isNotEscaped = trimmed[prevIdx] !== '\\';

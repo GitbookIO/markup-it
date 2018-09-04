@@ -8,8 +8,7 @@ const HTML_BLOCKS = require('./HTML_BLOCKS');
  * @return {Boolean}
  */
 function isHTMLBlock(tag) {
-    tag = tag.toLowerCase();
-    return HTML_BLOCKS.indexOf(tag) >= 0;
+    return HTML_BLOCKS.indexOf(tag.toLowerCase()) >= 0;
 }
 
 /**

@@ -13,7 +13,7 @@ function resolveImageRef(state, refID) {
     const data = utils.resolveRef(state, refID);
 
     if (!data) {
-        return;
+        return null;
     }
 
     return data.set('src', data.get('href')).remove('href');
@@ -64,7 +64,7 @@ const deserializeNormal = Deserializer().matchRegExp(
     reInline.link,
     (state, match) => {
         if (!isImage(match[0])) {
-            return;
+            return undefined;
         }
 
         const data = Map({
@@ -92,14 +92,14 @@ const deserializeRef = Deserializer().matchRegExp(
     [reInline.reflink, reInline.nolink],
     (state, match) => {
         if (!isImage(match[0])) {
-            return;
+            return undefined;
         }
 
         const refID = match[2] || match[1];
         const data = resolveImageRef(state, refID);
 
         if (!data) {
-            return;
+            return undefined;
         }
 
         const node = Inline.create({

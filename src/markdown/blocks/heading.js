@@ -62,10 +62,11 @@ const deserialize = Deserializer().use([deserializeNormal, deserializeLine]);
  * Parse inner text of header to extract ID entity
  * @param  {State} state
  * @param  {Number} level
- * @param  {String} text
+ * @param  {String} initialText
  * @return {State}
  */
-function parseHeadingText(state, level, text) {
+function parseHeadingText(state, level, initialText) {
+    let text = initialText;
     reHeading.id.lastIndex = 0;
     const match = reHeading.id.exec(text);
     let data;

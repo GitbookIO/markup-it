@@ -9,8 +9,8 @@ class Serializer extends RuleFunction {
      * @param {Function || Array || String} matcher
      * @return {Serializer}
      */
-    matchType(matcher) {
-        matcher = normalizeMatcher(matcher);
+    matchType(inputMatcher) {
+        const matcher = normalizeMatcher(inputMatcher);
 
         return this.filter(state => {
             const node = state.peek();
@@ -24,8 +24,8 @@ class Serializer extends RuleFunction {
      * @param {Function || Array || String} matcher
      * @return {Serializer}
      */
-    matchObject(matcher) {
-        matcher = normalizeMatcher(matcher);
+    matchObject(inputMatcher) {
+        const matcher = normalizeMatcher(inputMatcher);
 
         return this.filter(state => {
             const node = state.peek();
@@ -40,8 +40,8 @@ class Serializer extends RuleFunction {
      * @param {Function} transform(State, String, Mark)
      * @return {Serializer}
      */
-    matchMark(matcher) {
-        matcher = normalizeMatcher(matcher);
+    matchMark(inputMatcher) {
+        const matcher = normalizeMatcher(inputMatcher);
 
         return this.matchObject('text').filter(state => {
             const text = state.peek();
@@ -78,8 +78,8 @@ class Serializer extends RuleFunction {
      * @param {Function} transform(state: State, text: String, mark: Mark): String
      * @return {Serializer}
      */
-    transformMarkedLeaf(matcher, transform) {
-        matcher = normalizeMatcher(matcher);
+    transformMarkedLeaf(inputMatcher, transform) {
+        const matcher = normalizeMatcher(inputMatcher);
 
         return this.matchMark(matcher).transformLeaves((state, leaf) => {
             let { text, marks } = leaf;
@@ -90,9 +90,7 @@ class Serializer extends RuleFunction {
 
             text = transform(state, text, mark);
             marks = marks.delete(mark);
-            leaf = leaf.merge({ text, marks });
-
-            return leaf;
+            return leaf.merge({ text, marks });
         });
     }
 
@@ -117,8 +115,8 @@ class Serializer extends RuleFunction {
                 .filterNot(new Serializer().matchMark(MARK))
 
                 // Escape all text
-                .transformLeaves((state, leaf) => {
-                    leaf = transform(state, leaf);
+                .transformLeaves((state, inputLeaf) => {
+                    const leaf = transform(state, inputLeaf);
 
                     return leaf.merge({
                         marks: leaf.marks.add(Mark.create({ type: MARK }))
@@ -143,6 +141,8 @@ function normalizeMatcher(matcher) {
             return type => matcher.includes(type);
         case 'string':
             return type => type == matcher;
+        default:
+            throw new Error('Cannot normalize matcher');
     }
 }
 

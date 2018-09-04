@@ -25,7 +25,7 @@ const deserialize = Deserializer().matchRegExp(reBlock.math, (state, match) => {
     const formula = match[2].trim();
 
     if (state.getProp('math') === false || !formula) {
-        return;
+        return undefined;
     }
 
     const node = Block.create({

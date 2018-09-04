@@ -12,12 +12,10 @@ function re(str) {
  * @return {String}
  */
 function escapeWith(replacements, text) {
-    text = replacements.reduce(
+    return replacements.reduce(
         (out, value, key) => out.replace(re(key), value),
         text
     );
-
-    return text;
 }
 
 /**

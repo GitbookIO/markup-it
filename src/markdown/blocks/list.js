@@ -31,26 +31,33 @@ const deserialize = Deserializer().matchRegExp(reList.block, (state, match) => {
 
     const type = ordered ? BLOCKS.OL_LIST : BLOCKS.UL_LIST;
 
-    let item,
-        loose,
-        data,
-        next = false;
+    let item;
+    let loose;
+    let data;
+    let next = false;
 
     let lastIndex = 0;
     const nodes = [];
-    let rawItem, textItem, space;
+    let rawItem;
+    let textItem;
+    let space;
     const items = [];
 
     // Extract all items
     reList.item.lastIndex = 0;
-    while ((item = reList.item.exec(rawList)) !== null) {
+    while (true) {
+        item = reList.item.exec(rawList);
+        if (item === null) {
+            break;
+        }
+
         rawItem = rawList.slice(lastIndex, reList.item.lastIndex);
         lastIndex = reList.item.lastIndex;
 
         items.push([item, rawItem]);
     }
 
-    for (let i = 0; i < items.length; i++) {
+    for (let i = 0; i < items.length; i += 1) {
         item = items[i][0];
         rawItem = items[i][1];
         data = undefined;

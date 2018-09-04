@@ -200,7 +200,7 @@ class State extends Record(DEFAULTS) {
      */
     up() {
         let { depth } = this;
-        depth--;
+        depth -= 1;
         return this.merge({ depth });
     }
 
@@ -212,7 +212,7 @@ class State extends Record(DEFAULTS) {
      */
     down() {
         let { depth } = this;
-        depth++;
+        depth += 1;
         return this.merge({ depth });
     }
 
@@ -294,9 +294,7 @@ class State extends Record(DEFAULTS) {
 
         rules.filter(rule => rule[object]).forEach(rule => {
             newState = RuleFunction.exec(rule[object], state);
-            if (newState) {
-                return false;
-            }
+            return !newState;
         });
 
         return newState;

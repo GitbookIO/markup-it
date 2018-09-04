@@ -30,7 +30,7 @@ const deserialize = Deserializer().matchRegExp(
         const isTop = state.depth === 2;
 
         if (!isTop && !isInBlockquote && !isInLooseList) {
-            return;
+            return undefined;
         }
 
         const text = collapseWhiteSpaces(match[1]);

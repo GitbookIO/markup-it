@@ -35,6 +35,8 @@ function readFileInput(filePath) {
             return deserializeWith(html);
         case '.yaml':
             return Slate.Value.fromJSON(readYaml(filePath)).toJSON();
+        default:
+            throw new Error(`Unknown extension ${ext}`);
     }
 }
 
@@ -63,6 +65,8 @@ function convertFor(value, outputExt) {
             return serializeWith(html);
         case '.yaml':
             return value;
+        default:
+            throw new Error(`Unknown extension ${outputExt}`);
     }
 }
 
@@ -83,6 +87,8 @@ function readFileOutput(fileName) {
             return trimTrailingLines(content);
         case '.yaml':
             return Slate.Value.fromJSON(readYaml(fileName)).toJSON();
+        default:
+            throw new Error(`Unknown extension ${ext}`);
     }
 }
 
