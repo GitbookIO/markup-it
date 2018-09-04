@@ -9,10 +9,7 @@ const reInline = require('../re/inline');
  * @return {String}
  */
 function normalizeTeX(content) {
-    content = ltrim(content, '\n');
-    content = rtrim(content, '\n');
-
-    return content;
+    return rtrim(ltrim(content, '\n'), '\n');
 }
 
 /**
@@ -43,7 +40,7 @@ const deserialize = Deserializer().matchRegExp(
         const formula = match[1].trim();
 
         if (state.getProp('math') === false || !formula) {
-            return;
+            return undefined;
         }
 
         const node = Inline.create({

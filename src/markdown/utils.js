@@ -39,8 +39,8 @@ const URL_REPLACEMENTS_ESCAPE = Map([[' ', '%20'], ['(', '%28'], [')', '%29']]);
  * @param {Boolean} escapeXML
  * @return {String}
  */
-function escapeMarkdown(str, escapeXML) {
-    str = escapeWith(REPLACEMENTS_ESCAPE, str);
+function escapeMarkdown(inputStr, escapeXML) {
+    const str = escapeWith(REPLACEMENTS_ESCAPE, inputStr);
     return escapeXML === false ? str : entities.encodeXML(str);
 }
 
@@ -52,10 +52,7 @@ function escapeMarkdown(str, escapeXML) {
  * @return {String}
  */
 function unescapeMarkdown(str) {
-    str = unescapeWith(REPLACEMENTS_UNESCAPE, str);
-    str = entities.decodeHTML(str);
-
-    return str;
+    return entities.decodeHTML(unescapeWith(REPLACEMENTS_UNESCAPE, str));
 }
 
 /**
@@ -95,15 +92,14 @@ function unescapeURL(str) {
  * @param  {String} opt
  * @return {Function(String, String)}
  */
-function replace(regex, opt) {
-    regex = regex.source;
-    opt = opt || '';
+function replace(regex, opt = '') {
+    let { source } = regex;
 
     return function self(name, val) {
-        if (!name) return new RegExp(regex, opt);
-        val = val.source || val;
-        val = val.replace(/(^|[^\[])\^/g, '$1');
-        regex = regex.replace(name, val);
+        if (!name) return new RegExp(source, opt);
+        let { source: valSource = val } = val;
+        valSource = valSource.replace(/(^|[^[])\^/g, '$1');
+        source = source.replace(name, valSource);
         return self;
     };
 }
@@ -117,11 +113,11 @@ function replace(regex, opt) {
 function resolveRef(state, refID) {
     const refs = state.getProp('refs');
 
-    refID = refID.replace(/\s+/g, ' ').toLowerCase();
+    const normRefID = refID.replace(/\s+/g, ' ').toLowerCase();
 
-    const data = refs.get(refID);
+    const data = refs.get(normRefID);
     if (!data) {
-        return;
+        return undefined;
     }
 
     return Map(data).filter(Boolean);

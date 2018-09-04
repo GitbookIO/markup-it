@@ -69,7 +69,7 @@ const deserializeUrl = Deserializer().matchRegExp(
     (state, match) => {
         // Already inside a link?
         if (state.getProp('link')) {
-            return;
+            return undefined;
         }
 
         const href = utils.unescapeURL(match[1]);
@@ -94,7 +94,7 @@ const deserializeAutolink = Deserializer().matchRegExp(
     (state, match) => {
         // Already inside a link?
         if (state.getProp('link')) {
-            return;
+            return undefined;
         }
 
         const text = match[1];
@@ -126,7 +126,7 @@ const deserializeRef = Deserializer().matchRegExp(
     (state, match) => {
         // Already inside a link?
         if (state.getProp('link')) {
-            return;
+            return undefined;
         }
 
         const refID = match[2] || match[1];
@@ -134,7 +134,7 @@ const deserializeRef = Deserializer().matchRegExp(
         const data = utils.resolveRef(state, refID);
 
         if (!data) {
-            return;
+            return undefined;
         }
 
         const nodes = state
@@ -161,14 +161,14 @@ const deserializeReffn = Deserializer().matchRegExp(
     (state, match) => {
         // Already inside a link?
         if (state.getProp('link')) {
-            return;
+            return undefined;
         }
 
         const refID = match[1];
         const data = utils.resolveRef(state, refID);
 
         if (!data) {
-            return;
+            return undefined;
         }
 
         const node = Inline.create({

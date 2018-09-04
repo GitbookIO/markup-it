@@ -23,7 +23,7 @@ const deserialize = Deserializer().matchRegExp(
     reInline.variable,
     (state, match) => {
         if (state.getProp('template') === false) {
-            return;
+            return undefined;
         }
 
         const node = Inline.create({

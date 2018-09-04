@@ -24,11 +24,12 @@ function parseLiteral(str) {
  * @param  {String} text
  * @return {Map} props
  */
-function parseData(text) {
-    let match,
-        args = 0;
+function parseData(inputText) {
+    let match;
+    let args = 0;
     const result = {};
 
+    let text = inputText;
     do {
         match = text.match(lexical.prop);
 
@@ -37,7 +38,7 @@ function parseData(text) {
                 result[match[2]] = parseLiteral(match[3]);
             } else {
                 result[args] = parseLiteral(match[1]);
-                args++;
+                args += 1;
             }
 
             text = text.slice(match[0].length);

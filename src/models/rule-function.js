@@ -34,12 +34,12 @@ class RuleFunction extends Record(DEFAULTS) {
      */
     then(next) {
         return this.compose(prev => state => {
-            state = prev(state);
-            if (typeof state == 'undefined') {
-                return;
+            const prevState = prev(state);
+            if (typeof prevState == 'undefined') {
+                return undefined;
             }
 
-            return next(state);
+            return next(prevState);
         });
     }
 
@@ -50,11 +50,11 @@ class RuleFunction extends Record(DEFAULTS) {
      */
     tap(interceptor) {
         return this.compose(prev => state => {
-            state = prev(state);
+            const prevState = prev(state);
 
-            interceptor(state);
+            interceptor(prevState);
 
-            return state;
+            return prevState;
         });
     }
 
@@ -83,13 +83,13 @@ class RuleFunction extends Record(DEFAULTS) {
      */
     filter(match) {
         return this.compose(prev => state => {
-            state = prev(state);
+            const prevState = prev(state);
 
-            if (!state || !match(state)) {
-                return;
+            if (!prevState || !match(prevState)) {
+                return undefined;
             }
 
-            return state;
+            return prevState;
         });
     }
 

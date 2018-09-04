@@ -9,22 +9,20 @@ class Deserializer extends RuleFunction {
      * @param {Function} callback
      * @return {Deserializer}
      */
-    matchRegExp(res, callback) {
-        if (!(res instanceof Array)) {
-            res = [res];
+    matchRegExp(inputRegexps, callback) {
+        let regexps = inputRegexps;
+        if (!(regexps instanceof Array)) {
+            regexps = [regexps];
         }
-        res = List(res);
+        regexps = List(regexps);
 
         let match;
         return this.filter(state =>
-            res.some(re => {
+            regexps.some(re => {
                 match = re.exec(state.text);
                 return match;
             })
-        ).then(state => {
-            state = state.skip(match[0].length);
-            return callback(state, match);
-        });
+        ).then(state => callback(state.skip(match[0].length), match));
     }
 }
 

@@ -26,13 +26,13 @@ function stringifyData(data) {
         .entrySeq()
         .map(([key, value]) => {
             const isArgs = Number(key) >= 0;
-            value = stringifyLiteral(value);
+            const stringValue = stringifyLiteral(value);
 
             if (isArgs) {
-                return value;
+                return stringValue;
             }
 
-            return `${key}=${value}`;
+            return `${key}=${stringValue}`;
         })
         .join(' ');
 }

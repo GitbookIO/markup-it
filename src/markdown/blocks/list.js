@@ -45,17 +45,15 @@ const deserialize = Deserializer().matchRegExp(reList.block, (state, match) => {
 
     // Extract all items
     reList.item.lastIndex = 0;
-    while (true) {
+    do {
         item = reList.item.exec(rawList);
-        if (item === null) {
-            break;
+        if (item !== null) {
+            rawItem = rawList.slice(lastIndex, reList.item.lastIndex);
+            lastIndex = reList.item.lastIndex;
+
+            items.push([item, rawItem]);
         }
-
-        rawItem = rawList.slice(lastIndex, reList.item.lastIndex);
-        lastIndex = reList.item.lastIndex;
-
-        items.push([item, rawItem]);
-    }
+    } while (item !== null);
 
     for (let i = 0; i < items.length; i += 1) {
         item = items[i][0];

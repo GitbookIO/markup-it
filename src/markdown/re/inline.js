@@ -1,7 +1,7 @@
 const { replace } = require('../utils');
 
 const inline = {
-    escape: /^\\([\\`*{}\[\]()#$+\-.!_>|])/,
+    escape: /^\\([\\`*{}[\]()#$+\-.!_>|])/,
     autolink: /^<([^ >]+(@|:\/)[^ >]+)>/,
     url: /^(https?:\/\/[^\s<]+[^<.,:;"')\]\s])/,
     htmlComment: /^<!--[\s\S]*?-->/,
@@ -9,23 +9,23 @@ const inline = {
     htmlSelfClosingTag: /^<(\w+(?!:\/|[^\w\s@]*@)\b)(?:"[^"]*"|'[^']*'|[^'">])*?>/,
     link: /^!?\[(inside)\]\(href\)/,
     reflink: /^!?\[(inside)\]\s*\[([^\]]*)\]/,
-    nolink: /^!?\[((?:\[[^\]]*\]|[^\[\]])*)\]/,
+    nolink: /^!?\[((?:\[[^\]]*\]|[^[\]])*)\]/,
     reffn: /^!?\[\^(inside)\]/,
     strong: /^__([\s\S]+?)__(?!_)|^\*\*([\s\S]+?)\*\*(?!\*)/,
     em: /^\b_((?:__|[\s\S])+?)_\b|^\*((?:\*\*|[\s\S])+?)\*(?!\*)/,
     code: /^(`+)\s*([\s\S]*?[^`])\s*\1(?!`)/,
     br: /^ {2,}\n(?!\s*$)/,
     del: /^~~(?=\S)([\s\S]*?\S)~~/,
-    text: /^[\s\S]+?(?=[\\<!\[_*`$]| {2,}\n|$)/,
+    text: /^[\s\S]+?(?=[\\<![_*`$]| {2,}\n|$)/,
     math: /^\$\$([^$]+)\$\$/,
     variable: /^{{\s*(.*?)\s*(?=[#%}]})}}/
 };
 
 // Escaped chars: match all characters + escaped characters
-const escapedButQuotesAndParen = /(?:\\\(|\\\)|\\\"|\\\'|[^()"'])/;
-const escapedButQuotes = /(?:\\\(|\\\)|\\\"|\\\'|[^"'])/;
+const escapedButQuotesAndParen = /(?:\\\(|\\\)|\\"|\\'|[^()"'])/;
+const escapedButQuotes = /(?:\\\(|\\\)|\\"|\\'|[^"'])/;
 
-inline._inside = /(?:\[[^\]]*\]|[^\[\]]|\](?=[^\[]*\]))*/;
+inline._inside = /(?:\[[^\]]*\]|[^[\]]|\](?=[^[]*\]))*/;
 inline._href = /\s*<?(escapedHref*)>?(?:\s+['"](escapedTitle*?)['"])?\s*/;
 
 inline._href = replace(inline._href)('escapedHref', escapedButQuotesAndParen)(
