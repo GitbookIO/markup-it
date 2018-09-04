@@ -5,19 +5,19 @@ const { escapeWith, unescapeWith } = require('../utils/escape');
 // Replacements for Markdown escaping
 // See http://spec.commonmark.org/0.15/#backslash-escapes
 const REPLACEMENTS_ESCAPE = Map([
-    [ '*', '\\*' ],
-    [ '#', '\\#' ],
+    ['*', '\\*'],
+    ['#', '\\#'],
     // GitHub doesn't escape slashes, and render the backslash in that cause
     // [ '/', '\\/' ],
-    [ '(', '\\(' ],
-    [ ')', '\\)' ],
-    [ '[', '\\[' ],
-    [ ']', '\\]' ],
-    [ '`', '\\`' ],
-    [ '<', '&lt;' ],
-    [ '>', '&gt;' ],
-    [ '_', '\\_' ],
-    [ '|', '\\|' ]
+    ['(', '\\('],
+    [')', '\\)'],
+    ['[', '\\['],
+    [']', '\\]'],
+    ['`', '\\`'],
+    ['<', '&lt;'],
+    ['>', '&gt;'],
+    ['_', '\\_'],
+    ['|', '\\|']
 ]);
 // We do not escape all characters, but we want to unescape them all.
 const REPLACEMENTS_UNESCAPE = REPLACEMENTS_ESCAPE.merge({
@@ -29,11 +29,7 @@ const REPLACEMENTS_UNESCAPE = REPLACEMENTS_ESCAPE.merge({
 const URL_REPLACEMENTS_UNESCAPE = REPLACEMENTS_UNESCAPE.merge({
     ' ': '%20'
 });
-const URL_REPLACEMENTS_ESCAPE = Map([
-    [ ' ', '%20' ],
-    [ '(', '%28' ],
-    [ ')', '%29' ]
-]);
+const URL_REPLACEMENTS_ESCAPE = Map([[' ', '%20'], ['(', '%28'], [')', '%29']]);
 
 /**
  * Escape markdown syntax
@@ -93,7 +89,6 @@ function unescapeURL(str) {
     return unescapeWith(URL_REPLACEMENTS_UNESCAPE, decoded);
 }
 
-
 /**
  * Create a function to replace content in a regex
  * @param  {RegEx} regex
@@ -122,9 +117,7 @@ function replace(regex, opt) {
 function resolveRef(state, refID) {
     const refs = state.getProp('refs');
 
-    refID = refID
-        .replace(/\s+/g, ' ')
-        .toLowerCase();
+    refID = refID.replace(/\s+/g, ' ').toLowerCase();
 
     const data = refs.get(refID);
     if (!data) {

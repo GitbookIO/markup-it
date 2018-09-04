@@ -11,13 +11,12 @@ const BLOCKS = require('../constants/blocks');
 function deserializeCodeLines(text) {
     const lines = splitLines(text);
 
-    return lines
-        .map(line => Block.create({
+    return lines.map(line =>
+        Block.create({
             type: BLOCKS.CODE_LINE,
-            nodes: [
-                Text.create(line)
-            ]
-        }));
+            nodes: [Text.create(line)]
+        })
+    );
 }
 
 module.exports = deserializeCodeLines;

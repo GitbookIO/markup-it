@@ -9,9 +9,7 @@ const serialize = Serializer()
     .then(state => {
         const node = state.peek();
 
-        return state
-            .shift()
-            .write(`${node.data.get('html')}\n\n`);
+        return state.shift().write(`${node.data.get('html')}\n\n`);
     });
 
 module.exports = { serialize };

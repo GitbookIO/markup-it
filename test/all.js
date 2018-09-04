@@ -27,14 +27,14 @@ function readFileInput(filePath) {
     }
 
     switch (ext) {
-    case '.md':
-        return deserializeWith(markdown, {
-            unendingTags
-        });
-    case '.html':
-        return deserializeWith(html);
-    case '.yaml':
-        return Slate.Value.fromJSON(readYaml(filePath)).toJSON();
+        case '.md':
+            return deserializeWith(markdown, {
+                unendingTags
+            });
+        case '.html':
+            return deserializeWith(html);
+        case '.yaml':
+            return Slate.Value.fromJSON(readYaml(filePath)).toJSON();
     }
 }
 
@@ -45,7 +45,6 @@ function readFileInput(filePath) {
  * @return {Mixed}
  */
 function convertFor(value, outputExt) {
-
     function serializeWith(syntax, props) {
         const parser = MarkupIt.State.create(syntax, props);
         const inputDocument = Slate.Value.fromJSON(value).document;
@@ -56,14 +55,14 @@ function convertFor(value, outputExt) {
     }
 
     switch (outputExt) {
-    case '.md':
-        return serializeWith(markdown, {
-            unendingTags
-        });
-    case '.html':
-        return serializeWith(html);
-    case '.yaml':
-        return value;
+        case '.md':
+            return serializeWith(markdown, {
+                unendingTags
+            });
+        case '.html':
+            return serializeWith(html);
+        case '.yaml':
+            return value;
     }
 }
 
@@ -77,13 +76,13 @@ function readFileOutput(fileName) {
     const content = fs.readFileSync(fileName, { encoding: 'utf8' });
 
     switch (ext) {
-    case '.md':
-    case '.adoc':
-    case '.html':
-        // We trim to avoid newlines being compared at the end
-        return trimTrailingLines(content);
-    case '.yaml':
-        return Slate.Value.fromJSON(readYaml(fileName)).toJSON();
+        case '.md':
+        case '.adoc':
+        case '.html':
+            // We trim to avoid newlines being compared at the end
+            return trimTrailingLines(content);
+        case '.yaml':
+            return Slate.Value.fromJSON(readYaml(fileName)).toJSON();
     }
 }
 
@@ -125,9 +124,13 @@ function isTestFolder(folder) {
     const output = Boolean(outputName);
 
     if (input && !output) {
-        throw new Error(`It looks like the test '${folder}' has an ${inputName} file, but is missing an output file.`);
+        throw new Error(
+            `It looks like the test '${folder}' has an ${inputName} file, but is missing an output file.`
+        );
     } else if (!input && output) {
-        throw new Error(`It looks like the test '${folder}' has an ${outputName} file, but is missing an output file.`);
+        throw new Error(
+            `It looks like the test '${folder}' has an ${outputName} file, but is missing an output file.`
+        );
     }
 
     return input && output;

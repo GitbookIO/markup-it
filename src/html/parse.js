@@ -4,43 +4,51 @@ const htmlclean = require('htmlclean');
 const { List, Stack, Set } = require('immutable');
 const { Document } = require('slate');
 const {
-    BLOCKS, INLINES, MARKS, CONTAINERS, VOID, LEAFS,
-    Block, Inline, Text, Mark
+    BLOCKS,
+    INLINES,
+    MARKS,
+    CONTAINERS,
+    VOID,
+    LEAFS,
+    Block,
+    Inline,
+    Text,
+    Mark
 } = require('../');
 
 const INLINE_TAGS = {
-    a:              INLINES.LINK,
-    img:            INLINES.IMAGE
+    a: INLINES.LINK,
+    img: INLINES.IMAGE
 };
 
 const BLOCK_TAGS = {
-    h1:             BLOCKS.HEADING_1,
-    h2:             BLOCKS.HEADING_2,
-    h3:             BLOCKS.HEADING_3,
-    h4:             BLOCKS.HEADING_4,
-    h5:             BLOCKS.HEADING_5,
-    h6:             BLOCKS.HEADING_6,
-    pre:            BLOCKS.CODE,
-    blockquote:     BLOCKS.BLOCKQUOTE,
-    p:              BLOCKS.PARAGRAPH,
-    hr:             BLOCKS.HR,
+    h1: BLOCKS.HEADING_1,
+    h2: BLOCKS.HEADING_2,
+    h3: BLOCKS.HEADING_3,
+    h4: BLOCKS.HEADING_4,
+    h5: BLOCKS.HEADING_5,
+    h6: BLOCKS.HEADING_6,
+    pre: BLOCKS.CODE,
+    blockquote: BLOCKS.BLOCKQUOTE,
+    p: BLOCKS.PARAGRAPH,
+    hr: BLOCKS.HR,
 
-    table:          BLOCKS.TABLE,
-    tr:             BLOCKS.TABLE_ROW,
-    th:             BLOCKS.TABLE_CELL,
-    td:             BLOCKS.TABLE_CELL,
+    table: BLOCKS.TABLE,
+    tr: BLOCKS.TABLE_ROW,
+    th: BLOCKS.TABLE_CELL,
+    td: BLOCKS.TABLE_CELL,
 
-    ul:             BLOCKS.UL_LIST,
-    ol:             BLOCKS.OL_LIST,
-    li:             BLOCKS.LIST_ITEM
+    ul: BLOCKS.UL_LIST,
+    ol: BLOCKS.OL_LIST,
+    li: BLOCKS.LIST_ITEM
 };
 
 const MARK_TAGS = {
-    b:              MARKS.BOLD,
-    strong:         MARKS.BOLD,
-    del:            MARKS.STRIKETHROUGH,
-    em:             MARKS.ITALIC,
-    code:           MARKS.CODE
+    b: MARKS.BOLD,
+    strong: MARKS.BOLD,
+    del: MARKS.STRIKETHROUGH,
+    em: MARKS.ITALIC,
+    code: MARKS.CODE
 };
 
 const MARK_CLASSNAME = {
@@ -69,9 +77,7 @@ const TAGS_TO_DATA = {
 };
 
 function resolveHeadingAttrs(attribs) {
-    return attribs.id
-        ? { id: attribs.id }
-        : {};
+    return attribs.id ? { id: attribs.id } : {};
 }
 
 /**
@@ -81,7 +87,7 @@ function resolveHeadingAttrs(attribs) {
  */
 function selectInlines(node) {
     if (node.object !== 'block') {
-        return List([ node ]);
+        return List([node]);
     }
 
     const { nodes } = node;
@@ -143,10 +149,9 @@ function defaultBlockType(container) {
 function canContain(block, node) {
     if (node.object === 'inline' || node.object === 'text') {
         return LEAFS[block.type];
-    } else {
-        const types = acceptedBlocks(block);
-        return types && types.indexOf(node.type) !== -1;
     }
+    const types = acceptedBlocks(block);
+    return types && types.indexOf(node.type) !== -1;
 }
 
 /*
@@ -166,9 +171,7 @@ function sanitizeSpaces(str) {
  * @return {Object} data
  */
 function getData(tagName, attrs) {
-    return (
-        TAGS_TO_DATA[tagName] || (() => {})
-    )(attrs);
+    return (TAGS_TO_DATA[tagName] || (() => {}))(attrs);
 }
 
 /**
@@ -179,7 +182,6 @@ function isVoid(nodeType) {
     return Boolean(VOID[nodeType]);
 }
 
-
 /**
  * Returns the list of lines in the string
  * @param {String} text
@@ -188,9 +190,7 @@ function isVoid(nodeType) {
  */
 function splitLines(text, sep) {
     sep = sep || detectNewLine(text) || '\n';
-    return List(
-        text.split(sep)
-    );
+    return List(text.split(sep));
 }
 
 /**
@@ -228,15 +228,15 @@ function parse(str) {
 
         // Wrap node if type is not allowed
         else if (
-            isBlockContainer(parent)
-            && (node.object !== 'block' || !canContain(parent, node))
+            isBlockContainer(parent) &&
+            (node.object !== 'block' || !canContain(parent, node))
         ) {
             const previous = parent.nodes.last();
             if (previous && canContain(previous, node)) {
                 // Reuse previous block if possible
-                nodes = nodes.pop().push(
-                    previous.set('nodes', previous.nodes.push(node))
-                );
+                nodes = nodes
+                    .pop()
+                    .push(previous.set('nodes', previous.nodes.push(node)));
             } else {
                 // Else insert a default wrapper
                 node = Block.create({
@@ -246,8 +246,7 @@ function parse(str) {
 
                 nodes = nodes.push(node);
             }
-        }
-        else {
+        } else {
             nodes = nodes.push(node);
         }
 
@@ -266,101 +265,98 @@ function parse(str) {
         appendNode(node);
     }
 
-    const parser = new htmlparser.Parser({
+    const parser = new htmlparser.Parser(
+        {
+            onopentag(tagName, attribs) {
+                if (BLOCK_TAGS[tagName]) {
+                    const type = BLOCK_TAGS[tagName];
+                    const block = Block.create({
+                        data: getData(tagName, attribs),
+                        isVoid: isVoid(type),
+                        type
+                    });
 
-        onopentag(tagName, attribs) {
-            if (BLOCK_TAGS[tagName]) {
-                const type = BLOCK_TAGS[tagName];
-                const block = Block.create({
-                    data: getData(tagName, attribs),
-                    isVoid: isVoid(type),
-                    type
-                });
+                    pushNode(block);
+                } else if (INLINE_TAGS[tagName]) {
+                    const type = INLINE_TAGS[tagName];
+                    const inline = Inline.create({
+                        data: getData(tagName, attribs),
+                        isVoid: isVoid(type),
+                        type
+                    });
 
-                pushNode(block);
-            }
+                    pushNode(inline);
+                } else if (MARK_TAGS[tagName]) {
+                    const mark = Mark.create({
+                        data: getData(tagName, attribs),
+                        type: MARK_TAGS[tagName]
+                    });
 
-            else if (INLINE_TAGS[tagName]) {
-                const type = INLINE_TAGS[tagName];
-                const inline = Inline.create({
-                    data: getData(tagName, attribs),
-                    isVoid: isVoid(type),
-                    type
-                });
-
-                pushNode(inline);
-            }
-
-            else if (MARK_TAGS[tagName]) {
-                const mark = Mark.create({
-                    data: getData(tagName, attribs),
-                    type: MARK_TAGS[tagName]
-                });
-
-                marks = marks.add(mark);
-            }
-
-            else if (tagName == 'br') {
-                const textNode = Text.create({
-                    text: '\n',
-                    marks
-                });
-                appendNode(textNode);
-            }
-            // else ignore
-
-            // Parse marks from the class name
-            const newMarks = getMarksForClassName(attribs['class']);
-            marks = marks.concat(newMarks);
-        },
-
-        ontext(text) {
-            const cleanText = sanitizeSpaces(text);
-            const textNode = Text.create({ text: cleanText, marks });
-            appendNode(textNode);
-        },
-
-        onclosetag(tagName) {
-            if (BLOCK_TAGS[tagName] || INLINE_TAGS[tagName]) {
-                const parent = stack.peek();
-
-                // Special rule for code blocks that we must split in lines
-                if (parent.type === BLOCKS.CODE) {
-                    let lines = splitLines(parent.text);
-                    // Remove trailing newline
-                    if (lines.last().trim() === '') {
-                        lines = lines.skipLast(1);
-                    }
-                    setNode(parent.merge({
-                        nodes: lines.map(line => {
-                            // Create a code line
-                            return Block.create({
-                                type: BLOCKS.CODE_LINE,
-                                nodes: [Text.create(line)]
-                            });
-                        })
-                    }));
+                    marks = marks.add(mark);
+                } else if (tagName == 'br') {
+                    const textNode = Text.create({
+                        text: '\n',
+                        marks
+                    });
+                    appendNode(textNode);
                 }
+                // else ignore
 
-                popNode();
-            }
+                // Parse marks from the class name
+                const newMarks = getMarksForClassName(attribs.class);
+                marks = marks.concat(newMarks);
+            },
 
-            else if (MARK_TAGS[tagName]) {
-                const type = MARK_TAGS[tagName];
-                marks = marks.filter(mark => mark.type !== type);
+            ontext(text) {
+                const cleanText = sanitizeSpaces(text);
+                const textNode = Text.create({ text: cleanText, marks });
+                appendNode(textNode);
+            },
+
+            onclosetag(tagName) {
+                if (BLOCK_TAGS[tagName] || INLINE_TAGS[tagName]) {
+                    const parent = stack.peek();
+
+                    // Special rule for code blocks that we must split in lines
+                    if (parent.type === BLOCKS.CODE) {
+                        let lines = splitLines(parent.text);
+                        // Remove trailing newline
+                        if (lines.last().trim() === '') {
+                            lines = lines.skipLast(1);
+                        }
+                        setNode(
+                            parent.merge({
+                                nodes: lines.map(line =>
+                                    // Create a code line
+                                    Block.create({
+                                        type: BLOCKS.CODE_LINE,
+                                        nodes: [Text.create(line)]
+                                    })
+                                )
+                            })
+                        );
+                    }
+
+                    popNode();
+                } else if (MARK_TAGS[tagName]) {
+                    const type = MARK_TAGS[tagName];
+                    marks = marks.filter(mark => mark.type !== type);
+                }
+                // else ignore
             }
-            // else ignore
+        },
+        {
+            decodeEntities: true
         }
-
-    }, {
-        decodeEntities: true
-    });
+    );
 
     parser.write(str);
     parser.end();
 
     if (stack.size !== 1) {
-        throw new Error('Invalid HTML. A tag might not have been closed correctly.');
+        throw new Error(
+            'Invalid HTML. A tag might not have been closed correctly.'
+        );
     }
 
     return stack.peek();

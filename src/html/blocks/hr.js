@@ -7,8 +7,10 @@ const serializeTag = require('../serializeTag');
  */
 const serialize = Serializer()
     .matchType(BLOCKS.HR)
-    .then(serializeTag('hr', {
-        isSingleTag: true
-    }));
+    .then(
+        serializeTag('hr', {
+            isSingleTag: true
+        })
+    );
 
 module.exports = { serialize };

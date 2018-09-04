@@ -25,5 +25,10 @@ module.exports = {
     LEAFS,
     VOID,
     // Slate exports
-    Document, Block, Inline, Text, Mark, Leaf
+    Document,
+    Block,
+    Inline,
+    Text,
+    Mark,
+    Leaf
 };

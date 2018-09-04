@@ -10,7 +10,7 @@ const utils = require('../utils');
  */
 const serialize = Serializer()
     .matchType(BLOCKS.CODE)
-    .then((state) => {
+    .then(state => {
         const node = state.peek();
         const { nodes, data } = node;
 
@@ -19,50 +19,44 @@ const serialize = Serializer()
         const syntax = utils.escape(data.get('syntax') || '');
 
         // Get inner content and number of fences
-        const innerText = nodes
-            .map(line => line.text)
-            .join('\n');
+        const innerText = nodes.map(line => line.text).join('\n');
         const hasFences = innerText.indexOf('`') >= 0;
 
         let output;
 
         // Use fences if syntax is set
         if (!hasFences || syntax) {
-            output = `${'```'}${Boolean(syntax) ? syntax : ''}\n` +
-                     `${innerText}\n` +
-                     `${'```'}\n\n`;
+            output =
+                `${'```'}${syntax || ''}\n` + `${innerText}\n` + `${'```'}\n\n`;
 
-            return state
-                .shift()
-                .write(output);
+            return state.shift().write(output);
         }
 
-        output = nodes
+        output = `${nodes
             .map(({ text }) => {
                 if (!text.trim()) {
                     return '';
                 }
-                return '    ' + text;
+                return `    ${text}`;
             })
-            .join('\n') + '\n\n';
+            .join('\n')}\n\n`;
 
-        return state
-            .shift()
-            .write(output);
+        return state.shift().write(output);
     });
 
 /**
  * Deserialize a code block to a node.
  * @type {Deserializer}
  */
-const deserializeFences = Deserializer()
-    .matchRegExp(reBlock.fences, (state, match) => {
+const deserializeFences = Deserializer().matchRegExp(
+    reBlock.fences,
+    (state, match) => {
         // Extract code block text, and trim empty lines
         const text = trimNewlines(match[3]);
 
         // Extract language syntax
         let data;
-        if (Boolean(match[2])) {
+        if (match[2]) {
             data = {
                 syntax: utils.unescape(match[2].trim())
             };
@@ -78,14 +72,16 @@ const deserializeFences = Deserializer()
         });
 
         return state.push(node);
-    });
+    }
+);
 
 /**
  * Deserialize a code block to a node.
  * @type {Deserializer}
  */
-const deserializeTabs = Deserializer()
-    .matchRegExp(reBlock.code, (state, match) => {
+const deserializeTabs = Deserializer().matchRegExp(
+    reBlock.code,
+    (state, match) => {
         let inner = match[0];
 
         // Remove indentation
@@ -103,12 +99,9 @@ const deserializeTabs = Deserializer()
         });
 
         return state.push(node);
-    });
+    }
+);
 
-const deserialize = Deserializer()
-    .use([
-        deserializeFences,
-        deserializeTabs
-    ]);
+const deserialize = Deserializer().use([deserializeFences, deserializeTabs]);
 
 module.exports = { serialize, deserialize };

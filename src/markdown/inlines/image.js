@@ -3,7 +3,6 @@ const { Serializer, Deserializer, Inline, INLINES } = require('../../');
 const reInline = require('../re/inline');
 const utils = require('../utils');
 
-
 /**
  * Resolve an image reference
  * @param  {State} state
@@ -17,11 +16,8 @@ function resolveImageRef(state, refID) {
         return;
     }
 
-    return data
-        .set('src', data.get('href'))
-        .remove('href');
+    return data.set('src', data.get('href')).remove('href');
 }
-
 
 /**
  * Test if a link input is an image
@@ -38,7 +34,7 @@ function isImage(raw) {
  */
 const serialize = Serializer()
     .matchType(INLINES.IMAGE)
-    .then((state) => {
+    .then(state => {
         const node = state.peek();
         const { data } = node;
 
@@ -56,9 +52,7 @@ const serialize = Serializer()
             output = `![${alt}](${src})`;
         }
 
-        return state
-            .shift()
-            .write(output);
+        return state.shift().write(output);
     });
 
 /**
@@ -66,15 +60,16 @@ const serialize = Serializer()
  *  ![Hello](test.png)
  * @type {Deserializer}
  */
-const deserializeNormal = Deserializer()
-    .matchRegExp(reInline.link, (state, match) => {
+const deserializeNormal = Deserializer().matchRegExp(
+    reInline.link,
+    (state, match) => {
         if (!isImage(match[0])) {
             return;
         }
 
         const data = Map({
-            alt:   match[1] ? utils.unescape(match[1]) : undefined,
-            src:   utils.unescapeURL(match[2]),
+            alt: match[1] ? utils.unescape(match[1]) : undefined,
+            src: utils.unescapeURL(match[2]),
             title: match[3] ? utils.unescape(match[3]) : undefined
         }).filter(Boolean);
 
@@ -85,24 +80,22 @@ const deserializeNormal = Deserializer()
         });
 
         return state.push(node);
-    });
-
+    }
+);
 
 /**
  * Deserialize a reference image:
  *  nolink: ![1]
  * @type {Deserializer}
  */
-const deserializeRef = Deserializer()
-    .matchRegExp([
-        reInline.reflink,
-        reInline.nolink
-    ], (state, match) => {
+const deserializeRef = Deserializer().matchRegExp(
+    [reInline.reflink, reInline.nolink],
+    (state, match) => {
         if (!isImage(match[0])) {
             return;
         }
 
-        const refID = (match[2] || match[1]);
+        const refID = match[2] || match[1];
         const data = resolveImageRef(state, refID);
 
         if (!data) {
@@ -116,12 +109,9 @@ const deserializeRef = Deserializer()
         });
 
         return state.push(node);
-    });
+    }
+);
 
-const deserialize = Deserializer()
-    .use([
-        deserializeNormal,
-        deserializeRef
-    ]);
+const deserialize = Deserializer().use([deserializeNormal, deserializeRef]);
 
 module.exports = { serialize, deserialize };

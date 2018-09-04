@@ -9,10 +9,7 @@ const { Map } = require('immutable');
  * @return {Function} A function to seralize a node into an HTML tag
  */
 function serializeTag(tag, opts = {}) {
-    const {
-        isSingleTag = false,
-        getAttrs = (node) => {}
-    } = opts;
+    const { isSingleTag = false, getAttrs = node => {} } = opts;
 
     return function(state) {
         const node = state.peek();
@@ -28,9 +25,7 @@ function serializeTag(tag, opts = {}) {
             text = `<${tag}${attrsText}>${inner}</${tag}>`;
         }
 
-        return state
-            .shift()
-            .write(text);
+        return state.shift().write(text);
     };
 }
 
@@ -46,10 +41,9 @@ function attrsToString(attrs) {
         if (is.undef(value) || is.nil(value)) {
             return output;
         } else if (is.equal(value, '')) {
-            return output + ` ${key}`;
-        } else {
-            return output + ` ${key}=${JSON.stringify(value)}`;
+            return `${output} ${key}`;
         }
+        return `${output} ${key}=${JSON.stringify(value)}`;
     }, '');
 }
 

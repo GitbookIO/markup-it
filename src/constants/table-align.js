@@ -1,6 +1,6 @@
 const TABLE_ALIGN = {
-    LEFT:   'left',
-    RIGHT:  'right',
+    LEFT: 'left',
+    RIGHT: 'right',
     CENTER: 'center'
 };
 

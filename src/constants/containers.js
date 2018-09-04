@@ -1,5 +1,6 @@
 const objectValues = require('object-values');
 const BLOCKS = require('./blocks');
+
 const ALL_BLOCKS = objectValues(BLOCKS);
 
 /**
@@ -11,12 +12,12 @@ const ALL_BLOCKS = objectValues(BLOCKS);
 
 module.exports = {
     // We use Document.object instead of its type
-    'document':          [BLOCKS.PARAGRAPH, ...ALL_BLOCKS],
+    document: [BLOCKS.PARAGRAPH, ...ALL_BLOCKS],
     [BLOCKS.BLOCKQUOTE]: [BLOCKS.TEXT, ...ALL_BLOCKS],
-    [BLOCKS.TABLE]:      [BLOCKS.TABLE_ROW],
-    [BLOCKS.TABLE_ROW]:  [BLOCKS.TABLE_CELL],
-    [BLOCKS.LIST_ITEM]:  [BLOCKS.TEXT, ...ALL_BLOCKS],
-    [BLOCKS.OL_LIST]:    [BLOCKS.LIST_ITEM],
-    [BLOCKS.UL_LIST]:    [BLOCKS.LIST_ITEM],
-    [BLOCKS.CODE]:       [BLOCKS.CODE_LINE]
+    [BLOCKS.TABLE]: [BLOCKS.TABLE_ROW],
+    [BLOCKS.TABLE_ROW]: [BLOCKS.TABLE_CELL],
+    [BLOCKS.LIST_ITEM]: [BLOCKS.TEXT, ...ALL_BLOCKS],
+    [BLOCKS.OL_LIST]: [BLOCKS.LIST_ITEM],
+    [BLOCKS.UL_LIST]: [BLOCKS.LIST_ITEM],
+    [BLOCKS.CODE]: [BLOCKS.CODE_LINE]
 };

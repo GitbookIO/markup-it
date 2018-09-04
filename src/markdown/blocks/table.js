@@ -1,12 +1,19 @@
-const { Serializer, Deserializer, Block, BLOCKS, TABLE_ALIGN } = require('../../');
+const {
+    Serializer,
+    Deserializer,
+    Block,
+    BLOCKS,
+    TABLE_ALIGN
+} = require('../../');
 const reTable = require('../re/table');
 
 /**
  * Deserialize a table with no leading pipe (gfm) to a node.
  * @type {Deserializer}
  */
-const deserializeNoPipe = Deserializer()
-    .matchRegExp(reTable.nptable, (state, match) => {
+const deserializeNoPipe = Deserializer().matchRegExp(
+    reTable.nptable,
+    (state, match) => {
         // Get all non empty lines
         const lines = match[0].split('\n').filter(Boolean);
         const header = lines[0];
@@ -15,14 +22,16 @@ const deserializeNoPipe = Deserializer()
 
         const node = parseTable(state, header, aligns, rows);
         return state.push(node);
-    });
+    }
+);
 
 /**
  * Deserialize a normal table to a node.
  * @type {Deserializer}
  */
-const deserializeNormal = Deserializer()
-    .matchRegExp(reTable.normal, (state, match) => {
+const deserializeNormal = Deserializer().matchRegExp(
+    reTable.normal,
+    (state, match) => {
         // Get all non empty lines
         const lines = match[0].split('\n').filter(Boolean);
         const header = lines[0];
@@ -31,7 +40,8 @@ const deserializeNormal = Deserializer()
 
         const node = parseTable(state, header, aligns, rows);
         return state.push(node);
-    });
+    }
+);
 
 /**
  * Serialize a table node to markdown
@@ -39,28 +49,24 @@ const deserializeNormal = Deserializer()
  */
 const serialize = Serializer()
     .matchType(BLOCKS.TABLE)
-    .then((state) => {
+    .then(state => {
         const node = state.peek();
         const { data, nodes } = node;
         const aligns = data.get('aligns');
         const headerRow = nodes.get(0);
         const bodyRows = nodes.slice(1);
 
-        const output = (
-            rowToText(state, headerRow) + '\n'
-            + alignsToText(aligns) + '\n'
-            + bodyRows.map(row => rowToText(state, row)).join('\n')
-            + '\n\n'
+        const output =
+            `${rowToText(state, headerRow)  }\n${
+             alignsToText(aligns)  }\n${
+             bodyRows.map(row => rowToText(state, row)).join('\n')
+             }\n\n`
         );
 
         return state.shift().write(output);
     });
 
-const deserialize = Deserializer()
-    .use([
-        deserializeNoPipe,
-        deserializeNormal
-    ]);
+const deserialize = Deserializer().use([deserializeNoPipe, deserializeNormal]);
 
 /**
  * Parse a table into a node.
@@ -75,9 +81,7 @@ function parseTable(state, headerStr, alignsStr, rowStrs) {
     const headerRow = parseRow(state, headerStr);
 
     // Rows
-    const rowTokens = rowStrs.map(rowStr => {
-        return parseRow(state, rowStr);
-    });
+    const rowTokens = rowStrs.map(rowStr => parseRow(state, rowStr));
 
     // Align for columns
     const alignsCells = rowToCells(alignsStr);
@@ -132,7 +136,7 @@ function rowToCells(rowStr) {
     for (let i = 0; i < trimmed.length; i++) {
         const prevIdx = i === 0 ? 0 : i - 1;
         const isSep = trimmed[i] === '|';
-        const isNotEscaped = (trimmed[prevIdx] !== '\\');
+        const isNotEscaped = trimmed[prevIdx] !== '\\';
 
         if (isSep && isNotEscaped) {
             // New cell
@@ -157,7 +161,7 @@ function rowToCells(rowStr) {
  * @return {Array<String|null>}
  */
 function mapAligns(aligns) {
-    return aligns.map(function(s) {
+    return aligns.map((s) => {
         if (reTable.alignRight.test(s)) {
             return TABLE_ALIGN.RIGHT;
         } else if (reTable.alignCenter.test(s)) {
@@ -179,7 +183,7 @@ function mapAligns(aligns) {
  */
 function rowToText(state, row) {
     const { nodes } = row;
-    return '| ' + nodes.map(cell => cellToText(state, cell)).join(' | ') + ' |';
+    return `| ${  nodes.map(cell => cellToText(state, cell)).join(' | ')  } |`;
 }
 
 /**
@@ -201,7 +205,10 @@ function cellToText(state, cell) {
  * @return {String}
  */
 function alignsToText(aligns) {
-    return '|' + aligns.map(function(align) {
+    return (
+        '|' +
+        aligns
+            .map((align) => {
         if (align == 'right') {
             return ' ---: |';
         } else if (align == 'center') {

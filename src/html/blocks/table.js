@@ -22,27 +22,29 @@ const table = {
             const rows = tableNode.nodes;
 
             const headerText = state
-                      .setProp(ALIGNS, aligns)
-                      .setProp(COL, 0)
-                      .setProp(THEAD, true)
-                      .serialize(rows.slice(0, 1));
+                .setProp(ALIGNS, aligns)
+                .setProp(COL, 0)
+                .setProp(THEAD, true)
+                .serialize(rows.slice(0, 1));
 
             const bodyText = state
-                      .setProp(ALIGNS, aligns)
-                      .setProp(COL, 0)
-                      .serialize(rows.rest());
+                .setProp(ALIGNS, aligns)
+                .setProp(COL, 0)
+                .serialize(rows.rest());
 
             return state
                 .shift()
-                .write([
-                    '<table>',
-                    '<thead>',
-                    headerText + '</thead>',
-                    '<tbody>',
-                    bodyText + '</tbody>',
-                    '</table>',
-                    '\n'
-                ].join('\n'));
+                .write(
+                    [
+                        '<table>',
+                        '<thead>',
+                        `${headerText}</thead>`,
+                        '<tbody>',
+                        `${bodyText}</tbody>`,
+                        '</table>',
+                        '\n'
+                    ].join('\n')
+                );
         })
 };
 
@@ -55,13 +57,9 @@ const row = {
         .matchType(BLOCKS.TABLE_ROW)
         .then(state => {
             const node = state.peek();
-            const inner = state
-                      .setProp(COL, 0)
-                      .serialize(node.nodes);
+            const inner = state.setProp(COL, 0).serialize(node.nodes);
 
-            return state
-                .shift()
-                .write(`<tr>\n${inner}</tr>\n`);
+            return state.shift().write(`<tr>\n${inner}</tr>\n`);
         })
 };
 
@@ -82,9 +80,7 @@ const cell = {
             const inner = state.serialize(node.nodes);
 
             const tag = isHead ? 'th' : 'td';
-            const style = cellAlign
-                ? ` style="text-align:${cellAlign}"`
-                : '';
+            const style = cellAlign ? ` style="text-align:${cellAlign}"` : '';
 
             return state
                 .shift()

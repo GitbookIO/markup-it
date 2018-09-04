@@ -2,7 +2,6 @@ const { List } = require('immutable');
 const RuleFunction = require('./rule-function');
 
 class Deserializer extends RuleFunction {
-
     /**
      * Match text using a regexp, and move the state to the right position.
      *
@@ -17,18 +16,16 @@ class Deserializer extends RuleFunction {
         res = List(res);
 
         let match;
-        return this.filter((state) => {
-            return res.some(re => {
+        return this.filter(state =>
+            res.some(re => {
                 match = re.exec(state.text);
                 return match;
-            });
-        })
-        .then((state) => {
+            })
+        ).then(state => {
             state = state.skip(match[0].length);
             return callback(state, match);
         });
     }
-
 }
 
 module.exports = () => new Deserializer();

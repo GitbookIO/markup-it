@@ -10,11 +10,9 @@ const { unescape } = require('./escape');
 function parseLiteral(str) {
     if (str.match(lexical.numberLine)) {
         return Number(str);
-    }
-    else if (str.match(lexical.boolLine)) {
+    } else if (str.match(lexical.boolLine)) {
         return str.toLowerCase() === 'true';
-    }
-    else if (str.match(lexical.quotedLine)) {
+    } else if (str.match(lexical.quotedLine)) {
         return unescape(str.slice(1, -1));
     }
 
@@ -27,7 +25,8 @@ function parseLiteral(str) {
  * @return {Map} props
  */
 function parseData(text) {
-    let match, args = 0;
+    let match,
+        args = 0;
     const result = {};
 
     do {

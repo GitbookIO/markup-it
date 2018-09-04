@@ -53,42 +53,44 @@ const serialize = Serializer()
     .matchType(INLINES.HTML)
     .then(state => {
         const node = state.peek();
-        const { openingTag = '', closingTag = '', innerHtml = '' } = node.data.toObject();
+        const {
+            openingTag = '',
+            closingTag = '',
+            innerHtml = ''
+        } = node.data.toObject();
         if (innerHtml) {
             return state
                 .shift()
                 .write(openingTag)
                 .write(innerHtml)
                 .write(closingTag);
-        } else {
-            return state
-                .shift()
-                .write(openingTag)
-                .write(
-                    state.serialize(node.nodes)
-                )
-                .write(closingTag);
         }
+        return state
+            .shift()
+            .write(openingTag)
+            .write(state.serialize(node.nodes))
+            .write(closingTag);
     });
 
 /**
  * Deserialize HTML comment from markdown
  * @type {Deserializer}
  */
-const deserializeComment = Deserializer()
-.matchRegExp(reInline.htmlComment, (state, match) => {
-    // Ignore
-    return state;
-});
+const deserializeComment = Deserializer().matchRegExp(
+    reInline.htmlComment,
+    (state, match) =>
+        // Ignore
+        state
+);
 
 /**
  * Deserialize HTML tag pair from markdown
  * @type {Deserializer}
  */
-const deserializePair = Deserializer()
-.matchRegExp(
-    reInline.htmlTagPair, (state, match) => {
-        const [ fullTag, tagName, attributes = '', innerHtml = '' ] = match;
+const deserializePair = Deserializer().matchRegExp(
+    reInline.htmlTagPair,
+    (state, match) => {
+        const [fullTag, tagName, attributes = '', innerHtml = ''] = match;
 
         const openingTag = `<${tagName}${attributes}>`;
         const closingTag = fullTag.slice(openingTag.length + innerHtml.length);
@@ -102,22 +104,21 @@ const deserializePair = Deserializer()
                     innerHtml
                 })
             );
-        } else {
-            // Parse inner HTML
-            const isLink = (tagName.toLowerCase() === 'a');
-
-            const innerNodes = state
-                .setProp(isLink ? 'link' : 'html', state.depth)
-                .deserialize(innerHtml);
-
-            return state.push(
-                createHTML({
-                    openingTag,
-                    closingTag,
-                    nodes: innerNodes
-                })
-            );
         }
+        // Parse inner HTML
+        const isLink = tagName.toLowerCase() === 'a';
+
+        const innerNodes = state
+            .setProp(isLink ? 'link' : 'html', state.depth)
+            .deserialize(innerHtml);
+
+        return state.push(
+            createHTML({
+                openingTag,
+                closingTag,
+                nodes: innerNodes
+            })
+        );
     }
 );
 
@@ -125,10 +126,10 @@ const deserializePair = Deserializer()
  * Deserialize HTML self closing tag from markdown
  * @type {Deserializer}
  */
-const deserializeClosing = Deserializer()
-.matchRegExp(
-    reInline.htmlSelfClosingTag, (state, match) => {
-        const [ openingTag ] = match;
+const deserializeClosing = Deserializer().matchRegExp(
+    reInline.htmlSelfClosingTag,
+    (state, match) => {
+        const [openingTag] = match;
         return state.push(createRawHTML({ openingTag }));
     }
 );

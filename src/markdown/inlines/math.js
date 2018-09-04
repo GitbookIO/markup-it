@@ -21,26 +21,25 @@ function normalizeTeX(content) {
  */
 const serialize = Serializer()
     .matchType(INLINES.MATH)
-    .then((state) => {
+    .then(state => {
         const node = state.peek();
         const { data } = node;
         let formula = data.get('formula');
 
         formula = normalizeTeX(formula);
 
-        const output = '$$' + formula + '$$';
+        const output = `$$${formula}$$`;
 
-        return state
-            .shift()
-            .write(output);
+        return state.shift().write(output);
     });
 
 /**
  * Deserialize a math
  * @type {Deserializer}
  */
-const deserialize = Deserializer()
-    .matchRegExp(reInline.math, (state, match) => {
+const deserialize = Deserializer().matchRegExp(
+    reInline.math,
+    (state, match) => {
         const formula = match[1].trim();
 
         if (state.getProp('math') === false || !formula) {
@@ -56,7 +55,7 @@ const deserialize = Deserializer()
         });
 
         return state.push(node);
-    });
-
+    }
+);
 
 module.exports = { serialize, deserialize };

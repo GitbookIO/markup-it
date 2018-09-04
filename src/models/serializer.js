@@ -4,7 +4,6 @@ const { Text, Mark } = require('slate');
 const RuleFunction = require('./rule-function');
 
 class Serializer extends RuleFunction {
-
     /**
      * Limit execution of the serializer to a set of node types
      * @param {Function || Array || String} matcher
@@ -44,9 +43,7 @@ class Serializer extends RuleFunction {
     matchMark(matcher) {
         matcher = normalizeMatcher(matcher);
 
-        return this
-        .matchObject('text')
-        .filter(state => {
+        return this.matchObject('text').filter(state => {
             const text = state.peek();
 
             return text.getLeaves().some(leaf => {
@@ -62,9 +59,7 @@ class Serializer extends RuleFunction {
      * @return {Serializer}
      */
     transformLeaves(transform) {
-        return this
-        .matchObject('text')
-        .then(state => {
+        return this.matchObject('text').then(state => {
             const text = state.peek();
             let leaves = text.getLeaves();
 
@@ -73,9 +68,7 @@ class Serializer extends RuleFunction {
 
             // Create new text and push it back
             const newText = Text.create({ leaves });
-            return state
-                .shift()
-                .unshift(newText);
+            return state.shift().unshift(newText);
         });
     }
 
@@ -88,11 +81,9 @@ class Serializer extends RuleFunction {
     transformMarkedLeaf(matcher, transform) {
         matcher = normalizeMatcher(matcher);
 
-        return this
-        .matchMark(matcher)
-        .transformLeaves((state, leaf) => {
+        return this.matchMark(matcher).transformLeaves((state, leaf) => {
             let { text, marks } = leaf;
-            const mark = leaf.marks.find(({type}) => matcher(type));
+            const mark = leaf.marks.find(({ type }) => matcher(type));
             if (!mark) {
                 return leaf;
             }
@@ -113,25 +104,27 @@ class Serializer extends RuleFunction {
     transformText(transform) {
         const MARK = uid();
 
-        return this.matchObject('text')
+        return (
+            this.matchObject('text')
 
-        // We can't process empty text node
-        .filter(state => {
-            const text = state.peek();
-            return !text.isEmpty;
-        })
+                // We can't process empty text node
+                .filter(state => {
+                    const text = state.peek();
+                    return !text.isEmpty;
+                })
 
-        // Avoid infinite loop
-        .filterNot((new Serializer()).matchMark(MARK))
+                // Avoid infinite loop
+                .filterNot(new Serializer().matchMark(MARK))
 
-        // Escape all text
-        .transformLeaves((state, leaf) => {
-            leaf = transform(state, leaf);
+                // Escape all text
+                .transformLeaves((state, leaf) => {
+                    leaf = transform(state, leaf);
 
-            return leaf.merge({
-                marks: leaf.marks.add(Mark.create({ type: MARK }))
-            });
-        });
+                    return leaf.merge({
+                        marks: leaf.marks.add(Mark.create({ type: MARK }))
+                    });
+                })
+        );
     }
 }
 
@@ -144,14 +137,13 @@ class Serializer extends RuleFunction {
 
 function normalizeMatcher(matcher) {
     switch (typeOf(matcher)) {
-    case 'function':
-        return matcher;
-    case 'array':
-        return type => matcher.includes(type);
-    case 'string':
-        return type => type == matcher;
+        case 'function':
+            return matcher;
+        case 'array':
+            return type => matcher.includes(type);
+        case 'string':
+            return type => type == matcher;
     }
 }
-
 
 module.exports = () => new Serializer();

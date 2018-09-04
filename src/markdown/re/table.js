@@ -30,13 +30,16 @@ const table = {
     alignLeft: /^ *:-+ *$/
 };
 
-table.cellSeparation        = replace(table.cellSeparation)(/pipe/g, pipe)();
-table.cell                  = replace(table.cell)(/pipe/g, pipe)();
-table.trailingPipe          = replace(table.trailingPipe, 'g')(/pipe/g, pipe)();
-table.trailingPipeAlign     = replace(table.trailingPipeAlign, 'g')(/pipe/g, pipe)();
-table.trailingPipeCell      = replace(table.trailingPipeCell, 'g')(/pipe/g, pipe)();
-table.edgePipesCell         = replace(table.edgePipesCell, 'g')(/pipe/g, pipe)();
-table.cellInlineText        = replace(inline.text)(']|', '\|]|')();
-table.cellInlineEscape      = inline.escape;
+table.cellSeparation = replace(table.cellSeparation)(/pipe/g, pipe)();
+table.cell = replace(table.cell)(/pipe/g, pipe)();
+table.trailingPipe = replace(table.trailingPipe, 'g')(/pipe/g, pipe)();
+table.trailingPipeAlign = replace(table.trailingPipeAlign, 'g')(
+    /pipe/g,
+    pipe
+)();
+table.trailingPipeCell = replace(table.trailingPipeCell, 'g')(/pipe/g, pipe)();
+table.edgePipesCell = replace(table.edgePipesCell, 'g')(/pipe/g, pipe)();
+table.cellInlineText = replace(inline.text)(']|', '|]|')();
+table.cellInlineEscape = inline.escape;
 
 module.exports = table;

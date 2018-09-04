@@ -8,10 +8,10 @@ const markdown = require('../markdown');
 const html = require('../html');
 
 const PARSERS = {
-    '.md':       markdown,
+    '.md': markdown,
     '.markdown': markdown,
-    '.mdown':    markdown,
-    '.html':     html
+    '.mdown': markdown,
+    '.html': html
 };
 
 /**

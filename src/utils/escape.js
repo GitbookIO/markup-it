@@ -13,9 +13,7 @@ function re(str) {
  */
 function escapeWith(replacements, text) {
     text = replacements.reduce(
-        (out, value, key) => {
-            return out.replace(re(key), value);
-        },
+        (out, value, key) => out.replace(re(key), value),
         text
     );
 
