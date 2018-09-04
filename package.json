@@ -41,12 +41,14 @@
     "babel-preset-stage-0": "^6.24.1",
     "eslint": "^4.10.0",
     "eslint-config-gitbook": "^2.0.3",
+    "eslint-plugin-prettier": "^2.6.0",
     "expect": "^1.20.2",
     "immutable": "^3.8.1",
     "mocha": "^3.0.1",
     "slate": "^0.34.4",
     "slate-hyperscript": "^0.5.15",
-    "slate-hyperprint": "^2.2.4"
+    "slate-hyperprint": "^2.2.4",
+    "prettier": "^1.13.3"
   },
   "dependencies": {
     "detect-newline": "^2.1.0",
