@@ -102,8 +102,7 @@ function selectInlines(node) {
  * @param {String} className
  * @return {Array<Mark>}
  */
-function getMarksForClassName(className) {
-    className = className || '';
+function getMarksForClassName(className = '') {
     const classNames = className.split(' ');
     const result = [];
 
@@ -188,8 +187,7 @@ function isVoid(nodeType) {
  * @param {String} sep?
  * @return {List<String>}
  */
-function splitLines(text, sep) {
-    sep = sep || detectNewLine(text) || '\n';
+function splitLines(text, sep = detectNewLine(text) || '\n') {
     return List(text.split(sep));
 }
 
@@ -200,7 +198,7 @@ function splitLines(text, sep) {
  */
 function parse(str) {
     // Cleanup whitespaces
-    str = htmlclean(str);
+    const cleanedUpStr = htmlclean(str);
 
     // For convenience, starts with a root node
     const root = Document.create({});
@@ -239,12 +237,12 @@ function parse(str) {
                     .push(previous.set('nodes', previous.nodes.push(node)));
             } else {
                 // Else insert a default wrapper
-                node = Block.create({
+                const wrapper = Block.create({
                     type: defaultBlockType(parent),
                     nodes: [node]
                 });
 
-                nodes = nodes.push(node);
+                nodes = nodes.push(wrapper);
             }
         } else {
             nodes = nodes.push(node);
@@ -350,7 +348,7 @@ function parse(str) {
         }
     );
 
-    parser.write(str);
+    parser.write(cleanedUpStr);
     parser.end();
 
     if (stack.size !== 1) {

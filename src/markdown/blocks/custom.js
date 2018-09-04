@@ -119,9 +119,11 @@ const serialize = Serializer()
  */
 const deserialize = Deserializer().matchRegExp(
     reBlock.customBlock,
-    (state, match) => {
+    (initialState, match) => {
+        let state = initialState;
+
         if (state.getProp('template') === false) {
-            return;
+            return undefined;
         }
 
         const text = match[1].trim();
@@ -179,7 +181,7 @@ const deserialize = Deserializer().matchRegExp(
                 });
 
                 if (between.size == added.size) {
-                    return;
+                    return undefined;
                 }
 
                 // We skip the default node.

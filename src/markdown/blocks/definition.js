@@ -24,11 +24,12 @@ function cleanupText(src) {
  * @type {Deserializer}
  */
 const deserialize = Deserializer().then(state => {
-    let { text, depth, nodes } = state;
+    const { depth, nodes } = state;
+    let { text } = state;
 
     // Apply it as first rule only
     if (depth > 2 || nodes.size > 0 || state.getProp('refs')) {
-        return;
+        return undefined;
     }
 
     // Normalize the text
@@ -40,8 +41,7 @@ const deserialize = Deserializer().then(state => {
     text = text.replace(
         reDef,
         (wholeMatch, linkId, href, width, height, blankLines, title) => {
-            linkId = linkId.toLowerCase();
-            refs[linkId] = {
+            refs[linkId.toLowerCase()] = {
                 href,
                 title
             };

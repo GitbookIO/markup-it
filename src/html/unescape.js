@@ -6,9 +6,7 @@ const entities = require('entities');
  * @return {String}
  */
 function unescape(str) {
-    str = entities.decodeHTML(str);
-
-    return str;
+    return entities.decodeHTML(str);
 }
 
 module.exports = unescape;

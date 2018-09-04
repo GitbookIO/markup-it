@@ -47,7 +47,6 @@
     "mocha": "^3.0.1",
     "slate": "^0.34.4",
     "slate-hyperscript": "^0.5.15",
-    "slate-hyperprint": "^2.2.4",
     "prettier": "^1.13.3"
   },
   "dependencies": {
@@ -63,6 +62,7 @@
     "ltrim": "0.0.3",
     "object-values": "^1.0.0",
     "rtrim": "0.0.3",
+    "slate-hyperprint": "^2.2.4",
     "split-lines": "^1.1.0",
     "trim-newlines": "^1.0.0",
     "trim-right": "^1.0.1",

@@ -26,8 +26,7 @@ const serialize = Serializer()
 
         // Use fences if syntax is set
         if (!hasFences || syntax) {
-            output =
-                `${'```'}${syntax || ''}\n` + `${innerText}\n` + `${'```'}\n\n`;
+            output = `${'```'}${syntax || ''}\n${innerText}\n${'```'}\n\n`;
 
             return state.shift().write(output);
         }

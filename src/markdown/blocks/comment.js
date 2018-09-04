@@ -23,7 +23,7 @@ const deserialize = Deserializer().matchRegExp(
     reBlock.comment,
     (state, match) => {
         if (state.getProp('template') === false) {
-            return;
+            return undefined;
         }
 
         const node = Block.create({

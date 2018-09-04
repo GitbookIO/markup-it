@@ -11,7 +11,7 @@ const { Map } = require('immutable');
 function serializeTag(tag, opts = {}) {
     const { isSingleTag = false, getAttrs = node => {} } = opts;
 
-    return function(state) {
+    return state => {
         const node = state.peek();
         const attrs = getAttrs(node);
 
@@ -34,8 +34,8 @@ function serializeTag(tag, opts = {}) {
  * @param {Object} attrs
  * @return {String}
  */
-function attrsToString(attrs) {
-    attrs = new Map(attrs);
+function attrsToString(attrsObject) {
+    const attrs = new Map(attrsObject);
 
     return attrs.reduce((output, value, key) => {
         if (is.undef(value) || is.nil(value)) {
