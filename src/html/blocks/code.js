@@ -1,5 +1,5 @@
-const { Serializer, BLOCKS } = require('../../');
-const escape = require('../escape');
+import { Serializer, BLOCKS } from '../../';
+import escape from '../escape';
 
 /**
  * Serialize a code block to HTML
@@ -19,4 +19,4 @@ const serialize = Serializer()
             .write(`<pre><code${className}>${escape(text)}</code></pre>\n`);
     });
 
-module.exports = { serialize };
+export default { serialize };

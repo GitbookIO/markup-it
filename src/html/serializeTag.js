@@ -1,5 +1,5 @@
-const is = require('is');
-const { Map } = require('immutable');
+import is from 'is';
+import { Map } from 'immutable';
 
 /**
  * @param {String} tag The HTML tag
@@ -47,4 +47,4 @@ function attrsToString(attrsObject) {
     }, '');
 }
 
-module.exports = serializeTag;
+export default serializeTag;

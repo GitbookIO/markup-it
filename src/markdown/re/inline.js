@@ -1,4 +1,4 @@
-const { replace } = require('../utils');
+import { replace } from '../utils';
 
 const inline = {
     escape: /^\\([\\`*{}[\]()#$+\-.!_>|])/,
@@ -49,4 +49,4 @@ inline.text = replace(inline.text)(']|', '~]|')('|', '|https?://|')(
 )();
 inline.escape = replace(inline.escape)('])', '~|])')();
 
-module.exports = inline;
+export default inline;

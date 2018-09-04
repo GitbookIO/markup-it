@@ -1,5 +1,5 @@
-const { Map } = require('immutable');
-const { Deserializer } = require('../../');
+import { Map } from 'immutable';
+import { Deserializer } from '../../';
 
 const reDef = /^ {0,3}\[(.+)]:[ \t]*\n?[ \t]*<?(\S+?)>?(?: =([*\d]+[A-Za-z%]{0,4})x([*\d]+[A-Za-z%]{0,4}))?[ \t]*\n?[ \t]*(?:(\n*)["|'(](.+?)["|')][ \t]*)?(?:\n+|(?=~0))/gm;
 
@@ -53,4 +53,4 @@ const deserialize = Deserializer().then(state => {
     return state.replaceText(text).setProp('refs', Map(refs));
 });
 
-module.exports = { deserialize };
+export default { deserialize };

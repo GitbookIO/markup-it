@@ -1,14 +1,14 @@
-const code = require('./code');
-const bold = require('./bold');
-const italic = require('./italic');
-const strikethrough = require('./strikethrough');
-const text = require('./text');
-const image = require('./image');
-const link = require('./link');
-const footnoteRef = require('./footnote-ref');
-const html = require('./html');
+import code from './code';
+import bold from './bold';
+import italic from './italic';
+import strikethrough from './strikethrough';
+import text from './text';
+import image from './image';
+import link from './link';
+import footnoteRef from './footnote-ref';
+import html from './html';
 
-module.exports = [
+export default [
     code,
     bold,
     italic,

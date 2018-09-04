@@ -1,20 +1,9 @@
-const detectNewLine = require('detect-newline');
-const htmlparser = require('htmlparser2');
-const htmlclean = require('htmlclean');
-const { List, Stack, Set } = require('immutable');
-const { Document } = require('slate');
-const {
-    BLOCKS,
-    INLINES,
-    MARKS,
-    CONTAINERS,
-    VOID,
-    LEAFS,
-    Block,
-    Inline,
-    Text,
-    Mark
-} = require('../');
+import detectNewLine from 'detect-newline';
+import htmlparser from 'htmlparser2';
+import htmlclean from 'htmlclean';
+import { List, Stack, Set } from 'immutable';
+import { Document } from 'slate';
+import { BLOCKS, INLINES, MARKS, CONTAINERS, VOID, LEAFS, Block, Inline, Text, Mark } from '../';
 
 const INLINE_TAGS = {
     a: INLINES.LINK,
@@ -360,4 +349,4 @@ function parse(str) {
     return stack.peek();
 }
 
-module.exports = parse;
+export default parse;

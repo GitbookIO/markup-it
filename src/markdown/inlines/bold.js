@@ -1,6 +1,6 @@
-const { Serializer, Deserializer, Mark, MARKS } = require('../../');
-const reInline = require('../re/inline');
-const utils = require('../utils');
+import { Serializer, Deserializer, Mark, MARKS } from '../../';
+import reInline from '../re/inline';
+import { wrapInline } from '../utils';
 
 /**
  * Serialize a bold text to markdown
@@ -8,7 +8,7 @@ const utils = require('../utils');
  */
 const serialize = Serializer().transformMarkedLeaf(
     MARKS.BOLD,
-    (state, text, mark) => utils.wrapInline(text, '**')
+    (state, text, mark) => wrapInline(text, '**')
 );
 
 /**
@@ -27,4 +27,4 @@ const deserialize = Deserializer().matchRegExp(
     }
 );
 
-module.exports = { serialize, deserialize };
+export default { serialize, deserialize };

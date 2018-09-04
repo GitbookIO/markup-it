@@ -1,5 +1,5 @@
-const { OrderedMap } = require('immutable');
-const { escapeWith, unescapeWith } = require('../../utils/escape');
+import { OrderedMap } from 'immutable';
+import { escapeWith, unescapeWith } from '../../utils/escape';
 
 // Replacements for properties escapement
 const REPLACEMENTS = OrderedMap([
@@ -17,11 +17,11 @@ const REPLACEMENTS = OrderedMap([
     ["'", "\\'"]
 ]);
 
-module.exports = {
-    escape: str => escapeWith(REPLACEMENTS, str),
+const escape = str => escapeWith(REPLACEMENTS, str);
 
-    // User-inserted slashes have to be escaped first.
-    // But they need to be unescaped last as markupit adds slashes itself.
-    // So first we unescape the slashes combined with something else and end by unescaping the lone-slashes.
-    unescape: str => unescapeWith(REPLACEMENTS.reverse(), str)
-};
+// User-inserted slashes have to be escaped first.
+// But they need to be unescaped last as markupit adds slashes itself.
+// So first we unescape the slashes combined with something else and end by unescaping the lone-slashes.
+const unescape = str => unescapeWith(REPLACEMENTS.reverse(), str);
+
+export { escape, unescape };

@@ -1,7 +1,7 @@
-const { Map } = require('immutable');
-const { Serializer, Deserializer, Inline, INLINES } = require('../../');
-const reInline = require('../re/inline');
-const utils = require('../utils');
+import { Map } from 'immutable';
+import { Serializer, Deserializer, Inline, INLINES } from '../../';
+import reInline from '../re/inline';
+import * as utils from '../utils';
 
 /**
  * Resolve an image reference
@@ -114,4 +114,4 @@ const deserializeRef = Deserializer().matchRegExp(
 
 const deserialize = Deserializer().use([deserializeNormal, deserializeRef]);
 
-module.exports = { serialize, deserialize };
+export default { serialize, deserialize };

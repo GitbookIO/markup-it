@@ -1,5 +1,5 @@
-const { replace } = require('../utils');
-const inline = require('./inline');
+import { replace } from '../utils';
+import inline from './inline';
 
 const pipe = /\|/;
 
@@ -42,4 +42,4 @@ table.edgePipesCell = replace(table.edgePipesCell, 'g')(/pipe/g, pipe)();
 table.cellInlineText = replace(inline.text)(']|', '|]|')();
 table.cellInlineEscape = inline.escape;
 
-module.exports = table;
+export default table;

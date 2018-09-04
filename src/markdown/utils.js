@@ -1,6 +1,6 @@
-const { Map } = require('immutable');
-const entities = require('entities');
-const { escapeWith, unescapeWith } = require('../utils/escape');
+import { Map } from 'immutable';
+import entities from 'entities';
+import { escapeWith, unescapeWith } from '../utils/escape';
 
 // Replacements for Markdown escaping
 // See http://spec.commonmark.org/0.15/#backslash-escapes
@@ -39,7 +39,7 @@ const URL_REPLACEMENTS_ESCAPE = Map([[' ', '%20'], ['(', '%28'], [')', '%29']]);
  * @param {Boolean} escapeXML
  * @return {String}
  */
-function escapeMarkdown(inputStr, escapeXML) {
+function escape(inputStr, escapeXML) {
     const str = escapeWith(REPLACEMENTS_ESCAPE, inputStr);
     return escapeXML === false ? str : entities.encodeXML(str);
 }
@@ -51,7 +51,7 @@ function escapeMarkdown(inputStr, escapeXML) {
  * @param {String} str
  * @return {String}
  */
-function unescapeMarkdown(str) {
+function unescape(str) {
     return entities.decodeHTML(unescapeWith(REPLACEMENTS_UNESCAPE, str));
 }
 
@@ -135,15 +135,12 @@ function wrapInline(str, chars) {
         .replace(/\s*$/, spaces => `${chars}${spaces}`);
 }
 
-module.exports = {
-    escape: escapeMarkdown,
-    unescape: unescapeMarkdown,
-
+export {
+    escape,
+    unescape,
     escapeURL,
     unescapeURL,
-
     replace,
     resolveRef,
-
     wrapInline
 };

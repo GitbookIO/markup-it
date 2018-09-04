@@ -1,19 +1,18 @@
-const text = require('./text');
-const footnote = require('./footnote');
-const image = require('./image');
-const link = require('./link');
-const html = require('./html');
-const math = require('./math');
-const variable = require('./variable');
+import text from './text';
+import footnote from './footnote';
+import image from './image';
+import link from './link';
+import html from './html';
+import math from './math';
+import variable from './variable';
+import escape from './escape';
+import code from './code';
+import bold from './bold';
+import italic from './italic';
+import hardlineBreak from './hardline_break';
+import strikethrough from './strikethrough';
 
-const escape = require('./escape');
-const code = require('./code');
-const bold = require('./bold');
-const italic = require('./italic');
-const hardlineBreak = require('./hardline_break');
-const strikethrough = require('./strikethrough');
-
-module.exports = [
+export default [
     footnote,
     image,
     link,

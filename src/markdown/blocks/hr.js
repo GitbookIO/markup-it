@@ -1,5 +1,5 @@
-const { Serializer, Deserializer, Block, BLOCKS } = require('../../');
-const reBlock = require('../re/block');
+import { Serializer, Deserializer, Block, BLOCKS } from '../../';
+import reBlock from '../re/block';
 
 /**
  * Serialize an HR to markdown
@@ -28,4 +28,4 @@ const deserialize = Deserializer().matchRegExp(reBlock.hr, (state, match) => {
     return state.push(node);
 });
 
-module.exports = { serialize, deserialize };
+export default { serialize, deserialize };

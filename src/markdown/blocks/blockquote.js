@@ -1,6 +1,6 @@
-const splitLines = require('split-lines');
-const { Serializer, Deserializer, Block, BLOCKS } = require('../../');
-const reBlock = require('../re/block');
+import splitLines from 'split-lines';
+import { Serializer, Deserializer, Block, BLOCKS } from '../../';
+import reBlock from '../re/block';
 
 /**
  * Serialize a blockquote node to markdown
@@ -40,4 +40,4 @@ const deserialize = Deserializer().matchRegExp(
     }
 );
 
-module.exports = { serialize, deserialize };
+export default { serialize, deserialize };

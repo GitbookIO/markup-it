@@ -1,5 +1,5 @@
-const { Serializer, Deserializer, Block, BLOCKS } = require('../../');
-const reBlock = require('../re/block');
+import { Serializer, Deserializer, Block, BLOCKS } from '../../';
+import reBlock from '../re/block';
 
 /**
  * Serialize a footnote to markdown
@@ -35,4 +35,4 @@ const deserialize = Deserializer().matchRegExp(
     }
 );
 
-module.exports = { serialize, deserialize };
+export default { serialize, deserialize };

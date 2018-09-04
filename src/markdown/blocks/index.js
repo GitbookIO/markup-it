@@ -1,19 +1,19 @@
-const hr = require('./hr');
-const heading = require('./heading');
-const paragraph = require('./paragraph');
-const codeBlock = require('./code');
-const blockquote = require('./blockquote');
-const unstyled = require('./unstyled');
-const footnote = require('./footnote');
-const table = require('./table');
-const list = require('./list');
-const definition = require('./definition');
-const math = require('./math');
-const comment = require('./comment');
-const html = require('./html');
-const custom = require('./custom');
+import hr from './hr';
+import heading from './heading';
+import paragraph from './paragraph';
+import codeBlock from './code';
+import blockquote from './blockquote';
+import unstyled from './unstyled';
+import footnote from './footnote';
+import table from './table';
+import list from './list';
+import definition from './definition';
+import math from './math';
+import comment from './comment';
+import html from './html';
+import custom from './custom';
 
-module.exports = [
+export default [
     // All link definition (for link reference) must be resolved first.
     definition,
     // HTML must be high in the stack too.

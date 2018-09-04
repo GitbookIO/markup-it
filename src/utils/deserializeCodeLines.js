@@ -1,7 +1,6 @@
-const splitLines = require('split-lines');
-const { Block, Text } = require('slate');
-
-const BLOCKS = require('../constants/blocks');
+import splitLines from 'split-lines';
+import { Block, Text } from 'slate';
+import BLOCKS from '../constants/blocks';
 
 /**
  * Deserialize the inner text of a code block
@@ -19,4 +18,4 @@ function deserializeCodeLines(text) {
     );
 }
 
-module.exports = deserializeCodeLines;
+export default deserializeCodeLines;

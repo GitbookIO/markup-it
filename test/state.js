@@ -1,6 +1,6 @@
-const expect = require('expect');
-const { Block } = require('slate');
-const State = require('../src/models/state');
+import expect from 'expect';
+import { Block } from 'slate';
+import State from '../src/models/state';
 
 describe('State', () => {
     describe('.push()', () => {

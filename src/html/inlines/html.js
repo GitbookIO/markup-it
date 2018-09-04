@@ -1,4 +1,4 @@
-const { Serializer, INLINES } = require('../../');
+import { Serializer, INLINES } from '../../';
 
 /**
  * Serialize an HTML inline to HTML
@@ -31,4 +31,4 @@ const serialize = Serializer()
             .write(closingTag);
     });
 
-module.exports = { serialize };
+export default { serialize };

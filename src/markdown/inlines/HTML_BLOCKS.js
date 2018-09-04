@@ -70,4 +70,4 @@ const HTML_BLOCKS = [
     'ul'
 ];
 
-module.exports = HTML_BLOCKS;
+export default HTML_BLOCKS;

@@ -1,7 +1,7 @@
-const ltrim = require('ltrim');
-const rtrim = require('rtrim');
-const { Serializer, Deserializer, Inline, INLINES } = require('../../');
-const reInline = require('../re/inline');
+import ltrim from 'ltrim';
+import rtrim from 'rtrim';
+import { Serializer, Deserializer, Inline, INLINES } from '../../';
+import reInline from '../re/inline';
 
 /**
  * Normalize some TeX content
@@ -55,4 +55,4 @@ const deserialize = Deserializer().matchRegExp(
     }
 );
 
-module.exports = { serialize, deserialize };
+export default { serialize, deserialize };

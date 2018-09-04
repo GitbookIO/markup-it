@@ -1,6 +1,6 @@
-const { Serializer, Deserializer } = require('../../');
-const reInline = require('../re/inline');
-const utils = require('../utils');
+import { Serializer, Deserializer } from '../../';
+import reInline from '../re/inline';
+import * as utils from '../utils';
 
 /**
  * Serialize a text node to markdown
@@ -37,4 +37,4 @@ const deserializeText = Deserializer().matchRegExp(
 
 const deserialize = Deserializer().use([deserializeEscaped, deserializeText]);
 
-module.exports = { serialize, deserialize };
+export default { serialize, deserialize };

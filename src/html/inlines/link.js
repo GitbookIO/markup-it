@@ -1,6 +1,6 @@
-const { Serializer, INLINES } = require('../../');
-const serializeTag = require('../serializeTag');
-const escape = require('../escape');
+import { Serializer, INLINES } from '../../';
+import serializeTag from '../serializeTag';
+import escape from '../escape';
 
 /**
  * Serialize a link to HTML
@@ -17,4 +17,4 @@ const serialize = Serializer()
         })
     );
 
-module.exports = { serialize };
+export default { serialize };

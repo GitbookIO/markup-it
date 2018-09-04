@@ -1,5 +1,5 @@
-const { Serializer, MARKS } = require('../../');
-const utils = require('../utils');
+import { Serializer, MARKS } from '../../';
+import { escape } from '../utils';
 
 /**
  * Escape all text leaves during serialization.
@@ -12,8 +12,8 @@ const serialize = Serializer().transformText((state, leaf) => {
     const hasCode = marks.some(mark => mark.type === MARKS.CODE);
 
     return leaf.merge({
-        text: hasCode ? text : utils.escape(text, false)
+        text: hasCode ? text : escape(text, false)
     });
 });
 
-module.exports = { serialize };
+export default { serialize };

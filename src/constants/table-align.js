@@ -4,4 +4,4 @@ const TABLE_ALIGN = {
     CENTER: 'center'
 };
 
-module.exports = TABLE_ALIGN;
+export default TABLE_ALIGN;

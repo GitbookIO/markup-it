@@ -1,9 +1,10 @@
 #! /usr/bin/env node
 /* eslint-disable no-console */
 
-const yaml = require('js-yaml');
-const { Value } = require('slate');
-const { transform } = require('./helper');
+import yaml from 'js-yaml';
+
+import { Value } from 'slate';
+import { transform } from './helper';
 
 transform(document => {
     const state = Value.create({ document });

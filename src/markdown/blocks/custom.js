@@ -1,9 +1,9 @@
-const { List } = require('immutable');
-const warning = require('warning');
-const trimTrailingLines = require('trim-trailing-lines');
-const { Serializer, Deserializer, Block, BLOCKS } = require('../../');
-const reBlock = require('../re/block');
-const liquid = require('../liquid');
+import { List } from 'immutable';
+import warning from 'warning';
+import trimTrailingLines from 'trim-trailing-lines';
+import { Serializer, Deserializer, Block, BLOCKS } from '../../';
+import reBlock from '../re/block';
+import liquid from '../liquid';
 
 /**
  * Return true if a block type is a custom one.
@@ -222,4 +222,4 @@ const deserialize = Deserializer().matchRegExp(
     }
 );
 
-module.exports = { serialize, deserialize };
+export default { serialize, deserialize };

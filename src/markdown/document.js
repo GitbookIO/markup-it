@@ -1,7 +1,7 @@
-const yaml = require('js-yaml');
-const fm = require('front-matter');
-const Immutable = require('immutable');
-const { Serializer, Deserializer, Document } = require('../');
+import yaml from 'js-yaml';
+import fm from 'front-matter';
+import Immutable from 'immutable';
+import { Serializer, Deserializer, Document } from '../';
 
 /**
  * Serialize a document to markdown.
@@ -44,4 +44,4 @@ const deserialize = Deserializer().then(state => {
     return state.skip(text.length).push(node);
 });
 
-module.exports = { serialize, deserialize };
+export default { serialize, deserialize };

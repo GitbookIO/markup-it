@@ -1,8 +1,8 @@
-const trimNewlines = require('trim-newlines');
-const { Serializer, Deserializer, Block, BLOCKS } = require('../../');
-const deserializeCodeLines = require('../../utils/deserializeCodeLines');
-const reBlock = require('../re/block');
-const utils = require('../utils');
+import trimNewlines from 'trim-newlines';
+import { Serializer, Deserializer, Block, BLOCKS } from '../../';
+import deserializeCodeLines from '../../utils/deserializeCodeLines';
+import reBlock from '../re/block';
+import { escape, unescape } from '../utils';
 
 /**
  * Serialize a code block to markdown
@@ -16,7 +16,7 @@ const serialize = Serializer()
 
         // Escape the syntax
         // http://spec.commonmark.org/0.15/#example-234
-        const syntax = utils.escape(data.get('syntax') || '');
+        const syntax = escape(data.get('syntax') || '');
 
         // Get inner content and number of fences
         const innerText = nodes.map(line => line.text).join('\n');
@@ -57,7 +57,7 @@ const deserializeFences = Deserializer().matchRegExp(
         let data;
         if (match[2]) {
             data = {
-                syntax: utils.unescape(match[2].trim())
+                syntax: unescape(match[2].trim())
             };
         }
 
@@ -103,4 +103,4 @@ const deserializeTabs = Deserializer().matchRegExp(
 
 const deserialize = Deserializer().use([deserializeFences, deserializeTabs]);
 
-module.exports = { serialize, deserialize };
+export default { serialize, deserialize };

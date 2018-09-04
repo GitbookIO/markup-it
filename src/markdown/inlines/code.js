@@ -1,6 +1,6 @@
-const { Serializer, Deserializer, Mark, Text, MARKS } = require('../../');
-const reInline = require('../re/inline');
-const utils = require('../utils');
+import { Serializer, Deserializer, Mark, Text, MARKS } from '../../';
+import reInline from '../re/inline';
+import { wrapInline } from '../utils';
 
 /**
  * Serialize a code text to markdown
@@ -16,7 +16,7 @@ const serialize = Serializer().transformMarkedLeaf(
             separator += '`';
         }
 
-        return utils.wrapInline(text, separator);
+        return wrapInline(text, separator);
     }
 );
 
@@ -35,4 +35,4 @@ const deserialize = Deserializer().matchRegExp(
     }
 );
 
-module.exports = { serialize, deserialize };
+export default { serialize, deserialize };

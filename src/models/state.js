@@ -1,7 +1,7 @@
-const { Record, List, Map, Set } = require('immutable');
-const { Text, Block, Document } = require('slate');
-const BLOCKS = require('../constants/blocks');
-const RuleFunction = require('./rule-function');
+import { Record, List, Map, Set } from 'immutable';
+import { Text, Block, Document } from 'slate';
+import BLOCKS from '../constants/blocks';
+import RuleFunction from './rule-function';
 
 /*
     State stores the global state when serializing a document or deseriaizing a text.
@@ -403,4 +403,4 @@ class State extends Record(DEFAULTS) {
     }
 }
 
-module.exports = State;
+export default State;

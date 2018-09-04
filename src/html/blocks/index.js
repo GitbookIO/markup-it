@@ -1,16 +1,16 @@
-const table = require('./table');
-const paragraph = require('./paragraph');
-const hr = require('./hr');
-const blockquote = require('./blockquote');
-const code = require('./code');
-const heading = require('./heading');
-const list = require('./list');
-const listitem = require('./listitem');
-const unstyled = require('./unstyled');
-const footnote = require('./footnote');
-const html = require('./html');
+import table from './table';
+import paragraph from './paragraph';
+import hr from './hr';
+import blockquote from './blockquote';
+import code from './code';
+import heading from './heading';
+import list from './list';
+import listitem from './listitem';
+import unstyled from './unstyled';
+import footnote from './footnote';
+import html from './html';
 
-module.exports = [
+export default [
     paragraph,
     hr,
     blockquote,

@@ -1,5 +1,5 @@
-const { List } = require('immutable');
-const RuleFunction = require('./rule-function');
+import { List } from 'immutable';
+import RuleFunction from './rule-function';
 
 class Deserializer extends RuleFunction {
     /**
@@ -26,4 +26,4 @@ class Deserializer extends RuleFunction {
     }
 }
 
-module.exports = () => new Deserializer();
+export default () => new Deserializer();

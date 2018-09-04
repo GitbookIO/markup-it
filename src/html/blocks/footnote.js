@@ -1,4 +1,4 @@
-const { Serializer, BLOCKS } = require('../../');
+import { Serializer, BLOCKS } from '../../';
 
 /**
  * Serialize a footnote block to HTML
@@ -20,4 +20,4 @@ const serialize = Serializer()
         );
     });
 
-module.exports = { serialize };
+export default { serialize };

@@ -1,4 +1,4 @@
-const { Serializer, BLOCKS } = require('../../');
+import { Serializer, BLOCKS } from '../../';
 
 /**
  * Serialize a list item to HTML
@@ -24,4 +24,4 @@ const serialize = Serializer()
         return state.shift().write(`<li${className}>${inner}</li>\n`);
     });
 
-module.exports = { serialize };
+export default { serialize };

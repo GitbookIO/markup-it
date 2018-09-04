@@ -1,5 +1,5 @@
 /* eslint-disable no-unexpected-multiline, no-spaced-func */
-const { replace } = require('../utils');
+import { replace } from '../utils';
 
 // quote related
 const singleQuoted = /'(?:[^'\\]|\\.)*'/;
@@ -45,7 +45,7 @@ const prop = replace(/(?:delimiter)(?:(assignment|literal))/)(
     literal
 )('delimiter', delimiter)('assignment', assignment)();
 
-module.exports = {
+export default {
     prop,
     quoted,
     number,

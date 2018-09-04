@@ -1,5 +1,5 @@
-const is = require('is');
-const { escape } = require('./escape');
+import is from 'is';
+import { escape } from './escape';
 
 /**
  * Stringify a literal
@@ -51,4 +51,4 @@ function stringifyTag({ tag, data }) {
     } %}`;
 }
 
-module.exports = stringifyTag;
+export default stringifyTag;

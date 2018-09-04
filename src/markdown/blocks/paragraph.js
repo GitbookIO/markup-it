@@ -1,5 +1,5 @@
-const { Serializer, Deserializer, Block, BLOCKS } = require('../../');
-const reBlock = require('../re/block');
+import { Serializer, Deserializer, Block, BLOCKS } from '../../';
+import reBlock from '../re/block';
 
 /**
  * Serialize a paragraph to markdown
@@ -60,4 +60,4 @@ function collapseWhiteSpaces(text) {
     );
 }
 
-module.exports = { serialize, deserialize };
+export default { serialize, deserialize };

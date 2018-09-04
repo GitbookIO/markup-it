@@ -1,4 +1,4 @@
-const { Serializer, BLOCKS } = require('../../');
+import { Serializer, BLOCKS } from '../../';
 
 // Key to store the current table aligns in the state
 const ALIGNS = 'current_table_aligns';
@@ -89,7 +89,7 @@ const cell = {
         })
 };
 
-module.exports = {
+export default {
     table,
     row,
     cell

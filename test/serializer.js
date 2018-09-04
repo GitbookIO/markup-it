@@ -1,7 +1,7 @@
-const expect = require('expect');
-const { Text } = require('slate');
-const Serializer = require('../src/models/serializer');
-const State = require('../src/models/state');
+import expect from 'expect';
+import { Text } from 'slate';
+import Serializer from '../src/models/serializer';
+import State from '../src/models/state';
 
 describe('Serializer', () => {
     const blockNode = {

@@ -1,4 +1,4 @@
-const { Serializer, BLOCKS } = require('../../');
+import { Serializer, BLOCKS } from '../../';
 
 /**
  * Serialize an unstyled block to HTML
@@ -12,4 +12,4 @@ const serialize = Serializer()
         return state.shift().write(state.serialize(node.nodes));
     });
 
-module.exports = { serialize };
+export default { serialize };

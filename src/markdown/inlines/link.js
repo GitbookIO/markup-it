@@ -1,7 +1,7 @@
-const { Map } = require('immutable');
-const { Serializer, Deserializer, Inline, Text, INLINES } = require('../../');
-const reInline = require('../re/inline');
-const utils = require('../utils');
+import { Map } from 'immutable';
+import { Serializer, Deserializer, Inline, Text, INLINES } from '../../';
+import reInline from '../re/inline';
+import * as utils from '../utils';
 
 /**
  * Serialize a link to markdown
@@ -189,4 +189,4 @@ const deserialize = Deserializer().use([
     deserializeRef
 ]);
 
-module.exports = { serialize, deserialize };
+export default { serialize, deserialize };

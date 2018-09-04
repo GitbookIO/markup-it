@@ -3,7 +3,7 @@
  * @type {Map}
  */
 
-module.exports = {
+export default {
     HTML: 'html',
     LINK: 'link',
     IMAGE: 'image',

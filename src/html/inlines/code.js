@@ -1,5 +1,5 @@
-const { Serializer, MARKS } = require('../../');
-const escape = require('../escape');
+import { Serializer, MARKS } from '../../';
+import escape from '../escape';
 
 /**
  * Serialize an inline code to HTML
@@ -10,4 +10,4 @@ const serialize = Serializer().transformMarkedLeaf(
     (state, text, mark) => `<code>${escape(text)}</code>`
 );
 
-module.exports = { serialize };
+export default { serialize };

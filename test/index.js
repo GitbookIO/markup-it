@@ -1,5 +1,5 @@
-require('./state');
-require('./rule-function');
-require('./deserializer');
-require('./serializer');
-require('./all');
+import './state';
+import './rule-function';
+import './deserializer';
+import './serializer';
+import './all';

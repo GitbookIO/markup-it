@@ -1,7 +1,8 @@
 /* eslint-disable no-unexpected-multiline, no-spaced-func */
-const { replace } = require('../utils');
-const heading = require('./heading');
-const table = require('./table');
+import { replace } from '../utils';
+
+import heading from './heading';
+import table from './table';
 
 const block = {
     newline: /^\n+/,
@@ -87,4 +88,4 @@ block.paragraph = replace(block.paragraph)(
     block.fences.source.replace('\\1', '\\2')
 )('ol', block.list.block_ol.source.replace('\\1', '\\3'))();
 
-module.exports = block;
+export default block;

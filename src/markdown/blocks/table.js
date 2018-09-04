@@ -1,11 +1,5 @@
-const {
-    Serializer,
-    Deserializer,
-    Block,
-    BLOCKS,
-    TABLE_ALIGN
-} = require('../../');
-const reTable = require('../re/table');
+import { Serializer, Deserializer, Block, BLOCKS, TABLE_ALIGN } from '../../';
+import reTable from '../re/table';
 
 /**
  * Deserialize a table with no leading pipe (gfm) to a node.
@@ -215,4 +209,4 @@ function alignsToText(aligns) {
         .join('')}`;
 }
 
-module.exports = { serialize, deserialize };
+export default { serialize, deserialize };

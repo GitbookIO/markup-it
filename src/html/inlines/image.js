@@ -1,5 +1,5 @@
-const { Serializer, INLINES } = require('../../');
-const serializeTag = require('../serializeTag');
+import { Serializer, INLINES } from '../../';
+import serializeTag from '../serializeTag';
 
 /**
  * Serialize an image to HTML
@@ -17,4 +17,4 @@ const serialize = Serializer()
         })
     );
 
-module.exports = { serialize };
+export default { serialize };

@@ -1,5 +1,5 @@
-const { Serializer, BLOCKS } = require('../../');
-const serializeTag = require('../serializeTag');
+import { Serializer, BLOCKS } from '../../';
+import serializeTag from '../serializeTag';
 
 /**
  * Serialize an horizontal rule to HTML
@@ -13,4 +13,4 @@ const serialize = Serializer()
         })
     );
 
-module.exports = { serialize };
+export default { serialize };

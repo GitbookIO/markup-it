@@ -1,4 +1,4 @@
-const BLOCKS = require('./blocks');
+import BLOCKS from './blocks';
 
 /**
  * Dictionary of all leaf containers (those that can contain inlines or text).
@@ -6,7 +6,7 @@ const BLOCKS = require('./blocks');
  * @type {Map<String:Boolean>}
  */
 
-module.exports = {
+export default {
     [BLOCKS.PARAGRAPH]: true,
     [BLOCKS.TEXT]: true,
     [BLOCKS.TABLE_CELL]: true,

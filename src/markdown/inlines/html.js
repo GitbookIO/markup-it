@@ -1,6 +1,6 @@
-const { Serializer, Deserializer, Inline, INLINES } = require('../../');
-const reInline = require('../re/inline');
-const HTML_BLOCKS = require('./HTML_BLOCKS');
+import { Serializer, Deserializer, Inline, INLINES } from '../../';
+import reInline from '../re/inline';
+import HTML_BLOCKS from './HTML_BLOCKS';
 
 /**
  * Test if a tag name is an HTML block that should not be parsed inside
@@ -133,7 +133,7 @@ const deserializeClosing = Deserializer().matchRegExp(
     }
 );
 
-module.exports = {
+export default {
     serialize,
     deserialize: Deserializer().use([
         deserializeComment,

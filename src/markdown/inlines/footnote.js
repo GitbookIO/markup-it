@@ -1,5 +1,5 @@
-const { Serializer, Deserializer, Inline, INLINES } = require('../../');
-const reInline = require('../re/inline');
+import { Serializer, Deserializer, Inline, INLINES } from '../../';
+import reInline from '../re/inline';
 
 /**
  * Serialize a footnote to markdown
@@ -35,4 +35,4 @@ const deserialize = Deserializer().matchRegExp(
     }
 );
 
-module.exports = { serialize, deserialize };
+export default { serialize, deserialize };

@@ -1,5 +1,5 @@
-const { Serializer, BLOCKS } = require('../../');
-const serializeTag = require('../serializeTag');
+import { Serializer, BLOCKS } from '../../';
+import serializeTag from '../serializeTag';
 
 /**
  * Serialize a blockquote to HTML
@@ -9,4 +9,4 @@ const serialize = Serializer()
     .matchType(BLOCKS.BLOCKQUOTE)
     .then(serializeTag('blockquote'));
 
-module.exports = { serialize };
+export default { serialize };

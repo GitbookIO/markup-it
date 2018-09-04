@@ -1,5 +1,5 @@
-const { Serializer, Deserializer, Block, BLOCKS } = require('../../');
-const reHeading = require('../re/heading');
+import { Serializer, Deserializer, Block, BLOCKS } from '../../';
+import reHeading from '../re/heading';
 
 const TYPES = [
     BLOCKS.HEADING_1,
@@ -89,4 +89,4 @@ function parseHeadingText(state, level, initialText) {
     return state.push(node);
 }
 
-module.exports = { serialize, deserialize };
+export default { serialize, deserialize };

@@ -1,6 +1,6 @@
-const expect = require('expect');
-const RuleFunction = require('../src/models/rule-function');
-const State = require('../src/models/state');
+import expect from 'expect';
+import RuleFunction from '../src/models/rule-function';
+import State from '../src/models/state';
 
 describe('RuleFunction', () => {
     describe('.compose()', () => {

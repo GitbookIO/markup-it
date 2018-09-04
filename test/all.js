@@ -1,14 +1,13 @@
-const fs = require('fs');
-const path = require('path');
-const expect = require('expect');
-const yaml = require('js-yaml');
-const Slate = require('slate');
-const trimTrailingLines = require('trim-trailing-lines');
-
-const MarkupIt = require('../src/');
-const markdown = require('../src/markdown');
-const html = require('../src/html');
-const unendingTags = require('./unendingTags');
+import fs from 'fs';
+import path from 'path';
+import expect from 'expect';
+import yaml from 'js-yaml';
+import Slate from 'slate';
+import trimTrailingLines from 'trim-trailing-lines';
+import { State } from '../src/';
+import markdown from '../src/markdown';
+import html from '../src/html';
+import unendingTags from './unendingTags';
 
 /**
  * Read a file input to a value.
@@ -20,7 +19,7 @@ function readFileInput(filePath) {
     const content = fs.readFileSync(filePath, { encoding: 'utf8' });
 
     function deserializeWith(syntax, props = {}) {
-        const parser = MarkupIt.State.create(syntax, props);
+        const parser = State.create(syntax, props);
         const document = parser.deserializeToDocument(content);
         const value = Slate.Value.create({ document });
         return value.toJSON();
@@ -48,7 +47,7 @@ function readFileInput(filePath) {
  */
 function convertFor(value, outputExt) {
     function serializeWith(syntax, props) {
-        const parser = MarkupIt.State.create(syntax, props);
+        const parser = State.create(syntax, props);
         const inputDocument = Slate.Value.fromJSON(value).document;
         const out = parser.serializeDocument(inputDocument);
 

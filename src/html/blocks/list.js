@@ -1,4 +1,4 @@
-const { Serializer, BLOCKS } = require('../../');
+import { Serializer, BLOCKS } from '../../';
 
 /**
  * Return true if a list node contains task items.
@@ -31,4 +31,4 @@ const serialize = Serializer()
             );
     });
 
-module.exports = { serialize };
+export default { serialize };

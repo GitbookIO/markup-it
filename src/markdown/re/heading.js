@@ -9,4 +9,4 @@ const heading = {
     id: /({#)(.+)(})/g
 };
 
-module.exports = heading;
+export default heading;

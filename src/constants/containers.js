@@ -1,5 +1,5 @@
-const objectValues = require('object-values');
-const BLOCKS = require('./blocks');
+import objectValues from 'object-values';
+import BLOCKS from './blocks';
 
 const ALL_BLOCKS = objectValues(BLOCKS);
 
@@ -10,7 +10,7 @@ const ALL_BLOCKS = objectValues(BLOCKS);
  * @type {Map<String:Array>}
  */
 
-module.exports = {
+export default {
     // We use Document.object instead of its type
     document: [BLOCKS.PARAGRAPH, ...ALL_BLOCKS],
     [BLOCKS.BLOCKQUOTE]: [BLOCKS.TEXT, ...ALL_BLOCKS],

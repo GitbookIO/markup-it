@@ -3,7 +3,7 @@
  * @type {Map}
  */
 
-module.exports = {
+export default {
     TEXT: 'unstyled',
     // Classic blocks
     CODE: 'code_block',

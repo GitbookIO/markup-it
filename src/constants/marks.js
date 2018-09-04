@@ -1,4 +1,4 @@
-module.exports = {
+export default {
     BOLD: 'BOLD',
     ITALIC: 'ITALIC',
     CODE: 'CODE',

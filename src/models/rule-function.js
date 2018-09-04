@@ -1,4 +1,4 @@
-const { Record } = require('immutable');
+import { Record } from 'immutable';
 
 const DEFAULTS = {
     transform: state => state
@@ -113,4 +113,4 @@ class RuleFunction extends Record(DEFAULTS) {
     }
 }
 
-module.exports = RuleFunction;
+export default RuleFunction;

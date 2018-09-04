@@ -1,6 +1,6 @@
-const expect = require('expect');
-const Deserializer = require('../src/models/deserializer');
-const State = require('../src/models/state');
+import expect from 'expect';
+import Deserializer from '../src/models/deserializer';
+import State from '../src/models/state';
 
 describe('Deserializer', () => {
     const state = new State();

@@ -1,6 +1,6 @@
-const { Map } = require('immutable');
-const lexical = require('./lexical');
-const { unescape } = require('./escape');
+import { Map } from 'immutable';
+import lexical from './lexical';
+import { unescape } from './escape';
 
 /**
  * Parse a literal value.
@@ -66,4 +66,4 @@ function parseTag(text) {
     };
 }
 
-module.exports = parseTag;
+export default parseTag;

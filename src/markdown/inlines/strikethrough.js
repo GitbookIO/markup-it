@@ -1,6 +1,6 @@
-const { Serializer, Deserializer, Mark, MARKS } = require('../../');
-const reInline = require('../re/inline');
-const utils = require('../utils');
+import { Serializer, Deserializer, Mark, MARKS } from '../../';
+import reInline from '../re/inline';
+import { wrapInline } from '../utils';
 
 /**
  * Serialize a strikethrough text to markdown
@@ -8,7 +8,7 @@ const utils = require('../utils');
  */
 const serialize = Serializer().transformMarkedLeaf(
     MARKS.STRIKETHROUGH,
-    (state, text) => utils.wrapInline(text, '~~')
+    (state, text) => wrapInline(text, '~~')
 );
 
 /**
@@ -24,4 +24,4 @@ const deserialize = Deserializer().matchRegExp(reInline.del, (state, match) => {
     return state.push(nodes);
 });
 
-module.exports = { serialize, deserialize };
+export default { serialize, deserialize };

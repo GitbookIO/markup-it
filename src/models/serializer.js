@@ -1,7 +1,7 @@
-const typeOf = require('type-of');
-const uid = require('uid');
-const { Text, Mark } = require('slate');
-const RuleFunction = require('./rule-function');
+import typeOf from 'type-of';
+import uid from 'uid';
+import { Text, Mark } from 'slate';
+import RuleFunction from './rule-function';
 
 class Serializer extends RuleFunction {
     /**
@@ -146,4 +146,4 @@ function normalizeMatcher(matcher) {
     }
 }
 
-module.exports = () => new Serializer();
+export default () => new Serializer();

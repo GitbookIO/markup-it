@@ -1,4 +1,4 @@
-const { Serializer, MARKS } = require('../../');
+import { Serializer, MARKS } from '../../';
 
 /**
  * Serialize a bold text to HTML
@@ -9,4 +9,4 @@ const serialize = Serializer().transformMarkedLeaf(
     (state, text, mark) => `<b>${text}</b>`
 );
 
-module.exports = { serialize };
+export default { serialize };

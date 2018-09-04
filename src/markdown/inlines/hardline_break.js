@@ -1,5 +1,5 @@
-const { Serializer, Deserializer } = require('../../');
-const reInline = require('../re/inline');
+import { Serializer, Deserializer } from '../../';
+import reInline from '../re/inline';
 
 /**
  * Replace hardline break by two spaces followed by a newline
@@ -26,4 +26,4 @@ const deserialize = Deserializer().matchRegExp(reInline.br, (state, match) =>
     state.pushText('\n')
 );
 
-module.exports = { serialize, deserialize };
+export default { serialize, deserialize };

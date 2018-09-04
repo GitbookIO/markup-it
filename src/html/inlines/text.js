@@ -1,4 +1,4 @@
-const { Serializer } = require('../../');
+import { Serializer } from '../../';
 
 /**
  * Serialize a text node to HTML
@@ -16,4 +16,4 @@ const serialize = Serializer()
         return state.shift().write(text);
     });
 
-module.exports = { serialize };
+export default { serialize };
