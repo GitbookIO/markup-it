@@ -1,5 +1,6 @@
-const { Serializer, Deserializer, Block, BLOCKS } = require('../../');
+const { State, Serializer, Deserializer, Block, BLOCKS } = require('../../');
 const reBlock = require('../re/block');
+const HTMLParser = require('../../html');
 
 /**
  * Serialize an HTML block to markdown
@@ -22,15 +23,19 @@ const serialize = Serializer()
  */
 const deserialize = Deserializer()
     .matchRegExp(reBlock.html, (state, match) => {
-        const node = Block.create({
-            type: BLOCKS.HTML,
-            isVoid: true,
-            data: {
-                html: match[0].trim()
-            }
-        });
+        const html = match[0].trim();
+        // const node = Block.create({
+        //     type: BLOCKS.HTML,
+        //     isVoid: true,
+        //     data: {
+        //         html
+        //     }
+        // });
 
-        return state.push(node);
+        const htmlState = State.create(HTMLParser);
+        const document = htmlState.deserializeToDocument(html);
+
+        return state.push(document.nodes);
     });
 
 module.exports = { serialize, deserialize };
