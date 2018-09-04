@@ -29,8 +29,7 @@
   "homepage": "https://github.com/GitbookIO/markup-it#readme",
   "peerDependencies": {
     "immutable": "^3.8.1",
-    "react": "^0.14.0 || ^15.0.0 || ^16.0.0",
-    "slate": "^0.34.0"
+    "slate": "^0.34.4"
   },
   "devDependencies": {
     "babel-cli": "^6.10.1",
@@ -42,9 +41,7 @@
     "expect": "^1.20.2",
     "immutable": "^3.7.6",
     "mocha": "^2.4.5",
-    "react": "^16.0.0",
-    "react-dom": "^16.0.0",
-    "slate": "^0.34.3",
+    "slate": "^0.34.4",
     "slate-hyperprint": "^2.2.0"
   },
   "dependencies": {
