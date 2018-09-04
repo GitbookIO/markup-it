@@ -56,12 +56,9 @@ const serialize = Serializer()
         const headerRow = nodes.get(0);
         const bodyRows = nodes.slice(1);
 
-        const output =
-            `${rowToText(state, headerRow)  }\n${
-             alignsToText(aligns)  }\n${
-             bodyRows.map(row => rowToText(state, row)).join('\n')
-             }\n\n`
-        );
+        const output = `${rowToText(state, headerRow)}\n${alignsToText(
+            aligns
+        )}\n${bodyRows.map(row => rowToText(state, row)).join('\n')}\n\n`;
 
         return state.shift().write(output);
     });
@@ -161,16 +158,15 @@ function rowToCells(rowStr) {
  * @return {Array<String|null>}
  */
 function mapAligns(aligns) {
-    return aligns.map((s) => {
+    return aligns.map(s => {
         if (reTable.alignRight.test(s)) {
             return TABLE_ALIGN.RIGHT;
         } else if (reTable.alignCenter.test(s)) {
             return TABLE_ALIGN.CENTER;
         } else if (reTable.alignLeft.test(s)) {
             return TABLE_ALIGN.LEFT;
-        } else {
-            return null;
         }
+        return null;
     });
 }
 
@@ -183,7 +179,7 @@ function mapAligns(aligns) {
  */
 function rowToText(state, row) {
     const { nodes } = row;
-    return `| ${  nodes.map(cell => cellToText(state, cell)).join(' | ')  } |`;
+    return `| ${nodes.map(cell => cellToText(state, cell)).join(' | ')} |`;
 }
 
 /**
@@ -205,20 +201,18 @@ function cellToText(state, cell) {
  * @return {String}
  */
 function alignsToText(aligns) {
-    return (
-        '|' +
-        aligns
-            .map((align) => {
-        if (align == 'right') {
-            return ' ---: |';
-        } else if (align == 'center') {
-            return ' :---: |';
-        } else if (align == 'left') {
-            return ' :--- |';
-        } else {
+    return `|${aligns
+        .map(align => {
+            if (align == 'right') {
+                return ' ---: |';
+            } else if (align == 'center') {
+                return ' :---: |';
+            } else if (align == 'left') {
+                return ' :--- |';
+            }
             return ' --- |';
-        }
-    }).join('');
+        })
+        .join('')}`;
 }
 
 module.exports = { serialize, deserialize };

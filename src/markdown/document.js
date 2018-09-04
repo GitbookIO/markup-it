@@ -18,11 +18,9 @@ const serialize = Serializer()
             return state.shift().write(body);
         }
 
-        const frontMatter =
-            `---\n${ 
-            yaml.safeDump(data.toJS(), { skipInvalid: true }) 
-            }---\n\n`
-        );
+        const frontMatter = `---\n${yaml.safeDump(data.toJS(), {
+            skipInvalid: true
+        })}---\n\n`;
 
         return state.shift().write(frontMatter + body);
     });
