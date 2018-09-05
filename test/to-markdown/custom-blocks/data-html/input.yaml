@@ -1,7 +1,0 @@
-document:
-  nodes:
-    - object: block
-      type: x-embed
-      isVoid: true
-      data:
-        json: '{"html":"<div style=\"background-color: red;\" />"}'

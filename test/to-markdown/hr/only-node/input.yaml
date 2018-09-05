@@ -1,5 +1,0 @@
-document:
-  nodes:
-    - object: block
-      type: hr
-      isVoid: true
