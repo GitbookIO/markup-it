@@ -1,7 +1,8 @@
+/* eslint-disable global-require */
+/* eslint-disable import/no-dynamic-require */
 import fs from 'fs';
 import path from 'path';
 import expect from 'expect';
-import yaml from 'js-yaml';
 import Slate from 'slate';
 import trimTrailingLines from 'trim-trailing-lines';
 import { State } from '../src/';
@@ -22,7 +23,7 @@ function readFileInput(filePath) {
         const parser = State.create(syntax, props);
         const document = parser.deserializeToDocument(content);
         const value = Slate.Value.create({ document });
-        return value.toJSON();
+        return value.document.toJSON();
     }
 
     switch (ext) {
@@ -32,8 +33,8 @@ function readFileInput(filePath) {
             });
         case '.html':
             return deserializeWith(html);
-        case '.yaml':
-            return Slate.Value.fromJSON(readYaml(filePath)).toJSON();
+        case '.js':
+            return require(filePath).default.toJSON();
         default:
             throw new Error(`Unknown extension ${ext}`);
     }
@@ -62,7 +63,7 @@ function convertFor(value, outputExt) {
             });
         case '.html':
             return serializeWith(html);
-        case '.yaml':
+        case '.js':
             return value;
         default:
             throw new Error(`Unknown extension ${outputExt}`);
@@ -84,8 +85,8 @@ function readFileOutput(fileName) {
         case '.html':
             // We trim to avoid newlines being compared at the end
             return trimTrailingLines(content);
-        case '.yaml':
-            return Slate.Value.fromJSON(readYaml(fileName)).toJSON();
+        case '.js':
+            return require(fileName).default.toJSON();
         default:
             throw new Error(`Unknown extension ${ext}`);
     }
@@ -168,16 +169,6 @@ function runTests(seriePath) {
             });
         }
     });
-}
-
-/**
- * Read a YAML file.
- * @param  {String} filePath
- * @return {Object}
- */
-function readYaml(filePath) {
-    const content = fs.readFileSync(filePath);
-    return yaml.safeLoad(content);
 }
 
 describe('MarkupIt', () => {
