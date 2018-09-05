@@ -7,7 +7,11 @@ export default (
             <paragraph>Method 1</paragraph>
             <x-sample lang="js">
                 <paragraph>Some code</paragraph>
-                <x-youtube src="https://www.youtube.com/watch?v=XXXXXXX" />
+                <block
+                    type="x-youtube"
+                    isVoid
+                    data={{ src: 'https://www.youtube.com/watch?v=XXXXXXX' }}
+                />
             </x-sample>
         </x-method>
     </document>

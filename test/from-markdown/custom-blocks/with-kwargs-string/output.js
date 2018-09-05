@@ -4,6 +4,6 @@ import h from 'h';
 export default (
     <document>
         <paragraph>Hello world</paragraph>
-        <x-someblock a="Hello" b="World" />
+        <block type="x-someblock" isVoid data={{ a: 'Hello', b: 'World' }} />
     </document>
 );

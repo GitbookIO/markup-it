@@ -4,7 +4,7 @@ import h from 'h';
 export default (
     <document>
         <paragraph>
-            <math formula="a = b" /> world
+            <inline type="math" isVoid data={{ formula: 'a = b' }} /> world
         </paragraph>
     </document>
 );

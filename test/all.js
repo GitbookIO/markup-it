@@ -46,11 +46,11 @@ function readFileInput(filePath) {
  * @param  {String} outputExt
  * @return {Mixed}
  */
-function convertFor(value, outputExt) {
+function convertFor(inputDocument, outputExt) {
     function serializeWith(syntax, props) {
         const parser = State.create(syntax, props);
-        const inputDocument = Slate.Value.fromJSON(value).document;
-        const out = parser.serializeDocument(inputDocument);
+        const document = Slate.Document.fromJSON(inputDocument);
+        const out = parser.serializeDocument(document);
 
         // Trim to avoid newlines being compared at the end
         return trimTrailingLines(out);
@@ -64,7 +64,7 @@ function convertFor(value, outputExt) {
         case '.html':
             return serializeWith(html);
         case '.js':
-            return value;
+            return inputDocument;
         default:
             throw new Error(`Unknown extension ${outputExt}`);
     }
@@ -86,7 +86,9 @@ function readFileOutput(fileName) {
             // We trim to avoid newlines being compared at the end
             return trimTrailingLines(content);
         case '.js':
-            return require(fileName).default.toJSON();
+            return Slate.Value.create({
+                document: require(fileName).default
+            }).document.toJSON();
         default:
             throw new Error(`Unknown extension ${ext}`);
     }

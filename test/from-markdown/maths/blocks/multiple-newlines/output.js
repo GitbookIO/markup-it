@@ -4,7 +4,7 @@ import h from 'h';
 export default (
     <document>
         <paragraph>Hello</paragraph>
-        <math_block formula="a = b" />
+        <block type="math_block" isVoid data={{ formula: 'a = b' }} />
         <paragraph>world</paragraph>
     </document>
 );

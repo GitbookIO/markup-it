@@ -6,6 +6,7 @@ export default (
         <paragraph>
             {' '}
             <image src="image.com/image.png" title="Image title" />
+            <text />
         </paragraph>
     </document>
 );
