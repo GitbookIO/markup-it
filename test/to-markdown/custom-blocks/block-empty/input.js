@@ -1,0 +1,3 @@
+<document>
+    <x-empty />
+</document>

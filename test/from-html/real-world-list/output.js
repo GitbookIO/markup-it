@@ -1,0 +1,19 @@
+<document>
+    <paragraph>Let’s see how the account management is organized:</paragraph>
+    <unordered_list>
+        <list_item>
+            <unstyled>
+                An <BOLD>Account</BOLD> is what you use to login to Algolia.
+                Each team member should have a separate account, secured with
+                Two-Factor-Authentication.
+            </unstyled>
+        </list_item>
+        <list_item>
+            <unstyled>
+                Each team member can have access to one or multiple{' '}
+                <BOLD>Applications</BOLD>
+                . You can invite members to the applications you manage.
+            </unstyled>
+        </list_item>
+    </unordered_list>
+</document>
