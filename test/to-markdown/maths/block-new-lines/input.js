@@ -1,8 +1,13 @@
 /** @jsx h */
- import h from 'h'
- export default <document>
-    <math_block formula="
+import h from 'h';
+
+export default (
+    <document>
+        <math_block
+            formula="
 
     a = b
-    c = d" />
-</document>
+    c = d"
+        />
+    </document>
+);

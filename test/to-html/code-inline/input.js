@@ -1,7 +1,10 @@
 /** @jsx h */
- import h from 'h'
- export default <document>
-    <paragraph>
-        Compare <CODE>{'a < b'}</CODE>
-    </paragraph>
-</document>
+import h from 'h';
+
+export default (
+    <document>
+        <paragraph>
+            Compare <code>{'a < b'}</code>
+        </paragraph>
+    </document>
+);

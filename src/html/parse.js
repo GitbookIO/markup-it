@@ -3,7 +3,18 @@ import htmlparser from 'htmlparser2';
 import htmlclean from 'htmlclean';
 import { List, Stack, Set } from 'immutable';
 import { Document } from 'slate';
-import { BLOCKS, INLINES, MARKS, CONTAINERS, VOID, LEAFS, Block, Inline, Text, Mark } from '../';
+import {
+    BLOCKS,
+    INLINES,
+    MARKS,
+    CONTAINERS,
+    VOID,
+    LEAFS,
+    Block,
+    Inline,
+    Text,
+    Mark
+} from '../';
 
 const INLINE_TAGS = {
     a: INLINES.LINK,

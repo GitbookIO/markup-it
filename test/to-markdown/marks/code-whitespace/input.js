@@ -1,9 +1,11 @@
 /** @jsx h */
- import h from 'h'
- export default <document>
-    <paragraph>
-        Hello
-        <CODE> World </CODE>
-        !
-    </paragraph>
-</document>
+import h from 'h';
+
+export default (
+    <document>
+        <paragraph>
+            Hello
+            <code> World </code>!
+        </paragraph>
+    </document>
+);

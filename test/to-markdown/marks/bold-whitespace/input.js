@@ -1,11 +1,13 @@
 /** @jsx h */
- import h from 'h'
- export default <document>
-    <paragraph>
-        Hello
-        <BOLD> World</BOLD>
-        ! How <BOLD>are </BOLD>
-        you? <BOLD>{'World:\n'}</BOLD>
-        Fine, thanks!
-    </paragraph>
-</document>
+import h from 'h';
+
+export default (
+    <document>
+        <paragraph>
+            Hello
+            <bold> World</bold>! How <bold>are </bold>
+            you? <bold>{'World:\n'}</bold>
+            Fine, thanks!
+        </paragraph>
+    </document>
+);
