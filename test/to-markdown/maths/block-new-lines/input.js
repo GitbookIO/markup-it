@@ -3,11 +3,6 @@ import h from 'h';
 
 export default (
     <document>
-        <math_block
-            formula="
-
-    a = b
-    c = d"
-        />
+        <block type="math_block" isVoid data={{ formula: 'a = b\nc = d' }} />
     </document>
 );

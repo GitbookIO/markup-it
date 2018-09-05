@@ -4,7 +4,7 @@ import h from 'h';
 export default (
     <document>
         <paragraph>
-            Hello <variable key="name" />
+            Hello <inline type="variable" isVoid data={{ key: 'name' }} />
         </paragraph>
     </document>
 );

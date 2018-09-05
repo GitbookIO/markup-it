@@ -2,7 +2,7 @@
 import h from 'h';
 
 export default (
-    <document deep={{ message: 'Coucou' }}>
+    <document data={{ deep: { message: 'Coucou' } }}>
         <paragraph>Hello World</paragraph>
     </document>
 );

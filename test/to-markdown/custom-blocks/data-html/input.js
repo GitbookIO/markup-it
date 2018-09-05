@@ -7,8 +7,7 @@ export default (
             type="x-embed"
             isVoid
             data={{
-                json:
-                    '{&quot;html&quot;:&quot;<div style=&quot;background-color: red;&quot; />&quot;}'
+                json: '{"html":"<div style=\\"background-color: red;\\" />"}'
             }}
         />
     </document>
