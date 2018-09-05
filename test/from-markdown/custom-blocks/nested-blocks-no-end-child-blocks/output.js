@@ -1,4 +1,6 @@
-<document>
+/** @jsx h */
+ import h from 'h'
+ export default <document>
     <paragraph>Content preceding a method</paragraph>
     <x-method>
         <paragraph>Method content</paragraph>

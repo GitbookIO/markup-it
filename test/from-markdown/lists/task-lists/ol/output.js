@@ -1,4 +1,6 @@
-<document>
+/** @jsx h */
+ import h from 'h'
+ export default <document>
     <ordered_list>
         <list_item checked={false}>
             <unstyled>Hello</unstyled>

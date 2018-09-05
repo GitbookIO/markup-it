@@ -1,4 +1,6 @@
-<document>
+/** @jsx h */
+ import h from 'h'
+ export default <document>
     <table aligns={[null, null]}>
         <table_row>
             <table_cell>

@@ -1,4 +1,6 @@
-<document>
+/** @jsx h */
+ import h from 'h'
+ export default <document>
     <code_block>
         <code_line>using Starcounter;</code_line>
         <code_line />

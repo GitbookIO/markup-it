@@ -1,4 +1,6 @@
-<document>
+/** @jsx h */
+ import h from 'h'
+ export default <document>
     <paragraph>
         {' '}
         <BOLD>Dub Incorporation</BOLD> (since 2006 just <BOLD>Dub Inc</BOLD>

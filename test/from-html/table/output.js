@@ -1,4 +1,6 @@
-<document>
+/** @jsx h */
+ import h from 'h'
+ export default <document>
     <table>
         <table_row>
             <table_cell>John</table_cell>

@@ -1,4 +1,6 @@
-<document>
+/** @jsx h */
+ import h from 'h'
+ export default <document>
     <blockquote>
         <paragraph>A code block within a blockquote:</paragraph>
         <code_block syntax="js">

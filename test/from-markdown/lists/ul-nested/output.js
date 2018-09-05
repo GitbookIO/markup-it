@@ -1,4 +1,6 @@
-<document>
+/** @jsx h */
+ import h from 'h'
+ export default <document>
     <unordered_list>
         <list_item>
             <unstyled>Hello</unstyled>

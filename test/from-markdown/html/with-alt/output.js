@@ -1,4 +1,6 @@
-<document>
+/** @jsx h */
+ import h from 'h'
+ export default <document>
     <paragraph>
         Some image with attributes{' '}
         <html

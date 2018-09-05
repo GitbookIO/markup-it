@@ -1,4 +1,6 @@
-<document>
+/** @jsx h */
+ import h from 'h'
+ export default <document>
     <paragraph>
         The empty line before endyoutube should not create a separate paragraph
     </paragraph>

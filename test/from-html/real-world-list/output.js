@@ -1,4 +1,6 @@
-<document>
+/** @jsx h */
+ import h from 'h'
+ export default <document>
     <paragraph>Let’s see how the account management is organized:</paragraph>
     <unordered_list>
         <list_item>

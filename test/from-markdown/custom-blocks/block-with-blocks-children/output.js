@@ -1,4 +1,6 @@
-<document>
+/** @jsx h */
+ import h from 'h'
+ export default <document>
     <paragraph>Hello world</paragraph>
     <x-method>
         <header_two id="install">Install</header_two>

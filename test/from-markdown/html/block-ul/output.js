@@ -1,4 +1,6 @@
-<document>
+/** @jsx h */
+ import h from 'h'
+ export default <document>
     <html_block html="<ol>
     <li>test</li>
     </ol>" />

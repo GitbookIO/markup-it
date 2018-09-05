@@ -1,4 +1,6 @@
-<document>
+/** @jsx h */
+ import h from 'h'
+ export default <document>
     <code_block syntax="java">
         <code_line />
     </code_block>

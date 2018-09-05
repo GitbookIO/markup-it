@@ -1,4 +1,6 @@
-<document>
+/** @jsx h */
+ import h from 'h'
+ export default <document>
     <paragraph>One paragraph before</paragraph>
     <unordered_list>
         <list_item>

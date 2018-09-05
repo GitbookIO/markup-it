@@ -1,4 +1,6 @@
-<document>
+/** @jsx h */
+ import h from 'h'
+ export default <document>
     <x-method>
         <header_two>Method 1</header_two>
         <x-sample lang="js">

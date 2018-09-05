@@ -1,4 +1,6 @@
-<document>
+/** @jsx h */
+ import h from 'h'
+ export default <document>
     <paragraph>
         This paragraph is followed by a table, without any blank line
         in-between.

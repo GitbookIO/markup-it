@@ -1,4 +1,6 @@
-<document>
+/** @jsx h */
+ import h from 'h'
+ export default <document>
     <blockquote>
         <paragraph>A list within a blockquote:</paragraph>
         <unordered_list>
