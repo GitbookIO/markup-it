@@ -1,18 +1,16 @@
-const { Document, Block, Inline, Text, Mark, Leaf } = require('slate');
+import { Document, Block, Inline, Text, Mark, Leaf } from 'slate';
+import State from './models/state';
+import Deserializer from './models/deserializer';
+import Serializer from './models/serializer';
+import MARKS from './constants/marks';
+import BLOCKS from './constants/blocks';
+import INLINES from './constants/inlines';
+import VOID from './constants/void';
+import CONTAINERS from './constants/containers';
+import LEAFS from './constants/leafs';
+import TABLE_ALIGN from './constants/table-align';
 
-const State = require('./models/state');
-const Deserializer = require('./models/deserializer');
-const Serializer = require('./models/serializer');
-
-const MARKS = require('./constants/marks');
-const BLOCKS = require('./constants/blocks');
-const INLINES = require('./constants/inlines');
-const VOID = require('./constants/void');
-const CONTAINERS = require('./constants/containers');
-const LEAFS = require('./constants/leafs');
-const TABLE_ALIGN = require('./constants/table-align');
-
-module.exports = {
+export {
     State,
     Serializer,
     Deserializer,
@@ -25,5 +23,10 @@ module.exports = {
     LEAFS,
     VOID,
     // Slate exports
-    Document, Block, Inline, Text, Mark, Leaf
+    Document,
+    Block,
+    Inline,
+    Text,
+    Mark,
+    Leaf
 };

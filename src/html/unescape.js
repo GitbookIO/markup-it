@@ -1,4 +1,4 @@
-const entities = require('entities');
+import entities from 'entities';
 
 /**
  * Unescape all entities (HTML + XML)
@@ -6,9 +6,7 @@ const entities = require('entities');
  * @return {String}
  */
 function unescape(str) {
-    str = entities.decodeHTML(str);
-
-    return str;
+    return entities.decodeHTML(str);
 }
 
-module.exports = unescape;
+export default unescape;

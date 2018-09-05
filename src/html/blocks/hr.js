@@ -1,5 +1,5 @@
-const { Serializer, BLOCKS } = require('../../');
-const serializeTag = require('../serializeTag');
+import { Serializer, BLOCKS } from '../../';
+import serializeTag from '../serializeTag';
 
 /**
  * Serialize an horizontal rule to HTML
@@ -7,8 +7,10 @@ const serializeTag = require('../serializeTag');
  */
 const serialize = Serializer()
     .matchType(BLOCKS.HR)
-    .then(serializeTag('hr', {
-        isSingleTag: true
-    }));
+    .then(
+        serializeTag('hr', {
+            isSingleTag: true
+        })
+    );
 
-module.exports = { serialize };
+export default { serialize };

@@ -1,5 +1,5 @@
-const is = require('is');
-const { escape } = require('./escape');
+import is from 'is';
+import { escape } from './escape';
 
 /**
  * Stringify a literal
@@ -8,14 +8,12 @@ const { escape } = require('./escape');
  */
 function stringifyLiteral(value) {
     if (is.bool(value)) {
-        return (value ? 'true' : 'false');
+        return value ? 'true' : 'false';
+    } else if (is.string(value)) {
+        return `"${escape(value)}"`;
     }
-    else if (is.string(value)) {
-        return '"' + escape(value) + '"';
-    }
-    else {
-        return String(value);
-    }
+
+    return String(value);
 }
 
 /**
@@ -26,15 +24,15 @@ function stringifyLiteral(value) {
 function stringifyData(data) {
     return data
         .entrySeq()
-        .map(([ key, value ]) => {
+        .map(([key, value]) => {
             const isArgs = Number(key) >= 0;
-            value = stringifyLiteral(value);
+            const stringValue = stringifyLiteral(value);
 
             if (isArgs) {
-                return value;
+                return stringValue;
             }
 
-            return `${key}=${value}`;
+            return `${key}=${stringValue}`;
         })
         .join(' ');
 }
@@ -48,7 +46,9 @@ function stringifyData(data) {
  * @return {String}
  */
 function stringifyTag({ tag, data }) {
-    return `{% ${tag}${data && data.size > 0 ? ' ' + stringifyData(data) : ''} %}`;
+    return `{% ${tag}${
+        data && data.size > 0 ? ` ${stringifyData(data)}` : ''
+    } %}`;
 }
 
-module.exports = stringifyTag;
+export default stringifyTag;

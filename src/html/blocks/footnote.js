@@ -1,4 +1,4 @@
-const { Serializer, BLOCKS } = require('../../');
+import { Serializer, BLOCKS } from '../../';
 
 /**
  * Serialize a footnote block to HTML
@@ -11,15 +11,13 @@ const serialize = Serializer()
         const text = state.serialize(node.nodes);
         const refname = node.data.get('id');
 
-        return state
-            .shift()
-            .write(
-                `<blockquote id="fn_${refname}">
+        return state.shift().write(
+            `<blockquote id="fn_${refname}">
 <sup>${refname}</sup>. ${text}
 <a href="#reffn_${refname}" title="Jump back to footnote [${refname}] in the text."> &#8617;</a>
 </blockquote>
 `
-            );
+        );
     });
 
-module.exports = { serialize };
+export default { serialize };

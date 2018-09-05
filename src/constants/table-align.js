@@ -1,7 +1,7 @@
 const TABLE_ALIGN = {
-    LEFT:   'left',
-    RIGHT:  'right',
+    LEFT: 'left',
+    RIGHT: 'right',
     CENTER: 'center'
 };
 
-module.exports = TABLE_ALIGN;
+export default TABLE_ALIGN;

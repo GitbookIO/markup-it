@@ -1,8 +1,0 @@
-document:
-  nodes:
-    - object: block
-      type: blockquote
-      nodes:
-        - object: text
-          leaves:
-            - text: Hello World

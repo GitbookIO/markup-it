@@ -1,14 +1,14 @@
-const fs = require('fs');
-const path = require('path');
-const expect = require('expect');
-const yaml = require('js-yaml');
-const Slate = require('slate');
-const trimTrailingLines = require('trim-trailing-lines');
-
-const MarkupIt = require('../src/');
-const markdown = require('../src/markdown');
-const html = require('../src/html');
-const unendingTags = require('./unendingTags');
+/* eslint-disable global-require */
+/* eslint-disable import/no-dynamic-require */
+import fs from 'fs';
+import path from 'path';
+import expect from 'expect';
+import Slate from 'slate';
+import trimTrailingLines from 'trim-trailing-lines';
+import { State } from '../src/';
+import markdown from '../src/markdown';
+import html from '../src/html';
+import unendingTags from './unendingTags';
 
 /**
  * Read a file input to a value.
@@ -20,21 +20,23 @@ function readFileInput(filePath) {
     const content = fs.readFileSync(filePath, { encoding: 'utf8' });
 
     function deserializeWith(syntax, props = {}) {
-        const parser = MarkupIt.State.create(syntax, props);
+        const parser = State.create(syntax, props);
         const document = parser.deserializeToDocument(content);
         const value = Slate.Value.create({ document });
-        return value.toJSON();
+        return value.document.toJSON();
     }
 
     switch (ext) {
-    case '.md':
-        return deserializeWith(markdown, {
-            unendingTags
-        });
-    case '.html':
-        return deserializeWith(html);
-    case '.yaml':
-        return Slate.Value.fromJSON(readYaml(filePath)).toJSON();
+        case '.md':
+            return deserializeWith(markdown, {
+                unendingTags
+            });
+        case '.html':
+            return deserializeWith(html);
+        case '.js':
+            return require(filePath).default.toJSON();
+        default:
+            throw new Error(`Unknown extension ${ext}`);
     }
 }
 
@@ -44,26 +46,27 @@ function readFileInput(filePath) {
  * @param  {String} outputExt
  * @return {Mixed}
  */
-function convertFor(value, outputExt) {
-
+function convertFor(inputDocument, outputExt) {
     function serializeWith(syntax, props) {
-        const parser = MarkupIt.State.create(syntax, props);
-        const inputDocument = Slate.Value.fromJSON(value).document;
-        const out = parser.serializeDocument(inputDocument);
+        const parser = State.create(syntax, props);
+        const document = Slate.Document.fromJSON(inputDocument);
+        const out = parser.serializeDocument(document);
 
         // Trim to avoid newlines being compared at the end
         return trimTrailingLines(out);
     }
 
     switch (outputExt) {
-    case '.md':
-        return serializeWith(markdown, {
-            unendingTags
-        });
-    case '.html':
-        return serializeWith(html);
-    case '.yaml':
-        return value;
+        case '.md':
+            return serializeWith(markdown, {
+                unendingTags
+            });
+        case '.html':
+            return serializeWith(html);
+        case '.js':
+            return inputDocument;
+        default:
+            throw new Error(`Unknown extension ${outputExt}`);
     }
 }
 
@@ -77,13 +80,17 @@ function readFileOutput(fileName) {
     const content = fs.readFileSync(fileName, { encoding: 'utf8' });
 
     switch (ext) {
-    case '.md':
-    case '.adoc':
-    case '.html':
-        // We trim to avoid newlines being compared at the end
-        return trimTrailingLines(content);
-    case '.yaml':
-        return Slate.Value.fromJSON(readYaml(fileName)).toJSON();
+        case '.md':
+        case '.adoc':
+        case '.html':
+            // We trim to avoid newlines being compared at the end
+            return trimTrailingLines(content);
+        case '.js':
+            return Slate.Value.create({
+                document: require(fileName).default
+            }).document.toJSON();
+        default:
+            throw new Error(`Unknown extension ${ext}`);
     }
 }
 
@@ -125,9 +132,13 @@ function isTestFolder(folder) {
     const output = Boolean(outputName);
 
     if (input && !output) {
-        throw new Error(`It looks like the test '${folder}' has an ${inputName} file, but is missing an output file.`);
+        throw new Error(
+            `It looks like the test '${folder}' has an ${inputName} file, but is missing an output file.`
+        );
     } else if (!input && output) {
-        throw new Error(`It looks like the test '${folder}' has an ${outputName} file, but is missing an output file.`);
+        throw new Error(
+            `It looks like the test '${folder}' has an ${outputName} file, but is missing an output file.`
+        );
     }
 
     return input && output;
@@ -160,16 +171,6 @@ function runTests(seriePath) {
             });
         }
     });
-}
-
-/**
- * Read a YAML file.
- * @param  {String} filePath
- * @return {Object}
- */
-function readYaml(filePath) {
-    const content = fs.readFileSync(filePath);
-    return yaml.safeLoad(content);
 }
 
 describe('MarkupIt', () => {

@@ -1,12 +1,11 @@
-const expect = require('expect');
-const { Block } = require('slate');
-const State  = require('../src/models/state');
+import expect from 'expect';
+import { Block } from 'slate';
+import State from '../src/models/state';
 
 describe('State', () => {
-
     describe('.push()', () => {
         it('should add nodes in the stack', () => {
-            const state = (new State())
+            const state = new State()
                 .push(Block.create({ type: 'heading' }))
                 .push(Block.create({ type: 'paragraph' }));
 
@@ -17,7 +16,7 @@ describe('State', () => {
 
     describe('.peek()', () => {
         it('should return the first node', () => {
-            const state = (new State())
+            const state = new State()
                 .push(Block.create({ type: 'heading' }))
                 .push(Block.create({ type: 'paragraph' }));
 
@@ -28,9 +27,7 @@ describe('State', () => {
 
     describe('.write()', () => {
         it('should add text to the buffer', () => {
-            const state = (new State())
-                .write('Hello')
-                .write(' World');
+            const state = new State().write('Hello').write(' World');
 
             expect(state.text).toBe('Hello World');
         });
@@ -38,9 +35,7 @@ describe('State', () => {
 
     describe('.skip()', () => {
         it('should skip N characters from text', () => {
-            const state = (new State())
-                .write('Hello World')
-                .skip(5);
+            const state = new State().write('Hello World').skip(5);
 
             expect(state.text).toBe(' World');
         });
@@ -49,7 +44,7 @@ describe('State', () => {
     describe('.rules', () => {
         it('should return block rules by default', () => {
             const state = State.create({
-                document: [ { deserialize: (st => st) } ]
+                document: [{ deserialize: st => st }]
             });
 
             expect(state.rules.size).toBe(1);
@@ -65,9 +60,8 @@ describe('State', () => {
     describe('.use', () => {
         it('should change the current set of rules', () => {
             const state = State.create({
-                block: [ { deserialize: (st => st) } ]
-            })
-            .use('inline');
+                block: [{ deserialize: st => st }]
+            }).use('inline');
 
             expect(state.rules.size).toBe(0);
         });
@@ -80,17 +74,16 @@ describe('State', () => {
             nextLine = nextLine < 0 ? text.length : nextLine + 1;
             const type = text.slice(0, nextLine);
 
-            return state
-                .skip(nextLine)
-                .push(Block.create({ type }));
+            return state.skip(nextLine).push(Block.create({ type }));
         };
-
 
         it('should deserialize using the rule', () => {
             const state = State.create({
-                block: [ { deserialize } ]
+                block: [{ deserialize }]
             });
-            const nodes = state.use('block').deserialize('heading\nparagraph\ncode');
+            const nodes = state
+                .use('block')
+                .deserialize('heading\nparagraph\ncode');
 
             expect(nodes.size).toBe(3);
         });
@@ -100,19 +93,19 @@ describe('State', () => {
         const serialize = state => {
             const node = state.peek();
 
-            return state
-                .shift()
-                .write(node.type + '\n');
+            return state.shift().write(`${node.type}\n`);
         };
 
         it('should process all nodes', () => {
             const state = State.create({
-                block: [ { serialize } ]
+                block: [{ serialize }]
             });
-            const text = state.use('block').serialize([
-                Block.create({ type: 'heading' }),
-                Block.create({ type: 'paragraph' })
-            ]);
+            const text = state
+                .use('block')
+                .serialize([
+                    Block.create({ type: 'heading' }),
+                    Block.create({ type: 'paragraph' })
+                ]);
 
             expect(text).toBe('heading\nparagraph\n');
         });

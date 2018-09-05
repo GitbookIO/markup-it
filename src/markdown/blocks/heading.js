@@ -1,5 +1,5 @@
-const { Serializer, Deserializer, Block, BLOCKS } = require('../../');
-const reHeading = require('../re/heading');
+import { Serializer, Deserializer, Block, BLOCKS } from '../../';
+import reHeading from '../re/heading';
 
 const TYPES = [
     BLOCKS.HEADING_1,
@@ -16,7 +16,7 @@ const TYPES = [
  */
 const serialize = Serializer()
     .matchType(TYPES)
-    .then((state) => {
+    .then(state => {
         const node = state.peek();
         const { type, data } = node;
         const id = data.get('id');
@@ -28,9 +28,7 @@ const serialize = Serializer()
             inner = `${inner} {#${id}}`;
         }
 
-        return state
-            .shift()
-            .write(`${prefix} ${inner}\n\n`);
+        return state.shift().write(`${prefix} ${inner}\n\n`);
     });
 
 /**
@@ -38,36 +36,37 @@ const serialize = Serializer()
  * line syntax to a node.
  * @type {Deserializer}
  */
-const deserializeNormal = Deserializer()
-    .matchRegExp(reHeading.normal, (state, match) => {
+const deserializeNormal = Deserializer().matchRegExp(
+    reHeading.normal,
+    (state, match) => {
         const level = match[1].length;
         return parseHeadingText(state, level, match[2]);
-    });
+    }
+);
 
 /**
  * Deserialize a line heading.
  * @type {Deserializer}
  */
-const deserializeLine = Deserializer()
-    .matchRegExp(reHeading.line, (state, match) => {
-        const level = (match[2] === '=') ? 1 : 2;
+const deserializeLine = Deserializer().matchRegExp(
+    reHeading.line,
+    (state, match) => {
+        const level = match[2] === '=' ? 1 : 2;
         return parseHeadingText(state, level, match[1]);
-    });
+    }
+);
 
-const deserialize = Deserializer()
-    .use([
-        deserializeNormal,
-        deserializeLine
-    ]);
+const deserialize = Deserializer().use([deserializeNormal, deserializeLine]);
 
 /**
  * Parse inner text of header to extract ID entity
  * @param  {State} state
  * @param  {Number} level
- * @param  {String} text
+ * @param  {String} initialText
  * @return {State}
  */
-function parseHeadingText(state, level, text) {
+function parseHeadingText(state, level, initialText) {
+    let text = initialText;
     reHeading.id.lastIndex = 0;
     const match = reHeading.id.exec(text);
     let data;
@@ -90,4 +89,4 @@ function parseHeadingText(state, level, text) {
     return state.push(node);
 }
 
-module.exports = { serialize, deserialize };
+export default { serialize, deserialize };

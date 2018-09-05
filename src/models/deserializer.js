@@ -1,8 +1,7 @@
-const { List } = require('immutable');
-const RuleFunction = require('./rule-function');
+import { List } from 'immutable';
+import RuleFunction from './rule-function';
 
 class Deserializer extends RuleFunction {
-
     /**
      * Match text using a regexp, and move the state to the right position.
      *
@@ -10,25 +9,21 @@ class Deserializer extends RuleFunction {
      * @param {Function} callback
      * @return {Deserializer}
      */
-    matchRegExp(res, callback) {
-        if (!(res instanceof Array)) {
-            res = [res];
+    matchRegExp(inputRegexps, callback) {
+        let regexps = inputRegexps;
+        if (!(regexps instanceof Array)) {
+            regexps = [regexps];
         }
-        res = List(res);
+        regexps = List(regexps);
 
         let match;
-        return this.filter((state) => {
-            return res.some(re => {
+        return this.filter(state =>
+            regexps.some(re => {
                 match = re.exec(state.text);
                 return match;
-            });
-        })
-        .then((state) => {
-            state = state.skip(match[0].length);
-            return callback(state, match);
-        });
+            })
+        ).then(state => callback(state.skip(match[0].length), match));
     }
-
 }
 
-module.exports = () => new Deserializer();
+export default () => new Deserializer();

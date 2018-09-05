@@ -1,24 +1,23 @@
-const { Record, List, Map, Set } = require('immutable');
-const { Text, Block, Document } = require('slate');
-const BLOCKS = require('../constants/blocks');
-const RuleFunction = require('./rule-function');
+import { Record, List, Map, Set } from 'immutable';
+import { Text, Block, Document } from 'slate';
+import BLOCKS from '../constants/blocks';
+import RuleFunction from './rule-function';
 
 /*
     State stores the global state when serializing a document or deseriaizing a text.
  */
 
 const DEFAULTS = {
-    text:     '',
-    nodes:    List(),
-    marks:    Set(),
-    object:   String('document'),
+    text: '',
+    nodes: List(),
+    marks: Set(),
+    object: String('document'),
     rulesSet: Map(),
-    depth:    0,
-    props:    Map()
+    depth: 0,
+    props: Map()
 };
 
 class State extends Record(DEFAULTS) {
-
     /**
      * Create a new state from a set of rules.
      * @param  {Object} rulesSet
@@ -190,9 +189,7 @@ class State extends Record(DEFAULTS) {
      * @return {State} state
      */
     pushText(text) {
-        return this.push(
-            this.genText(text)
-        );
+        return this.push(this.genText(text));
     }
 
     /**
@@ -203,7 +200,7 @@ class State extends Record(DEFAULTS) {
      */
     up() {
         let { depth } = this;
-        depth--;
+        depth -= 1;
         return this.merge({ depth });
     }
 
@@ -215,7 +212,7 @@ class State extends Record(DEFAULTS) {
      */
     down() {
         let { depth } = this;
-        depth++;
+        depth += 1;
         return this.merge({ depth });
     }
 
@@ -262,17 +259,17 @@ class State extends Record(DEFAULTS) {
 
         // Same state cause an infinite loop
         if (newState == startState) {
-            throw new Error('Some rule is returning an identical state (no-op). Make sure your rules either return undefined to pass their turn, or return a different state.');
+            throw new Error(
+                'Some rule is returning an identical state (no-op). Make sure your rules either return undefined to pass their turn, or return a different state.'
+            );
         }
 
         // No rules match, we move and try the next char
         if (!newState) {
-            return state
-                .skip(1)
-                .lex({
-                    ...opts,
-                    rest: rest + text[0]
-                });
+            return state.skip(1).lex({
+                ...opts,
+                rest: rest + text[0]
+            });
         }
 
         // Should we stop ?
@@ -295,13 +292,9 @@ class State extends Record(DEFAULTS) {
         const { rules } = state;
         let newState;
 
-        rules
-        .filter(rule => rule[object])
-        .forEach(rule => {
+        rules.filter(rule => rule[object]).forEach(rule => {
             newState = RuleFunction.exec(rule[object], state);
-            if (newState) {
-                return false;
-            }
+            return !newState;
         });
 
         return newState;
@@ -313,8 +306,7 @@ class State extends Record(DEFAULTS) {
      * @return {List<Node>} nodes
      */
     deserialize(text) {
-        const state = this
-            .down()
+        const state = this.down()
             .merge({ text, nodes: List() })
             .lex();
 
@@ -327,21 +319,21 @@ class State extends Record(DEFAULTS) {
      * @return {Document} document
      */
     deserializeToDocument(text) {
-        const document = this
-            .use('document')
-            .deserialize(text)
-            .get(0) || Document.create();
+        const document =
+            this.use('document')
+                .deserialize(text)
+                .get(0) || Document.create();
 
         let { nodes } = document;
 
         // We should never return an empty document
         if (nodes.size === 0) {
-            nodes = nodes.push(Block.create({
-                type: BLOCKS.PARAGRAPH,
-                nodes: [
-                    Text.create()
-                ]
-            }));
+            nodes = nodes.push(
+                Block.create({
+                    type: BLOCKS.PARAGRAPH,
+                    nodes: [Text.create()]
+                })
+            );
         }
 
         return document.merge({ nodes });
@@ -353,14 +345,12 @@ class State extends Record(DEFAULTS) {
      * @return {String} text
      */
     serialize(nodes) {
-        return this
-            .down()
+        return this.down()
             .merge({
                 text: '',
                 nodes: List(nodes)
             })
-            ._serialize()
-            .text;
+            ._serialize().text;
     }
 
     /**
@@ -369,9 +359,7 @@ class State extends Record(DEFAULTS) {
      * @return {String} text
      */
     serializeDocument(document) {
-        return this
-            .use('document')
-            .serialize([ document ]);
+        return this.use('document').serialize([document]);
     }
 
     /**
@@ -380,7 +368,7 @@ class State extends Record(DEFAULTS) {
      * @return {String} text
      */
     serializeNode(node) {
-        return this.serialize([ node ]);
+        return this.serialize([node]);
     }
 
     /**
@@ -398,16 +386,21 @@ class State extends Record(DEFAULTS) {
 
         // No rule can match this node
         if (!state) {
-            throw new Error(`No rule match node ${this.peek().object}#${this.peek().type || ''}`);
+            throw new Error(
+                `No rule match node ${this.peek().object}#${this.peek().type ||
+                    ''}`
+            );
         }
 
         // Same state cause an infinite loop
         if (state == this) {
-            throw new Error('A rule returns an identical state, returns undefined instead when passing.');
+            throw new Error(
+                'A rule returns an identical state, returns undefined instead when passing.'
+            );
         }
 
         return state._serialize();
     }
 }
 
-module.exports = State;
+export default State;

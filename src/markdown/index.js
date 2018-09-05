@@ -1,8 +1,8 @@
-const block = require('./blocks');
-const inline = require('./inlines');
-const document = require('./document');
+import block from './blocks';
+import inline from './inlines';
+import document from './document';
 
-module.exports = {
+export default {
     document: [document],
     inline,
     block

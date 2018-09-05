@@ -1,5 +1,5 @@
-const { Serializer, Deserializer, Inline, INLINES } = require('../../');
-const reInline = require('../re/inline');
+import { Serializer, Deserializer, Inline, INLINES } from '../../';
+import reInline from '../re/inline';
 
 /**
  * Serialize a footnote to markdown
@@ -7,22 +7,21 @@ const reInline = require('../re/inline');
  */
 const serialize = Serializer()
     .matchType(INLINES.FOOTNOTE_REF)
-    .then((state) => {
+    .then(state => {
         const node = state.peek();
         const id = node.data.get('id');
-        const output = '[^' + id + ']';
+        const output = `[^${id}]`;
 
-        return state
-            .shift()
-            .write(output);
+        return state.shift().write(output);
     });
 
 /**
  * Deserialize a footnote.
  * @type {Deserializer}
  */
-const deserialize = Deserializer()
-    .matchRegExp(reInline.reffn, (state, match) => {
+const deserialize = Deserializer().matchRegExp(
+    reInline.reffn,
+    (state, match) => {
         const id = match[1];
         const node = Inline.create({
             type: INLINES.FOOTNOTE_REF,
@@ -33,6 +32,7 @@ const deserialize = Deserializer()
         });
 
         return state.push(node);
-    });
+    }
+);
 
-module.exports = { serialize, deserialize };
+export default { serialize, deserialize };

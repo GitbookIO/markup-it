@@ -1,10 +1,9 @@
-const { List } = require('immutable');
-const warning = require('warning');
-const trimTrailingLines = require('trim-trailing-lines');
-const { Serializer, Deserializer, Block, BLOCKS } = require('../../');
-const reBlock = require('../re/block');
-const liquid = require('../liquid');
-
+import { List } from 'immutable';
+import warning from 'warning';
+import trimTrailingLines from 'trim-trailing-lines';
+import { Serializer, Deserializer, Block, BLOCKS } from '../../';
+import reBlock from '../re/block';
+import liquid from '../liquid';
 
 /**
  * Return true if a block type is a custom one.
@@ -69,7 +68,7 @@ function wrapInDefaultBlock(nodes) {
  */
 const serialize = Serializer()
     .matchType(isCustomType)
-    .then((state) => {
+    .then(state => {
         const node = state.peek();
         const { type, data } = node;
 
@@ -87,9 +86,7 @@ const serialize = Serializer()
                 'Encountered a non-void custom block with no children'
             );
 
-            return state
-                .shift()
-                .write(`${startTag}${end}`);
+            return state.shift().write(`${startTag}${end}`);
         }
 
         const containsInline = node.nodes.first().object !== 'block';
@@ -102,17 +99,14 @@ const serialize = Serializer()
             ? List([wrapInDefaultBlock(node.nodes)])
             : node.nodes;
 
-        const inner = trimTrailingLines(
-            state.serialize(innerNodes)
-        );
+        const inner = trimTrailingLines(state.serialize(innerNodes));
 
         const unendingTags = state.getProp('unendingTags') || List();
-        const endTag =
-            unendingTags.includes(getTagFromCustomType(node.type))
-                ? ''
-                : liquid.stringifyTag({
-                    tag: 'end' + getTagFromCustomType(node.type)
-                });
+        const endTag = unendingTags.includes(getTagFromCustomType(node.type))
+            ? ''
+            : liquid.stringifyTag({
+                  tag: `end${getTagFromCustomType(node.type)}`
+              });
 
         return state
             .shift()
@@ -123,10 +117,13 @@ const serialize = Serializer()
  * Deserialize a templating block to a node.
  * @type {Deserializer}
  */
-const deserialize = Deserializer()
-    .matchRegExp(reBlock.customBlock, (state, match) => {
+const deserialize = Deserializer().matchRegExp(
+    reBlock.customBlock,
+    (initialState, match) => {
+        let state = initialState;
+
         if (state.getProp('template') === false) {
-            return;
+            return undefined;
         }
 
         const text = match[1].trim();
@@ -168,26 +165,23 @@ const deserialize = Deserializer()
                     if (unendingTags.includes(tag)) {
                         return (
                             isCustomType(child.type) &&
-                            (
-                                // Closing custom tag close previous unending tags
-                                isClosingTag(getTagFromCustomType(child.type)) ||
+                            // Closing custom tag close previous unending tags
+                            (isClosingTag(getTagFromCustomType(child.type)) ||
                                 // Unending tag close previous unending tags
-                                unendingTags.includes(getTagFromCustomType(child.type))
-                            )
+                                unendingTags.includes(
+                                    getTagFromCustomType(child.type)
+                                ))
                         );
                     }
 
                     return (
                         isCustomType(child.type) &&
-                        isClosingTagFor(
-                            getTagFromCustomType(child.type),
-                            tag
-                        )
+                        isClosingTagFor(getTagFromCustomType(child.type), tag)
                     );
                 });
 
                 if (between.size == added.size) {
-                    return;
+                    return undefined;
                 }
 
                 // We skip the default node.
@@ -196,27 +190,36 @@ const deserialize = Deserializer()
 
                 return newState.merge({
                     nodes: beforeNodes
-                        .push(node.merge({
-                            isVoid: false,
-                            nodes: between.size == 0 ? List([ state.genText() ]) : between
-                        }))
+                        .push(
+                            node.merge({
+                                isVoid: false,
+                                nodes:
+                                    between.size == 0
+                                        ? List([state.genText()])
+                                        : between
+                            })
+                        )
                         .concat(afterNodes)
                         // Filter out this node's closing tag
-                        .filterNot((child) => (
-                            isCustomType(child.type) &&
-                            isClosingTag(getTagFromCustomType(child.type)) &&
-                            // Don't swallow others' closing node by ensuring
-                            // we filter the one that matches the current one
-                            isClosingTagFor(
-                                getTagFromCustomType(child.type),
-                                tag
-                            )
-                        ))
+                        .filterNot(
+                            child =>
+                                isCustomType(child.type) &&
+                                isClosingTag(
+                                    getTagFromCustomType(child.type)
+                                ) &&
+                                // Don't swallow others' closing node by ensuring
+                                // we filter the one that matches the current one
+                                isClosingTagFor(
+                                    getTagFromCustomType(child.type),
+                                    tag
+                                )
+                        )
                 });
             }
         });
 
         return resultState;
-    });
+    }
+);
 
-module.exports = { serialize, deserialize };
+export default { serialize, deserialize };

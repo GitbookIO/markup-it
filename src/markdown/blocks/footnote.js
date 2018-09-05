@@ -1,5 +1,5 @@
-const { Serializer, Deserializer, Block, BLOCKS } = require('../../');
-const reBlock = require('../re/block');
+import { Serializer, Deserializer, Block, BLOCKS } from '../../';
+import reBlock from '../re/block';
 
 /**
  * Serialize a footnote to markdown
@@ -7,22 +7,21 @@ const reBlock = require('../re/block');
  */
 const serialize = Serializer()
     .matchType(BLOCKS.FOOTNOTE)
-    .then((state) => {
+    .then(state => {
         const node = state.peek();
         const inner = state.use('inline').serialize(node.nodes);
         const id = node.data.get('id');
 
-        return state
-            .shift()
-            .write(`[^${id}]: ${inner}\n\n`);
+        return state.shift().write(`[^${id}]: ${inner}\n\n`);
     });
 
 /**
  * Deserialize a footnote to a node.
  * @type {Deserializer}
  */
-const deserialize = Deserializer()
-    .matchRegExp(reBlock.footnote, (state, match) => {
+const deserialize = Deserializer().matchRegExp(
+    reBlock.footnote,
+    (state, match) => {
         const id = match[1];
         const text = match[2];
         const nodes = state.use('inline').deserialize(text);
@@ -33,6 +32,7 @@ const deserialize = Deserializer()
         });
 
         return state.push(node);
-    });
+    }
+);
 
-module.exports = { serialize, deserialize };
+export default { serialize, deserialize };

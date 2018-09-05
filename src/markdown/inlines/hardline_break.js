@@ -1,21 +1,20 @@
-const { Serializer, Deserializer } = require('../../');
-const reInline = require('../re/inline');
+import { Serializer, Deserializer } from '../../';
+import reInline from '../re/inline';
 
 /**
  * Replace hardline break by two spaces followed by a newline
  *
  * @type {Serializer}
  */
-const serialize = Serializer()
-    .transformText((state, leaf) => {
-        const { text } = leaf;
-        const allowHardlineBreak = state.getProp('hardlineBreak');
-        const replaceWith = allowHardlineBreak ? '  \n' : ' ';
+const serialize = Serializer().transformText((state, leaf) => {
+    const { text } = leaf;
+    const allowHardlineBreak = state.getProp('hardlineBreak');
+    const replaceWith = allowHardlineBreak ? '  \n' : ' ';
 
-        return leaf.merge({
-            text: text.replace(/\n/g, replaceWith)
-        });
+    return leaf.merge({
+        text: text.replace(/\n/g, replaceWith)
     });
+});
 
 /**
  * Deserialize hardline break.
@@ -23,9 +22,8 @@ const serialize = Serializer()
  *
  * @type {Deserializer}
  */
-const deserialize = Deserializer()
-    .matchRegExp(reInline.br, (state, match) => {
-        return state.pushText('\n');
-    });
+const deserialize = Deserializer().matchRegExp(reInline.br, (state, match) =>
+    state.pushText('\n')
+);
 
-module.exports = { serialize, deserialize };
+export default { serialize, deserialize };

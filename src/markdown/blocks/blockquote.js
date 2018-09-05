@@ -1,6 +1,6 @@
-const splitLines = require('split-lines');
-const { Serializer, Deserializer, Block, BLOCKS } = require('../../');
-const reBlock = require('../re/block');
+import splitLines from 'split-lines';
+import { Serializer, Deserializer, Block, BLOCKS } from '../../';
+import reBlock from '../re/block';
 
 /**
  * Serialize a blockquote node to markdown
@@ -8,30 +8,26 @@ const reBlock = require('../re/block');
  */
 const serialize = Serializer()
     .matchType(BLOCKS.BLOCKQUOTE)
-    .then((state) => {
+    .then(state => {
         const node = state.peek();
         const inner = state.use('block').serialize(node.nodes);
         const lines = splitLines(inner.trim());
 
-        const output = lines
-            .map(function(line) {
-                return line ? `> ${line}` : '>';
-            })
-            .join('\n');
+        const output = lines.map(line => (line ? `> ${line}` : '>')).join('\n');
 
-        return state
-            .shift()
-            .write(`${output}\n\n`);
+        return state.shift().write(`${output}\n\n`);
     });
 
 /**
  * Deserialize a blockquote to a node.
  * @type {Deserializer}
  */
-const deserialize = Deserializer()
-    .matchRegExp(reBlock.blockquote, (state, match) => {
+const deserialize = Deserializer().matchRegExp(
+    reBlock.blockquote,
+    (state, match) => {
         const inner = match[0].replace(/^ *> ?/gm, '').trim();
-        const nodes = state.use('block')
+        const nodes = state
+            .use('block')
             // Signal to children that we are in a blockquote
             .setProp('blockquote', state.depth)
             .deserialize(inner);
@@ -41,6 +37,7 @@ const deserialize = Deserializer()
         });
 
         return state.push(node);
-    });
+    }
+);
 
-module.exports = { serialize, deserialize };
+export default { serialize, deserialize };

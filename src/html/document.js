@@ -1,5 +1,5 @@
-const { Serializer, Deserializer } = require('../');
-const parse = require('./parse');
+import { Serializer, Deserializer } from '../';
+import parse from './parse';
 
 /**
  * Serialize a document to HTML.
@@ -7,31 +7,24 @@ const parse = require('./parse');
  */
 const serialize = Serializer()
     .matchObject('document')
-    .then((state) => {
+    .then(state => {
         const node = state.peek();
         const { nodes } = node;
 
-        const text = state
-            .use('block')
-            .serialize(nodes);
+        const text = state.use('block').serialize(nodes);
 
-        return state
-            .shift()
-            .write(text);
+        return state.shift().write(text);
     });
 
 /**
  * Deserialize an HTML document.
  * @type {Deserializer}
  */
-const deserialize = Deserializer()
-    .then((state) => {
-        const { text } = state;
-        const document = parse(text);
+const deserialize = Deserializer().then(state => {
+    const { text } = state;
+    const document = parse(text);
 
-        return state
-            .skip(text.length)
-            .push(document);
-    });
+    return state.skip(text.length).push(document);
+});
 
-module.exports = { serialize, deserialize };
+export default { serialize, deserialize };

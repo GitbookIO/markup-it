@@ -1,5 +1,5 @@
-const { Serializer, INLINES } = require('../../');
-const serializeTag = require('../serializeTag');
+import { Serializer, INLINES } from '../../';
+import serializeTag from '../serializeTag';
 
 /**
  * Serialize an image to HTML
@@ -7,14 +7,14 @@ const serializeTag = require('../serializeTag');
  */
 const serialize = Serializer()
     .matchType(INLINES.IMAGE)
-    .then(serializeTag('img', {
-        isSingleTag: true,
-        getAttrs: (node) => {
-            return {
+    .then(
+        serializeTag('img', {
+            isSingleTag: true,
+            getAttrs: node => ({
                 src: node.data.get('src'),
                 alt: node.data.get('alt')
-            };
-        }
-    }));
+            })
+        })
+    );
 
-module.exports = { serialize };
+export default { serialize };

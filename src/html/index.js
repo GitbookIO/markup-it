@@ -1,7 +1,7 @@
-const blocks = require('./blocks');
-const inlines = require('./inlines');
-const document = require('./document');
-const serializeDefault = require('./serializeDefault');
+import blocks from './blocks';
+import inlines from './inlines';
+import document from './document';
+import serializeDefault from './serializeDefault';
 
 const ALL = [
     ...blocks,
@@ -14,7 +14,7 @@ const ALL = [
 //
 // For serialization, there is no has no ambiguity in the Slate
 // format, so we always use all the rules at the same time.
-module.exports = {
+export default {
     document: [document],
     block: ALL
 };

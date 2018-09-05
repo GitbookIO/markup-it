@@ -1,5 +1,7 @@
+import parseTag from './parseTag';
+import stringifyTag from './stringifyTag';
 
-module.exports = {
-    parseTag: require('./parseTag'),
-    stringifyTag: require('./stringifyTag')
+export default {
+    parseTag,
+    stringifyTag
 };

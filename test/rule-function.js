@@ -1,13 +1,12 @@
-const expect       = require('expect');
-const RuleFunction = require('../src/models/rule-function');
-const State        = require('../src/models/state');
+import expect from 'expect';
+import RuleFunction from '../src/models/rule-function';
+import State from '../src/models/state';
 
 describe('RuleFunction', () => {
     describe('.compose()', () => {
         it('should return a new RuleFunction', () => {
             const ruleFunction = new RuleFunction();
-            const composed = ruleFunction
-                .compose(() => {});
+            const composed = ruleFunction.compose(() => {});
 
             expect(composed).toNotBe(ruleFunction);
             expect(composed).toBeA(RuleFunction);
@@ -18,8 +17,7 @@ describe('RuleFunction', () => {
         const ruleFunction = new RuleFunction();
 
         it('should return a new RuleFunction', () => {
-            const composed = ruleFunction
-                .then(() => {});
+            const composed = ruleFunction.then(() => {});
 
             expect(composed).toNotBe(ruleFunction);
             expect(composed).toBeA(RuleFunction);
@@ -36,7 +34,7 @@ describe('RuleFunction', () => {
         });
 
         it('should allow to modify the state', () => {
-            const letterAdder = state => state.set('text', state.text + 'a');
+            const letterAdder = state => state.set('text', `${state.text}a`);
 
             const result = ruleFunction
                 .then(letterAdder)
@@ -49,9 +47,9 @@ describe('RuleFunction', () => {
 
         it('should execute the functions in the right order', () => {
             const result = ruleFunction
-                .then(state => state.set('text', state.text + 'a'))
-                .then(state => state.set('text', state.text + 'b'))
-                .then(state => state.set('text', state.text + 'c'))
+                .then(state => state.set('text', `${state.text}a`))
+                .then(state => state.set('text', `${state.text}b`))
+                .then(state => state.set('text', `${state.text}c`))
                 .exec(new State());
 
             expect(result.text).toEqual('abc');
@@ -62,22 +60,34 @@ describe('RuleFunction', () => {
         const ruleFunction = new RuleFunction();
 
         it('should call the alternatives', () => {
-            const fn = ruleFunction
-                .use([
-                    state => state.text.length > 0 ? state.set('text', 'rule-1') : undefined,
-                    state => state.text.length == 0 ? state.set('text', 'rule-2') : undefined
-                ]);
+            const fn = ruleFunction.use([
+                state =>
+                    state.text.length > 0
+                        ? state.set('text', 'rule-1')
+                        : undefined,
+                state =>
+                    state.text.length == 0
+                        ? state.set('text', 'rule-2')
+                        : undefined
+            ]);
 
-            expect(fn.exec(new State({ text: 'Hello World' })).text).toEqual('rule-1');
+            expect(fn.exec(new State({ text: 'Hello World' })).text).toEqual(
+                'rule-1'
+            );
             expect(fn.exec(new State({ text: '' })).text).toEqual('rule-2');
         });
 
         it('should return undefined when no alternative matches', () => {
-            const fn = ruleFunction
-                .use([
-                    state => state.text.length > 0 ? state.set('text', 'rule-1') : undefined,
-                    state => state.text.length > 0 ? state.set('text', 'rule-2') : undefined
-                ]);
+            const fn = ruleFunction.use([
+                state =>
+                    state.text.length > 0
+                        ? state.set('text', 'rule-1')
+                        : undefined,
+                state =>
+                    state.text.length > 0
+                        ? state.set('text', 'rule-2')
+                        : undefined
+            ]);
 
             expect(fn.exec(new State({ text: '' }))).toEqual(undefined);
         });
@@ -91,11 +101,7 @@ describe('RuleFunction', () => {
                 .filter(state => state.text.length == 0)
                 .then(state => state.set('text', 'rule-2'));
 
-            const fn = ruleFunction
-                .use([
-                    ruleOne,
-                    ruleTwo
-                ]);
+            const fn = ruleFunction.use([ruleOne, ruleTwo]);
 
             expect(fn.exec(new State()).text).toEqual('rule-2');
         });
@@ -104,7 +110,7 @@ describe('RuleFunction', () => {
     describe('.filter()', () => {
         const ruleFunction = new RuleFunction();
         const initialState = new State({ text: '' });
-        const letterAdder  = state => state.set('text', state.text + 'a');
+        const letterAdder = state => state.set('text', `${state.text}a`);
 
         it('should not stop the execution when match is correct', () => {
             const result = ruleFunction

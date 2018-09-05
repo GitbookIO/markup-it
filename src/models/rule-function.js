@@ -1,11 +1,10 @@
-const { Record } = require('immutable');
+import { Record } from 'immutable';
 
 const DEFAULTS = {
     transform: state => state
 };
 
 class RuleFunction extends Record(DEFAULTS) {
-
     /**
      * Execute a rule function or a function.
      * @param {Function or RuleFunction} fn
@@ -13,7 +12,7 @@ class RuleFunction extends Record(DEFAULTS) {
      * @return {Mixed} result
      */
     static exec(fn, ...args) {
-        return (fn instanceof RuleFunction) ? fn.exec(...args) : fn(...args);
+        return fn instanceof RuleFunction ? fn.exec(...args) : fn(...args);
     }
 
     /**
@@ -34,15 +33,13 @@ class RuleFunction extends Record(DEFAULTS) {
      * @return {RuleFunction}
      */
     then(next) {
-        return this.compose((prev) => {
-            return (state) => {
-                state = prev(state);
-                if (typeof state == 'undefined') {
-                    return;
-                }
+        return this.compose(prev => state => {
+            const prevState = prev(state);
+            if (typeof prevState == 'undefined') {
+                return undefined;
+            }
 
-                return next(state);
-            };
+            return next(prevState);
         });
     }
 
@@ -52,14 +49,12 @@ class RuleFunction extends Record(DEFAULTS) {
      * @return {RuleFunction}
      */
     tap(interceptor) {
-        return this.compose((prev) => {
-            return (state) => {
-                state = prev(state);
+        return this.compose(prev => state => {
+            const prevState = prev(state);
 
-                interceptor(state);
+            interceptor(prevState);
 
-                return state;
-            };
+            return prevState;
         });
     }
 
@@ -69,10 +64,10 @@ class RuleFunction extends Record(DEFAULTS) {
      * @return {RuleFunction}
      */
     use(alternatives) {
-        return this.then((state) => {
+        return this.then(state => {
             let newState;
 
-            alternatives.some((fn) => {
+            alternatives.some(fn => {
                 newState = RuleFunction.exec(fn, state);
                 return Boolean(newState);
             });
@@ -87,16 +82,14 @@ class RuleFunction extends Record(DEFAULTS) {
      * @return {RuleFunction}
      */
     filter(match) {
-        return this.compose((prev) => {
-            return (state) => {
-                state = prev(state);
+        return this.compose(prev => state => {
+            const prevState = prev(state);
 
-                if (!state || !match(state)) {
-                    return;
-                }
+            if (!prevState || !match(prevState)) {
+                return undefined;
+            }
 
-                return state;
-            };
+            return prevState;
         });
     }
 
@@ -106,9 +99,7 @@ class RuleFunction extends Record(DEFAULTS) {
      * @return {RuleFunction}
      */
     filterNot(match) {
-        return this.filter(state => {
-            return !RuleFunction.exec(match, state);
-        });
+        return this.filter(state => !RuleFunction.exec(match, state));
     }
 
     /**
@@ -120,7 +111,6 @@ class RuleFunction extends Record(DEFAULTS) {
     exec(state, value) {
         return this.transform(state);
     }
-
 }
 
-module.exports = RuleFunction;
+export default RuleFunction;

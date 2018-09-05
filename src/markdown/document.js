@@ -1,7 +1,7 @@
-const yaml = require('js-yaml');
-const fm = require('front-matter');
-const Immutable = require('immutable');
-const { Serializer, Deserializer, Document } = require('../');
+import yaml from 'js-yaml';
+import fm from 'front-matter';
+import Immutable from 'immutable';
+import { Serializer, Deserializer, Document } from '../';
 
 /**
  * Serialize a document to markdown.
@@ -9,48 +9,39 @@ const { Serializer, Deserializer, Document } = require('../');
  */
 const serialize = Serializer()
     .matchObject('document')
-    .then((state) => {
+    .then(state => {
         const node = state.peek();
         const { data, nodes } = node;
         const body = state.use('block').serialize(nodes);
 
         if (data.size === 0) {
-            return state
-                .shift()
-                .write(body);
+            return state.shift().write(body);
         }
 
-        const frontMatter = (
-            '---\n' +
-            yaml.safeDump(data.toJS(), { skipInvalid: true }) +
-            '---\n\n'
-        );
+        const frontMatter = `---\n${yaml.safeDump(data.toJS(), {
+            skipInvalid: true
+        })}---\n\n`;
 
-        return state
-            .shift()
-            .write(frontMatter + body);
+        return state.shift().write(frontMatter + body);
     });
 
 /**
  * Deserialize a document.
  * @type {Deserializer}
  */
-const deserialize = Deserializer()
-    .then((state) => {
-        const { text } = state;
-        const parsed = fm(text);
+const deserialize = Deserializer().then(state => {
+    const { text } = state;
+    const parsed = fm(text);
 
-        const nodes = state.use('block').deserialize(parsed.body);
-        const data = Immutable.fromJS(parsed.attributes);
+    const nodes = state.use('block').deserialize(parsed.body);
+    const data = Immutable.fromJS(parsed.attributes);
 
-        const node = Document.create({
-            data,
-            nodes
-        });
-
-        return state
-            .skip(text.length)
-            .push(node);
+    const node = Document.create({
+        data,
+        nodes
     });
 
-module.exports = { serialize, deserialize };
+    return state.skip(text.length).push(node);
+});
+
+export default { serialize, deserialize };

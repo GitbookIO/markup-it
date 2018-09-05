@@ -1,4 +1,4 @@
-const { Serializer, BLOCKS } = require('../../');
+import { Serializer, BLOCKS } from '../../';
 
 /**
  * Serialize a list item to HTML
@@ -16,12 +16,12 @@ const serialize = Serializer()
 
         if (isTaskList) {
             className = ' class="task-list-item"';
-            inner = `<input type="checkbox" class="task-list-item-checkbox"${isChecked ? ' checked' : ''} disabled /> ${inner}`;
+            inner = `<input type="checkbox" class="task-list-item-checkbox"${
+                isChecked ? ' checked' : ''
+            } disabled /> ${inner}`;
         }
 
-        return state
-            .shift()
-            .write(`<li${className}>${inner}</li>\n`);
+        return state.shift().write(`<li${className}>${inner}</li>\n`);
     });
 
-module.exports = { serialize };
+export default { serialize };

@@ -1,7 +1,7 @@
-const { Serializer, BLOCKS } = require('../../');
+import { Serializer, BLOCKS } from '../../';
 
-// Key to store the current table align in the state
-const ALIGN = 'current_table_align';
+// Key to store the current table aligns in the state
+const ALIGNS = 'current_table_aligns';
 
 // Key to indicate that the current row is a header
 const THEAD = 'next_row_is_header';
@@ -18,31 +18,33 @@ const table = {
         .matchType(BLOCKS.TABLE)
         .then(state => {
             const tableNode = state.peek();
-            const align = tableNode.data.get('align');
+            const aligns = tableNode.data.get('aligns');
             const rows = tableNode.nodes;
 
             const headerText = state
-                      .setProp(ALIGN, align)
-                      .setProp(COL, 0)
-                      .setProp(THEAD, true)
-                      .serialize(rows.slice(0, 1));
+                .setProp(ALIGNS, aligns)
+                .setProp(COL, 0)
+                .setProp(THEAD, true)
+                .serialize(rows.slice(0, 1));
 
             const bodyText = state
-                      .setProp(ALIGN, align)
-                      .setProp(COL, 0)
-                      .serialize(rows.rest());
+                .setProp(ALIGNS, aligns)
+                .setProp(COL, 0)
+                .serialize(rows.rest());
 
             return state
                 .shift()
-                .write([
-                    '<table>',
-                    '<thead>',
-                    headerText + '</thead>',
-                    '<tbody>',
-                    bodyText + '</tbody>',
-                    '</table>',
-                    '\n'
-                ].join('\n'));
+                .write(
+                    [
+                        '<table>',
+                        '<thead>',
+                        `${headerText}</thead>`,
+                        '<tbody>',
+                        `${bodyText}</tbody>`,
+                        '</table>',
+                        '\n'
+                    ].join('\n')
+                );
         })
 };
 
@@ -55,13 +57,9 @@ const row = {
         .matchType(BLOCKS.TABLE_ROW)
         .then(state => {
             const node = state.peek();
-            const inner = state
-                      .setProp(COL, 0)
-                      .serialize(node.nodes);
+            const inner = state.setProp(COL, 0).serialize(node.nodes);
 
-            return state
-                .shift()
-                .write(`<tr>\n${inner}</tr>\n`);
+            return state.shift().write(`<tr>\n${inner}</tr>\n`);
         })
 };
 
@@ -75,16 +73,14 @@ const cell = {
         .then(state => {
             const node = state.peek();
             const isHead = state.getProp(THEAD);
-            const align = state.getProp(ALIGN);
+            const aligns = state.getProp(ALIGNS);
             const column = state.getProp(COL);
-            const cellAlign = align[column];
+            const cellAlign = aligns[column];
 
             const inner = state.serialize(node.nodes);
 
             const tag = isHead ? 'th' : 'td';
-            const style = cellAlign
-                ? ` style="text-align:${cellAlign}"`
-                : '';
+            const style = cellAlign ? ` style="text-align:${cellAlign}"` : '';
 
             return state
                 .shift()
@@ -93,7 +89,7 @@ const cell = {
         })
 };
 
-module.exports = {
+export default {
     table,
     row,
     cell

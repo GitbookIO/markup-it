@@ -1,12 +1,12 @@
-const { Serializer, MARKS } = require('../../');
+import { Serializer, MARKS } from '../../';
 
 /**
  * Serialize a strikethrough text to HTML
  * @type {Serializer}
  */
-const serialize = Serializer()
-    .transformMarkedLeaf(MARKS.STRIKETHROUGH, (state, text, mark) => {
-        return `<del>${text}</del>`;
-    });
+const serialize = Serializer().transformMarkedLeaf(
+    MARKS.STRIKETHROUGH,
+    (state, text, mark) => `<del>${text}</del>`
+);
 
-module.exports = { serialize };
+export default { serialize };

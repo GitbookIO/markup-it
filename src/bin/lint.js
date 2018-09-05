@@ -1,7 +1,7 @@
 #! /usr/bin/env node
 /* eslint-disable no-console */
 
-const { transform } = require('./helper');
+import { transform } from './helper';
 
 transform((document, state) => {
     const output = state.serializeDocument(document);

@@ -1,4 +1,4 @@
-const escapeStringRegexp = require('escape-string-regexp');
+import escapeStringRegexp from 'escape-string-regexp';
 
 // Build a regexp from a string
 function re(str) {
@@ -12,14 +12,10 @@ function re(str) {
  * @return {String}
  */
 function escapeWith(replacements, text) {
-    text = replacements.reduce(
-        (out, value, key) => {
-            return out.replace(re(key), value);
-        },
+    return replacements.reduce(
+        (out, value, key) => out.replace(re(key), value),
         text
     );
-
-    return text;
 }
 
 /**
@@ -32,7 +28,4 @@ function unescapeWith(replacements, text) {
     return escapeWith(replacements.flip(), text);
 }
 
-module.exports = {
-    escapeWith,
-    unescapeWith
-};
+export { escapeWith, unescapeWith };

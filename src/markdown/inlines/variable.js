@@ -1,5 +1,5 @@
-const { Serializer, Deserializer, Inline, INLINES } = require('../../');
-const reInline = require('../re/inline');
+import { Serializer, Deserializer, Inline, INLINES } from '../../';
+import reInline from '../re/inline';
 
 /**
  * Serialize a template variable to markdown
@@ -7,24 +7,23 @@ const reInline = require('../re/inline');
  */
 const serialize = Serializer()
     .matchType(INLINES.VARIABLE)
-    .then((state) => {
+    .then(state => {
         const node = state.peek();
         const { data } = node;
         const key = data.get('key');
 
-        return state
-            .shift()
-            .write(`{{ ${key} }}`);
+        return state.shift().write(`{{ ${key} }}`);
     });
 
 /**
  * Deserialize a template variable.
  * @type {Deserializer}
  */
-const deserialize = Deserializer()
-    .matchRegExp(reInline.variable, (state, match) => {
+const deserialize = Deserializer().matchRegExp(
+    reInline.variable,
+    (state, match) => {
         if (state.getProp('template') === false) {
-            return;
+            return undefined;
         }
 
         const node = Inline.create({
@@ -36,7 +35,7 @@ const deserialize = Deserializer()
         });
 
         return state.push(node);
-    });
+    }
+);
 
-
-module.exports = { serialize, deserialize };
+export default { serialize, deserialize };

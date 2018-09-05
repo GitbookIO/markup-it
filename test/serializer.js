@@ -1,14 +1,14 @@
-const expect     = require('expect');
-const { Text }   = require('slate');
-const Serializer = require('../src/models/serializer');
-const State      = require('../src/models/state');
+import expect from 'expect';
+import { Text } from 'slate';
+import Serializer from '../src/models/serializer';
+import State from '../src/models/state';
 
 describe('Serializer', () => {
     const blockNode = {
         type: 'paragraph',
         object: 'block'
     };
-    const state = (new State()).push(blockNode);
+    const state = new State().push(blockNode);
 
     describe('.matchType()', () => {
         it('should continue execution when passed a correct string', () => {
@@ -22,7 +22,7 @@ describe('Serializer', () => {
 
         it('should continue execution when passed a correct array', () => {
             const result = Serializer()
-                .matchType([ 'code_block', 'paragraph' ])
+                .matchType(['code_block', 'paragraph'])
                 .then(() => true)
                 .exec(state);
 
@@ -60,7 +60,7 @@ describe('Serializer', () => {
 
         it('should continue execution when passed a correct array', () => {
             const result = Serializer()
-                .matchObject([ 'text', 'block' ])
+                .matchObject(['text', 'block'])
                 .then(() => true)
                 .exec(state);
 
@@ -87,18 +87,20 @@ describe('Serializer', () => {
     });
 
     describe('.transformLeaves()', () => {
-        const textState = State.create().push(Text.create({
-            leaves: [
-                { text: 'hello' },
-                { text: 'world', marks: [ { type: 'bold'} ] }
-            ]
-        }));
+        const textState = State.create().push(
+            Text.create({
+                leaves: [
+                    { text: 'hello' },
+                    { text: 'world', marks: [{ type: 'bold' }] }
+                ]
+            })
+        );
 
         it('should update all leaves in a text', () => {
             const node = Serializer()
-                .transformLeaves((st, leaf) => {
-                    return leaf.merge({ text: `[${leaf.text}]` });
-                })
+                .transformLeaves((st, leaf) =>
+                    leaf.merge({ text: `[${leaf.text}]` })
+                )
                 .then(st => st.peek())
                 .exec(textState);
 
@@ -108,18 +110,18 @@ describe('Serializer', () => {
     });
 
     describe('.transformMarkedLeaf()', () => {
-        const textState = State.create().push(Text.create({
-            leaves: [
-                { text: 'hello' },
-                { text: 'world', marks: [ { type: 'bold'} ] }
-            ]
-        }));
+        const textState = State.create().push(
+            Text.create({
+                leaves: [
+                    { text: 'hello' },
+                    { text: 'world', marks: [{ type: 'bold' }] }
+                ]
+            })
+        );
 
         it('should update all matching leaves in a text', () => {
             const node = Serializer()
-                .transformMarkedLeaf('bold', (st, text) => {
-                    return `[${text}]`;
-                })
+                .transformMarkedLeaf('bold', (st, text) => `[${text}]`)
                 .then(st => st.peek())
                 .exec(textState);
 

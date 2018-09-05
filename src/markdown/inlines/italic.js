@@ -1,30 +1,27 @@
-const { Serializer, Deserializer, Mark, MARKS } = require('../../');
-const reInline = require('../re/inline');
-const utils = require('../utils');
+import { Serializer, Deserializer, Mark, MARKS } from '../../';
+import reInline from '../re/inline';
+import { wrapInline } from '../utils';
 
 /**
  * Serialize a italic text to markdown
  * @type {Serializer}
  */
-const serialize = Serializer()
-    .transformMarkedLeaf(MARKS.ITALIC, (state, text) => {
-        return utils.wrapInline(text, '_');
-    });
+const serialize = Serializer().transformMarkedLeaf(
+    MARKS.ITALIC,
+    (state, text) => wrapInline(text, '_')
+);
 
 /**
  * Deserialize an italic.
  * @type {Deserializer}
  */
-const deserialize = Deserializer()
-    .matchRegExp(reInline.em, (state, match) => {
-        const text = match[2] || match[1];
-        const mark = Mark.create({ type: MARKS.ITALIC });
+const deserialize = Deserializer().matchRegExp(reInline.em, (state, match) => {
+    const text = match[2] || match[1];
+    const mark = Mark.create({ type: MARKS.ITALIC });
 
-        const nodes = state
-            .pushMark(mark)
-            .deserialize(text);
+    const nodes = state.pushMark(mark).deserialize(text);
 
-        return state.push(nodes);
-    });
+    return state.push(nodes);
+});
 
-module.exports = { serialize, deserialize };
+export default { serialize, deserialize };

@@ -1,17 +1,17 @@
 /* eslint-disable no-console */
-const fs = require('fs');
-const path = require('path');
+import fs from 'fs';
 
-const unendingTags = require('../../test/unendingTags');
-const { State } = require('../');
-const markdown = require('../markdown');
-const html = require('../html');
+import path from 'path';
+import unendingTags from '../../test/unendingTags';
+import { State } from '../';
+import markdown from '../markdown';
+import html from '../html';
 
 const PARSERS = {
-    '.md':       markdown,
+    '.md': markdown,
     '.markdown': markdown,
-    '.mdown':    markdown,
-    '.html':     html
+    '.mdown': markdown,
+    '.html': html
 };
 
 /**
@@ -50,6 +50,6 @@ function transform(fn) {
     fn(document, state);
 }
 
-module.exports = {
+export default {
     transform
 };

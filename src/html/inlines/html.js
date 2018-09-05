@@ -1,4 +1,4 @@
-const { Serializer, INLINES } = require('../../');
+import { Serializer, INLINES } from '../../';
 
 /**
  * Serialize an HTML inline to HTML
@@ -8,7 +8,12 @@ const serialize = Serializer()
     .matchType(INLINES.HTML)
     .then(state => {
         const node = state.peek();
-        const { html, openingTag, closingTag, innerHtml } = node.data.toObject();
+        const {
+            html,
+            openingTag,
+            closingTag,
+            innerHtml
+        } = node.data.toObject();
         if (html) {
             // Legacy format
             return state.shift().write(html);
@@ -18,15 +23,12 @@ const serialize = Serializer()
                 .write(openingTag)
                 .write(innerHtml)
                 .write(closingTag);
-        } else {
-            return state
-                .shift()
-                .write(openingTag)
-                .write(
-                    state.serialize(node.nodes)
-                )
-                .write(closingTag);
         }
+        return state
+            .shift()
+            .write(openingTag)
+            .write(state.serialize(node.nodes))
+            .write(closingTag);
     });
 
-module.exports = { serialize };
+export default { serialize };

@@ -1,4 +1,4 @@
-const { Serializer, BLOCKS } = require('../../');
+import { Serializer, BLOCKS } from '../../';
 
 /**
  * Return true if a list node contains task items.
@@ -15,10 +15,7 @@ function containsTaskList(list) {
  * @type {Serializer}
  */
 const serialize = Serializer()
-    .matchType([
-        BLOCKS.OL_LIST,
-        BLOCKS.UL_LIST
-    ])
+    .matchType([BLOCKS.OL_LIST, BLOCKS.UL_LIST])
     .then(state => {
         const node = state.peek();
         const tag = node.type === BLOCKS.OL_LIST ? 'ol' : 'ul';
@@ -27,7 +24,11 @@ const serialize = Serializer()
 
         return state
             .shift()
-            .write(`<${tag}${isTaskList ? ' class="contains-task-list"' : ''}>\n${inner}</${tag}>\n`);
+            .write(
+                `<${tag}${
+                    isTaskList ? ' class="contains-task-list"' : ''
+                }>\n${inner}</${tag}>\n`
+            );
     });
 
-module.exports = { serialize };
+export default { serialize };

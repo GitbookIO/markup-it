@@ -1,9 +1,10 @@
 #! /usr/bin/env node
 /* eslint-disable no-console */
 
-const { transform } = require('./helper');
-const { State } = require('../');
-const markdown = require('../markdown');
+import { transform } from './helper';
+
+import { State } from '../';
+import markdown from '../markdown';
 
 transform(document => {
     const state = State.create(markdown);

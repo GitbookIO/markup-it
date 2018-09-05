@@ -1,6 +1,6 @@
-const expect       = require('expect');
-const Deserializer = require('../src/models/deserializer');
-const State        = require('../src/models/state');
+import expect from 'expect';
+import Deserializer from '../src/models/deserializer';
+import State from '../src/models/state';
 
 describe('Deserializer', () => {
     const state = new State();
@@ -8,10 +8,7 @@ describe('Deserializer', () => {
     describe('.matchRegExp()', () => {
         it('should return undefined when the regexp does not match', () => {
             const result = Deserializer()
-                .matchRegExp(
-                    /abc/,
-                    () => true
-                )
+                .matchRegExp(/abc/, () => true)
                 .exec(state.write('xyz'));
 
             expect(result).toBe(undefined);
@@ -19,10 +16,7 @@ describe('Deserializer', () => {
 
         it('should return the value of the callback when the regexp matches', () => {
             const result = Deserializer()
-                .matchRegExp(
-                    /.*(abc).*/,
-                    (newState, match) => match[1]
-                )
+                .matchRegExp(/.*(abc).*/, (newState, match) => match[1])
                 .exec(state.write('abcdefgh'));
 
             expect(result).toBe('abc');
@@ -30,10 +24,7 @@ describe('Deserializer', () => {
 
         it('should return undefined when the callback reject', () => {
             const result = Deserializer()
-                .matchRegExp(
-                    /.*(abc).*/,
-                    (newState, match) => undefined
-                )
+                .matchRegExp(/.*(abc).*/, (newState, match) => undefined)
                 .exec(state.write('abcdefgh'));
 
             expect(result).toBe(undefined);

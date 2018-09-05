@@ -1,5 +1,5 @@
-const is = require('is');
-const { Map } = require('immutable');
+import is from 'is';
+import { Map } from 'immutable';
 
 /**
  * @param {String} tag The HTML tag
@@ -9,12 +9,9 @@ const { Map } = require('immutable');
  * @return {Function} A function to seralize a node into an HTML tag
  */
 function serializeTag(tag, opts = {}) {
-    const {
-        isSingleTag = false,
-        getAttrs = (node) => {}
-    } = opts;
+    const { isSingleTag = false, getAttrs = node => {} } = opts;
 
-    return function(state) {
+    return state => {
         const node = state.peek();
         const attrs = getAttrs(node);
 
@@ -28,9 +25,7 @@ function serializeTag(tag, opts = {}) {
             text = `<${tag}${attrsText}>${inner}</${tag}>`;
         }
 
-        return state
-            .shift()
-            .write(text);
+        return state.shift().write(text);
     };
 }
 
@@ -39,18 +34,17 @@ function serializeTag(tag, opts = {}) {
  * @param {Object} attrs
  * @return {String}
  */
-function attrsToString(attrs) {
-    attrs = new Map(attrs);
+function attrsToString(attrsObject) {
+    const attrs = new Map(attrsObject);
 
     return attrs.reduce((output, value, key) => {
         if (is.undef(value) || is.nil(value)) {
             return output;
         } else if (is.equal(value, '')) {
-            return output + ` ${key}`;
-        } else {
-            return output + ` ${key}=${JSON.stringify(value)}`;
+            return `${output} ${key}`;
         }
+        return `${output} ${key}=${JSON.stringify(value)}`;
     }, '');
 }
 
-module.exports = serializeTag;
+export default serializeTag;

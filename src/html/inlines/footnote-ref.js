@@ -1,4 +1,4 @@
-const { Serializer, INLINES } = require('../../');
+import { Serializer, INLINES } from '../../';
 
 /**
  * Serialize a inline footnote reference to HTML
@@ -16,4 +16,4 @@ const serialize = Serializer()
             );
     });
 
-module.exports = { serialize };
+export default { serialize };

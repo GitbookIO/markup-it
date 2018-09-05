@@ -1,7 +1,7 @@
-const ltrim = require('ltrim');
-const rtrim = require('rtrim');
-const { Serializer, Deserializer, Inline, INLINES } = require('../../');
-const reInline = require('../re/inline');
+import ltrim from 'ltrim';
+import rtrim from 'rtrim';
+import { Serializer, Deserializer, Inline, INLINES } from '../../';
+import reInline from '../re/inline';
 
 /**
  * Normalize some TeX content
@@ -9,10 +9,7 @@ const reInline = require('../re/inline');
  * @return {String}
  */
 function normalizeTeX(content) {
-    content = ltrim(content, '\n');
-    content = rtrim(content, '\n');
-
-    return content;
+    return rtrim(ltrim(content, '\n'), '\n');
 }
 
 /**
@@ -21,30 +18,29 @@ function normalizeTeX(content) {
  */
 const serialize = Serializer()
     .matchType(INLINES.MATH)
-    .then((state) => {
+    .then(state => {
         const node = state.peek();
         const { data } = node;
         let formula = data.get('formula');
 
         formula = normalizeTeX(formula);
 
-        const output = '$$' + formula + '$$';
+        const output = `$$${formula}$$`;
 
-        return state
-            .shift()
-            .write(output);
+        return state.shift().write(output);
     });
 
 /**
  * Deserialize a math
  * @type {Deserializer}
  */
-const deserialize = Deserializer()
-    .matchRegExp(reInline.math, (state, match) => {
+const deserialize = Deserializer().matchRegExp(
+    reInline.math,
+    (state, match) => {
         const formula = match[1].trim();
 
         if (state.getProp('math') === false || !formula) {
-            return;
+            return undefined;
         }
 
         const node = Inline.create({
@@ -56,7 +52,7 @@ const deserialize = Deserializer()
         });
 
         return state.push(node);
-    });
+    }
+);
 
-
-module.exports = { serialize, deserialize };
+export default { serialize, deserialize };

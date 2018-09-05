@@ -1,6 +1,6 @@
-const { Map } = require('immutable');
-const lexical = require('./lexical');
-const { unescape } = require('./escape');
+import { Map } from 'immutable';
+import lexical from './lexical';
+import { unescape } from './escape';
 
 /**
  * Parse a literal value.
@@ -10,11 +10,9 @@ const { unescape } = require('./escape');
 function parseLiteral(str) {
     if (str.match(lexical.numberLine)) {
         return Number(str);
-    }
-    else if (str.match(lexical.boolLine)) {
+    } else if (str.match(lexical.boolLine)) {
         return str.toLowerCase() === 'true';
-    }
-    else if (str.match(lexical.quotedLine)) {
+    } else if (str.match(lexical.quotedLine)) {
         return unescape(str.slice(1, -1));
     }
 
@@ -26,10 +24,12 @@ function parseLiteral(str) {
  * @param  {String} text
  * @return {Map} props
  */
-function parseData(text) {
-    let match, args = 0;
+function parseData(inputText) {
+    let match;
+    let args = 0;
     const result = {};
 
+    let text = inputText;
     do {
         match = text.match(lexical.prop);
 
@@ -38,7 +38,7 @@ function parseData(text) {
                 result[match[2]] = parseLiteral(match[3]);
             } else {
                 result[args] = parseLiteral(match[1]);
-                args++;
+                args += 1;
             }
 
             text = text.slice(match[0].length);
@@ -66,4 +66,4 @@ function parseTag(text) {
     };
 }
 
-module.exports = parseTag;
+export default parseTag;

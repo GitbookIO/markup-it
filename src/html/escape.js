@@ -1,4 +1,4 @@
-const entities = require('entities');
+import entities from 'entities';
 
 /**
  * Escape all entities (HTML + XML)
@@ -9,4 +9,4 @@ function escape(str) {
     return entities.encodeXML(str);
 }
 
-module.exports = escape;
+export default escape;

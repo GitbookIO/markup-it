@@ -1,8 +1,0 @@
-document:
-  nodes:
-    - object: block
-      type: header_two
-      nodes:
-        - object: text
-          leaves:
-            - text: Hello World

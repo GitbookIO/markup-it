@@ -1,4 +1,4 @@
-const { Serializer } = require('../../');
+import { Serializer } from '../../';
 
 /**
  * Serialize a text node to HTML
@@ -13,9 +13,7 @@ const serialize = Serializer()
         // Hard-line breaks are newline in text nodes
         text = text.replace(/(?:\r\n|\r|\n)/g, '<br />');
 
-        return state
-            .shift()
-            .write(text);
+        return state.shift().write(text);
     });
 
-module.exports = { serialize };
+export default { serialize };

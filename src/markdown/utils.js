@@ -1,23 +1,23 @@
-const { Map } = require('immutable');
-const entities = require('entities');
-const { escapeWith, unescapeWith } = require('../utils/escape');
+import { Map } from 'immutable';
+import entities from 'entities';
+import { escapeWith, unescapeWith } from '../utils/escape';
 
 // Replacements for Markdown escaping
 // See http://spec.commonmark.org/0.15/#backslash-escapes
 const REPLACEMENTS_ESCAPE = Map([
-    [ '*', '\\*' ],
-    [ '#', '\\#' ],
+    ['*', '\\*'],
+    ['#', '\\#'],
     // GitHub doesn't escape slashes, and render the backslash in that cause
     // [ '/', '\\/' ],
-    [ '(', '\\(' ],
-    [ ')', '\\)' ],
-    [ '[', '\\[' ],
-    [ ']', '\\]' ],
-    [ '`', '\\`' ],
-    [ '<', '&lt;' ],
-    [ '>', '&gt;' ],
-    [ '_', '\\_' ],
-    [ '|', '\\|' ]
+    ['(', '\\('],
+    [')', '\\)'],
+    ['[', '\\['],
+    [']', '\\]'],
+    ['`', '\\`'],
+    ['<', '&lt;'],
+    ['>', '&gt;'],
+    ['_', '\\_'],
+    ['|', '\\|']
 ]);
 // We do not escape all characters, but we want to unescape them all.
 const REPLACEMENTS_UNESCAPE = REPLACEMENTS_ESCAPE.merge({
@@ -29,11 +29,7 @@ const REPLACEMENTS_UNESCAPE = REPLACEMENTS_ESCAPE.merge({
 const URL_REPLACEMENTS_UNESCAPE = REPLACEMENTS_UNESCAPE.merge({
     ' ': '%20'
 });
-const URL_REPLACEMENTS_ESCAPE = Map([
-    [ ' ', '%20' ],
-    [ '(', '%28' ],
-    [ ')', '%29' ]
-]);
+const URL_REPLACEMENTS_ESCAPE = Map([[' ', '%20'], ['(', '%28'], [')', '%29']]);
 
 /**
  * Escape markdown syntax
@@ -43,8 +39,8 @@ const URL_REPLACEMENTS_ESCAPE = Map([
  * @param {Boolean} escapeXML
  * @return {String}
  */
-function escapeMarkdown(str, escapeXML) {
-    str = escapeWith(REPLACEMENTS_ESCAPE, str);
+function escape(inputStr, escapeXML) {
+    const str = escapeWith(REPLACEMENTS_ESCAPE, inputStr);
     return escapeXML === false ? str : entities.encodeXML(str);
 }
 
@@ -55,11 +51,8 @@ function escapeMarkdown(str, escapeXML) {
  * @param {String} str
  * @return {String}
  */
-function unescapeMarkdown(str) {
-    str = unescapeWith(REPLACEMENTS_UNESCAPE, str);
-    str = entities.decodeHTML(str);
-
-    return str;
+function unescape(str) {
+    return entities.decodeHTML(unescapeWith(REPLACEMENTS_UNESCAPE, str));
 }
 
 /**
@@ -93,22 +86,20 @@ function unescapeURL(str) {
     return unescapeWith(URL_REPLACEMENTS_UNESCAPE, decoded);
 }
 
-
 /**
  * Create a function to replace content in a regex
  * @param  {RegEx} regex
  * @param  {String} opt
  * @return {Function(String, String)}
  */
-function replace(regex, opt) {
-    regex = regex.source;
-    opt = opt || '';
+function replace(regex, opt = '') {
+    let { source } = regex;
 
     return function self(name, val) {
-        if (!name) return new RegExp(regex, opt);
-        val = val.source || val;
-        val = val.replace(/(^|[^\[])\^/g, '$1');
-        regex = regex.replace(name, val);
+        if (!name) return new RegExp(source, opt);
+        let { source: valSource = val } = val;
+        valSource = valSource.replace(/(^|[^[])\^/g, '$1');
+        source = source.replace(name, valSource);
         return self;
     };
 }
@@ -122,13 +113,11 @@ function replace(regex, opt) {
 function resolveRef(state, refID) {
     const refs = state.getProp('refs');
 
-    refID = refID
-        .replace(/\s+/g, ' ')
-        .toLowerCase();
+    const normRefID = refID.replace(/\s+/g, ' ').toLowerCase();
 
-    const data = refs.get(refID);
+    const data = refs.get(normRefID);
     if (!data) {
-        return;
+        return undefined;
     }
 
     return Map(data).filter(Boolean);
@@ -146,15 +135,12 @@ function wrapInline(str, chars) {
         .replace(/\s*$/, spaces => `${chars}${spaces}`);
 }
 
-module.exports = {
-    escape: escapeMarkdown,
-    unescape: unescapeMarkdown,
-
+export {
+    escape,
+    unescape,
     escapeURL,
     unescapeURL,
-
     replace,
     resolveRef,
-
     wrapInline
 };

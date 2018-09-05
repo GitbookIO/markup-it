@@ -1,12 +1,12 @@
-const { Serializer, MARKS } = require('../../');
+import { Serializer, MARKS } from '../../';
 
 /**
  * Serialize a italic text to HTML
  * @type {Serializer}
  */
-const serialize = Serializer()
-    .transformMarkedLeaf(MARKS.ITALIC, (state, text, mark) => {
-        return `<em>${text}</em>`;
-    });
+const serialize = Serializer().transformMarkedLeaf(
+    MARKS.ITALIC,
+    (state, text, mark) => `<em>${text}</em>`
+);
 
-module.exports = { serialize };
+export default { serialize };

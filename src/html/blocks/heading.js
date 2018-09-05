@@ -1,5 +1,5 @@
-const { Serializer, BLOCKS } = require('../../');
-const serializeTag = require('../serializeTag');
+import { Serializer, BLOCKS } from '../../';
+import serializeTag from '../serializeTag';
 
 const RULES = {
     [BLOCKS.HEADING_1]: serializeTag('h1', { getAttrs }),
@@ -31,4 +31,4 @@ function getAttrs(headingNode) {
     };
 }
 
-module.exports = { serialize };
+export default { serialize };

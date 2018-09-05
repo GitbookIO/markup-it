@@ -1,5 +1,5 @@
-const { Serializer, Deserializer, Block, BLOCKS } = require('../../');
-const reBlock = require('../re/block');
+import { Serializer, Deserializer, Block, BLOCKS } from '../../';
+import reBlock from '../re/block';
 
 /**
  * Serialize a comment to markdown
@@ -7,24 +7,23 @@ const reBlock = require('../re/block');
  */
 const serialize = Serializer()
     .matchType(BLOCKS.COMMENT)
-    .then((state) => {
+    .then(state => {
         const node = state.peek();
         const { data } = node;
         const text = data.get('text');
 
-        return state
-            .shift()
-            .write(`{# ${text} #}`);
+        return state.shift().write(`{# ${text} #}`);
     });
 
 /**
  * Deserialize a comment to a node.
  * @type {Deserializer}
  */
-const deserialize = Deserializer()
-    .matchRegExp(reBlock.comment, (state, match) => {
+const deserialize = Deserializer().matchRegExp(
+    reBlock.comment,
+    (state, match) => {
         if (state.getProp('template') === false) {
-            return;
+            return undefined;
         }
 
         const node = Block.create({
@@ -36,6 +35,7 @@ const deserialize = Deserializer()
         });
 
         return state.push(node);
-    });
+    }
+);
 
-module.exports = { serialize, deserialize };
+export default { serialize, deserialize };

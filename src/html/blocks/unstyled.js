@@ -1,4 +1,4 @@
-const { Serializer, BLOCKS } = require('../../');
+import { Serializer, BLOCKS } from '../../';
 
 /**
  * Serialize an unstyled block to HTML
@@ -9,9 +9,7 @@ const serialize = Serializer()
     .then(state => {
         // Ignore the block, but still serialize its content
         const node = state.peek();
-        return state
-            .shift()
-            .write(state.serialize(node.nodes));
+        return state.shift().write(state.serialize(node.nodes));
     });
 
-module.exports = { serialize };
+export default { serialize };

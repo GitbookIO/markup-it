@@ -1,15 +1,15 @@
-const trimTrailingLines = require('trim-trailing-lines');
-const indentString = require('indent-string');
-const { Serializer, Deserializer, Block, BLOCKS } = require('../../');
-const reList = require('../re/block').list;
+import trimTrailingLines from 'trim-trailing-lines';
+import indentString from 'indent-string';
+import { Serializer, Deserializer, Block, BLOCKS } from '../../';
+import reBlock from '../re/block';
 
 /**
  * Serialize a list to markdown
  * @type {Serializer}
  */
 const serialize = Serializer()
-    .matchType([ BLOCKS.UL_LIST, BLOCKS.OL_LIST ])
-    .then((state) => {
+    .matchType([BLOCKS.UL_LIST, BLOCKS.OL_LIST])
+    .then(state => {
         const list = state.peek();
         const { nodes } = list;
 
@@ -24,31 +24,40 @@ const serialize = Serializer()
  * Deserialize a list to a node.
  * @type {Deserializer}
  */
-const deserialize = Deserializer()
-    .matchRegExp(reList.block, (state, match) => {
+const deserialize = Deserializer().matchRegExp(
+    reBlock.list.block,
+    (state, match) => {
         const rawList = match[0];
         const bull = match[2];
         const ordered = bull.length > 1;
 
         const type = ordered ? BLOCKS.OL_LIST : BLOCKS.UL_LIST;
 
-        let item, loose, data, next = false;
+        let item;
+        let loose;
+        let data;
+        let next = false;
 
         let lastIndex = 0;
         const nodes = [];
-        let rawItem, textItem, space;
+        let rawItem;
+        let textItem;
+        let space;
         const items = [];
 
         // Extract all items
-        reList.item.lastIndex = 0;
-        while ((item = reList.item.exec(rawList)) !== null) {
-            rawItem = rawList.slice(lastIndex, reList.item.lastIndex);
-            lastIndex = reList.item.lastIndex;
+        reBlock.list.item.lastIndex = 0;
+        do {
+            item = reBlock.list.item.exec(rawList);
+            if (item !== null) {
+                rawItem = rawList.slice(lastIndex, reBlock.list.item.lastIndex);
+                lastIndex = reBlock.list.item.lastIndex;
 
-            items.push([item, rawItem]);
-        }
+                items.push([item, rawItem]);
+            }
+        } while (item !== null);
 
-        for (let i = 0; i < items.length; i++) {
+        for (let i = 0; i < items.length; i += 1) {
             item = items[i][0];
             rawItem = items[i][1];
             data = undefined;
@@ -57,13 +66,13 @@ const deserialize = Deserializer()
             // so it is seen as the next token.
             textItem = item[0];
             space = textItem.length;
-            textItem = textItem.replace(reList.bulletAndSpaces, '');
+            textItem = textItem.replace(reBlock.list.bulletAndSpaces, '');
 
             // Parse tasklists
-            let checked = reList.checkbox.exec(textItem);
+            let checked = reBlock.list.checkbox.exec(textItem);
             if (checked) {
                 checked = checked[1] === 'x';
-                textItem = textItem.replace(reList.checkbox, '');
+                textItem = textItem.replace(reBlock.list.checkbox, '');
                 data = { checked };
             }
 
@@ -71,7 +80,10 @@ const deserialize = Deserializer()
             // list item contains. Hacky.
             if (~textItem.indexOf('\n ')) {
                 space -= textItem.length;
-                textItem =  textItem.replace(new RegExp('^ {1,' + space + '}', 'gm'), '');
+                textItem = textItem.replace(
+                    new RegExp(`^ {1,${space}}`, 'gm'),
+                    ''
+                );
             }
 
             // Determine whether item is loose or not.
@@ -91,7 +103,6 @@ const deserialize = Deserializer()
                     .deserialize(textItem)
             });
 
-
             nodes.push(nodeItem);
         }
 
@@ -101,7 +112,8 @@ const deserialize = Deserializer()
         });
 
         return state.push(listBlock);
-    });
+    }
+);
 
 /**
  * Serialize a list item to markdown.
@@ -123,13 +135,13 @@ function serializeListItem(state, list, item, index) {
     const last = list.nodes.size - 1 === index;
 
     // Calcul bullet to use
-    const bullet = list.type === BLOCKS.OL_LIST ? `${(index + 1)}.` : '*';
+    const bullet = list.type === BLOCKS.OL_LIST ? `${index + 1}.` : '*';
 
     // Indent all lignes
     const indent = bullet.length + 1;
     let body = state.use('block').serialize(item.nodes);
     // Remove unwanted empty lines added by sub-blocks
-    body = trimTrailingLines(body) + '\n';
+    body = `${trimTrailingLines(body)}\n`;
 
     body = indentString(body, ' ', indent).slice(indent);
 
@@ -145,4 +157,4 @@ function serializeListItem(state, list, item, index) {
     return `${bullet} ${body}`;
 }
 
-module.exports = { serialize, deserialize };
+export default { serialize, deserialize };

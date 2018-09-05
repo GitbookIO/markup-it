@@ -1,5 +1,5 @@
-const { Serializer, BLOCKS } = require('../../');
-const escape = require('../escape');
+import { Serializer, BLOCKS } from '../../';
+import escape from '../escape';
 
 /**
  * Serialize a code block to HTML
@@ -10,19 +10,13 @@ const serialize = Serializer()
     .then(state => {
         const node = state.peek();
         const syntax = node.data.get('syntax');
-        const text = node.nodes
-                  .map(line => line.text)
-                  .join('\n');
+        const text = node.nodes.map(line => line.text).join('\n');
 
-        const className = syntax
-            ? ` class="lang-${syntax}"`
-            : '';
+        const className = syntax ? ` class="lang-${syntax}"` : '';
 
         return state
             .shift()
-            .write(
-                `<pre><code${className}>${escape(text)}</code></pre>\n`
-            );
+            .write(`<pre><code${className}>${escape(text)}</code></pre>\n`);
     });
 
-module.exports = { serialize };
+export default { serialize };

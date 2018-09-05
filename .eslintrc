@@ -1,6 +1,17 @@
 {
-    "extends": "gitbook",
-    "env": {
-        "mocha": true
+  "extends": "gitbook",
+  "env": {
+    "mocha": true
+  },
+  "rules": {
+    "no-underscore-dangle": 0,
+    "react/void-dom-elements-no-children": 0,
+    "jsx-a11y/html-has-lang": 0,
+    "jsx-a11y/accessible-emoji": 0
+  },
+  "settings": {
+    "import/resolver": {
+      "babel-module": {}
     }
+  }
 }
