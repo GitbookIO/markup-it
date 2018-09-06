@@ -77,8 +77,12 @@ const serializeCell = {
             const column = state.getProp(COL);
             const cellAlign = aligns[column];
 
+            const containOneParagraph =
+                cell.nodes.size === 1 &&
+                cell.nodes.first().type === BLOCKS.PARAGRAPH;
+
             const inner = state.serialize(
-                isMultiBlockCell(cell) ? cell.nodes : cell.nodes.first().nodes
+                containOneParagraph ? cell.nodes.first().nodes : cell.nodes
             );
 
             const tag = isHead ? 'th' : 'td';
@@ -90,22 +94,6 @@ const serializeCell = {
                 .write(`<${tag}${style}>${inner}</${tag}>\n`);
         })
 };
-
-/**
- * True if the cell contains multiple blocks.
- * False if it can be simplified to contain only inlines
- *
- * @param {Node} cell
- * @return {Boolean}
- */
-function isMultiBlockCell(cell) {
-    const { nodes } = cell;
-    const containOneParagraph =
-        nodes.size === 1 && nodes.first().type === BLOCKS.PARAGRAPH;
-    const containInlines = nodes.every(child => child.object !== 'block');
-
-    return !containOneParagraph && !containInlines;
-}
 
 export default {
     table: serializeTable,
