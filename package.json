@@ -63,7 +63,7 @@
     "ltrim": "0.0.3",
     "object-values": "^1.0.0",
     "rtrim": "0.0.3",
-    "slate-hyperprint": "^2.2.4",
+    "slate-hyperprint": "^2.2.5",
     "split-lines": "^1.1.0",
     "trim-newlines": "^1.0.0",
     "trim-right": "^1.0.1",
