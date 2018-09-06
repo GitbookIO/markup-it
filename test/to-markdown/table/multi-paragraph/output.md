@@ -1,18 +1,21 @@
 <table>
-<thead>
-<tr>
-<th>A</th>
-<th><p>B</p><p>etc.</p></th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>A1</td>
-<td>B1</td>
-</tr>
-<tr>
-<td>A2</td>
-<td>B2</td>
-</tr>
-</tbody>
+  <thead>
+    <tr>
+      <th>A</th>
+      <th>
+        <p>B</p>
+        <p>etc.</p>
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>A1</td>
+      <td>B1</td>
+    </tr>
+    <tr>
+      <td>A2</td>
+      <td>B2</td>
+    </tr>
+  </tbody>
 </table>
