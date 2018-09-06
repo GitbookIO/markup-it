@@ -108,7 +108,7 @@ function parseRow(state, row) {
 
         return Block.create({
             type: BLOCKS.TABLE_CELL,
-            nodes: [ paragraph ]
+            nodes: [paragraph]
         });
     });
 
@@ -190,7 +190,17 @@ function rowToText(state, row) {
  */
 function cellToText(state, cell) {
     const { nodes } = cell;
-    return state.use('inline').serialize(nodes);
+
+    // The cell may contain a single paragraph,
+    // we just want to serialize the inner
+    let nodesToSerialize;
+    if (nodes.size === 1 && nodes.first().type === BLOCKS.PARAGRAPH) {
+        nodesToSerialize = nodes.first().nodes;
+    } else {
+        nodesToSerialize = nodes;
+    }
+
+    return state.use('inline').serialize(nodesToSerialize);
 }
 
 /**

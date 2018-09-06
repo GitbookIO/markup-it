@@ -6,17 +6,29 @@ export default (
         <table aligns={[null, null]}>
             <table_row>
                 <table_cell>
-                    <bold>A</bold>
+                    <paragraph>
+                        <bold>A</bold>
+                    </paragraph>
                 </table_cell>
-                <table_cell>B</table_cell>
+                <table_cell>
+                    <paragraph>B</paragraph>
+                </table_cell>
             </table_row>
             <table_row>
-                <table_cell>A1</table_cell>
-                <table_cell>B1</table_cell>
+                <table_cell>
+                    <paragraph>A1</paragraph>
+                </table_cell>
+                <table_cell>
+                    <paragraph>B1</paragraph>
+                </table_cell>
             </table_row>
             <table_row>
-                <table_cell>A2</table_cell>
-                <table_cell>B2</table_cell>
+                <table_cell>
+                    <paragraph>A2</paragraph>
+                </table_cell>
+                <table_cell>
+                    <paragraph>B2</paragraph>
+                </table_cell>
             </table_row>
         </table>
     </document>
