@@ -55,6 +55,7 @@
     "entities": "^1.1.1",
     "escape-string-regexp": "^1.0.5",
     "front-matter": "^2.1.2",
+    "html": "^1.0.0",
     "htmlclean": "^2.7.8",
     "htmlparser2": "3.9.2",
     "indent-string": "2.1.0",

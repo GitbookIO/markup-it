@@ -1,3 +1,4 @@
+import { Document } from 'slate';
 import {
     State,
     Serializer,
@@ -57,7 +58,11 @@ const serialize = Serializer()
         if (mustSerializeAsHTML(table)) {
             // Serialize as HTML
             const htmlState = State.create(HTMLParser);
-            const htmlOutput = htmlState.use('block').serialize([table]);
+            const htmlOutput = htmlState.serializeDocument(
+                Document.create({
+                    nodes: [table]
+                })
+            );
             return state.shift().write(htmlOutput);
         }
 

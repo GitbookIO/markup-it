@@ -1,3 +1,4 @@
+import * as Html from 'html';
 import { Serializer, Deserializer } from '../';
 import parse from './parse';
 
@@ -13,7 +14,9 @@ const serialize = Serializer()
 
         const text = state.use('block').serialize(nodes);
 
-        return state.shift().write(text);
+        const prettified = Html.prettyPrint(text, { indent_size: 2 });
+
+        return state.shift().write(prettified);
     });
 
 /**
