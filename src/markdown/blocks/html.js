@@ -1,4 +1,4 @@
-import { State, Serializer, Deserializer, Block, BLOCKS } from '../../';
+import { State, Serializer, Deserializer, BLOCKS } from '../../';
 import reBlock from '../re/block';
 import HTMLParser from '../../html';
 
@@ -21,19 +21,21 @@ const serialize = Serializer()
  */
 const deserialize = Deserializer().matchRegExp(reBlock.html, (state, match) => {
     const html = match[0].trim();
-    const node = Block.create({
-        type: BLOCKS.HTML,
-        isVoid: true,
-        data: {
-            html
-        }
-    });
-    return state.push(node);
 
-    // const htmlState = State.create(HTMLParser);
-    // const document = htmlState.deserializeToDocument(html);
+    const htmlState = State.create(HTMLParser);
+    const document = htmlState.deserializeToDocument(html);
 
-    // return state.push(document.nodes);
+    const firstNode = document.nodes.first();
+    const documentIsEmpty =
+        document.nodes.size === 1 &&
+        firstNode.type === BLOCKS.PARAGRAPH &&
+        firstNode.text === '';
+
+    if (documentIsEmpty) {
+        return state;
+    }
+
+    return state.push(document.nodes);
 });
 
 export default { serialize, deserialize };
