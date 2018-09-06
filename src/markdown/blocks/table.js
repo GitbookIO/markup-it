@@ -1,5 +1,13 @@
-import { Serializer, Deserializer, Block, BLOCKS, TABLE_ALIGN } from '../../';
+import {
+    State,
+    Serializer,
+    Deserializer,
+    Block,
+    BLOCKS,
+    TABLE_ALIGN
+} from '../../';
 import reTable from '../re/table';
+import HTMLParser from '../../html';
 
 /**
  * Deserialize a table with no leading pipe (gfm) to a node.
@@ -44,8 +52,16 @@ const deserializeNormal = Deserializer().matchRegExp(
 const serialize = Serializer()
     .matchType(BLOCKS.TABLE)
     .then(state => {
-        const node = state.peek();
-        const { data, nodes } = node;
+        const table = state.peek();
+
+        if (mustSerializeAsHTML(table)) {
+            // Serialize as HTML
+            const htmlState = State.create(HTMLParser);
+            const htmlOutput = htmlState.use('block').serialize([table]);
+            return state.shift().write(htmlOutput);
+        }
+
+        const { data, nodes } = table;
         const aligns = data.get('aligns');
         const headerRow = nodes.get(0);
         const bodyRows = nodes.slice(1);
@@ -99,11 +115,16 @@ function parseRow(state, row) {
     // Tokenize each cell
     const cellNodes = cells.map(cell => {
         const text = cell.trim();
-        const nodes = state.use('inline').deserialize(text); // state.deserializeWith(text, rowRules);
+        const nodes = state.use('inline').deserialize(text);
+
+        const paragraph = Block.create({
+            type: BLOCKS.PARAGRAPH,
+            nodes
+        });
 
         return Block.create({
             type: BLOCKS.TABLE_CELL,
-            nodes
+            nodes: [paragraph]
         });
     });
 
@@ -185,7 +206,17 @@ function rowToText(state, row) {
  */
 function cellToText(state, cell) {
     const { nodes } = cell;
-    return state.use('inline').serialize(nodes);
+
+    // The cell may contain a single paragraph,
+    // we just want to serialize the inner
+    let nodesToSerialize;
+    if (nodes.size === 1 && nodes.first().type === BLOCKS.PARAGRAPH) {
+        nodesToSerialize = nodes.first().nodes;
+    } else {
+        nodesToSerialize = nodes;
+    }
+
+    return state.use('inline').serialize(nodesToSerialize);
 }
 
 /**
@@ -207,6 +238,27 @@ function alignsToText(aligns) {
             return ' --- |';
         })
         .join('')}`;
+}
+
+/**
+ * Render aligns of a table into a Markdown align row
+ *
+ * @param {Node} table
+ * @return {Boolean}
+ */
+function mustSerializeAsHTML(table) {
+    const isMultiBlockCell = cell => {
+        const { nodes } = cell;
+        const containOneParagraph =
+            nodes.size === 1 && nodes.first().type === BLOCKS.PARAGRAPH;
+        const containInlines = nodes.every(child => child.object !== 'block');
+
+        return !containOneParagraph && !containInlines;
+    };
+
+    return table.findDescendant(
+        node => node.type === BLOCKS.TABLE_CELL && isMultiBlockCell(node)
+    );
 }
 
 export default { serialize, deserialize };

@@ -3,10 +3,6 @@ import h from 'h';
 
 export default (
     <document>
-        <paragraph>
-            This paragraph is followed by a table, without any blank line
-            in-between.
-        </paragraph>
         <table aligns={[null, null]}>
             <table_row>
                 <table_cell>
@@ -14,6 +10,7 @@ export default (
                 </table_cell>
                 <table_cell>
                     <paragraph>B</paragraph>
+                    <paragraph>etc.</paragraph>
                 </table_cell>
             </table_row>
             <table_row>

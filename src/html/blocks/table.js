@@ -13,13 +13,13 @@ const COL = 'current_column';
  * Serialize a table to HTML
  * @type {Serializer}
  */
-const table = {
+const serializeTable = {
     serialize: Serializer()
         .matchType(BLOCKS.TABLE)
         .then(state => {
-            const tableNode = state.peek();
-            const aligns = tableNode.data.get('aligns');
-            const rows = tableNode.nodes;
+            const table = state.peek();
+            const aligns = table.data.get('aligns');
+            const rows = table.nodes;
 
             const headerText = state
                 .setProp(ALIGNS, aligns)
@@ -52,12 +52,12 @@ const table = {
  * Serialize a row to HTML
  * @type {Serializer}
  */
-const row = {
+const serializeRow = {
     serialize: Serializer()
         .matchType(BLOCKS.TABLE_ROW)
         .then(state => {
-            const node = state.peek();
-            const inner = state.setProp(COL, 0).serialize(node.nodes);
+            const row = state.peek();
+            const inner = state.setProp(COL, 0).serialize(row.nodes);
 
             return state.shift().write(`<tr>\n${inner}</tr>\n`);
         })
@@ -67,17 +67,19 @@ const row = {
  * Serialize a table cell to HTML
  * @type {Serializer}
  */
-const cell = {
+const serializeCell = {
     serialize: Serializer()
         .matchType(BLOCKS.TABLE_CELL)
         .then(state => {
-            const node = state.peek();
+            const cell = state.peek();
             const isHead = state.getProp(THEAD);
             const aligns = state.getProp(ALIGNS);
             const column = state.getProp(COL);
             const cellAlign = aligns[column];
 
-            const inner = state.serialize(node.nodes);
+            const inner = state.serialize(
+                isMultiBlockCell(cell) ? cell.nodes : cell.nodes.first().nodes
+            );
 
             const tag = isHead ? 'th' : 'td';
             const style = cellAlign ? ` style="text-align:${cellAlign}"` : '';
@@ -89,8 +91,24 @@ const cell = {
         })
 };
 
+/**
+ * True if the cell contains multiple blocks.
+ * False if it can be simplified to contain only inlines
+ *
+ * @param {Node} cell
+ * @return {Boolean}
+ */
+function isMultiBlockCell(cell) {
+    const { nodes } = cell;
+    const containOneParagraph =
+        nodes.size === 1 && nodes.first().type === BLOCKS.PARAGRAPH;
+    const containInlines = nodes.every(child => child.object !== 'block');
+
+    return !containOneParagraph && !containInlines;
+}
+
 export default {
-    table,
-    row,
-    cell
+    table: serializeTable,
+    row: serializeRow,
+    cell: serializeCell
 };

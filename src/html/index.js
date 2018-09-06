@@ -1,12 +1,12 @@
 import blocks from './blocks';
 import inlines from './inlines';
 import document from './document';
-import serializeDefault from './serializeDefault';
+import ignoreNode from './ignoreNode';
 
 const ALL = [
     ...blocks,
     ...inlines,
-    serializeDefault // Default catch-all rule
+    ignoreNode // Default catch-all rule
 ];
 
 // We don't use groups of rules such as 'block' and 'inline' for

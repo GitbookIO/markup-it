@@ -1,8 +1,8 @@
 <table>
 <thead>
 <tr>
-<th><p>A</p></th>
-<th><p>B</p></th>
+<th>A</th>
+<th>B</th>
 </tr>
 </thead>
 <tbody>
@@ -12,11 +12,11 @@
 <li>World</li>
 </ul>
 </td>
-<td><p>B1</p></td>
+<td>B1</td>
 </tr>
 <tr>
-<td><p>A2</p></td>
-<td><p>B2</p></td>
+<td>A2</td>
+<td>B2</td>
 </tr>
 </tbody>
 </table>

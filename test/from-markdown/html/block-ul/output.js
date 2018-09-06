@@ -3,9 +3,17 @@ import h from 'h';
 
 export default (
     <document>
-        <html_block html={'<ol>\n<li>test</li>\n</ol>'} />
+        <ordered_list>
+            <list_item>
+                <unstyled>test</unstyled>
+            </list_item>
+        </ordered_list>
         <paragraph>Hello</paragraph>
-        <html_block html={'<ol>\n    <li>test</li>\n</ol>'} />
+        <ordered_list>
+            <list_item>
+                <unstyled>test</unstyled>
+            </list_item>
+        </ordered_list>
         <paragraph>World</paragraph>
     </document>
 );

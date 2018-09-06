@@ -260,7 +260,7 @@ class State extends Record(DEFAULTS) {
         // Same state cause an infinite loop
         if (newState == startState) {
             throw new Error(
-                'A rule returns an identical state, returns undefined instead when passing.'
+                'Some rule is returning an identical state (no-op). Make sure your rules either return undefined to pass their turn, or return a different state.'
             );
         }
 

@@ -4,6 +4,7 @@ import fs from 'fs';
 import path from 'path';
 import expect from 'expect';
 import Slate from 'slate';
+import hyperprint from 'slate-hyperprint';
 import trimTrailingLines from 'trim-trailing-lines';
 import { State } from '../src/';
 import markdown from '../src/markdown';
@@ -23,7 +24,7 @@ function readFileInput(filePath) {
         const parser = State.create(syntax, props);
         const document = parser.deserializeToDocument(content);
         const value = Slate.Value.create({ document });
-        return value.document.toJSON();
+        return value.document;
     }
 
     switch (ext) {
@@ -34,7 +35,7 @@ function readFileInput(filePath) {
         case '.html':
             return deserializeWith(html);
         case '.js':
-            return require(filePath).default.toJSON();
+            return require(filePath).default;
         default:
             throw new Error(`Unknown extension ${ext}`);
     }
@@ -49,8 +50,7 @@ function readFileInput(filePath) {
 function convertFor(inputDocument, outputExt) {
     function serializeWith(syntax, props) {
         const parser = State.create(syntax, props);
-        const document = Slate.Document.fromJSON(inputDocument);
-        const out = parser.serializeDocument(document);
+        const out = parser.serializeDocument(inputDocument);
 
         // Trim to avoid newlines being compared at the end
         return trimTrailingLines(out);
@@ -88,7 +88,7 @@ function readFileOutput(fileName) {
         case '.js':
             return Slate.Value.create({
                 document: require(fileName).default
-            }).document.toJSON();
+            }).document;
         default:
             throw new Error(`Unknown extension ${ext}`);
     }
@@ -115,7 +115,13 @@ function runTest(folder) {
     // Convert the input
     const output = convertFor(input, outputExt);
 
-    expect(output).toEqual(expectedOutput);
+    if (typeof output === 'string') {
+        expect(output).toEqual(expectedOutput);
+    } else {
+        expect(hyperprint(output, { strict: true })).toEqual(
+            hyperprint(expectedOutput, { strict: true })
+        );
+    }
 }
 
 /**
