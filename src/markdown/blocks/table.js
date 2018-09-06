@@ -1,5 +1,14 @@
-import { Serializer, Deserializer, Block, BLOCKS, TABLE_ALIGN } from '../../';
+import {
+    State,
+    Serializer,
+    Deserializer,
+    Block,
+    BLOCKS,
+    TABLE_ALIGN
+} from '../../';
 import reTable from '../re/table';
+import HTMLParser from '../../html';
+import hyperprint from 'slate-hyperprint';
 
 /**
  * Deserialize a table with no leading pipe (gfm) to a node.
@@ -44,8 +53,17 @@ const deserializeNormal = Deserializer().matchRegExp(
 const serialize = Serializer()
     .matchType(BLOCKS.TABLE)
     .then(state => {
-        const node = state.peek();
-        const { data, nodes } = node;
+        const table = state.peek();
+
+        if (mustSerializeAsHTML(table)) {
+            // Serialize as HTML
+            const htmlState = State.create(HTMLParser);
+            console.log({ HTMLParser });
+            const htmlOutput = htmlState.use('block').serialize([table]);
+            return state.shift().write(htmlOutput);
+        }
+
+        const { data, nodes } = table;
         const aligns = data.get('aligns');
         const headerRow = nodes.get(0);
         const bodyRows = nodes.slice(1);
@@ -222,6 +240,20 @@ function alignsToText(aligns) {
             return ' --- |';
         })
         .join('')}`;
+}
+
+/**
+ * Render aligns of a table into a Markdown align row
+ *
+ * @param {Node} table
+ * @return {Boolean}
+ */
+function mustSerializeAsHTML(table) {
+    const isMultiBlockCell = node =>
+        node.type === BLOCKS.TABLE_CELL &&
+        node.nodes.filter(child => child.object === 'block').size > 1;
+
+    return table.findDescendant(isMultiBlockCell);
 }
 
 export default { serialize, deserialize };
