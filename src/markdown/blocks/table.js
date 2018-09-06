@@ -8,7 +8,6 @@ import {
 } from '../../';
 import reTable from '../re/table';
 import HTMLParser from '../../html';
-import hyperprint from 'slate-hyperprint';
 
 /**
  * Deserialize a table with no leading pipe (gfm) to a node.
@@ -58,7 +57,6 @@ const serialize = Serializer()
         if (mustSerializeAsHTML(table)) {
             // Serialize as HTML
             const htmlState = State.create(HTMLParser);
-            console.log({ HTMLParser });
             const htmlOutput = htmlState.use('block').serialize([table]);
             return state.shift().write(htmlOutput);
         }
@@ -249,11 +247,18 @@ function alignsToText(aligns) {
  * @return {Boolean}
  */
 function mustSerializeAsHTML(table) {
-    const isMultiBlockCell = node =>
-        node.type === BLOCKS.TABLE_CELL &&
-        node.nodes.filter(child => child.object === 'block').size > 1;
+    const isMultiBlockCell = cell => {
+        const { nodes } = cell;
+        const containOneParagraph =
+            nodes.size === 1 && nodes.first().type === BLOCKS.PARAGRAPH;
+        const containInlines = nodes.every(child => child.object !== 'block');
 
-    return table.findDescendant(isMultiBlockCell);
+        return !containOneParagraph && !containInlines;
+    };
+
+    return table.findDescendant(
+        node => node.type === BLOCKS.TABLE_CELL && isMultiBlockCell(node)
+    );
 }
 
 export default { serialize, deserialize };
