@@ -9,13 +9,25 @@ export default (
                 <table_cell>
                     <unordered_list>
                         <list_item>
-                            <paragraph>B</paragraph>
+                            <unstyled>B</unstyled>
+                        </list_item>
+                        <list_item>
+                            <unstyled>B</unstyled>
                         </list_item>
                     </unordered_list>
                 </table_cell>
             </table_row>
             <table_row>
-                <table_cell>A1</table_cell>
+                <table_cell>
+                    <unordered_list>
+                        <list_item>
+                            <paragraph>A1</paragraph>
+                        </list_item>
+                        <list_item>
+                            <paragraph>A1</paragraph>
+                        </list_item>
+                    </unordered_list>
+                </table_cell>
                 <table_cell>
                     <paragraph>B1</paragraph>
                 </table_cell>
