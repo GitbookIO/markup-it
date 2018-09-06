@@ -7,6 +7,7 @@ export default (
             <table_row>
                 <table_cell>
                     <paragraph>John</paragraph>
+                    <paragraph>W.</paragraph>
                 </table_cell>
                 <table_cell>
                     <paragraph>Doe</paragraph>

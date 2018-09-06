@@ -3,7 +3,7 @@ import h from 'h';
 
 export default (
     <document>
-        <table aligns={[null, null]}>
+        <table>
             <table_row>
                 <table_cell>
                     <paragraph>A</paragraph>
@@ -14,9 +14,14 @@ export default (
             </table_row>
             <table_row>
                 <table_cell>
-                    <paragraph>
-                        <code>A1</code>
-                    </paragraph>
+                    <unordered_list>
+                        <list_item>
+                            <unstyled>Hello</unstyled>
+                        </list_item>
+                        <list_item>
+                            <unstyled>World</unstyled>
+                        </list_item>
+                    </unordered_list>
                 </table_cell>
                 <table_cell>
                     <paragraph>B1</paragraph>
@@ -24,9 +29,7 @@ export default (
             </table_row>
             <table_row>
                 <table_cell>
-                    <paragraph>
-                        <bold>A2</bold>
-                    </paragraph>
+                    <paragraph>A2</paragraph>
                 </table_cell>
                 <table_cell>
                     <paragraph>B2</paragraph>

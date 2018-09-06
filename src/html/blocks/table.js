@@ -71,13 +71,15 @@ const cell = {
     serialize: Serializer()
         .matchType(BLOCKS.TABLE_CELL)
         .then(state => {
-            const node = state.peek();
+            const cell = state.peek();
             const isHead = state.getProp(THEAD);
             const aligns = state.getProp(ALIGNS);
             const column = state.getProp(COL);
             const cellAlign = aligns[column];
 
-            const inner = state.serialize(node.nodes);
+            const inner = state.serialize(
+                isMultiBlockCell(cell) ? cell.nodes : cell.nodes.first().nodes
+            );
 
             const tag = isHead ? 'th' : 'td';
             const style = cellAlign ? ` style="text-align:${cellAlign}"` : '';
@@ -88,6 +90,22 @@ const cell = {
                 .write(`<${tag}${style}>${inner}</${tag}>\n`);
         })
 };
+
+/**
+ * True if the cell contains multiple blocks.
+ * False if it can be simplified to contain only inlines
+ *
+ * @param {Node} cell
+ * @return {Boolean}
+ */
+function isMultiBlockCell(cell) {
+    const { nodes } = cell;
+    const containOneParagraph =
+        nodes.size === 1 && nodes.first().type === BLOCKS.PARAGRAPH;
+    const containInlines = nodes.every(child => child.object !== 'block');
+
+    return !containOneParagraph && !containInlines;
+}
 
 export default {
     table,

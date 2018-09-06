@@ -1,4 +1,22 @@
-| A | B |
-| -- | -- |
-| `A1` | B1 |
-| **A2** | B2 |
+<table>
+<thead>
+<tr>
+<th><p>A</p></th>
+<th><p>B</p></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><ul>
+<li>Hello</li>
+<li>World</li>
+</ul>
+</td>
+<td><p>B1</p></td>
+</tr>
+<tr>
+<td><p>A2</p></td>
+<td><p>B2</p></td>
+</tr>
+</tbody>
+</table>
