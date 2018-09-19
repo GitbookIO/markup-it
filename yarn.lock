@@ -78,6 +78,47 @@
     lodash "^4.2.0"
     to-fast-properties "^2.0.0"
 
+"@gitbook/slate-dev-logger@^0.1.39":
+  version "0.1.39"
+  resolved "https://registry.yarnpkg.com/@gitbook/slate-dev-logger/-/slate-dev-logger-0.1.39.tgz#86cb39b8c535a480d31ab3636007911b6f7a3742"
+
+"@gitbook/slate-hyperprint@^2.2.5":
+  version "2.2.6"
+  resolved "https://registry.yarnpkg.com/@gitbook/slate-hyperprint/-/slate-hyperprint-2.2.6.tgz#efdd725fe8db328c5a7c5600d371db0f234a2ac5"
+  dependencies:
+    indent-string "^3.2.0"
+    is-plain-object "^2.0.4"
+    js-yaml "^3.12.0"
+    meow "^5.0.0"
+    prettier "1.13.6"
+    stringify-object "^3.2.2"
+
+"@gitbook/slate-hyperscript@^0.5.22":
+  version "0.5.22"
+  resolved "https://registry.yarnpkg.com/@gitbook/slate-hyperscript/-/slate-hyperscript-0.5.22.tgz#b7fb270296852d961408840dd605cc0cdd156e19"
+  dependencies:
+    "@gitbook/slate-dev-logger" "^0.1.39"
+    is-empty "^1.0.0"
+    is-plain-object "^2.0.4"
+
+"@gitbook/slate-schema-violations@^0.1.20":
+  version "0.1.20"
+  resolved "https://registry.yarnpkg.com/@gitbook/slate-schema-violations/-/slate-schema-violations-0.1.20.tgz#1e799757b79472a15938f05cd90923ea6750388b"
+
+"@gitbook/slate@^0.34.7":
+  version "0.34.7"
+  resolved "https://registry.yarnpkg.com/@gitbook/slate/-/slate-0.34.7.tgz#ecc0ddeac9d5e8380fb4b93e1b47306d139504ba"
+  dependencies:
+    "@gitbook/slate-dev-logger" "^0.1.39"
+    "@gitbook/slate-schema-violations" "^0.1.20"
+    debug "^3.1.0"
+    direction "^0.1.5"
+    esrever "^0.2.0"
+    is-empty "^1.0.0"
+    is-plain-object "^2.0.4"
+    lodash "^4.17.4"
+    type-of "^2.0.1"
+
 abbrev@1:
   version "1.0.9"
   resolved "https://registry.yarnpkg.com/abbrev/-/abbrev-1.0.9.tgz#91b4792588a7738c25f35dd6f63752a2f8776135"
@@ -2352,9 +2393,9 @@ js-tokens@^3.0.0, js-tokens@^3.0.2:
   version "4.0.0"
   resolved "https://registry.yarnpkg.com/js-tokens/-/js-tokens-4.0.0.tgz#19203fb59991df98e3a287050d4647cdeaf32499"
 
-js-yaml@^3.10.0:
-  version "3.11.0"
-  resolved "https://registry.yarnpkg.com/js-yaml/-/js-yaml-3.11.0.tgz#597c1a8bd57152f26d622ce4117851a51f5ebaef"
+js-yaml@^3.12.0, js-yaml@^3.9.1:
+  version "3.12.0"
+  resolved "https://registry.yarnpkg.com/js-yaml/-/js-yaml-3.12.0.tgz#eaed656ec8344f10f527c6bfa1b6e2244de167d1"
   dependencies:
     argparse "^1.0.7"
     esprima "^4.0.0"
@@ -2365,13 +2406,6 @@ js-yaml@^3.4.6, js-yaml@^3.7.0:
   dependencies:
     argparse "^1.0.7"
     esprima "^2.6.0"
-
-js-yaml@^3.9.1:
-  version "3.12.0"
-  resolved "https://registry.yarnpkg.com/js-yaml/-/js-yaml-3.12.0.tgz#eaed656ec8344f10f527c6bfa1b6e2244de167d1"
-  dependencies:
-    argparse "^1.0.7"
-    esprima "^4.0.0"
 
 jsbn@~0.1.0:
   version "0.1.0"
@@ -2574,19 +2608,19 @@ map-obj@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/map-obj/-/map-obj-2.0.0.tgz#a65cd29087a92598b8791257a523e021222ac1f9"
 
-meow@^4.0.0:
-  version "4.0.0"
-  resolved "https://registry.yarnpkg.com/meow/-/meow-4.0.0.tgz#fd5855dd008db5b92c552082db1c307cba20b29d"
+meow@^5.0.0:
+  version "5.0.0"
+  resolved "https://registry.yarnpkg.com/meow/-/meow-5.0.0.tgz#dfc73d63a9afc714a5e371760eb5c88b91078aa4"
   dependencies:
     camelcase-keys "^4.0.0"
     decamelize-keys "^1.0.0"
     loud-rejection "^1.0.0"
-    minimist "^1.1.3"
     minimist-options "^3.0.1"
     normalize-package-data "^2.3.4"
     read-pkg-up "^3.0.0"
     redent "^2.0.0"
     trim-newlines "^2.0.0"
+    yargs-parser "^10.0.0"
 
 micromatch@^2.1.5:
   version "2.3.11"
@@ -2649,7 +2683,7 @@ minimist@0.0.8:
   version "0.0.8"
   resolved "https://registry.yarnpkg.com/minimist/-/minimist-0.0.8.tgz#857fcabfc3397d2625b8228262e86aa7a011b05d"
 
-minimist@^1.1.3, minimist@^1.2.0:
+minimist@^1.2.0:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/minimist/-/minimist-1.2.0.tgz#a35008b20f41383eec1fb914f4cd5df79a264284"
 
@@ -2954,9 +2988,9 @@ preserve@^0.2.0:
   version "0.2.0"
   resolved "https://registry.yarnpkg.com/preserve/-/preserve-0.2.0.tgz#815ed1f6ebc65926f865b310c0713bcb3315ce4b"
 
-prettier@1.6.1:
-  version "1.6.1"
-  resolved "https://registry.yarnpkg.com/prettier/-/prettier-1.6.1.tgz#850f411a3116226193e32ea5acfc21c0f9a76d7d"
+prettier@1.13.6:
+  version "1.13.6"
+  resolved "https://registry.yarnpkg.com/prettier/-/prettier-1.13.6.tgz#00ae0b777ad92f81a9e7a1df2f0470b6dab0cb44"
 
 prettier@^1.13.3, prettier@^1.7.0:
   version "1.14.2"
@@ -3278,47 +3312,6 @@ signal-exit@^3.0.2:
 slash@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/slash/-/slash-1.0.0.tgz#c41f2f6c39fc16d1cd17ad4b5d896114ae470d55"
-
-slate-dev-logger@^0.1.39:
-  version "0.1.39"
-  resolved "https://registry.yarnpkg.com/slate-dev-logger/-/slate-dev-logger-0.1.39.tgz#744a69b85034244713e6de51483af5713c345af4"
-
-slate-hyperprint@^2.2.5:
-  version "2.2.5"
-  resolved "https://registry.yarnpkg.com/slate-hyperprint/-/slate-hyperprint-2.2.5.tgz#2533be31b3bab5e9cfe8a7c8c2ad4f009e485d23"
-  dependencies:
-    indent-string "^3.2.0"
-    is-plain-object "^2.0.4"
-    js-yaml "^3.10.0"
-    meow "^4.0.0"
-    prettier "1.6.1"
-    stringify-object "^3.2.2"
-
-slate-hyperscript@^0.5.15:
-  version "0.5.22"
-  resolved "https://registry.yarnpkg.com/slate-hyperscript/-/slate-hyperscript-0.5.22.tgz#50485ee5118dba5cd69d032cb4f100c6437e4acf"
-  dependencies:
-    is-empty "^1.0.0"
-    is-plain-object "^2.0.4"
-    slate-dev-logger "^0.1.39"
-
-slate-schema-violations@^0.1.20:
-  version "0.1.39"
-  resolved "https://registry.yarnpkg.com/slate-schema-violations/-/slate-schema-violations-0.1.39.tgz#854ab5624136419cef4c803b1823acabe11f1c15"
-
-slate@^0.34.4:
-  version "0.34.7"
-  resolved "https://registry.yarnpkg.com/slate/-/slate-0.34.7.tgz#5908e1d0fc092a2212488beca65671f01e0eb80a"
-  dependencies:
-    debug "^3.1.0"
-    direction "^0.1.5"
-    esrever "^0.2.0"
-    is-empty "^1.0.0"
-    is-plain-object "^2.0.4"
-    lodash "^4.17.4"
-    slate-dev-logger "^0.1.39"
-    slate-schema-violations "^0.1.20"
-    type-of "^2.0.1"
 
 slice-ansi@1.0.0:
   version "1.0.0"
@@ -3648,3 +3641,9 @@ xtend@^4.0.0:
 yallist@^2.1.2:
   version "2.1.2"
   resolved "https://registry.yarnpkg.com/yallist/-/yallist-2.1.2.tgz#1c11f9218f076089a47dd512f93c6699a6a81d52"
+
+yargs-parser@^10.0.0:
+  version "10.1.0"
+  resolved "https://registry.yarnpkg.com/yargs-parser/-/yargs-parser-10.1.0.tgz#7202265b89f7e9e9f2e5765e0fe735a905edbaa8"
+  dependencies:
+    camelcase "^4.1.0"
