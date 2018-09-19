@@ -1,5 +1,5 @@
 import expect from 'expect';
-import { Text } from 'slate';
+import { Text } from '@gitbook/slate';
 import Serializer from '../src/models/serializer';
 import State from '../src/models/state';
 

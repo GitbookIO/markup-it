@@ -1,9 +1,9 @@
 #! /usr/bin/env node
 /* eslint-disable no-console */
 
-import { Value } from 'slate';
+import { Value } from '@gitbook/slate';
 
-import hyperprint from 'slate-hyperprint';
+import hyperprint from '@gitbook/slate-hyperprint';
 import { transform } from './helper';
 
 transform(document => {

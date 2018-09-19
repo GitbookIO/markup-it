@@ -1,4 +1,4 @@
-import { Document, Block, Inline, Text, Mark, Leaf } from 'slate';
+import { Document, Block, Inline, Text, Mark, Leaf } from '@gitbook/slate';
 import State from './models/state';
 import Deserializer from './models/deserializer';
 import Serializer from './models/serializer';

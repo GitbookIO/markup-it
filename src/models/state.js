@@ -1,5 +1,5 @@
 import { Record, List, Map, Set } from 'immutable';
-import { Text, Block, Document } from 'slate';
+import { Text, Block, Document } from '@gitbook/slate';
 import BLOCKS from '../constants/blocks';
 import RuleFunction from './rule-function';
 

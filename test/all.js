@@ -3,8 +3,8 @@
 import fs from 'fs';
 import path from 'path';
 import expect from 'expect';
-import Slate from 'slate';
-import hyperprint from 'slate-hyperprint';
+import Slate from '@gitbook/slate';
+import hyperprint from '@gitbook/slate-hyperprint';
 import trimTrailingLines from 'trim-trailing-lines';
 import { State } from '../src/';
 import markdown from '../src/markdown';

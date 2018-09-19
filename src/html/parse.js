@@ -2,7 +2,7 @@ import detectNewLine from 'detect-newline';
 import htmlparser from 'htmlparser2';
 import htmlclean from 'htmlclean';
 import { List, Stack, Set } from 'immutable';
-import { Document } from 'slate';
+import { Document } from '@gitbook/slate';
 import {
     BLOCKS,
     INLINES,

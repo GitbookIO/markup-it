@@ -1,7 +1,7 @@
 #! /usr/bin/env node
 /* eslint-disable no-console */
 
-import { Value } from 'slate';
+import { Value } from '@gitbook/slate';
 
 import { transform } from './helper';
 

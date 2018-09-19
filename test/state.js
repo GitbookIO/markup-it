@@ -1,5 +1,5 @@
 import expect from 'expect';
-import { Block } from 'slate';
+import { Block } from '@gitbook/slate';
 import State from '../src/models/state';
 
 describe('State', () => {

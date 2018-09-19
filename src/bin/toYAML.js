@@ -3,7 +3,7 @@
 
 import yaml from 'js-yaml';
 
-import { Value } from 'slate';
+import { Value } from '@gitbook/slate';
 import { transform } from './helper';
 
 transform(document => {

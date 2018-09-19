@@ -1,4 +1,4 @@
-import { Document } from 'slate';
+import { Document } from '@gitbook/slate';
 import {
     State,
     Serializer,
