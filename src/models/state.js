@@ -1,4 +1,4 @@
-import { Record, List, Map, Set } from 'immutable';
+import { Stack, Record, List, Map, Set } from 'immutable';
 import { Text, Block, Document } from '@gitbook/slate';
 import BLOCKS from '../constants/blocks';
 import RuleFunction from './rule-function';
@@ -10,6 +10,9 @@ import RuleFunction from './rule-function';
 const DEFAULTS = {
     text: '',
     nodes: List(),
+    // Stack of parsing state. A new state is pushed everytime we go `down`
+    // Stack<{ text: String, nodes: List<Node>, object: String }>
+    stack: Stack(),
     marks: Set(),
     object: String('document'),
     rulesSet: Map(),
@@ -68,12 +71,13 @@ class State extends Record(DEFAULTS) {
      * Get a prop from the state
      *
      * @param  {String} key
-     * @param  {Mixed} def
+     * @param  {Mixed} defaultValue
      * @return {Mixed}
      */
-    getProp(key, def) {
+    getProp(key, defaultValue) {
         const { props } = this;
-        return props.get(key, def);
+
+        return props.get(key, defaultValue);
     }
 
     /**
@@ -193,27 +197,39 @@ class State extends Record(DEFAULTS) {
     }
 
     /**
-     * Move this state to a upper level
+     * Move this state to a lower level
      *
-     * @param  {Number} string
+     * @param  {List<Node>} nodes
+     * @param  {String} text
      * @return {State} state
      */
-    up() {
-        let { depth } = this;
-        depth -= 1;
-        return this.merge({ depth });
+    down({ nodes = List(), text = '' } = {}) {
+        return this.merge({
+            depth: this.depth + 1,
+            nodes,
+            text,
+            stack: this.stack.push({
+                object: this.object,
+                nodes: this.nodes,
+                text: this.text
+            })
+        });
     }
 
     /**
-     * Move this state to a lower level
+     * Move this state to a upper level
      *
-     * @param  {Number} string
      * @return {State} state
      */
-    down() {
-        let { depth } = this;
-        depth += 1;
-        return this.merge({ depth });
+    up() {
+        const { nodes, text, object } = this.stack.peek();
+        return this.merge({
+            depth: this.depth - 1,
+            nodes,
+            text,
+            object,
+            stack: this.stack.pop()
+        });
     }
 
     /**
@@ -301,16 +317,12 @@ class State extends Record(DEFAULTS) {
     }
 
     /**
-     * Deserialize a text into a Node.
+     * Deserialize a text into a list of Nodes.
      * @param  {String} text
      * @return {List<Node>} nodes
      */
     deserialize(text) {
-        const state = this.down()
-            .merge({ text, nodes: List() })
-            .lex();
-
-        return state.nodes;
+        return this.down({ text }).lex().nodes;
     }
 
     /**
@@ -345,12 +357,7 @@ class State extends Record(DEFAULTS) {
      * @return {String} text
      */
     serialize(nodes) {
-        return this.down()
-            .merge({
-                text: '',
-                nodes: List(nodes)
-            })
-            ._serialize().text;
+        return this.down({ nodes: List(nodes) })._serialize().text;
     }
 
     /**
