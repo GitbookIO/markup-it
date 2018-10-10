@@ -1,4 +1,5 @@
-import { Serializer, Deserializer, Inline, INLINES } from '../../';
+import { State, Serializer, Deserializer, Inline, INLINES } from '../../';
+import HTMLParser from '../../html';
 import reInline from '../re/inline';
 import HTML_BLOCKS from './HTML_BLOCKS';
 
@@ -94,30 +95,41 @@ const deserializePair = Deserializer().matchRegExp(
         const openingTag = `<${tagName}${attributes}>`;
         const closingTag = fullTag.slice(openingTag.length + innerHtml.length);
 
-        if (isHTMLBlock(tagName)) {
-            // Do not parse inner HTML
-            return state.push(
-                createRawHTML({
+        // Finish parsing the inside of the HTML as Markdown
+        const htmlNode = (() => {
+            if (isHTMLBlock(tagName)) {
+                // Do not parse inner HTML
+                return createRawHTML({
                     openingTag,
                     closingTag,
                     innerHtml
-                })
-            );
-        }
-        // Parse inner HTML
-        const isLink = tagName.toLowerCase() === 'a';
+                });
+            }
+            // else parse inner HTML as Markdown
 
-        const innerNodes = state
-            .setProp(isLink ? 'link' : 'html', state.depth)
-            .deserialize(innerHtml);
+            const isLink = tagName.toLowerCase() === 'a';
+            const innerNodes = state
+                .setProp(isLink ? 'link' : 'html', state.depth)
+                .deserialize(innerHtml);
 
-        return state.push(
-            createHTML({
+            return createHTML({
                 openingTag,
                 closingTag,
                 nodes: innerNodes
-            })
-        );
+            });
+        })();
+
+        // Now convert everything back to HTML and interpret the whole
+        // (we got rid of any Markdown)
+        const htmlParser = State.create(HTMLParser);
+        const htmlOnly = htmlParser.use('block').serializeNode(htmlNode);
+        const document = htmlParser.deserializeToDocument(htmlOnly);
+
+        const firstNode = document.nodes.first();
+        if (firstNode) {
+            return state.push(firstNode.nodes);
+        }
+        return state;
     }
 );
 
