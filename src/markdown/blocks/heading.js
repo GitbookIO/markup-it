@@ -68,16 +68,20 @@ const deserialize = Deserializer().use([deserializeNormal, deserializeLine]);
 function parseHeadingText(state, level, initialText) {
     let text = initialText;
     reHeading.id.lastIndex = 0;
-    const match = reHeading.id.exec(text);
+    const matchId = reHeading.id.exec(text);
     let data;
 
-    const id = match ? match[2] : null;
-    if (id) {
+    if (matchId) {
         // Remove ID from text
-        text = text.replace(match[0], '').trim();
-        data = { id };
+        text = text.replace(matchId[0], '').trim();
     } else {
         text = text.trim();
+    }
+
+    // Use the custom ID, or use the id of the last anchor found (see anchors tests)
+    const id = (matchId && matchId[2]) || state.getProp('lastAnchorId') || null;
+    if (id) {
+        data = { id };
     }
 
     const node = Block.create({
@@ -86,7 +90,13 @@ function parseHeadingText(state, level, initialText) {
         data
     });
 
-    return state.push(node);
+    return (
+        state
+            .use('block')
+            // We have consumed any anchor ID that was seen recently
+            .setProp('lastAnchorId', null)
+            .push(node)
+    );
 }
 
 export default { serialize, deserialize };

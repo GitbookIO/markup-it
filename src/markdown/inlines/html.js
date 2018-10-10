@@ -1,3 +1,4 @@
+import htmlparser from 'htmlparser2';
 import { List } from 'immutable';
 import { State, Serializer, Deserializer, Inline, INLINES } from '../../';
 import HTMLParser from '../../html';
@@ -127,12 +128,40 @@ const deserializePair = Deserializer().matchRegExp(
         const document = htmlParser.deserializeToDocument(htmlOnly);
 
         const firstNode = document.nodes.first();
-        if (firstNode) {
-            return state.push(firstNode.nodes);
-        }
-        return state;
+        return (
+            state
+                // If we have found an anchor, store it so it is attached to the next heading
+                .setProp('lastAnchorId', findHtmlAnchor(htmlOnly))
+                .push(firstNode ? firstNode.nodes : List())
+        );
     }
 );
+
+/**
+ * Look for <a id="..."></a>, often used to
+ * add custom anchors to Markdown headings.
+ * @param {String} html
+ * @return {String | Null} id of the anchor found
+ */
+function findHtmlAnchor(html) {
+    let anchorId = null;
+
+    const parser = new htmlparser.Parser(
+        {
+            onopentag(tagName, attribs) {
+                if (tagName.toLowerCase() === 'a' && attribs.id) {
+                    // This is an anchor with an ID
+                    anchorId = attribs.id;
+                }
+            }
+        },
+        { decodeEntities: true }
+    );
+    parser.write(html);
+    parser.end();
+
+    return anchorId;
+}
 
 /**
  * Deserialize HTML self closing tag from markdown
