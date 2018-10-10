@@ -34,13 +34,20 @@ const deserialize = Deserializer().matchRegExp(
         }
 
         const text = collapseWhiteSpaces(match[1]);
-        const nodes = state.use('inline').deserialize(text);
+
+        const newState = state
+            .down({ text })
+            .use('inline')
+            .lex();
+
+        const { nodes } = newState;
+
         const node = Block.create({
             type: BLOCKS.PARAGRAPH,
             nodes
         });
 
-        return state.push(node);
+        return newState.up().push(node);
     }
 );
 

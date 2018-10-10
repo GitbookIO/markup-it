@@ -78,6 +78,11 @@ function parseHeadingText(state, level, initialText) {
         text = text.trim();
     }
 
+    const newState = state
+        .down({ text })
+        .use('inline')
+        .lex();
+
     // Use the custom ID, or use the id of the last anchor found (see anchors tests)
     const id = (matchId && matchId[2]) || state.getProp('lastAnchorId') || null;
     if (id) {
@@ -86,13 +91,13 @@ function parseHeadingText(state, level, initialText) {
 
     const node = Block.create({
         type: TYPES[level - 1],
-        nodes: state.use('inline').deserialize(text),
+        nodes: newState.nodes,
         data
     });
 
     return (
-        state
-            .use('block')
+        newState
+            .up()
             // We have consumed any anchor ID that was seen recently
             .setProp('lastAnchorId', null)
             .push(node)
