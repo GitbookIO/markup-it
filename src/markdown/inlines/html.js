@@ -1,3 +1,4 @@
+import { List } from 'immutable';
 import { State, Serializer, Deserializer, Inline, INLINES } from '../../';
 import HTMLParser from '../../html';
 import reInline from '../re/inline';
@@ -140,8 +141,11 @@ const deserializePair = Deserializer().matchRegExp(
 const deserializeClosing = Deserializer().matchRegExp(
     reInline.htmlSelfClosingTag,
     (state, match) => {
-        const [openingTag] = match;
-        return state.push(createRawHTML({ openingTag }));
+        const [selfClosingHtml] = match;
+        const htmlParser = State.create(HTMLParser);
+        const document = htmlParser.deserializeToDocument(selfClosingHtml);
+        const firstNode = document.nodes.first();
+        return state.push(firstNode ? firstNode.nodes : List());
     }
 );
 
