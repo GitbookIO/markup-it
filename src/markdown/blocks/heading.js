@@ -84,7 +84,8 @@ function parseHeadingText(state, level, initialText) {
         .lex();
 
     // Use the custom ID, or use the id of the last anchor found (see anchors tests)
-    const id = (matchId && matchId[2]) || state.getProp('lastAnchorId') || null;
+    const id =
+        (matchId && matchId[2]) || newState.getProp('lastAnchorId') || null;
     if (id) {
         data = { id };
     }
