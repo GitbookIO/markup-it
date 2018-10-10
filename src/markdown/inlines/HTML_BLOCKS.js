@@ -3,8 +3,6 @@
 // Treat these blocks as RAW HTML
 
 const HTML_BLOCKS = [
-    'pre',
-
     'address',
     'article',
     'aside',
@@ -55,6 +53,7 @@ const HTML_BLOCKS = [
     'option',
     'p',
     'param',
+    'pre',
     'section',
     'source',
     'summary',

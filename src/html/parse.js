@@ -192,6 +192,78 @@ function splitLines(text, sep = detectNewLine(text) || '\n') {
 }
 
 /**
+ * Update the node on top of the stack with the given node
+ * @param {Stack} stack
+ * @param {Node} node
+ * @return {Stack}
+ */
+function setNode(stack, node) {
+    return stack.pop().push(node);
+}
+
+/**
+ * Append a node child to the current parent node
+ * @param {Stack} stack
+ * @param {Node} node
+ * @return {Stack}
+ */
+function appendNode(stack, node) {
+    const parent = stack.peek();
+    let { nodes } = parent;
+
+    // If parent is not a block container
+    if (!isBlockContainer(parent) && node.object == 'block') {
+        // Discard all blocks
+        nodes = nodes.concat(selectInlines(node));
+    }
+
+    // Wrap node if type is not allowed
+    else if (
+        isBlockContainer(parent) &&
+        (node.object !== 'block' || !canContain(parent, node))
+    ) {
+        const previous = parent.nodes.last();
+        if (previous && canContain(previous, node)) {
+            // Reuse previous block if possible
+            nodes = nodes
+                .pop()
+                .push(previous.set('nodes', previous.nodes.push(node)));
+        } else {
+            // Else insert a default wrapper
+            const wrapper = Block.create({
+                type: defaultBlockType(parent),
+                nodes: [node]
+            });
+
+            nodes = nodes.push(wrapper);
+        }
+    } else {
+        nodes = nodes.push(node);
+    }
+
+    return setNode(stack, parent.merge({ nodes }));
+}
+
+/**
+ * Push a new node, as current parent. We started parsing it
+ * @param {Stack} stack
+ * @param {Node} node
+ * @return {Stack}
+ */
+function pushNode(stack, node) {
+    return stack.push(node);
+}
+
+/**
+ * Pop the current parent node. Because we're done parsing it
+ * @param {Stack} stack
+ * @return {Stack}
+ */
+function popNode(stack) {
+    return appendNode(stack.pop(), stack.peek());
+}
+
+/**
  * Parse an HTML string into a document
  * @param {String} str
  * @return {Document}
@@ -208,61 +280,6 @@ function parse(str) {
     // The current marks
     let marks = Set();
 
-    // Update the node on top of the stack with the given node
-    function setNode(node) {
-        stack = stack.pop().push(node);
-    }
-
-    // Append a node child to the current parent node
-    function appendNode(node) {
-        const parent = stack.peek();
-        let { nodes } = parent;
-
-        // If parent is not a block container
-        if (!isBlockContainer(parent) && node.object == 'block') {
-            // Discard all blocks
-            nodes = nodes.concat(selectInlines(node));
-        }
-
-        // Wrap node if type is not allowed
-        else if (
-            isBlockContainer(parent) &&
-            (node.object !== 'block' || !canContain(parent, node))
-        ) {
-            const previous = parent.nodes.last();
-            if (previous && canContain(previous, node)) {
-                // Reuse previous block if possible
-                nodes = nodes
-                    .pop()
-                    .push(previous.set('nodes', previous.nodes.push(node)));
-            } else {
-                // Else insert a default wrapper
-                const wrapper = Block.create({
-                    type: defaultBlockType(parent),
-                    nodes: [node]
-                });
-
-                nodes = nodes.push(wrapper);
-            }
-        } else {
-            nodes = nodes.push(node);
-        }
-
-        setNode(parent.merge({ nodes }));
-    }
-
-    // Push a new node, as current parent. We started parsing it
-    function pushNode(node) {
-        stack = stack.push(node);
-    }
-
-    // Pop the current parent node. Because we're done parsing it
-    function popNode() {
-        const node = stack.peek();
-        stack = stack.pop();
-        appendNode(node);
-    }
-
     const parser = new htmlparser.Parser(
         {
             onopentag(tagName, attribs) {
@@ -274,7 +291,7 @@ function parse(str) {
                         type
                     });
 
-                    pushNode(block);
+                    stack = pushNode(stack, block);
                 } else if (INLINE_TAGS[tagName]) {
                     const type = INLINE_TAGS[tagName];
                     const inline = Inline.create({
@@ -283,7 +300,7 @@ function parse(str) {
                         type
                     });
 
-                    pushNode(inline);
+                    stack = pushNode(stack, inline);
                 } else if (MARK_TAGS[tagName]) {
                     const mark = Mark.create({
                         data: getData(tagName, attribs),
@@ -296,7 +313,7 @@ function parse(str) {
                         text: '\n',
                         marks
                     });
-                    appendNode(textNode);
+                    stack = appendNode(stack, textNode);
                 }
                 // else ignore
 
@@ -308,7 +325,7 @@ function parse(str) {
             ontext(text) {
                 const cleanText = sanitizeSpaces(text);
                 const textNode = Text.create({ text: cleanText, marks });
-                appendNode(textNode);
+                stack = appendNode(stack, textNode);
             },
 
             onclosetag(tagName) {
@@ -322,7 +339,8 @@ function parse(str) {
                         if (lines.last().trim() === '') {
                             lines = lines.skipLast(1);
                         }
-                        setNode(
+                        stack = setNode(
+                            stack,
                             parent.merge({
                                 nodes: lines.map(line =>
                                     // Create a code line
@@ -335,7 +353,7 @@ function parse(str) {
                         );
                     }
 
-                    popNode();
+                    stack = popNode(stack);
                 } else if (MARK_TAGS[tagName]) {
                     const type = MARK_TAGS[tagName];
                     marks = marks.filter(mark => mark.type !== type);
