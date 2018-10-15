@@ -1,6 +1,5 @@
 import { Serializer, INLINES } from '../../';
 import serializeTag from '../serializeTag';
-import escape from '../escape';
 
 /**
  * Serialize a link to HTML
@@ -11,8 +10,8 @@ const serialize = Serializer()
     .then(
         serializeTag('a', {
             getAttrs: ({ data }) => ({
-                href: escape(data.get('href') || ''),
-                title: data.get('title') ? escape(data.get('title')) : undefined
+                href: data.get('href') || '',
+                title: data.get('title') || undefined
             })
         })
     );

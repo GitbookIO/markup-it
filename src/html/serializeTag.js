@@ -1,6 +1,8 @@
 import is from 'is';
 import { Map } from 'immutable';
 
+import escape from './escape';
+
 /**
  * @param {String} tag The HTML tag
  * @param {Boolean} [opts.isSingleTag=false] Render as self-closing tag
@@ -14,7 +16,6 @@ function serializeTag(tag, opts = {}) {
     return state => {
         const node = state.peek();
         const attrs = getAttrs(node);
-
         const attrsText = attrsToString(attrs);
 
         let text;
@@ -43,7 +44,7 @@ function attrsToString(attrsObject) {
         } else if (is.equal(value, '')) {
             return `${output} ${key}`;
         }
-        return `${output} ${key}=${JSON.stringify(value)}`;
+        return `${output} ${key}="${escape(value)}"`;
     }, '');
 }
 
