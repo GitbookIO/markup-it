@@ -1,1 +1,1 @@
-# Header {#mycustomid}
+# Header <a id="mycustomid"></a>

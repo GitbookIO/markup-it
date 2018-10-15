@@ -25,7 +25,7 @@ const serialize = Serializer()
 
         let inner = state.use('inline').serialize(node.nodes);
         if (id) {
-            inner = `${inner} {#${id}}`;
+            inner = `${inner} <a id="${id}"></a>`;
         }
 
         return state.shift().write(`${prefix} ${inner}\n\n`);
