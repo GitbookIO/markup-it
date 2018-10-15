@@ -1,5 +1,6 @@
 import { Serializer, Deserializer, Block, BLOCKS } from '../../';
 import reHeading from '../re/heading';
+import escape from '../../html/escape';
 
 const TYPES = [
     BLOCKS.HEADING_1,
@@ -25,7 +26,7 @@ const serialize = Serializer()
 
         let inner = state.use('inline').serialize(node.nodes);
         if (id) {
-            inner = `${inner} <a id="${id}"></a>`;
+            inner = `${inner} <a id="${escape(id)}"></a>`;
         }
 
         return state.shift().write(`${prefix} ${inner}\n\n`);
