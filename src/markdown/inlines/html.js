@@ -1,6 +1,13 @@
 import htmlparser from 'htmlparser2';
 import { List } from 'immutable';
-import { State, Serializer, Deserializer, Inline, INLINES } from '../../';
+import {
+    State,
+    Serializer,
+    Deserializer,
+    Inline,
+    INLINES,
+    BLOCKS
+} from '../../';
 import HTMLParser from '../../html';
 import reInline from '../re/inline';
 import HTML_BLOCKS from './HTML_BLOCKS';
@@ -45,6 +52,29 @@ function createHTML(opts) {
         data: { openingTag, closingTag },
         nodes
     });
+}
+
+/**
+ * Deserialize inline HTML
+ * @param {String} html
+ * @return {List<Node>} parsed nodes
+ */
+function deserializeHtml(html) {
+    const htmlParser = State.create(HTMLParser);
+    const document = htmlParser.deserializeToDocument(html);
+    const firstNode = document.nodes.first();
+    const isEmpty =
+        !firstNode ||
+        (document.nodes.size === 1 &&
+            firstNode.type === BLOCKS.PARAGRAPH &&
+            firstNode.nodes.every(child => !child.isVoid) &&
+            firstNode.text === '');
+
+    if (isEmpty) {
+        return List();
+    }
+
+    return firstNode.nodes;
 }
 
 /**
@@ -125,14 +155,12 @@ const deserializePair = Deserializer().matchRegExp(
         // (we got rid of any Markdown)
         const htmlParser = State.create(HTMLParser);
         const htmlOnly = htmlParser.use('block').serializeNode(htmlNode);
-        const document = htmlParser.deserializeToDocument(htmlOnly);
 
-        const firstNode = document.nodes.first();
         return (
             state
                 // If we have found an anchor, store it so it is attached to the next heading
                 .setProp('lastAnchorId', findHtmlAnchor(htmlOnly))
-                .push(firstNode ? firstNode.nodes : List())
+                .push(deserializeHtml(htmlOnly))
         );
     }
 );
@@ -171,10 +199,7 @@ const deserializeClosing = Deserializer().matchRegExp(
     reInline.htmlSelfClosingTag,
     (state, match) => {
         const [selfClosingHtml] = match;
-        const htmlParser = State.create(HTMLParser);
-        const document = htmlParser.deserializeToDocument(selfClosingHtml);
-        const firstNode = document.nodes.first();
-        return state.push(firstNode ? firstNode.nodes : List());
+        return state.push(deserializeHtml(selfClosingHtml));
     }
 );
 
