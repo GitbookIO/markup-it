@@ -5,6 +5,11 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Unreleased
 
+#### 11.1.0
+
+- Correctly parse inline HTML as well in Markdown.
+- Support using `<a id="custom"></a>` before or inside headings to add a custom ID to them.
+
 #### 11.0.0
 
 [BREAKING] Now using @gitbook/slate as peer dependency
