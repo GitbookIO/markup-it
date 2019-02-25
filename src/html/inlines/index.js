@@ -1,3 +1,4 @@
+import escape from './escape';
 import code from './code';
 import bold from './bold';
 import italic from './italic';
@@ -9,6 +10,7 @@ import footnoteRef from './footnote-ref';
 import html from './html';
 
 export default [
+    escape,
     code,
     bold,
     italic,
