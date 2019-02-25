@@ -1,1 +1,1 @@
-&lt;Hello&gt; World
+&lt;Hello&gt; & Bonjour

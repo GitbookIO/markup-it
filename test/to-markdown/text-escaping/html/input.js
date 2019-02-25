@@ -3,6 +3,6 @@ import h from 'h';
 
 export default (
     <document>
-        <paragraph>{'<Hello>'} World</paragraph>
+        <paragraph>{'<Hello>'} & Bonjour</paragraph>
     </document>
 );
