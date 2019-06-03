@@ -30,7 +30,7 @@ const deserialize = Deserializer().matchRegExp(
         const text = match[2];
         const mark = Mark.create({ type: MARKS.CODE });
 
-        const node = Text.create({ text, marks: [mark] });
+        const node = Text.create({ text, marks: [mark, ...state.marks] });
         return state.push(node);
     }
 );
