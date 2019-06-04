@@ -68,8 +68,8 @@ block.list.block = replace(block.list.block)(/bullet/g, block.list.bullet)();
 
 block.html = replace(block.html)('comment', /<!--[\s\S]*?-->/)(
     'closed',
-    /<(tag)[\s\S]+?<\/\1>/
-)('closing', /<tag(?:"[^"]*"|'[^']*'|[^'">])*?>/)(/tag/g, _tag)();
+    /<(tag)[^<]*?(?:>)[\s\S]+?<\/\1>/
+)('closing', /<tag(?:"[^"]*"|'[^']*'|[^'">/])*?\/?>/)(/tag/g, _tag)();
 
 block.paragraph = replace(block.paragraph)(
     'notParagraphPart',
