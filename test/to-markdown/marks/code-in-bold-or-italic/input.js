@@ -5,9 +5,7 @@ export default (
     <document>
         <paragraph>
             <bold>
-                <italic>
-                    <code>this</code>
-                </italic>
+                <code>this</code>
             </bold>
             <italic>
                 <code>is</code>
