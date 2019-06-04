@@ -4,11 +4,9 @@ import h from 'h';
 export default (
     <document>
         <paragraph>
-            <italic>
-                <bold>
-                    <code>this</code>
-                </bold>
-            </italic>
+            <bold>
+                <code>this</code>
+            </bold>
             <italic>
                 <code>is</code>
             </italic>
