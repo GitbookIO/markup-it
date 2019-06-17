@@ -1,5 +1,6 @@
-import { Map } from 'immutable';
 import entities from 'entities';
+import { Map } from 'immutable';
+import isAbsoluteURL from 'is-absolute-url';
 import { escapeWith, unescapeWith } from '../utils/escape';
 
 // Replacements for Markdown escaping
@@ -72,6 +73,12 @@ function escapeURL(str) {
  * @return {String}
  */
 function unescapeURL(str) {
+    // If URL is absolute, we shouldn't try to decode it
+    // since it doesn't represent a file path but rather a static resource
+    if (isAbsoluteURL(str)) {
+        return str;
+    }
+
     let decoded;
     try {
         decoded = decodeURI(str);
