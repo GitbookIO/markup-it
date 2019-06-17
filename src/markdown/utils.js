@@ -73,15 +73,11 @@ function escapeURL(str) {
  * @return {String}
  */
 function unescapeURL(str) {
-    // If URL is absolute, we shouldn't try to decode it
-    // since it doesn't represent a file path but rather a static resource
-    if (isAbsoluteURL(str)) {
-        return str;
-    }
-
     let decoded;
     try {
-        decoded = decodeURI(str);
+        // If URL is absolute, we shouldn't try to decode it
+        // since it doesn't represent a file path but rather a static resource
+        decoded = isAbsoluteURL(str) ? str : decodeURI(str);
     } catch (e) {
         if (!(e instanceof URIError)) {
             throw e;
