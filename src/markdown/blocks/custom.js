@@ -77,7 +77,6 @@ const serialize = Serializer()
             data
         });
 
-        const split = node.object == 'block' ? '\n' : '';
         const end = node.object == 'block' ? '\n\n' : '';
 
         if (node.isVoid || node.nodes.isEmpty()) {
@@ -100,17 +99,27 @@ const serialize = Serializer()
             : node.nodes;
 
         const inner = trimTrailingLines(state.serialize(innerNodes));
-
+        const split = node.object == 'block' ? '\n\n' : '';
         const unendingTags = state.getProp('unendingTags') || List();
+        const endSplit =
+            node.object == 'block' &&
+            // Don't double add <split> if content was empty
+            inner.length > 0 &&
+            // Don't add additional newlines for unended tags since
+            // they already exist in the content of the block
+            !unendingTags.includes(getTagFromCustomType(node.type))
+                ? '\n\n'
+                : '';
+
         const endTag = unendingTags.includes(getTagFromCustomType(node.type))
             ? ''
-            : liquid.stringifyTag({
+            : `${liquid.stringifyTag({
                   tag: `end${getTagFromCustomType(node.type)}`
-              });
+              })}`;
 
         return state
             .shift()
-            .write(`${startTag}${split}${inner}${split}${endTag}${end}`);
+            .write(`${startTag}${split}${inner}${endSplit}${endTag}${end}`);
     });
 
 /**
