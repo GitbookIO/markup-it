@@ -9,7 +9,7 @@ export default (
             <x-tab title="First Tab">
                 <paragraph>Here is some content.</paragraph>
                 <blockquote>
-                    <paragraph>Is this you I'm looking for?</paragraph>
+                    <paragraph>Is this you I{"'"}m looking for?</paragraph>
                 </blockquote>
             </x-tab>
             <x-tab title="Second Tab">
