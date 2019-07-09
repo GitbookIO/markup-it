@@ -1,5 +1,3 @@
-Hello World
-
 {% method %}
 
 Method 1
@@ -8,10 +6,6 @@ Method 1
 
 Some code
 
-{% endmethod %}
-
-{% method %}
-
-Method 2
+{% youtube src="https://www.youtube.com/watch?v=XXXXXXX" %}
 
 {% endmethod %}

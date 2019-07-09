@@ -4,10 +4,6 @@ Hello World
 
 Method 1
 
-{% sample lang="js" %}
-
-Some code
-
 {% endmethod %}
 
 {% method %}
