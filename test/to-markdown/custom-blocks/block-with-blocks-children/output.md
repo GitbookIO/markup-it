@@ -2,7 +2,7 @@ Hello world
 
 {% method %}
 
-## Install {#install}
+## Install <a id="install"></a>
 
 The first thing is to get the GitBook API client.
 
