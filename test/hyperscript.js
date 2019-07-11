@@ -36,7 +36,9 @@ const h = createHyperscript({
         'x-hint': { type: 'x-hint', isVoid: false },
         'x-common': { type: 'x-common', isVoid: false },
         'x-someblock': { type: 'x-someblock', isVoid: false },
-        'x-empty': { type: 'x-empty', isVoid: false }
+        'x-empty': { type: 'x-empty', isVoid: false },
+        'x-tabs': { type: 'x-tabs', isVoid: false },
+        'x-tab': { type: 'x-tab', isVoid: false }
     },
     inlines: {
         ...typesToObject(INLINES)

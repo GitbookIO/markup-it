@@ -1,0 +1,5 @@
+{% method %}
+$$
+a = b
+$$
+{% endmethod %}
