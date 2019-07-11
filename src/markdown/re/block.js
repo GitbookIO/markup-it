@@ -8,7 +8,7 @@ const block = {
     newline: /^\n+/,
     code: /^((?: {4}|\t)[^\n]+\n*)+/,
     hr: /^( *[-*_]){3,} *(?:\n|$)/,
-    blockquote: /^( *>[^\n]+(\n(?!def)[^\n]+)*\n*)+/,
+    blockquote: /^( *>[^\n]+(\n(?!def|customBlock)[^\n]+)*\n*)+/,
     html: /^ *(?:comment *(?:\n|\s*$)|closed *(?:\n{2,}|\s*$)|closing *(?:\n{2,}|\s*$))/,
     // [someref]: google.com
     def: /^ {0,3}\[([^\]]+)\]: *<?([^\s>]+)>?(?: +["(]([^\n]+)[")])? *(?:\n|$)/,
@@ -19,7 +19,7 @@ const block = {
     yamlHeader: /^ *(?=```)/,
     math: /^ *(\${2,}) *(\n+[\s\S]+?)\s*\1 *(?:\n|$)/,
     list: {
-        block: /^( *)(bullet) [\s\S]+?(?:hr|def|\n{2,}(?! )(?!\1allbull )\n*|\s*$)/,
+        block: /^( *)(bullet) [\s\S]+?(?:hr|def|\n{2,}(?! )(?!\1allbull )\n*|\s*$|(?=\ncustomBlock))/,
         item: /^( *)(bullet) [^\n]*(?:\n(?!\1allbull )[^\n]*)*/,
         bullet: /(?:[*+-]|\d+\.)/,
         bullet_ul: /(?:\d+\.)/,
@@ -48,12 +48,18 @@ block.list.item = replace(block.list.item, 'gm')(/allbull/g, block.list.bullet)(
     block.list.bullet
 )();
 
-block.blockquote = replace(block.blockquote)('def', block.def)();
+block.blockquote = replace(block.blockquote)('def', block.def)(
+    'customBlock',
+    block.customBlock
+)();
 
 block.list.block = replace(block.list.block)(/allbull/g, block.list.bullet)(
     'hr',
     '\\n+(?=\\1?(?:[-*_] *){3,}(?:\\n+|$))'
-)('def', `\\n+(?=${block.def.source})`)('footnote', block.footnote)();
+)('def', `\\n+(?=${block.def.source})`)('footnote', block.footnote)(
+    'customBlock',
+    block.customBlock
+)();
 
 block.list.block_ul = replace(block.list.block)(
     /bullet/g,
