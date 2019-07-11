@@ -91,9 +91,39 @@ function parseHeadingText(state, level, initialText) {
         data = { id };
     }
 
+    const trimmedNodes = newState.nodes.map((node, i) => {
+        let newNode = node;
+        const leaves = node.getLeaves();
+
+        // Trim text left on first node
+        if (i === 0) {
+            const firstLeaf = leaves.first();
+            newNode = newNode.setLeaves(
+                leaves.rest().unshift(
+                    firstLeaf.merge({
+                        text: firstLeaf.text.trimLeft()
+                    })
+                )
+            );
+        }
+        // Trim text right on last node
+        if (i + 1 === newState.nodes.size) {
+            const lastLeaf = leaves.last();
+            newNode = newNode.setLeaves(
+                leaves.butLast().push(
+                    lastLeaf.merge({
+                        text: lastLeaf.text.trimRight()
+                    })
+                )
+            );
+        }
+
+        return newNode;
+    });
+
     const node = Block.create({
         type: TYPES[level - 1],
-        nodes: newState.nodes,
+        nodes: trimmedNodes,
         data
     });
 
