@@ -60,6 +60,56 @@ const deserializeLine = Deserializer().matchRegExp(
 const deserialize = Deserializer().use([deserializeNormal, deserializeLine]);
 
 /**
+ * Trim text left on a List of Nodes
+ * @param  {List<Node>} nodes
+ * @return {List<Node>}
+ */
+function trimLeftNodesText(nodes) {
+    if (nodes.size === 0) {
+        return nodes;
+    }
+
+    const firstNode = nodes.first();
+    const leaves = firstNode.getLeaves();
+    const firstLeaf = leaves.first();
+
+    return nodes.rest().unshift(
+        firstNode.setLeaves(
+            leaves.rest().unshift(
+                firstLeaf.merge({
+                    text: firstLeaf.text.trimLeft()
+                })
+            )
+        )
+    );
+}
+
+/**
+ * Trim text right on a List of Nodes
+ * @param  {List<Node>} nodes
+ * @return {List<Node>}
+ */
+function trimRightNodesText(nodes) {
+    if (nodes.size === 0) {
+        return nodes;
+    }
+
+    const lastNode = nodes.last();
+    const leaves = lastNode.getLeaves();
+    const lastLeaf = leaves.last();
+
+    return nodes.butLast().push(
+        lastNode.setLeaves(
+            leaves.butLast().push(
+                lastLeaf.merge({
+                    text: lastLeaf.text.trimRight()
+                })
+            )
+        )
+    );
+}
+
+/**
  * Parse inner text of header to extract ID entity
  * @param  {State} state
  * @param  {Number} level
@@ -91,35 +141,8 @@ function parseHeadingText(state, level, initialText) {
         data = { id };
     }
 
-    const trimmedNodes = newState.nodes.map((node, i) => {
-        let newNode = node;
-        const leaves = node.getLeaves();
-
-        // Trim text left on first node
-        if (i === 0) {
-            const firstLeaf = leaves.first();
-            newNode = newNode.setLeaves(
-                leaves.rest().unshift(
-                    firstLeaf.merge({
-                        text: firstLeaf.text.trimLeft()
-                    })
-                )
-            );
-        }
-        // Trim text right on last node
-        if (i + 1 === newState.nodes.size) {
-            const lastLeaf = leaves.last();
-            newNode = newNode.setLeaves(
-                leaves.butLast().push(
-                    lastLeaf.merge({
-                        text: lastLeaf.text.trimRight()
-                    })
-                )
-            );
-        }
-
-        return newNode;
-    });
+    const trimmedLeftNodes = trimLeftNodesText(newState.nodes);
+    const trimmedNodes = trimRightNodesText(trimmedLeftNodes);
 
     const node = Block.create({
         type: TYPES[level - 1],
