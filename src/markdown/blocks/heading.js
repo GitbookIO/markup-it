@@ -70,6 +70,11 @@ function trimLeftNodesText(nodes) {
     }
 
     const firstNode = nodes.first();
+    // We don't want to trim complicated blocks
+    if (firstNode.object !== 'text') {
+        return nodes;
+    }
+
     const leaves = firstNode.getLeaves();
     const firstLeaf = leaves.first();
 
@@ -95,6 +100,11 @@ function trimRightNodesText(nodes) {
     }
 
     const lastNode = nodes.last();
+    // We don't want to trim complicated blocks
+    if (lastNode.object !== 'text') {
+        return nodes;
+    }
+
     const leaves = lastNode.getLeaves();
     const lastLeaf = leaves.last();
 
