@@ -6,7 +6,7 @@
   "scripts": {
     "lint": "eslint .",
     "prepublish": "babel --out-dir ./lib ./src",
-    "test": "./node_modules/.bin/mocha --compilers js:babel-register --reporter spec ./test/index.js"
+    "test": "./node_modules/.bin/mocha --require babel-register --reporter spec ./test/index.js"
   },
   "files": [
     "lib",
@@ -47,7 +47,7 @@
     "eslint-plugin-prettier": "^2.6.0",
     "expect": "^1.20.2",
     "immutable": "^4.0.0-rc.12",
-    "mocha": "^3.0.1",
+    "mocha": "^6.1.4",
     "prettier": "^1.13.3"
   },
   "dependencies": {
