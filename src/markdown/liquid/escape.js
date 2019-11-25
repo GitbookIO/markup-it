@@ -1,5 +1,5 @@
 import { OrderedMap } from 'immutable';
-import { escapeWith, unescapeWith } from '../../utils/escape';
+import { escapeWith, unescapeWith } from '../../utils';
 
 // Replacements for properties escapement
 const REPLACEMENTS = OrderedMap([

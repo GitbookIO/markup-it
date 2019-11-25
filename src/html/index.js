@@ -14,7 +14,7 @@ const ALL = [
 //
 // For serialization, there is no ambiguity in the Slate
 // format, so we always use all the rules at the same time.
-export default {
+export const HTMLParser = {
     document: [document],
     block: ALL
 };

@@ -53,7 +53,7 @@ function parseData(inputText) {
  * @param  {String} text
  * @return {Object | Null} { tag: String, data: Map }
  */
-function parseTag(text) {
+export function parseTag(text) {
     const match = text.match(lexical.tagLine);
 
     if (!match) {
@@ -65,5 +65,3 @@ function parseTag(text) {
         data: parseData(match[2])
     };
 }
-
-export default parseTag;

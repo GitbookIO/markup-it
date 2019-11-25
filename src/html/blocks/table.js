@@ -1,4 +1,5 @@
-import { Serializer, BLOCKS } from '../../';
+import { BLOCKS } from '../../constants';
+import { Serializer } from '../../models';
 
 // Key to store the current table aligns in the state
 const ALIGNS = 'current_table_aligns';

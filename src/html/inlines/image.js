@@ -1,4 +1,5 @@
-import { Serializer, INLINES } from '../../';
+import { INLINES } from '../../constants';
+import { Serializer } from '../../models';
 import serializeTag from '../serializeTag';
 
 /**

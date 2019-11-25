@@ -1,4 +1,4 @@
-import { Serializer } from '../../';
+import { Serializer } from '../../models';
 import escape from '../escape';
 
 /**

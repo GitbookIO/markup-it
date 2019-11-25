@@ -1,4 +1,4 @@
-import { Serializer } from '../../';
+import { Serializer } from '../../models';
 
 /**
  * Serialize a text node to HTML

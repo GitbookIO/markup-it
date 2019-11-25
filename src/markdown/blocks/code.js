@@ -1,6 +1,8 @@
 import trimNewlines from 'trim-newlines';
-import { Serializer, Deserializer, Block, BLOCKS } from '../../';
-import deserializeCodeLines from '../../utils/deserializeCodeLines';
+import { Block } from '@gitbook/slate';
+import { BLOCKS } from '../../constants';
+import { Serializer, Deserializer } from '../../models';
+import { deserializeCodeLines } from '../../utils';
 import reBlock from '../re/block';
 import { escape, unescape } from '../utils';
 

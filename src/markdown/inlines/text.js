@@ -1,4 +1,4 @@
-import { Serializer, Deserializer } from '../../';
+import { Serializer, Deserializer } from '../../models';
 import reInline from '../re/inline';
 import * as utils from '../utils';
 

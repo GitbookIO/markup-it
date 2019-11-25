@@ -1,4 +1,5 @@
-import { Serializer, BLOCKS } from '../../';
+import { BLOCKS } from '../../constants';
+import { Serializer } from '../../models';
 
 /**
  * Serialize a list item to HTML

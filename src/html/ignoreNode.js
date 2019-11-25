@@ -1,4 +1,4 @@
-import { Serializer } from '../';
+import { Serializer } from '../models';
 
 /**
  * Default rule to serialize to HTML, that simply ignore the node.

@@ -3,7 +3,7 @@
  * @type {Map}
  */
 
-export default {
+export const INLINES = {
     HTML: 'html',
     LINK: 'link',
     IMAGE: 'image',

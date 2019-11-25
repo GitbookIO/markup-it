@@ -1,4 +1,5 @@
-import { Serializer, MARKS } from '../../';
+import { MARKS } from '../../constants';
+import { Serializer } from '../../models';
 import { escape } from '../utils';
 
 /**

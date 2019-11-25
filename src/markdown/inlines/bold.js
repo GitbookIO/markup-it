@@ -1,4 +1,6 @@
-import { Serializer, Deserializer, Mark, MARKS } from '../../';
+import { Mark } from '@gitbook/slate';
+import { MARKS } from '../../constants';
+import { Serializer, Deserializer } from '../../models';
 import reInline from '../re/inline';
 import { wrapInline } from '../utils';
 

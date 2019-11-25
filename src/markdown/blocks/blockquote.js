@@ -1,5 +1,7 @@
 import splitLines from 'split-lines';
-import { Serializer, Deserializer, Block, BLOCKS } from '../../';
+import { Block } from '@gitbook/slate';
+import { BLOCKS } from '../../constants';
+import { Deserializer, Serializer } from '../../models';
 import reBlock from '../re/block';
 
 /**

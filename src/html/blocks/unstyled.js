@@ -1,4 +1,5 @@
-import { Serializer, BLOCKS } from '../../';
+import { BLOCKS } from '../../constants';
+import { Serializer } from '../../models';
 
 /**
  * Serialize an unstyled block to HTML

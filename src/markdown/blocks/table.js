@@ -1,14 +1,8 @@
-import { Document } from '@gitbook/slate';
-import {
-    State,
-    Serializer,
-    Deserializer,
-    Block,
-    BLOCKS,
-    TABLE_ALIGN
-} from '../../';
+import { Block, Document } from '@gitbook/slate';
+import { BLOCKS, TABLE_ALIGN } from '../../constants';
+import { Serializer, Deserializer, State } from '../../models';
 import reTable from '../re/table';
-import HTMLParser from '../../html';
+import { HTMLParser } from '../../html';
 
 /**
  * Deserialize a table with no leading pipe (gfm) to a node.

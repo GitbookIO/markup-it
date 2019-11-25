@@ -1,4 +1,4 @@
-import BLOCKS from './blocks';
+import { BLOCKS } from './blocks';
 
 /**
  * Dictionary of all leaf containers (those that can contain inlines or text).
@@ -6,7 +6,7 @@ import BLOCKS from './blocks';
  * @type {Map<String:Boolean>}
  */
 
-export default {
+export const LEAFS = {
     [BLOCKS.PARAGRAPH]: true,
     [BLOCKS.TEXT]: true,
     [BLOCKS.TABLE_CELL]: true,

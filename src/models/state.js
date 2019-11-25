@@ -1,7 +1,7 @@
 import { Stack, Record, List, Map, Set } from 'immutable';
 import { Text, Block, Document } from '@gitbook/slate';
-import BLOCKS from '../constants/blocks';
-import RuleFunction from './rule-function';
+import { BLOCKS } from '../constants';
+import { RuleFunction } from './rule-function';
 
 /*
     State stores the global state when serializing a document or deseriaizing a text.
@@ -20,7 +20,7 @@ const DEFAULTS = {
     props: Map()
 };
 
-class State extends Record(DEFAULTS) {
+export class State extends Record(DEFAULTS) {
     /**
      * Create a new state from a set of rules.
      * @param  {Object} rulesSet
@@ -409,5 +409,3 @@ class State extends Record(DEFAULTS) {
         return state._serialize();
     }
 }
-
-export default State;

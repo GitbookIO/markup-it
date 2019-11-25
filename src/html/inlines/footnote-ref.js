@@ -1,4 +1,5 @@
-import { Serializer, INLINES } from '../../';
+import { INLINES } from '../../constants';
+import { Serializer } from '../../models';
 
 /**
  * Serialize a inline footnote reference to HTML

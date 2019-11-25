@@ -4,7 +4,7 @@ const DEFAULTS = {
     transform: state => state
 };
 
-class RuleFunction extends Record(DEFAULTS) {
+export class RuleFunction extends Record(DEFAULTS) {
     /**
      * Execute a rule function or a function.
      * @param {Function or RuleFunction} fn
@@ -112,5 +112,3 @@ class RuleFunction extends Record(DEFAULTS) {
         return this.transform(state);
     }
 }
-
-export default RuleFunction;

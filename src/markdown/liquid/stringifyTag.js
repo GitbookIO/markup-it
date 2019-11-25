@@ -45,10 +45,8 @@ function stringifyData(data) {
  *    [tagData.data] {Map}
  * @return {String}
  */
-function stringifyTag({ tag, data }) {
+export function stringifyTag({ tag, data }) {
     return `{% ${tag}${
         data && data.size > 0 ? ` ${stringifyData(data)}` : ''
     } %}`;
 }
-
-export default stringifyTag;

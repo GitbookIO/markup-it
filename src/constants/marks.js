@@ -1,4 +1,4 @@
-export default {
+export const MARKS = {
     BOLD: 'BOLD',
     ITALIC: 'ITALIC',
     CODE: 'CODE',

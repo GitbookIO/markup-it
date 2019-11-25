@@ -1,7 +1,7 @@
 import entities from 'entities';
 import { Map } from 'immutable';
 import isAbsoluteURL from 'is-absolute-url';
-import { escapeWith, unescapeWith } from '../utils/escape';
+import { escapeWith, unescapeWith } from '../utils';
 
 // Replacements for Markdown escaping
 // See http://spec.commonmark.org/0.15/#backslash-escapes
@@ -40,7 +40,7 @@ const URL_REPLACEMENTS_ESCAPE = Map([[' ', '%20'], ['(', '%28'], [')', '%29']]);
  * @param {Boolean} escapeXML
  * @return {String}
  */
-function escape(inputStr, escapeXML) {
+export function escape(inputStr, escapeXML) {
     const str = escapeWith(REPLACEMENTS_ESCAPE, inputStr);
     return escapeXML === false ? str : entities.encodeXML(str);
 }
@@ -52,7 +52,7 @@ function escape(inputStr, escapeXML) {
  * @param {String} str
  * @return {String}
  */
-function unescape(str) {
+export function unescape(str) {
     return entities.decodeHTML(unescapeWith(REPLACEMENTS_UNESCAPE, str));
 }
 
@@ -62,7 +62,7 @@ function unescape(str) {
  * @param {String} str
  * @return {String}
  */
-function escapeURL(str) {
+export function escapeURL(str) {
     return escapeWith(URL_REPLACEMENTS_ESCAPE, str);
 }
 
@@ -72,7 +72,7 @@ function escapeURL(str) {
  * @param {String} str
  * @return {String}
  */
-function unescapeURL(str) {
+export function unescapeURL(str) {
     let decoded;
     try {
         // If URL is absolute, we shouldn't try to decode it
@@ -95,7 +95,7 @@ function unescapeURL(str) {
  * @param  {String} opt
  * @return {Function(String, String)}
  */
-function replace(regex, opt = '') {
+export function replace(regex, opt = '') {
     let { source } = regex;
 
     return function self(name, val) {
@@ -113,7 +113,7 @@ function replace(regex, opt = '') {
  * @param  {String} refID
  * @return {Object} props?
  */
-function resolveRef(state, refID) {
+export function resolveRef(state, refID) {
     const refs = state.getProp('refs');
 
     const normRefID = refID.replace(/\s+/g, ' ').toLowerCase();
@@ -132,18 +132,8 @@ function resolveRef(state, refID) {
  * @param {String} str
  * @param {String} chars
  */
-function wrapInline(str, chars) {
+export function wrapInline(str, chars) {
     return str
         .replace(/^\s*/, spaces => `${spaces}${chars}`)
         .replace(/\s*$/, spaces => `${chars}${spaces}`);
 }
-
-export {
-    escape,
-    unescape,
-    escapeURL,
-    unescapeURL,
-    replace,
-    resolveRef,
-    wrapInline
-};

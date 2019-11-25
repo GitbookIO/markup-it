@@ -1,7 +1,8 @@
+import { Document } from '@gitbook/slate';
 import yaml from 'js-yaml';
 import fm from 'front-matter';
 import Immutable from 'immutable';
-import { Serializer, Deserializer, Document } from '../';
+import { Deserializer, Serializer } from '../models';
 
 /**
  * Serialize a document to markdown.

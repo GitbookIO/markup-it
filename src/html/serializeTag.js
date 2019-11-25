@@ -1,6 +1,5 @@
 import is from 'is';
 import { Map } from 'immutable';
-
 import escape from './escape';
 
 /**

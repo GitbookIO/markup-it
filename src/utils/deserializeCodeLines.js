@@ -1,13 +1,13 @@
 import splitLines from 'split-lines';
 import { Block, Text } from '@gitbook/slate';
-import BLOCKS from '../constants/blocks';
+import { BLOCKS } from '../constants';
 
 /**
  * Deserialize the inner text of a code block
  * @param  {String} text
  * @return {Array<Node>} nodes
  */
-function deserializeCodeLines(text) {
+export function deserializeCodeLines(text) {
     const lines = splitLines(text);
 
     return lines.map(line =>
@@ -17,5 +17,3 @@ function deserializeCodeLines(text) {
         })
     );
 }
-
-export default deserializeCodeLines;

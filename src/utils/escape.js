@@ -11,7 +11,7 @@ function re(str) {
  * @param  {String} text
  * @return {String}
  */
-function escapeWith(replacements, text) {
+export function escapeWith(replacements, text) {
     return replacements.reduce(
         (out, value, key) => out.replace(re(key), value),
         text
@@ -24,8 +24,6 @@ function escapeWith(replacements, text) {
  * @param  {String} text
  * @return {String}
  */
-function unescapeWith(replacements, text) {
+export function unescapeWith(replacements, text) {
     return escapeWith(replacements.flip(), text);
 }
-
-export { escapeWith, unescapeWith };

@@ -1,6 +1,8 @@
 import trimTrailingLines from 'trim-trailing-lines';
 import indentString from 'indent-string';
-import { Serializer, Deserializer, Block, BLOCKS } from '../../';
+import { Block } from '@gitbook/slate';
+import { BLOCKS } from '../../constants';
+import { Serializer, Deserializer } from '../../models';
 import reBlock from '../re/block';
 
 /**

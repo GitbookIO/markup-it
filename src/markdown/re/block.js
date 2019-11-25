@@ -1,6 +1,5 @@
 /* eslint-disable no-unexpected-multiline, no-spaced-func */
 import { replace } from '../utils';
-
 import heading from './heading';
 import table from './table';
 

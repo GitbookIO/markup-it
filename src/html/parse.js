@@ -2,19 +2,8 @@ import detectNewLine from 'detect-newline';
 import htmlparser from 'htmlparser2';
 import htmlclean from 'htmlclean';
 import { List, Stack, Set } from 'immutable';
-import { Document } from '@gitbook/slate';
-import {
-    BLOCKS,
-    INLINES,
-    MARKS,
-    CONTAINERS,
-    VOID,
-    LEAFS,
-    Block,
-    Inline,
-    Text,
-    Mark
-} from '../';
+import { Block, Document, Inline, Mark, Text } from '@gitbook/slate';
+import { BLOCKS, INLINES, MARKS, CONTAINERS, VOID, LEAFS } from '../constants';
 
 const INLINE_TAGS = {
     a: INLINES.LINK,

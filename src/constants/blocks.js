@@ -3,7 +3,7 @@
  * @type {Map}
  */
 
-export default {
+export const BLOCKS = {
     TEXT: 'unstyled',
     // Classic blocks
     CODE: 'code_block',

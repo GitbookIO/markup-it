@@ -1,7 +1,6 @@
-import typeOf from 'type-of';
 import uid from 'uid';
 import { Text, Mark } from '@gitbook/slate';
-import RuleFunction from './rule-function';
+import { RuleFunction } from './rule-function';
 
 class Serializer extends RuleFunction {
     /**
@@ -134,16 +133,17 @@ class Serializer extends RuleFunction {
  */
 
 function normalizeMatcher(matcher) {
-    switch (typeOf(matcher)) {
+    switch (typeof matcher) {
         case 'function':
             return matcher;
-        case 'array':
-            return type => matcher.includes(type);
         case 'string':
             return type => type == matcher;
         default:
+            if (Array.isArray(matcher)) {
+                return type => matcher.includes(type);
+            }
             throw new Error('Cannot normalize matcher');
     }
 }
 
-export default () => new Serializer();
+export const SerializerFactory = () => new Serializer();

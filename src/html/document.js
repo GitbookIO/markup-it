@@ -1,5 +1,5 @@
 import * as Html from 'html';
-import { Serializer, Deserializer } from '../';
+import { Serializer, Deserializer } from '../models';
 import parse from './parse';
 
 /**

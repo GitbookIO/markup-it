@@ -1,5 +1,5 @@
 import { List } from 'immutable';
-import RuleFunction from './rule-function';
+import { RuleFunction } from './rule-function';
 
 class Deserializer extends RuleFunction {
     /**
@@ -26,4 +26,4 @@ class Deserializer extends RuleFunction {
     }
 }
 
-export default () => new Deserializer();
+export const DeserializerFactory = () => new Deserializer();

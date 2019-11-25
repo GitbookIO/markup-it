@@ -1,6 +1,7 @@
-import { State, Serializer, Deserializer, BLOCKS } from '../../';
+import { BLOCKS } from '../../constants';
+import { State, Serializer, Deserializer } from '../../models';
 import reBlock from '../re/block';
-import HTMLParser from '../../html';
+import { HTMLParser } from '../../html';
 
 /**
  * Serialize an HTML block to markdown

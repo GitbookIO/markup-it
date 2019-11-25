@@ -1,7 +1,6 @@
-import objectValues from 'object-values';
-import BLOCKS from './blocks';
+import { BLOCKS } from './blocks';
 
-const ALL_BLOCKS = objectValues(BLOCKS);
+const ALL_BLOCKS = Object.values(BLOCKS);
 
 /**
  * Dictionary of all container block types, and the set block types they accept as children.
@@ -10,7 +9,7 @@ const ALL_BLOCKS = objectValues(BLOCKS);
  * @type {Map<String:Array>}
  */
 
-export default {
+export const CONTAINERS = {
     // We use Document.object instead of its type
     document: [BLOCKS.PARAGRAPH, ...ALL_BLOCKS],
     [BLOCKS.BLOCKQUOTE]: [BLOCKS.TEXT, ...ALL_BLOCKS],

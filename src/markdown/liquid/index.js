@@ -1,5 +1,5 @@
-import parseTag from './parseTag';
-import stringifyTag from './stringifyTag';
+import { parseTag } from './parseTag';
+import { stringifyTag } from './stringifyTag';
 
 export default {
     parseTag,
