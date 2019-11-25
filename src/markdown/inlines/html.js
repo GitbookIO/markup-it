@@ -1,4 +1,4 @@
-import htmlparser from 'htmlparser2';
+import { Parser } from 'htmlparser2';
 import { List } from 'immutable';
 import { Inline } from '@gitbook/slate';
 import { BLOCKS, INLINES } from '../../constants';
@@ -169,7 +169,7 @@ const deserializePair = Deserializer().matchRegExp(
 function findHtmlAnchor(html) {
     let anchorId = null;
 
-    const parser = new htmlparser.Parser(
+    const parser = new Parser(
         {
             onopentag(tagName, attribs) {
                 if (tagName.toLowerCase() === 'a' && attribs.id) {

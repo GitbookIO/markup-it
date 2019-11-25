@@ -1,5 +1,5 @@
 import detectNewLine from 'detect-newline';
-import htmlparser from 'htmlparser2';
+import { Parser } from 'htmlparser2';
 import htmlclean from 'htmlclean';
 import { List, Stack, Set } from 'immutable';
 import { Block, Document, Inline, Mark, Text } from '@gitbook/slate';
@@ -269,7 +269,7 @@ function parse(str) {
     // The current marks
     let marks = Set();
 
-    const parser = new htmlparser.Parser(
+    const parser = new Parser(
         {
             onopentag(tagName, attribs) {
                 if (BLOCK_TAGS[tagName]) {

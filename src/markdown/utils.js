@@ -1,4 +1,4 @@
-import entities from 'entities';
+import { decodeHTML, encodeXML } from 'entities';
 import { Map } from 'immutable';
 import isAbsoluteURL from 'is-absolute-url';
 import { escapeWith, unescapeWith } from '../utils';
@@ -42,7 +42,7 @@ const URL_REPLACEMENTS_ESCAPE = Map([[' ', '%20'], ['(', '%28'], [')', '%29']]);
  */
 export function escape(inputStr, escapeXML) {
     const str = escapeWith(REPLACEMENTS_ESCAPE, inputStr);
-    return escapeXML === false ? str : entities.encodeXML(str);
+    return escapeXML === false ? str : encodeXML(str);
 }
 
 /**
@@ -53,7 +53,7 @@ export function escape(inputStr, escapeXML) {
  * @return {String}
  */
 export function unescape(str) {
-    return entities.decodeHTML(unescapeWith(REPLACEMENTS_UNESCAPE, str));
+    return decodeHTML(unescapeWith(REPLACEMENTS_UNESCAPE, str));
 }
 
 /**

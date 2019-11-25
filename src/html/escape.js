@@ -1,4 +1,4 @@
-import entities from 'entities';
+import { encodeXML } from 'entities';
 
 /**
  * Escape all entities (HTML + XML)
@@ -6,7 +6,7 @@ import entities from 'entities';
  * @return {String}
  */
 function escape(str) {
-    return entities.encodeXML(str);
+    return encodeXML(str);
 }
 
 export default escape;

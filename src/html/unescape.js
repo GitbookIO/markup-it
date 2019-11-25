@@ -1,4 +1,4 @@
-import entities from 'entities';
+import { decodeHTML } from 'entities';
 
 /**
  * Unescape all entities (HTML + XML)
@@ -6,7 +6,7 @@ import entities from 'entities';
  * @return {String}
  */
 function unescape(str) {
-    return entities.decodeHTML(str);
+    return decodeHTML(str);
 }
 
 export default unescape;

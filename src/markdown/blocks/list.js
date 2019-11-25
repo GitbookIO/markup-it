@@ -145,7 +145,7 @@ function serializeListItem(state, list, item, index) {
     // Remove unwanted empty lines added by sub-blocks
     body = `${trimTrailingLines(body)}\n`;
 
-    body = indentString(body, ' ', indent).slice(indent);
+    body = indentString(body, indent, { indent: ' ' }).slice(indent);
 
     if (loose || last) {
         // Add empty line

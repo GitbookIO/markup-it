@@ -1,5 +1,5 @@
 import { Document } from '@gitbook/slate';
-import yaml from 'js-yaml';
+import { safeDump as safeDumpYAML } from 'js-yaml';
 import fm from 'front-matter';
 import Immutable from 'immutable';
 import { Deserializer, Serializer } from '../models';
@@ -19,7 +19,7 @@ const serialize = Serializer()
             return state.shift().write(body);
         }
 
-        const frontMatter = `---\n${yaml.safeDump(data.toJS(), {
+        const frontMatter = `---\n${safeDumpYAML(data.toJS(), {
             skipInvalid: true
         })}---\n\n`;
 
