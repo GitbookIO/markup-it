@@ -1,6 +1,6 @@
 import { Document } from '@gitbook/slate';
 import { safeDump as safeDumpYAML } from 'js-yaml';
-import fm from 'front-matter';
+import gm from 'gray-matter';
 import Immutable from 'immutable';
 import { Deserializer, Serializer } from '../models';
 
@@ -32,10 +32,30 @@ const serialize = Serializer()
  */
 const deserialize = Deserializer().then(state => {
     const { text } = state;
-    const parsed = fm(text);
 
-    const nodes = state.use('block').deserialize(parsed.body);
-    const data = Immutable.fromJS(parsed.attributes);
+    // Parse front matter gracefully
+    // If we can't parse it, or the content is only a string, we parse at using
+    // the classic MarkdownParser rules
+    let parsedContent = '';
+    let parsedData = {};
+
+    try {
+        const parsed = gm(text);
+        ({ content: parsedContent, data: parsedData } = parsed);
+    } catch (error) {
+        // In case of error, we leave the data empty and parse the whole text
+        parsedContent = text;
+    }
+
+    // In case we parsed front matter as a simple string,
+    // we parse the whole text
+    if (typeof parsedData === 'string') {
+        parsedContent = text;
+        parsedData = {};
+    }
+
+    const nodes = state.use('block').deserialize(parsedContent);
+    const data = Immutable.fromJS(parsedData);
 
     const node = Document.create({
         data,
