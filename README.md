@@ -43,7 +43,7 @@ const str = state.serializeDocument(document);
 ```js
 const { State, MarkdownParser } = require('markup-it');
 
-const state = State.create(markdown);
+const state = State.create(MarkdownParser);
 const str = state.serializeDocument(document);
 ```
 
