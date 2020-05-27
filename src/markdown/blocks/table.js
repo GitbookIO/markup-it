@@ -57,7 +57,7 @@ const serialize = Serializer()
                     nodes: [table]
                 })
             );
-            return state.shift().write(htmlOutput);
+            return state.shift().write(`${htmlOutput}\n\n`);
         }
 
         const { data, nodes } = table;
