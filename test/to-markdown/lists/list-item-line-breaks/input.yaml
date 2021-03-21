@@ -1,0 +1,14 @@
+document:
+  nodes:
+    - object: block
+      type: ordered_list
+      nodes:
+        - object: block
+          type: list_item
+          nodes:
+            - object: block
+              type: unstyled
+              nodes:
+                - object: text
+                  leaves:
+                    - text: "Hello\nWorld"
