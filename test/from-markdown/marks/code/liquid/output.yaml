@@ -1,0 +1,12 @@
+document:
+  nodes:
+    - object: block
+      type: paragraph
+      nodes:
+        - object: text
+          leaves:
+            - text: 'This is'
+            - text: "{% someContent %}"
+              marks:
+                - type: CODE
+            - text: ' after'
